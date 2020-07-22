@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="这是瞎建的笔记">
+  <meta name="description" content="远程服务器中linux操作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="time">
-<meta property="og:url" content="http://yoursite.com/2020/07/20/2020-07-20-time/index.html">
+<meta property="og:title" content="linux &amp; vim 常用操作">
+<meta property="og:url" content="http://yoursite.com/2020/07/22/2020-07-22-%20linux&vim%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="思建的站点">
-<meta property="og:description" content="这是瞎建的笔记">
+<meta property="og:description" content="远程服务器中linux操作">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-07-20T12:37:52.000Z">
-<meta property="article:modified_time" content="2020-07-20T12:52:39.684Z">
+<meta property="article:published_time" content="2020-07-21T16:11:10.000Z">
+<meta property="article:modified_time" content="2020-07-22T04:09:20.427Z">
 <meta property="article:author" content="李思建">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/07/20/2020-07-20-time/">
+<link rel="canonical" href="http://yoursite.com/2020/07/22/2020-07-22-%20linux&vim%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>time | 思建的站点</title>
+  <title>linux & vim 常用操作 | 思建的站点</title>
   
 
 
@@ -170,7 +170,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/2020-07-20-time/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/22/2020-07-22-%20linux&vim%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -183,7 +183,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          time
+          linux & vim 常用操作
         </h1>
 
         <div class="post-meta">
@@ -194,11 +194,11 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-20 20:37:52 / Modified: 20:52:39" itemprop="dateCreated datePublished" datetime="2020-07-20T20:37:52+08:00">2020-07-20</time>
+              <time title="Created: 2020-07-22 00:11:10 / Modified: 12:09:20" itemprop="dateCreated datePublished" datetime="2020-07-22T00:11:10+08:00">2020-07-22</time>
             </span>
 
           
-            <div class="post-description">这是瞎建的笔记</div>
+            <div class="post-description">远程服务器中linux操作</div>
 
         </div>
       </header>
@@ -209,7 +209,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>跑实验需要用服务器，远程服务器我用的是XShell + FileZilla进行连接和传输文件，然而在操控linux服务器中需要用到一些常见的linux命令，之前学过《鸟哥linux》，但是一直没有总结过，现在总结下。</p>
+<h2 id="linux-常用命令"><a href="#linux-常用命令" class="headerlink" title="linux 常用命令"></a>linux 常用命令</h2><h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls  -a   # 列出目录所有文件，包含以.开始的隐藏文件</span><br><span class="line"></span><br><span class="line">ls ~  #进入主目录</span><br><span class="line"></span><br><span class="line">ls E: # 在win中进入E盘</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="cd-目录名"><a href="#cd-目录名" class="headerlink" title="cd [目录名]"></a>cd [目录名]</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ..   #返回上一级目录</span><br><span class="line"></span><br><span class="line">cd . &#x2F;temp  # 当前目录下的temp文件夹</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="pwd-查看当前工作目录路径"><a href="#pwd-查看当前工作目录路径" class="headerlink" title="pwd   # 查看当前工作目录路径"></a>pwd   # 查看当前工作目录路径</h3><h3 id="mkdir-用于创建文件夹"><a href="#mkdir-用于创建文件夹" class="headerlink" title="mkdir #用于创建文件夹"></a>mkdir #用于创建文件夹</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir temp  #当前工作目录下创建名为 temp的文件夹</span><br><span class="line"></span><br><span class="line">mkdir -p &#x2F;tmp&#x2F;test&#x2F;t1&#x2F;t   # 在 tmp 目录下创建路径为 test&#x2F;t1&#x2F;t 的目录，若不存在，则创</span><br></pre></td></tr></table></figure>
+
+<p>建</p>
+<h3 id="rm-删除一个目录中的一个或多个文件或目录，"><a href="#rm-删除一个目录中的一个或多个文件或目录，" class="headerlink" title="rm #删除一个目录中的一个或多个文件或目录，"></a>rm #删除一个目录中的一个或多个文件或目录，</h3><p>如果没有使用 -r 选项，则 rm 不会删除目录。如果使用 rm 来删除文件，通常仍可以将该文件恢复原状。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rm  -i  *.log # 删除全部.log文件， 删除前逐一询问</span><br><span class="line"></span><br><span class="line">rm a.txt # 删除文件a.txt</span><br><span class="line"></span><br><span class="line">rm -rf test # 删除test文件夹 </span><br><span class="line"></span><br><span class="line">​	 #-r 就是向下递归，不管有多少级目录，一并删除</span><br><span class="line"></span><br><span class="line">​	#-f 就是直接强行删除，不作任何提示的意思</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="vim编辑文件"><a href="#vim编辑文件" class="headerlink" title="vim编辑文件"></a>vim编辑文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  # 创建a.txt文件并进入编辑状态 。 如果a.txt 已经存在，则直接进入编辑状态</span><br><span class="line"></span><br><span class="line">1. 按下i键，下端显示 –INSERT–。可以进行插入，输入文本 </span><br><span class="line"></span><br><span class="line">2. 输入了之后 按Esc键退出编辑状态</span><br><span class="line"></span><br><span class="line">3. 键入 :wq!保存退出  </span><br><span class="line"></span><br><span class="line">    :w 在编辑的过程中保存文件,相当于word中的ctrl+s    </span><br><span class="line"></span><br><span class="line">   :wq 保存文件并退出</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="cat-命令"><a href="#cat-命令" class="headerlink" title="cat 命令"></a>cat 命令</h3><p>可以直接查看a.txt 文件</p>
+<h3 id="swp文件"><a href="#swp文件" class="headerlink" title=".swp文件"></a>.swp文件</h3><p>非正常关闭vi/vim编辑器时会生成一个.swp文件。 使用vim -r a.txt 来恢复文件</p>
+
     </div>
 
     
@@ -224,13 +249,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/20/2020-07-20-TensorFlow/" rel="prev" title="TensorFlow">
-      <i class="fa fa-chevron-left"></i> TensorFlow
+    <a href="/2020/07/21/2020-07-21-Anaconda%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" rel="prev" title="Anaconda管理虚拟环境">
+      <i class="fa fa-chevron-left"></i> Anaconda管理虚拟环境
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/07/21/2020-07-21-Anaconda%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" rel="next" title="Anaconda管理虚拟环境">
-      Anaconda管理虚拟环境 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -289,6 +311,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-常用命令"><span class="nav-number">2.</span> <span class="nav-text">linux 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">2.1.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd-目录名"><span class="nav-number">2.2.</span> <span class="nav-text">cd [目录名]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd-查看当前工作目录路径"><span class="nav-number">2.3.</span> <span class="nav-text">pwd   # 查看当前工作目录路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir-用于创建文件夹"><span class="nav-number">2.4.</span> <span class="nav-text">mkdir #用于创建文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-删除一个目录中的一个或多个文件或目录，"><span class="nav-number">2.5.</span> <span class="nav-text">rm #删除一个目录中的一个或多个文件或目录，</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim编辑文件"><span class="nav-number">2.6.</span> <span class="nav-text">vim编辑文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat-命令"><span class="nav-number">2.7.</span> <span class="nav-text">cat 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swp文件"><span class="nav-number">2.8.</span> <span class="nav-text">.swp文件</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -302,7 +325,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
