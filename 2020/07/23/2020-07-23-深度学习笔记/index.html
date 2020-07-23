@@ -20,16 +20,17 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="记录在读论文和源码时遇到的困难">
+  <meta name="description" content="记录在读论文和源码时遇到的迷惑点">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2020-07-23-深度学习笔记">
+<meta property="og:title" content="2020-07-23-深度学习杂记">
 <meta property="og:url" content="http://yoursite.com/2020/07/23/2020-07-23-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="思建的站点">
-<meta property="og:description" content="记录在读论文和源码时遇到的困难">
+<meta property="og:description" content="记录在读论文和源码时遇到的迷惑点">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://i.loli.net/2020/07/23/DT72yXZg4Om1xLM.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/23/AXBpa7rMD4Ksogc.png">
 <meta property="article:published_time" content="2020-07-23T08:00:45.000Z">
-<meta property="article:modified_time" content="2020-07-23T08:11:30.541Z">
+<meta property="article:modified_time" content="2020-07-23T15:57:09.832Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="deep learning">
 <meta name="twitter:card" content="summary">
@@ -48,7 +49,7 @@
   };
 </script>
 
-  <title>2020-07-23-深度学习笔记 | 思建的站点</title>
+  <title>2020-07-23-深度学习杂记 | 思建的站点</title>
   
 
 
@@ -187,7 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2020-07-23-深度学习笔记
+          2020-07-23-深度学习杂记
         </h1>
 
         <div class="post-meta">
@@ -198,7 +199,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-07-23 16:00:45 / Modified: 16:11:30" itemprop="dateCreated datePublished" datetime="2020-07-23T16:00:45+08:00">2020-07-23</time>
+              <time title="Created: 2020-07-23 16:00:45 / Modified: 23:57:09" itemprop="dateCreated datePublished" datetime="2020-07-23T16:00:45+08:00">2020-07-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -211,7 +212,7 @@
             </span>
 
           
-            <div class="post-description">记录在读论文和源码时遇到的困难</div>
+            <div class="post-description">记录在读论文和源码时遇到的迷惑点</div>
 
         </div>
       </header>
@@ -232,6 +233,12 @@
 
 
 
+<h3 id="beam-search"><a href="#beam-search" class="headerlink" title="beam search"></a>beam search</h3><p>在sequence2sequence模型中，beam search的方法只用在测试的情况，因为在训练过程中，每一个decoder的输出是有正确答案的，也就不需要beam search去加大输出的准确率。</p>
+<p><strong>我们需要翻译中文“我是中国人”—&gt;英文“I am Chinese”</strong></p>
+<p>假设我们的词表大小只有三个单词就是I am Chinese。那么如果我们的beam size为2的话，我们现在来解释,</p>
+<p>如下图所示，我们在decoder的过程中，有了beam search方法后，在第一次的输出，我们选取概率最大的”I”和”am”两个单词，而不是只挑选一个概率最大的单词。</p>
+<p><img src="https://i.loli.net/2020/07/23/AXBpa7rMD4Ksogc.png" alt=""></p>
+<p>class 外面的函数是什么意思</p>
 
     </div>
 
@@ -312,7 +319,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logits"><span class="nav-number">1.</span> <span class="nav-text">logits</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#logits"><span class="nav-number">1.</span> <span class="nav-text">logits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beam-search"><span class="nav-number">2.</span> <span class="nav-text">beam search</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
