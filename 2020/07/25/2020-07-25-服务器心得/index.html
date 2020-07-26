@@ -27,11 +27,19 @@
 <meta property="og:site_name" content="思建的站点">
 <meta property="og:description" content="连接服务器时的总结体会">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://blog.xiewenlong.com/2018/12/htop/htop.png">
+<meta property="og:image" content="https://blog.xiewenlong.com/2018/12/htop/base.png">
+<meta property="og:image" content="https://blog.xiewenlong.com/2018/12/htop/process.png">
+<meta property="og:image" content="https://blog.xiewenlong.com/2018/12/htop/bottom.png">
+<meta property="og:image" content="https://blog.xiewenlong.com/2018/12/htop/tag.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/22/u1CtU8Xgor45inh.png">
+<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726233552371.png">
 <meta property="article:published_time" content="2020-07-25T12:14:32.000Z">
-<meta property="article:modified_time" content="2020-07-25T15:57:22.204Z">
+<meta property="article:modified_time" content="2020-07-26T15:40:38.898Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="服务器">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.xiewenlong.com/2018/12/htop/htop.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/07/25/2020-07-25-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BF%83%E5%BE%97/">
 
@@ -194,10 +202,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-07-25 20:14:32 / Modified: 23:57:22" itemprop="dateCreated datePublished" datetime="2020-07-25T20:14:32+08:00">2020-07-25</time>
+              <time title="Created: 2020-07-25 20:14:32" itemprop="dateCreated datePublished" datetime="2020-07-25T20:14:32+08:00">2020-07-25</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-26 23:40:38" itemprop="dateModified" datetime="2020-07-26T23:40:38+08:00">2020-07-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -222,6 +236,74 @@
       
         <p>目前使用的是Xshell + FileZilla（连接+传输） ， MobaXterm也可用于ssh连接的备用软件。</p>
 <p>MobaXterm（<a href="https://link.zhihu.com/?target=https%3A//mobaxterm.mobatek.net/">https://mobaxterm.mobatek.net/</a>）：功能很全，免费，有免安装版，支持多标签，同时自带文件传输系统，唯一的不足是对Z-moderm支持较差。</p>
+<h3 id="linux后台执行命令：-amp-和nohup"><a href="#linux后台执行命令：-amp-和nohup" class="headerlink" title="linux后台执行命令：&amp;和nohup"></a>linux后台执行命令：&amp;和nohup</h3><p>在用本机Xshell连接服务器跑实验时，如果关闭本机电脑，Xshell不再运行时，那么linux终端会话就会关闭，跑的实验就会终止。有时候更希望它能够在每天的非负荷高峰时间段运行(例如凌晨)。为了使这些进程能够在后台运行，也就是说不在终端屏幕上运行，有几种选择方法可供使用。</p>
+<h4 id="amp-使用"><a href="#amp-使用" class="headerlink" title="&amp;使用"></a>&amp;使用</h4><p>在执行文件的时候，可以在命令后面加上<code>&amp;</code>，这样可以实现将进程挂到后台运行。例如： <code>python main.py &amp;</code></p>
+<p>在使用&amp;之后，系统会返回一个进程号PID，需要记下此进程的PID</p>
+<h4 id="关闭进程"><a href="#关闭进程" class="headerlink" title="关闭进程"></a>关闭进程</h4><p><code>kill -9 PID</code>  . 用普通的ctrl+C是关不掉的</p>
+<h4 id="忘记进程"><a href="#忘记进程" class="headerlink" title="忘记进程"></a>忘记进程</h4><p><code>ps -ef | grep &quot;python&quot;</code></p>
+<p>这里是两个shell命令通过管道进行了结合，第一个ps能够列出当前系统所有活跃的进程，然后通过grep 关键字查找就能找到带有关键字的进程。找到PID（PID是输出的第二列那个数字）再杀掉。</p>
+<h4 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h4><h4 id="nohup使用"><a href="#nohup使用" class="headerlink" title="nohup使用"></a>nohup使用</h4><h3 id="htop使用"><a href="#htop使用" class="headerlink" title="htop使用"></a>htop使用</h3><h4 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍"></a>功能介绍</h4><p>监视内存，线程，CPU运行状态</p>
+<p>htop是Linux系统下一个基本文本模式的、交互式的进程查看器，主要用于控制台或shell中，可以替代top，或者说是top的高级版。</p>
+<h4 id="安装htop"><a href="#安装htop" class="headerlink" title="安装htop"></a>安装htop</h4><p> Ubuntu    <code>sudo apt-get install htop</code></p>
+<h4 id="使用htop"><a href="#使用htop" class="headerlink" title="使用htop"></a>使用htop</h4><h5 id="界面概述"><a href="#界面概述" class="headerlink" title="界面概述"></a>界面概述</h5><p>安装完成后，命令行中直接敲击 htop 命令，即可进入 htop 的界面</p>
+<p><a href="https://blog.xiewenlong.com/2018/12/htop/htop.png" target="_blank" rel="noopener"><img src="https://blog.xiewenlong.com/2018/12/htop/htop.png" alt="img"></a></p>
+<p>各项从上至下分别说明如下：</p>
+<p><a href="https://blog.xiewenlong.com/2018/12/htop/base.png" target="_blank" rel="noopener"><img src="https://blog.xiewenlong.com/2018/12/htop/base.png" alt="img"></a></p>
+<p>左边部分从上至下，分别为，cpu、内存、交换分区的使用情况，右边部分为：Tasks 为进程总数，当前运行的进程数、Load average 为系统 1 分钟，5 分钟，10 分钟的平均负载情况、Uptime 为系统运行的时间。</p>
+<p><a href="https://blog.xiewenlong.com/2018/12/htop/process.png" target="_blank" rel="noopener"><img src="https://blog.xiewenlong.com/2018/12/htop/process.png" alt="img"></a></p>
+<p>以上各项分别为：</p>
+<ul>
+<li><strong>PID：</strong>进程的标识号</li>
+<li><strong>USER：</strong>运行此进程的用户</li>
+<li><strong>PRI：</strong>进程的优先级</li>
+<li><strong>NI：</strong>进程的优先级别值，默认的为 0，可以进行调整</li>
+<li><strong>VIRT：</strong>进程占用的虚拟内存值</li>
+<li><strong>RES：</strong>进程占用的物理内存值</li>
+<li><strong>SHR：</strong>进程占用的共享内存值</li>
+<li><strong>S：</strong>进程的运行状况，R 表示正在运行、S 表示休眠，等待唤醒、Z 表示僵死状态</li>
+<li><strong>%CPU：</strong>该进程占用的CPU使用率</li>
+<li><strong>%MEM：</strong>该进程占用的物理内存和总内存的百分比</li>
+<li><strong>TIME+：</strong>该进程启动后占用的总的 CPU 时间</li>
+<li><strong>COMMAND：</strong>进程启动的启动命令名称</li>
+</ul>
+<h4 id="操作说明"><a href="#操作说明" class="headerlink" title="操作说明"></a>操作说明</h4><p><code>htop</code> 界面底部给出了 F1 ~ F10 按键的简单说明。</p>
+<p><a href="https://blog.xiewenlong.com/2018/12/htop/bottom.png" target="_blank" rel="noopener"><img src="https://blog.xiewenlong.com/2018/12/htop/bottom.png" alt="img"></a></p>
+<h5 id="标注进程条目"><a href="#标注进程条目" class="headerlink" title="标注进程条目"></a>标注进程条目</h5><p>在系统中运行着的实时进程视图中，要追踪某个进程是个大问题。因为整个列表在不停的刷新着，进程的排列顺序也在变动着。为了这个问题， <code>htop</code> 提供了一个很简单的解决方案：颜色标注。是的，你可以标注一个进程条目，它会以不同的颜色显示，因此要追踪它就变得容易了。</p>
+<p>要标注某个进程条目，需要做的就是选中此条目，然后按下<code>空格</code>键。例如，在下面的截图示例中，我已经颜色标注了两个进程条目（黄色高亮显示的两行）:</p>
+<p><a href="https://blog.xiewenlong.com/2018/12/htop/tag.png" target="_blank" rel="noopener"><img src="https://blog.xiewenlong.com/2018/12/htop/tag.png" alt="img"></a></p>
+<h5 id="命令行选项"><a href="#命令行选项" class="headerlink" title="命令行选项"></a>命令行选项</h5><p>除了上面介绍的一些热键，<code>htop</code> 还提供了很有用的命令行选项。下面是其中一部分:</p>
+<ul>
+<li><code>-s 选项</code> : 按指定的列排序。例如，<code>htop -s PID</code> 命令会按 PID 列的大小排序来显示。</li>
+<li><code>-u 选项</code> : 显示指定的用户的进程信息列表。例如，<code>htop -u vagrant</code> 命令会只显示出用户名为 vagrant 的相关进程。</li>
+<li><code>-d 选项</code> : 设置刷新的延迟时间。例如，<code>htop -d 100</code> 命令会使输出在 1 秒后才会刷新（参数 -d 的单位是 10 微秒）。</li>
+<li><code>-p 选项</code>：只显示给定的PIDs。例如， <code>htop -p PID</code></li>
+</ul>
+<h5 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h5><p> <strong>shift + m</strong> ： 按照内存大小排序。<br> <strong>shift + h</strong> ： 收缩线程。<br>      <strong>q</strong>       ： 退出</p>
+<p><strong>上下键</strong> 或 <strong>PgUP，PgDn</strong> : 选定想要的进程，<br><strong>左右键</strong> 或 <strong>Home，End</strong> : 移动字段，当然也可以直接用鼠标选定进程；<br><strong>Space</strong>  标记/取消标记一个进程（类似 windows 按着 Ctrl 多选一样 ）。命令可以作用于多个进程，例如 “kill”，将应用于所有已标记的进程</p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><blockquote>
+<p><a href="https://blog.xiewenlong.com/2018/12/htop/" target="_blank" rel="noopener">https://blog.xiewenlong.com/2018/12/htop/</a></p>
+</blockquote>
+<h3 id="nvidia-smi使用"><a href="#nvidia-smi使用" class="headerlink" title="nvidia-smi使用"></a>nvidia-smi使用</h3><p><code>nvidia-smi</code> 显示出当前GPU的所有基础信息，监控GPU状态和使用情况</p>
+<p><img src="https://i.loli.net/2020/07/22/u1CtU8Xgor45inh.png" alt="image-20200722153957282"></p>
+<h4 id="解释相关参数含义"><a href="#解释相关参数含义" class="headerlink" title="解释相关参数含义"></a>解释相关参数含义</h4><p>GPU：本机中的GPU编号</p>
+<p>Name：GPU 类型</p>
+<p>Persistence-M：</p>
+<p>Fan：风扇转速</p>
+<p>Temp：温度，单位摄氏度</p>
+<p>Perf：表征性能状态，从P0到P12，P0表示最大性能，P12表示状态最小性能</p>
+<p>Pwr:Usage/Cap：能耗表示</p>
+<p>Bus-Id：涉及GPU总线的相关信息；</p>
+<p>Disp.A：Display Active，表示GPU的显示是否初始化</p>
+<p>Memory-Usage：显存使用率</p>
+<p>Volatile GPU-Util：浮动的GPU利用率</p>
+<p>Uncorr. ECC：关于ECC的东西</p>
+<p>Compute M.：计算模式</p>
+<p>Processes 显示每块GPU上每个进程所使用的显存情况</p>
+<h3 id="Tmux使用"><a href="#Tmux使用" class="headerlink" title="Tmux使用"></a>Tmux使用</h3><h4 id="安装tmux"><a href="#安装tmux" class="headerlink" title="安装tmux"></a>安装tmux</h4><p><code>sudo apt-get install tmux</code></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726233552371.png" alt="image-20200726233552371"></p>
+<h4 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h4><blockquote>
+<p><a href="http://louiszhai.github.io/2017/09/30/tmux/" target="_blank" rel="noopener">http://louiszhai.github.io/2017/09/30/tmux/</a></p>
+</blockquote>
 
     </div>
 
@@ -305,6 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux后台执行命令：-amp-和nohup"><span class="nav-number">1.</span> <span class="nav-text">linux后台执行命令：&amp;和nohup</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#amp-使用"><span class="nav-number">1.1.</span> <span class="nav-text">&amp;使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭进程"><span class="nav-number">1.2.</span> <span class="nav-text">关闭进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#忘记进程"><span class="nav-number">1.3.</span> <span class="nav-text">忘记进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出重定向"><span class="nav-number">1.4.</span> <span class="nav-text">输出重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nohup使用"><span class="nav-number">1.5.</span> <span class="nav-text">nohup使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#htop使用"><span class="nav-number">2.</span> <span class="nav-text">htop使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能介绍"><span class="nav-number">2.1.</span> <span class="nav-text">功能介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装htop"><span class="nav-number">2.2.</span> <span class="nav-text">安装htop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用htop"><span class="nav-number">2.3.</span> <span class="nav-text">使用htop</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#界面概述"><span class="nav-number">2.3.1.</span> <span class="nav-text">界面概述</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作说明"><span class="nav-number">2.4.</span> <span class="nav-text">操作说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#标注进程条目"><span class="nav-number">2.4.1.</span> <span class="nav-text">标注进程条目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令行选项"><span class="nav-number">2.4.2.</span> <span class="nav-text">命令行选项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用命令"><span class="nav-number">2.4.3.</span> <span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">2.5.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvidia-smi使用"><span class="nav-number">3.</span> <span class="nav-text">nvidia-smi使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解释相关参数含义"><span class="nav-number">3.1.</span> <span class="nav-text">解释相关参数含义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux使用"><span class="nav-number">4.</span> <span class="nav-text">Tmux使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装tmux"><span class="nav-number">4.1.</span> <span class="nav-text">安装tmux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考-1"><span class="nav-number">4.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
