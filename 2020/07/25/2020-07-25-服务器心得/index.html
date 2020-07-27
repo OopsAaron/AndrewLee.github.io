@@ -33,9 +33,10 @@
 <meta property="og:image" content="https://blog.xiewenlong.com/2018/12/htop/bottom.png">
 <meta property="og:image" content="https://blog.xiewenlong.com/2018/12/htop/tag.png">
 <meta property="og:image" content="https://i.loli.net/2020/07/22/u1CtU8Xgor45inh.png">
-<meta property="og:image" content="c:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726233552371.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/27/l4YyAISG8d1Lcp9.png">
+<meta property="og:image" content="https://i.loli.net/2020/07/27/3bWsR57zZTUODF6.png">
 <meta property="article:published_time" content="2020-07-25T12:14:32.000Z">
-<meta property="article:modified_time" content="2020-07-26T15:52:15.712Z">
+<meta property="article:modified_time" content="2020-07-27T08:35:26.398Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="服务器">
 <meta name="twitter:card" content="summary">
@@ -210,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-07-26 23:52:15" itemprop="dateModified" datetime="2020-07-26T23:52:15+08:00">2020-07-26</time>
+                <time title="Modified: 2020-07-27 16:35:26" itemprop="dateModified" datetime="2020-07-27T16:35:26+08:00">2020-07-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,10 +300,333 @@
 <p>Uncorr. ECC：关于ECC的东西</p>
 <p>Compute M.：计算模式</p>
 <p>Processes 显示每块GPU上每个进程所使用的显存情况</p>
-<h3 id="Tmux使用"><a href="#Tmux使用" class="headerlink" title="Tmux使用"></a>Tmux使用</h3><h4 id="安装tmux"><a href="#安装tmux" class="headerlink" title="安装tmux"></a>安装tmux</h4><p><code>sudo apt-get install tmux</code></p>
-<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200726233552371.png" alt="image-20200726233552371"></p>
+<h3 id="Tmux使用"><a href="#Tmux使用" class="headerlink" title="Tmux使用"></a>Tmux使用</h3><h4 id="安装tmux-linux"><a href="#安装tmux-linux" class="headerlink" title="安装tmux  -linux"></a>安装tmux  -linux</h4><p><code>sudo apt-get install tmux</code></p>
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>tmux采用C/S模型构建，<code>输入tmux命令就相当于开启了一个服务器</code>，此时默认将新建一个会话，然后会话中默认新建一个窗口，窗口中默认新建一个面板。会话、窗口、面板之间的联系如下：</p>
+<p><img src="https://i.loli.net/2020/07/27/l4YyAISG8d1Lcp9.png" alt="image-20200726233552371"></p>
+<p>一个tmux <code>session</code>（会话）可以包含多个<code>window</code>（窗口），窗口默认充满会话界面，因此这些窗口中可以运行相关性不大的任务。</p>
+<p>一个<code>window</code>又可以包含多个<code>pane</code>（面板），窗口下的面板，都处于同一界面下，这些面板适合运行相关性高的任务，以便同时观察到它们的运行情况。</p>
+<p>一般在一个<code>session</code>里进行新建<code>windows</code>和<code>pane</code>操作即可</p>
+<p>一个session显示如图</p>
+<p><img src="https://i.loli.net/2020/07/27/3bWsR57zZTUODF6.png" alt="img"></p>
+<h4 id="会话"><a href="#会话" class="headerlink" title="会话"></a>会话</h4><h5 id="新建会话"><a href="#新建会话" class="headerlink" title="新建会话"></a>新建会话</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tmux  # 新建一个无名称的会话 </span><br><span class="line"></span><br><span class="line">tmux new -s demo # 新建一个名称为demo的会话</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="断开当前会话"><a href="#断开当前会话" class="headerlink" title="断开当前会话"></a>断开当前会话</h5><p>暂时断开会话，可以进入到原始命令行界面进行操作。也可以<code>Ctrl+B  +d</code>进行断开</p>
+<p>操作如 <code>tmux new -s demo</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux detach # 断开当前会话，会话在后台运行</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="进入之前的会话"><a href="#进入之前的会话" class="headerlink" title="进入之前的会话"></a>进入之前的会话</h5><p>断开会话后，想要接着上次留下的现场继续工作，就要使用到tmux的attach命令了，语法为<code>tmux attach-session -t session-name</code>，可简写为<code>tmux a -t session-name</code> 或 <code>tmux a</code>。通常我们使用如下两种方式之一即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tmux a # 默认进入第一个会话</span><br><span class="line">tmux a -t demo # 进入到名称为demo的会话</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="关闭会话"><a href="#关闭会话" class="headerlink" title="关闭会话"></a>关闭会话</h5><p>会话的使命完成后，一定是要关闭的。我们可以使用tmux的kill命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tmux kill-session -t demo # 关闭demo会话 </span><br><span class="line"></span><br><span class="line">tmux kill-server # 关闭服务器，即关闭所有会话</span><br><span class="line"></span><br><span class="line">tmux kill-session -a -t s1　　关闭除s1外的所有会话</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看所有会话"><a href="#查看所有会话" class="headerlink" title="查看所有会话"></a>查看所有会话</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux ls # 查看所有会话，显示会话列表</span><br></pre></td></tr></table></figure>
+
+<h5 id="重命名会话S1为S2"><a href="#重命名会话S1为S2" class="headerlink" title="重命名会话S1为S2"></a>重命名会话S1为S2</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux rename -t s1 s2</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="Tmux快捷指令"><a href="#Tmux快捷指令" class="headerlink" title="Tmux快捷指令"></a>Tmux快捷指令</h4><p>tmux的所有指令，都包含同一个前缀，默认为<code>Ctrl+b</code>，输入完前缀过后，控制台激活，命令按键才能生效。</p>
+<p>表一：常用指令</p>
+<table>
+<thead>
+<tr>
+<th align="center">前缀</th>
+<th align="center">指令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>s</code></td>
+<td align="center">显示会话列表用于选择并切换 （上下键选择+回车）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>d</code></td>
+<td align="center">断开当前会话</td>
+</tr>
+<tr>
+<td align="center">===</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>c</code></td>
+<td align="center">新建窗口（windows）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>&amp;</code></td>
+<td align="center">关闭当前窗口（关闭前需输入<code>y</code> or <code>n</code>确认）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>w</code></td>
+<td align="center">打开窗口列表，用于且切换窗口</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>,</code></td>
+<td align="center">重命名当前窗口</td>
+</tr>
+<tr>
+<td align="center">===</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>&quot;</code></td>
+<td align="center">当前面板上下一分为二，下侧新建面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>%</code></td>
+<td align="center">当前面板左右一分为二，右侧新建面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>x</code></td>
+<td align="center">关闭当前面板（关闭前需输入<code>y</code> or <code>n</code>确认）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>z</code></td>
+<td align="center">最大化当前面板，再重复一次按键后恢复正常（v1.8版本新增）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>方向键</code></td>
+<td align="center">移动光标切换面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>o</code></td>
+<td align="center">选择下一面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>t</code></td>
+<td align="center">显示时钟</td>
+</tr>
+</tbody></table>
+<p>表二：系统指令</p>
+<table>
+<thead>
+<tr>
+<th align="center">前缀</th>
+<th align="center">指令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>?</code></td>
+<td align="center">显示快捷键帮助文档</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>d</code></td>
+<td align="center">断开当前会话</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>D</code></td>
+<td align="center">选择要断开的会话</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>Ctrl+z</code></td>
+<td align="center">挂起当前会话</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>r</code></td>
+<td align="center">强制重载当前会话</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>s</code></td>
+<td align="center">显示会话列表用于选择并切换</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>:</code></td>
+<td align="center">进入命令行模式，此时可直接输入<code>ls</code>等命令</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>[</code></td>
+<td align="center">进入复制模式，按<code>q</code>退出</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>]</code></td>
+<td align="center">粘贴复制模式中复制的文本</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>~</code></td>
+<td align="center">列出提示信息缓存</td>
+</tr>
+</tbody></table>
+<p>表三：窗口（window）指令</p>
+<table>
+<thead>
+<tr>
+<th align="center">前缀</th>
+<th align="center">指令</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>c</code></td>
+<td align="center">新建窗口</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>&amp;</code></td>
+<td align="center">关闭当前窗口（关闭前需输入<code>y</code> or <code>n</code>确认）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>0~9</code></td>
+<td align="center">切换到指定窗口</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>p</code></td>
+<td align="center">切换到上一窗口</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>n</code></td>
+<td align="center">切换到下一窗口</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>w</code></td>
+<td align="center">打开窗口列表，用于且切换窗口</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>,</code></td>
+<td align="center">重命名当前窗口</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>.</code></td>
+<td align="center">修改当前窗口编号（适用于窗口重新排序）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>f</code></td>
+<td align="center">快速定位到窗口（输入关键字匹配窗口名称）</td>
+</tr>
+</tbody></table>
+<p>表四：面板（pane）指令</p>
+<table>
+<thead>
+<tr>
+<th align="center">前缀</th>
+<th align="center">指令</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>&quot;</code></td>
+<td align="left">当前面板上下一分为二，下侧新建面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>%</code></td>
+<td align="left">当前面板左右一分为二，右侧新建面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>x</code></td>
+<td align="left">关闭当前面板（关闭前需输入<code>y</code> or <code>n</code>确认）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>z</code></td>
+<td align="left">最大化当前面板，再重复一次按键后恢复正常（v1.8版本新增）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>!</code></td>
+<td align="left">将当前面板移动到新的窗口打开（原窗口中存在两个及以上面板有效）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>;</code></td>
+<td align="left">切换到最后一次使用的面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>q</code></td>
+<td align="left">显示面板编号，在编号消失前输入对应的数字可切换到相应的面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>{</code></td>
+<td align="left">向前置换当前面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>}</code></td>
+<td align="left">向后置换当前面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>Ctrl+o</code></td>
+<td align="left">顺时针旋转当前窗口中的所有面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>方向键</code></td>
+<td align="left">移动光标切换面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>o</code></td>
+<td align="left">选择下一面板</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>空格键</code></td>
+<td align="left">在自带的面板布局中循环切换</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>Alt+方向键</code></td>
+<td align="left">以5个单元格为单位调整当前面板边缘</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>Ctrl+方向键</code></td>
+<td align="left">以1个单元格为单位调整当前面板边缘（Mac下被系统快捷键覆盖）</td>
+</tr>
+<tr>
+<td align="center"><code>Ctrl+b</code></td>
+<td align="center"><code>t</code></td>
+<td align="left">显示时钟</td>
+</tr>
+</tbody></table>
 <h4 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h4><blockquote>
 <p><a href="http://louiszhai.github.io/2017/09/30/tmux/" target="_blank" rel="noopener">http://louiszhai.github.io/2017/09/30/tmux/</a></p>
+<p><a href="https://harttle.land/2015/11/06/tmux-startup.html" target="_blank" rel="noopener">https://harttle.land/2015/11/06/tmux-startup.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/43687973" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/43687973</a></p>
 </blockquote>
 
     </div>
@@ -387,7 +711,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux后台执行命令：-amp-和nohup"><span class="nav-number">1.</span> <span class="nav-text">linux后台执行命令：&amp;和nohup</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#amp-使用"><span class="nav-number">1.1.</span> <span class="nav-text">&amp;使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭进程"><span class="nav-number">1.2.</span> <span class="nav-text">关闭进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#忘记进程"><span class="nav-number">1.3.</span> <span class="nav-text">忘记进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出重定向"><span class="nav-number">1.4.</span> <span class="nav-text">输出重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nohup使用"><span class="nav-number">1.5.</span> <span class="nav-text">nohup使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#htop使用"><span class="nav-number">2.</span> <span class="nav-text">htop使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能介绍"><span class="nav-number">2.1.</span> <span class="nav-text">功能介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装htop"><span class="nav-number">2.2.</span> <span class="nav-text">安装htop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用htop"><span class="nav-number">2.3.</span> <span class="nav-text">使用htop</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#界面概述"><span class="nav-number">2.3.1.</span> <span class="nav-text">界面概述</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作说明"><span class="nav-number">2.4.</span> <span class="nav-text">操作说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#标注进程条目"><span class="nav-number">2.4.1.</span> <span class="nav-text">标注进程条目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令行选项"><span class="nav-number">2.4.2.</span> <span class="nav-text">命令行选项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用命令"><span class="nav-number">2.4.3.</span> <span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">2.5.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvidia-smi使用"><span class="nav-number">3.</span> <span class="nav-text">nvidia-smi使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解释相关参数含义"><span class="nav-number">3.1.</span> <span class="nav-text">解释相关参数含义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux使用"><span class="nav-number">4.</span> <span class="nav-text">Tmux使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装tmux"><span class="nav-number">4.1.</span> <span class="nav-text">安装tmux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考-1"><span class="nav-number">4.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux后台执行命令：-amp-和nohup"><span class="nav-number">1.</span> <span class="nav-text">linux后台执行命令：&amp;和nohup</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#amp-使用"><span class="nav-number">1.1.</span> <span class="nav-text">&amp;使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭进程"><span class="nav-number">1.2.</span> <span class="nav-text">关闭进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#忘记进程"><span class="nav-number">1.3.</span> <span class="nav-text">忘记进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出重定向"><span class="nav-number">1.4.</span> <span class="nav-text">输出重定向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nohup使用"><span class="nav-number">1.5.</span> <span class="nav-text">nohup使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#htop使用"><span class="nav-number">2.</span> <span class="nav-text">htop使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能介绍"><span class="nav-number">2.1.</span> <span class="nav-text">功能介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装htop"><span class="nav-number">2.2.</span> <span class="nav-text">安装htop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用htop"><span class="nav-number">2.3.</span> <span class="nav-text">使用htop</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#界面概述"><span class="nav-number">2.3.1.</span> <span class="nav-text">界面概述</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作说明"><span class="nav-number">2.4.</span> <span class="nav-text">操作说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#标注进程条目"><span class="nav-number">2.4.1.</span> <span class="nav-text">标注进程条目</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令行选项"><span class="nav-number">2.4.2.</span> <span class="nav-text">命令行选项</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用命令"><span class="nav-number">2.4.3.</span> <span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">2.5.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvidia-smi使用"><span class="nav-number">3.</span> <span class="nav-text">nvidia-smi使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解释相关参数含义"><span class="nav-number">3.1.</span> <span class="nav-text">解释相关参数含义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tmux使用"><span class="nav-number">4.</span> <span class="nav-text">Tmux使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装tmux-linux"><span class="nav-number">4.1.</span> <span class="nav-text">安装tmux  -linux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本概念"><span class="nav-number">4.2.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#会话"><span class="nav-number">4.3.</span> <span class="nav-text">会话</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#新建会话"><span class="nav-number">4.3.1.</span> <span class="nav-text">新建会话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#断开当前会话"><span class="nav-number">4.3.2.</span> <span class="nav-text">断开当前会话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#进入之前的会话"><span class="nav-number">4.3.3.</span> <span class="nav-text">进入之前的会话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#关闭会话"><span class="nav-number">4.3.4.</span> <span class="nav-text">关闭会话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看所有会话"><span class="nav-number">4.3.5.</span> <span class="nav-text">查看所有会话</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#重命名会话S1为S2"><span class="nav-number">4.3.6.</span> <span class="nav-text">重命名会话S1为S2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Tmux快捷指令"><span class="nav-number">4.4.</span> <span class="nav-text">Tmux快捷指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考-1"><span class="nav-number">4.5.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
