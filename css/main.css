@@ -1344,7 +1344,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c7aa5d;
+  background: #9608ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2857,16 +2857,22 @@ body {
   -o-background-size: cover;
   -moz-background-size: cover;
   -ms-background-size: cover;
-/*这是设置底部文字, 看个人需要修改*/
+/*左上角header */
+/*左下角sidebar */
+/*post主题部分 */
+/*底部*/
 }
-body #footer > div > div {
-  color: #de5e5e;
-}
-.content-wrap {
+body .header-inner {
   opacity: 0.85;
 }
-.sidebar {
+body .sidebar {
   opacity: 0.85;
+}
+body .content-wrap {
+  opacity: 0.85;
+}
+body .footer > div > div {
+  color: #2c3e50;
 }
 @-moz-keyframes heartAnimate {
   0%, 100% {
