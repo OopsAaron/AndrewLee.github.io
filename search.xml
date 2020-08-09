@@ -90,6 +90,12 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Hexo+Github博客搭建：  https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;35668237</span><br><span class="line">git上传文件：https:&#x2F;&#x2F;blog.csdn.net&#x2F;sinat_20177327&#x2F;article&#x2F;details&#x2F;76062030</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
   </entry>
   <entry>
     <title>Anaconda管理虚拟环境</title>
@@ -423,10 +429,10 @@
     <content><![CDATA[<h3 id="logits"><a href="#logits" class="headerlink" title="logits"></a>logits</h3><p>在tensorflow代码中，经常会出现logits，logits表示的含义就是在模型的最后一层输出后，进入到Softmax函数之前得到的n维向量。是feature的抽象。 </p>
 <p>logits是未归一化的概率， 一般也就是 softmax层的输入。所以logits和lables的shape一样</p>
 <p>而softmax是在一个n分类问题中，输入一个n维的logits向量，输出一个n维概率向量，其物理意义是logits代表的物体属于各类的概率。是对logits进行归一化。</p>
-<img src="https://i.loli.net/2020/07/23/DT72yXZg4Om1xLM.png" alt="image-20200723160820328" style="zoom:50%;" />
+<img src="https://i.loli.net/2020/08/09/W6yEXJorYvaK4pf.png" alt="image-20200723160820328" style="zoom:50%;" />
 
 <p>输入softmax的Logits中最大的一维会成为输出中同样最大的一维。例如：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">4分类问题的</span><br><span class="line">Logits &#x3D; [1, 5, 1, 0.2]</span><br><span class="line">输入softmax后</span><br><span class="line">得到的 one_hot_pred &#x3D; [0.017 0.958 0.017 0.008]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="number">4</span>分类问题的</span><br><span class="line">Logits = [<span class="number">1</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">0.2</span>]</span><br><span class="line">输入softmax后</span><br><span class="line">得到的 one_hot_pred = [<span class="number">0.017</span> <span class="number">0.958</span> <span class="number">0.017</span> <span class="number">0.008</span>]</span><br></pre></td></tr></table></figure>
 
 
 
@@ -443,7 +449,7 @@
 <p>比如将“am”单词作为下一个decoder的输入算一遍得到y2的输出概率分布如下：</p>
 <p><img src="https://i.loli.net/2020/07/24/Ng1ZyrxehmpUIoC.png" alt="image-20200724095747262"></p>
 <p>那么此时我们由于我们的beam size为2，也就是我们只能保留概率最大的两个序列，此时我们可以计算所有的序列概率：</p>
-<p>“I I” = 0.4<em>0.3 “I am” = 0.4</em>0.6 “I Chinese” = 0.4*0.1</p>
+<p>“I I” = 0.4<em>0.3 “I am” = 0.4</em>0.6 “I sChinese” = 0.4*0.1</p>
 <p>“am I” = 0.5<em>0.3 “am am” = 0.5</em>0.3 “am Chinese” = 0.5*0.4</p>
 <p>我们很容易得出俩个最大概率的序列为 “I am”和“am Chinese”，然后后面会不断重复这个过程，直到遇到结束符为止。</p>
 <p><strong>最终输出2个得分最高的序列。</strong></p>
@@ -531,7 +537,7 @@
 <p>在使用&amp;之后，系统会返回一个进程号PID，需要记下此进程的PID</p>
 <h4 id="nohup使用"><a href="#nohup使用" class="headerlink" title="nohup使用"></a>nohup使用</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">nohup python main.py &amp;</span><br></pre></td></tr></table></figure>
 
-<p>这样执行的时候会将代码放在服务器后台执行，你的终端是看不到运行过程的，期间运行的结果（代码运行过程中打印出来的）会在一个生成的<code>nohup.out文件</code>中保存。</p>
+<p>这样执行的时候会将代码放在服务器后台执行，你的终端是看不到运行过程的，<strong>期间运行的结果</strong>（代码运行过程中打印出来的）会在一个生成的<code>nohup.out文件</code>中保存。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">nohup python main.py &gt;test.log  <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br><span class="line"><span class="comment"># nohup和&amp; 一起使用。 &amp; 放后台</span></span><br><span class="line"><span class="comment"># &gt;表示将标准输出（STDOUT）重定向到test.log文件</span></span><br><span class="line"><span class="comment">#2&gt;&amp;1 ：把标准输出和标准错误一起重定向到一个文件中。1是标准输出的文件描述符，2是标准错误的文件描述符；</span></span><br></pre></td></tr></table></figure>
 
 <p>可以实现运行main.py ，并将输出结果打印到<code>test.log文件</code>中（如果这个文件不存在, 那就创建, 否则就覆盖）</p>
@@ -1115,7 +1121,7 @@
     <title>2020-07-30-待写博客</title>
     <url>/2020/07/30/2020-07-30-%E5%BE%85%E5%86%99%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h3 id="pytorch-中forward的使用以及原理-–pytorch使用"><a href="#pytorch-中forward的使用以及原理-–pytorch使用" class="headerlink" title="pytorch 中forward的使用以及原理   –pytorch使用"></a>pytorch 中forward的使用以及原理   –pytorch使用</h3><p><a href="https://blog.csdn.net/u011501388/article/details/84062483" target="_blank" rel="noopener">https://blog.csdn.net/u011501388/article/details/84062483</a></p>
-<h4 id="阅读代码时的问题-记录"><a href="#阅读代码时的问题-记录" class="headerlink" title="阅读代码时的问题 记录"></a>阅读代码时的问题 记录</h4><h1 id=""><a href="#" class="headerlink" title=""></a></h1><h3 id="zsh的使用-–服务器心得"><a href="#zsh的使用-–服务器心得" class="headerlink" title="zsh的使用 –服务器心得"></a>zsh的使用 –服务器心得</h3><h3 id="PyTorch里面的torch-nn-Parameter-详解"><a href="#PyTorch里面的torch-nn-Parameter-详解" class="headerlink" title="PyTorch里面的torch.nn.Parameter()详解"></a>PyTorch里面的torch.nn.Parameter()详解</h3><p><a href="https://cloud.tencent.com/developer/article/1608348" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1608348</a></p>
+<h4 id="阅读代码时的问题-记录"><a href="#阅读代码时的问题-记录" class="headerlink" title="阅读代码时的问题 记录"></a>阅读代码时的问题 记录</h4><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="PyTorch里面的torch-nn-Parameter-详解"><a href="#PyTorch里面的torch-nn-Parameter-详解" class="headerlink" title="PyTorch里面的torch.nn.Parameter()详解"></a>PyTorch里面的torch.nn.Parameter()详解</h3><p><a href="https://cloud.tencent.com/developer/article/1608348" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1608348</a></p>
 <h3 id="论文阅读的思维导图"><a href="#论文阅读的思维导图" class="headerlink" title="论文阅读的思维导图"></a>论文阅读的思维导图</h3><p>conda 安装新版本python之后，会覆盖之前的版本</p>
 <h1 id="LINUX-杀死、暂停、继续、后台运行进程"><a href="#LINUX-杀死、暂停、继续、后台运行进程" class="headerlink" title="LINUX 杀死、暂停、继续、后台运行进程"></a>LINUX 杀死、暂停、继续、后台运行进程</h1><p>ctrl + z</p>
 <p>可以将一个正在前台执行的命令放到后台，并且暂停</p>
@@ -1320,7 +1326,7 @@
 <li><code>:ls</code>显示打开的文件，可以使用<code>:bn</code>在文件间切换( n也可以换成<code>:ls</code>里给出的文件序号 )。</li>
 <li>在终端<code>vim -o file1 file2 ...</code>可以打开多个文件(横向分隔屏幕)。</li>
 <li>终端<code>vim -O file1 file2 ...</code>可以打开多个文件(纵向分隔屏幕)。 :star:</li>
-<li><code>Ctrl</code>+<code>w</code>+<code>w</code>在窗口间切换光标，第二个<code>w</code>也可以用<code>h、j、k、l</code>来光标代表移动方向。</li>
+<li><code>Ctrl</code>+<code>w</code>+<code>方向键</code>在窗口间切换光标</li>
 </ul>
 <h3 id="Vim退出"><a href="#Vim退出" class="headerlink" title="Vim退出"></a>Vim退出</h3><ul>
 <li><p><code>:q</code>：退出。</p>
@@ -1344,7 +1350,10 @@
 <li><p><code>u</code> 撤销  (undo) :star:</p>
 </li>
 <li><p><code>w</code>    下一个单词     word</p>
-<p><code>b</code>     前一个单词     behind</p>
+</li>
+<li><p><code>b</code>     前一个单词     behind</p>
+</li>
+<li><p><code>e</code>    本单词末尾     end</p>
 </li>
 <li><p><code>:set nu</code>    显示行号   (number )      　</p>
 </li>
@@ -1356,20 +1365,19 @@
 </li>
 <li><p><code>:5,$d</code>    //回车后，第5~最后一行被删除</p>
 </li>
+<li><p><code>:5,10y</code>    //回车后，第5~10行被复制 </p>
+</li>
 </ul>
 <h3 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h3><ul>
-<li><p>在<strong>Visual</strong>模式下选择文档内容后按<code>y</code>键，复制被选择内容。主要用于<strong>多行文字</strong>（复制完之后vim自动退出Visual模式）</p>
-</li>
-<li><p>在<strong>Visual</strong>模式下选择文档内容后按<code>d</code>删除</p>
-</li>
-<li><p>按<code>p</code>键粘贴，注意粘贴从<strong>紧跟光标后的那个字符</strong>之后才开始。（不需要进入Visual模式）</p>
-</li>
-<li><p><code>yy</code>复制当前行，<code>dd</code>删除(剪贴)当前行。 用于<strong>一行文字</strong>、</p>
-</li>
+<li>在<strong>Visual</strong>模式下选择文档内容后按<code>y</code>键，复制被选择内容。主要用于<strong>多行文字</strong>（复制完之后vim自动退出Visual模式）</li>
+<li>在<strong>Visual</strong>模式下选择文档内容后按<code>d</code>删除</li>
+<li>按<code>p</code>键粘贴，注意粘贴从<strong>紧跟光标后的那个字符</strong>之后才开始。（不需要进入Visual模式）</li>
+<li><code>yy</code>复制当前行，<code>dd</code>删除(剪贴)当前行。 用于<strong>一行文字</strong></li>
+<li><code>:5,10y</code>    //回车后，第5~10行被复制 </li>
 </ul>
 <p>如果在vim外的其它文件里复制内容到vim里，则无法使用<code>p</code>进行粘贴，此时右键粘贴即可（无需进入inset模式）</p>
 <h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><ul>
-<li>在<strong>Normal</strong>模式下，按<code>/</code>进入查找模式，输入<code>/word</code>后回车，高亮显示所有文档<code>word</code>，按<code>n</code>跳到下一个<code>word</code>,按<code>N</code>跳到上一个。</li>
+<li>在<strong>Normal</strong>模式下，按<code>/</code>进入查找模式，输入<code>/word</code>后回车，高亮显示所有文档<code>word</code>，按<code>n</code>跳到下一个<code>word</code>,按<code>N</code>跳到上一个。（默认大小写敏感）</li>
 <li>若输入<code>/word\c</code>代表大小写不敏感查找，<code>\C</code>代表大小写敏感。</li>
 <li>在<strong>Normal</strong>模式下按<code>q</code>+<code>/</code>显示<strong>查找历史记录</strong>窗口。</li>
 <li>如果一个词很长，键入麻烦，可以将光标移动到该词上，按<code>*</code>键即可以该单词进行搜索，相当于/搜索。</li>
@@ -1477,7 +1485,7 @@
   <entry>
     <title>2020-07-28-transformer解读-pytorch版本</title>
     <url>/2020/07/28/2020-07-28-transformer-pytorch/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近几天都在阅读哈佛pytorch实现transformer的代码，代码风格很好，很值得参考和研读。和实验室师兄又在一起讨论了几次，代码思路和实现过程基本都了解了，对于原论文 <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">“Attention is All You Need”</a> 中关于transformer模型的理解又深入了许多。果然要想了解模型，还是要好好研读实现代码。以便于后面自己模型的研究。</p>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近几天都在阅读哈佛pytorch实现transformer的代码，代码风格很好，很值得参考和研读。和实验室师兄又在一起讨论了几次，代码思路和实现过程基本都了解了，对于原论文 <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">“Attention is All You Need”</a> 中关于transformer模型的理解又深入了许多。果然要想了解模型，还是要好好研读实现代码。以便于后面自己结合模型的研究。</p>
 <p>本篇是对实现代码的注释，加上了自己的理解，也会有一些函数的介绍扩充。</p>
 <h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><blockquote>
 <p>解读的是哈佛的一篇transformer的pytorch版本实现</p>
@@ -1718,7 +1726,7 @@
 </li>
 </ul>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Batch</span>:</span> <span class="comment">#定义每一个batch中的src、tgt、mask</span></span><br><span class="line">    <span class="comment">#trg = tgt: 真实的标签序列  out ： 预测的单词  </span></span><br><span class="line">    <span class="string">"Object for holding a batch of data with mask during training."</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, src, trg=None, pad=<span class="number">0</span>)</span>:</span> </span><br><span class="line">        self.src = src</span><br><span class="line">        self.src_mask = (src != pad).unsqueeze(<span class="number">-2</span>) <span class="comment">#扩充维度 倒数第二维增加值为1 size=(30,1,10)</span></span><br><span class="line">        <span class="comment">#并且非零值全部赋值为1</span></span><br><span class="line">        </span><br><span class="line">         <span class="comment"># 在预测的时候是没有 tgt 的,此时为 None 此时trg是tgt的形参</span></span><br><span class="line">        <span class="keyword">if</span> trg <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            self.trg = trg[:, :<span class="number">-1</span>] <span class="comment">#trg.size(30,9) ，在预测中，会提前输入起始符到ys中</span></span><br><span class="line">            <span class="string">"""</span></span><br><span class="line"><span class="string">              trg.size(30,9) 这里去掉的最后一个单词, 不是真正的单词, 而是标志 '&lt;eos&gt;' , 						输入与输出都还有一个 '&lt;sos&gt;' 在句子的开头,  是decoder的输入，</span></span><br><span class="line"><span class="string">            需要进行mask，使得Self-Attention不能访问未来的输入。最后一个词不需要用到trg</span></span><br><span class="line"><span class="string">            """</span></span><br><span class="line">          </span><br><span class="line">            self.trg_y = trg[:, <span class="number">1</span>:] <span class="comment"># trg_y.size(30,9) </span></span><br><span class="line">            <span class="comment">#trg_y: 最后的结果。用于loss中的比较。 去掉开头的'&lt;sos&gt;'，是decoder的输出</span></span><br><span class="line">            self.trg_mask = \</span><br><span class="line">                self.make_std_mask(self.trg, pad)</span><br><span class="line">            self.ntokens = (self.trg_y != pad).data.sum() <span class="comment">#不为0的总数</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">make_std_mask</span><span class="params">(tgt, pad)</span>:</span> <span class="comment">#tgt_mask.size(30,9,9)</span></span><br><span class="line">        <span class="string">"Create a mask to hide padding and future words."</span></span><br><span class="line">        <span class="comment">#"创建Mask，使得我们不能attend to未来的词"</span></span><br><span class="line">        tgt_mask = (tgt != pad).unsqueeze(<span class="number">-2</span>)</span><br><span class="line">        tgt_mask = tgt_mask &amp; Variable(</span><br><span class="line">            subsequent_mask(tgt.size(<span class="number">-1</span>)).type_as(tgt_mask.data))</span><br><span class="line">        <span class="keyword">return</span> tgt_mask</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Batch</span>:</span> <span class="comment">#定义每一个batch中的src、tgt、mask</span></span><br><span class="line">    <span class="comment">#trg = tgt: 真实的标签序列  out ： 预测的单词  </span></span><br><span class="line">    <span class="string">"Object for holding a batch of data with mask during training."</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, src, trg=None, pad=<span class="number">0</span>)</span>:</span> </span><br><span class="line">        self.src = src</span><br><span class="line">        self.src_mask = (src != pad).unsqueeze(<span class="number">-2</span>) <span class="comment">#扩充维度 倒数第二维增加值为1 size=(30,1,10)</span></span><br><span class="line">        <span class="comment">#并且非零值全部赋值为1</span></span><br><span class="line">        </span><br><span class="line">         <span class="comment"># 在预测的时候是没有 tgt 的,此时为 None 此时trg是tgt的形参</span></span><br><span class="line">        <span class="keyword">if</span> trg <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            self.trg = trg[:, :<span class="number">-1</span>] <span class="comment">#trg.size(30,9) ，在预测中，会提前输入起始符到ys中</span></span><br><span class="line">            <span class="string">"""</span></span><br><span class="line"><span class="string">              trg.size(30,9) 这里去掉的最后一个单词, 不是真正的单词, 而是标志 '&lt;eos&gt;' , 						输入与输出都还有一个 '&lt;sos&gt;' 在句子的开头,  是decoder的输入，</span></span><br><span class="line"><span class="string">            需要进行mask，使得Self-Attention不能访问未来的输入。最后一个词不需要用到trg</span></span><br><span class="line"><span class="string">            """</span></span><br><span class="line">    	    self.trg_y = trg[:, <span class="number">1</span>:] <span class="comment"># trg_y.size(30,9) </span></span><br><span class="line">            <span class="comment">#trg_y: 最后的结果。用于loss中的比较。 去掉开头的'&lt;sos&gt;'，是decoder的输出</span></span><br><span class="line">            self.trg_mask = \</span><br><span class="line">                self.make_std_mask(self.trg, pad)</span><br><span class="line">            self.ntokens = (self.trg_y != pad).data.sum() <span class="comment">#不为0的总数 30*9 = 270</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">make_std_mask</span><span class="params">(tgt, pad)</span>:</span> <span class="comment">#tgt_mask.size(30,9,9)，每一个序列都是一个9*9的矩阵</span></span><br><span class="line">        <span class="string">"Create a mask to hide padding and future words."</span></span><br><span class="line">        <span class="comment">#"创建Mask，使得我们不能attend to未来的词"</span></span><br><span class="line">        tgt_mask = (tgt != pad).unsqueeze(<span class="number">-2</span>)</span><br><span class="line">        tgt_mask = tgt_mask &amp; Variable(</span><br><span class="line">            subsequent_mask(tgt.size(<span class="number">-1</span>)).type_as(tgt_mask.data))</span><br><span class="line">        <span class="keyword">return</span> tgt_mask</span><br></pre></td></tr></table></figure>
 
 <p>Batch构造函数的输入是src和trg，后者可以为None，因为再预测的时候是没有tgt的。</p>
 <p>我们用一个例子来说明Batch的代码，这是训练阶段的一个Batch，<strong>src是(48, 20)</strong>，48是batch大小，而20是最长的句子长度，其它的不够长的都padding成20了。而<strong>trg是(48, 25)</strong>，表示翻译后的最长句子是25个词，不足的也padding过了。</p>
@@ -1788,7 +1796,7 @@
 <h3 id="第一个例子"><a href="#第一个例子" class="headerlink" title="第一个例子"></a>第一个例子</h3><blockquote>
 <p>We can begin by trying out a simple copy-task. Given a random set of input symbols from a small vocabulary, the goal is to generate back those same symbols.</p>
 </blockquote>
-<h4 id="Synthetic-Data"><a href="#Synthetic-Data" class="headerlink" title="Synthetic Data"></a>Synthetic Data</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">data_gen</span><span class="params">(V, batch, nbatches)</span>:</span> <span class="comment"># batch=30:一次输入多少， nbatch=20：输入多少次</span></span><br><span class="line">    <span class="string">"Generate random data for a src-tgt copy task."</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(nbatches): <span class="comment">#一共循环nbatches个，在每一个是一个batch</span></span><br><span class="line">		<span class="comment">#from_numpy ： 将numpy数据转换为tensor</span></span><br><span class="line">		<span class="comment">#注：生成返回的tensor会和ndarry共享数据，任何对tensor的操作都会影响到ndarry</span></span><br><span class="line">        data = torch.from_numpy(np.random.randint(<span class="number">1</span>, V, size=(batch, <span class="number">10</span>))) <span class="comment">#1是产生的最小值，V=11是最大值，size是形状（batch，10）。生成（batch，10）的矩阵，矩阵的每一个元素都是1~V-1之间  （取不到V）</span></span><br><span class="line">        data[:, <span class="number">0</span>] = <span class="number">1</span> <span class="comment">#取第0列的所有值？？？</span></span><br><span class="line">        <span class="comment"># Variable 就是一个存放值， 里面的值会不停的变化.  存放的是Torch 的 Tensor . 如果用一个 Variable 进行计算, 那返回的也是一个同类型的 Variable.  </span></span><br><span class="line">        <span class="comment">#requires_grad： 是否参与误差反向传播, 要不要计算梯度</span></span><br><span class="line">        src = Variable(data, requires_grad=<span class="literal">False</span>) <span class="comment">#size(batch,10)</span></span><br><span class="line">        tgt = Variable(data, requires_grad=<span class="literal">False</span>)</span><br><span class="line">        <span class="keyword">yield</span> Batch(src, tgt, <span class="number">0</span>)<span class="comment">#yield就是return一个值，并且记住这个返回的位置，下次迭代就从这个位置后(下一行)开始</span></span><br><span class="line">        <span class="comment">#batch返回的是trg_mask</span></span><br></pre></td></tr></table></figure>
+<h4 id="Synthetic-Data"><a href="#Synthetic-Data" class="headerlink" title="Synthetic Data"></a>Synthetic Data</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">data_gen</span><span class="params">(V, batch, nbatches)</span>:</span> <span class="comment"># batch=30:一次输入多少， nbatch=20：输入多少次</span></span><br><span class="line">    <span class="string">"Generate random data for a src-tgt copy task."</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(nbatches): <span class="comment">#一共循环nbatches个，在每一个是一个batch</span></span><br><span class="line">		<span class="comment">#from_numpy ： 将numpy数据转换为tensor</span></span><br><span class="line">		<span class="comment">#注：生成返回的tensor会和ndarry共享数据，任何对tensor的操作都会影响到ndarry</span></span><br><span class="line">        data = torch.from_numpy(np.random.randint(<span class="number">1</span>, V, size=(batch, <span class="number">10</span>))) <span class="comment">#1是产生的最小值，V=11是最大值，size是形状（batch，10）。生成（batch，10）的矩阵，矩阵的每一个元素都是1~V-1之间  （取不到V）</span></span><br><span class="line">        data[:, <span class="number">0</span>] = <span class="number">1</span> <span class="comment">#将第0列的值赋值为1</span></span><br><span class="line">        <span class="comment"># Variable 就是一个存放值， 里面的值会不停的变化.  存放的是Torch 的 Tensor . 如果用一个 Variable 进行计算, 那返回的也是一个同类型的 Variable.  </span></span><br><span class="line">        <span class="comment">#requires_grad： 是否参与误差反向传播, 要不要计算梯度</span></span><br><span class="line">        src = Variable(data, requires_grad=<span class="literal">False</span>) <span class="comment">#size(batch,10) 和data的值完全一样</span></span><br><span class="line">        tgt = Variable(data, requires_grad=<span class="literal">False</span>)</span><br><span class="line">        <span class="keyword">yield</span> Batch(src, tgt, <span class="number">0</span>)<span class="comment">#yield就是return一个值，并且记住这个返回的位置，下次迭代就从这个位置后(下一行)开始</span></span><br><span class="line">        <span class="comment">#batch返回的是trg_mask</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="Loss-Computation"><a href="#Loss-Computation" class="headerlink" title="Loss Computation"></a>Loss Computation</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleLossCompute</span>:</span> <span class="comment">#loss计算以及更新。调用LabelSmoothing，使用KL散度</span></span><br><span class="line">    <span class="string">"A simple loss compute and train function."</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, generator, criterion, opt=None)</span>:</span></span><br><span class="line">        self.generator = generator <span class="comment">#解码器后的生成函数</span></span><br><span class="line">        self.criterion = criterion <span class="comment"># LabelSmoothing（计算loss KLDivLoss KL散度）的实例化</span></span><br><span class="line">        self.opt = opt <span class="comment"># NoamOpt（优化）的实例化</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, x, y, norm)</span>:</span></span><br><span class="line">        x = self.generator(x) <span class="comment">#解码器的输出</span></span><br><span class="line">        loss = self.criterion(x.contiguous().view(<span class="number">-1</span>, x.size(<span class="number">-1</span>)), </span><br><span class="line">                              y.contiguous().view(<span class="number">-1</span>)) / norm  <span class="comment">#计算loss</span></span><br><span class="line">        loss.backward() <span class="comment">#将loss反向传播。loss是标量，根据链式法则自动计算出叶子节点的梯度值</span></span><br><span class="line">        <span class="keyword">if</span> self.opt <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>: <span class="comment">#存在优化</span></span><br><span class="line">            self.opt.step() <span class="comment">#调用opt的step函数。 adam优化，，更新参数</span></span><br><span class="line">            self.opt.optimizer.zero_grad() <span class="comment">#把梯度置零，也就是把loss关于weight的导数变成0.</span></span><br><span class="line">        <span class="keyword">return</span> loss.data[<span class="number">0</span>] * norm</span><br></pre></td></tr></table></figure>
 
@@ -2219,6 +2227,104 @@
       </categories>
       <tags>
         <tag>transformer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2020-08-09-常用chrome快捷键</title>
+    <url>/2020/08/09/2020-08-09-%E5%B8%B8%E7%94%A8chrome%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
+    <content><![CDATA[<p>chrome是我日常使用的浏览器，平时也会使用快捷键来提高效率。chrome的快捷键真的很好使，可以</p>
+<p>摆脱很多不必要的鼠标点击，键盘直接搞定。总结一下我常用的快捷键。</p>
+<table>
+<thead>
+<tr>
+<th align="center">描述</th>
+<th align="center">快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">打开新窗口</td>
+<td align="center">Ctrl + n</td>
+</tr>
+<tr>
+<td align="center">在隐身模式下打开新窗口</td>
+<td align="center">Ctrl + Shift + n</td>
+</tr>
+<tr>
+<td align="center">—–</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">打开新的标签页，并跳转到该标签页</td>
+<td align="center">Ctrl + t</td>
+</tr>
+<tr>
+<td align="center">恢复已关闭的标签页</td>
+<td align="center">Ctrl + Shift + t</td>
+</tr>
+<tr>
+<td align="center">跳转到下一个标签页</td>
+<td align="center">Ctrl + Tab</td>
+</tr>
+<tr>
+<td align="center">跳转到上一个标签页</td>
+<td align="center">Ctrl + Shift + Tab</td>
+</tr>
+<tr>
+<td align="center">关闭当前标签页</td>
+<td align="center">Ctrl + w</td>
+</tr>
+<tr>
+<td align="center">——</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">打开当前标签页浏览记录中的上一个页面</td>
+<td align="center">alt ＋左箭头</td>
+</tr>
+<tr>
+<td align="center">打开当前标签页浏览记录中的下一个页面</td>
+<td align="center">alt ＋右箭头</td>
+</tr>
+<tr>
+<td align="center">——</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">保存当前标签页为书签</td>
+<td align="center">Ctrl + d</td>
+</tr>
+<tr>
+<td align="center">将所有打开的标签页以书签的形式保存在新文件夹中</td>
+<td align="center">Ctrl + Shift + d</td>
+</tr>
+<tr>
+<td align="center">——</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">跳转到与查找栏中搜索字词相匹配的下一条内容</td>
+<td align="center">Ctrl + g</td>
+</tr>
+<tr>
+<td align="center">跳转到与查找栏中搜索字词相匹配的上一条内容</td>
+<td align="center">Ctrl + Shift + g</td>
+</tr>
+<tr>
+<td align="center">浏览下一个可点击项</td>
+<td align="center">Tab</td>
+</tr>
+<tr>
+<td align="center">浏览上一个可点击项</td>
+<td align="center">Shift + Tab</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>技术</tag>
+        <tag>chrome</tag>
       </tags>
   </entry>
 </search>
