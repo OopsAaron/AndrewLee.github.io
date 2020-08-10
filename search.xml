@@ -1242,7 +1242,7 @@
         <category>next</category>
       </categories>
       <tags>
-        <tag>排除故障</tag>
+        <tag>故障排除</tag>
         <tag>next</tag>
       </tags>
   </entry>
@@ -1380,17 +1380,26 @@
 
 
 <h3 id="博客无法连接"><a href="#博客无法连接" class="headerlink" title="博客无法连接"></a>博客无法连接</h3><p>本地服务器可以正常显示，但是博客连接不上</p>
+<p>如何可以ping 通，则代表不是域名方面的问题，应该就是服务器的问题，可能是部署在github上，所以会有点慢，后续准备买一个阿里云的服务器。</p>
 <p>解决：</p>
 <ol>
-<li>博客正在加载， 等一段时间刷新</li>
-<li>如果还是不行，则清理chrome的浏览记录、cookie即可</li>
+<li><p>博客正在加载， 等一段时间刷新</p>
+</li>
+<li><p>如果还是不行，则清理chrome的cookie缓存再刷新即可</p>
+<p><img src="https://i.loli.net/2020/08/10/Iwpk2yb5OAjuoKf.png" alt="image-20200810152929992"></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>清除特定网站下的缓存：</p>
+<p>打开开发者工具（F12），选择 Network——Disable cache 。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。</p>
+</li>
 </ol>
 ]]></content>
       <categories>
-        <category>--</category>
+        <category>博客</category>
       </categories>
       <tags>
-        <tag>--</tag>
+        <tag>故障排除</tag>
       </tags>
   </entry>
   <entry>
