@@ -1327,16 +1327,20 @@
     <title>2020-08-01-hexo+next个性化设置</title>
     <url>/2020/08/01/2020-08-10-hexo-next%E4%B8%AA%E6%80%A7%E5%8C%96%E8%AE%BE%E7%BD%AE/</url>
     <content><![CDATA[<h3 id="修改文章底部的那个带-号的标签"><a href="#修改文章底部的那个带-号的标签" class="headerlink" title="修改文章底部的那个带#号的标签"></a>修改文章底部的那个带#号的标签</h3><p>在原本next自带的标签格式如下所示：</p>
-<p><img src="E:%5CmyBlog%5Csource_posts%5Cimage-20200810180543537.png" alt="image-20200810180543537"></p>
+<p><img src="https://i.loli.net/2020/08/10/GLtxuMpYd7WXmaV.png" alt="image-20200810180543537"></p>
 <p>前面的<code>#</code>不太好看，在这里可以添加<code>font awesome</code>的<code>icon</code>，个性化标签显示</p>
 <p>修改模板 <code>/themes/next/layout/_macro/post.swig</code>，搜索 <code>rel=&quot;tag&quot;</code>，将<code>rel=&quot;tag&quot;&gt;</code>换成<code>rel=&quot;tag&quot;&lt;i class=&quot;fa fa-tag&quot;&gt;&lt;/i&gt;</code>  ，其中”fa fa-tag”可以根据<code>font awesome</code>里自己选择喜欢的<code>icon</code></p>
 <p>因为在代码中不需要<code>tag_indicate</code>，所以可以将部分代码删去，如图中红框部分</p>
 <p><img src="https://i.loli.net/2020/08/10/2zhlEdQjqyTcPRo.png" alt="image-20200810181951506"></p>
 <p>个性化后如下所示：</p>
-<p><img src="E:%5CmyBlog%5Csource_posts%5Cimage-20200810180207065.png" alt="image-20200810180207065"></p>
+<p><img src="https://i.loli.net/2020/08/10/tuvBmHFRZ8JMk3S.png" alt="image-20200810180207065"></p>
 <h3 id="hexo-文章加密"><a href="#hexo-文章加密" class="headerlink" title="hexo 文章加密"></a>hexo 文章加密</h3><blockquote>
 <p><a href="https://vic.kim/2019/05/27/Hexo文章加密/" target="_blank" rel="noopener">https://vic.kim/2019/05/27/Hexo%E6%96%87%E7%AB%A0%E5%8A%A0%E5%AF%86/</a></p>
 </blockquote>
+<h3 id="在每篇文章末尾添加“本文结束”标记"><a href="#在每篇文章末尾添加“本文结束”标记" class="headerlink" title="在每篇文章末尾添加“本文结束”标记"></a>在每篇文章末尾添加“本文结束”标记</h3><p>修改模板 <code>/themes/next/layout/_macro/post.swig</code>，在<code></code>代码行中添加<code>&lt;div style=&quot;text-align:center;color: #ccc;font-size:14px;&quot;&gt;-------------本文结束&lt;i class=&quot;fa fa-paw&quot;&gt;&lt;/i&gt;感谢您的阅读-------------&lt;/div&gt;</code>即可完成设置，如下所示，红框内是添加内容</p>
+<p><img src="https://i.loli.net/2020/08/10/TQEoIcbKLGaC5dr.png" alt="image-20200810182801218"></p>
+<p>个性化如下所示：</p>
+<p><img src="https://i.loli.net/2020/08/10/dCvbzpGBhs6excl.png" alt="image-20200810183022935"></p>
 ]]></content>
   </entry>
   <entry>
