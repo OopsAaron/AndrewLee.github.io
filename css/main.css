@@ -1344,7 +1344,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #fff9ff;
+  background: #c7ff03;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2857,17 +2857,20 @@ body {
   -o-background-size: cover;
   -moz-background-size: cover;
   -ms-background-size: cover;
+/*左上角header顶部的部分 */
 /*左上角header */
 /*左下角sidebar */
 /*post主题部分 */
 /*底部*/
 }
 body .site-brand-container {
-  opacity: 0.85;
   background: #283747;
 }
+body .header-inner {
+  background: rgba(255,255,255,0.85);
+}
 body .sidebar {
-  opacity: 0.9;
+  opacity: 0.85;
 }
 body .content-wrap {
   opacity: 0.85;
