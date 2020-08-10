@@ -1382,18 +1382,17 @@
 <h3 id="博客无法连接"><a href="#博客无法连接" class="headerlink" title="博客无法连接"></a>博客无法连接</h3><p>本地服务器可以正常显示，但是博客连接不上</p>
 <p>如何可以ping 通，则代表不是域名方面的问题，应该就是服务器的问题，可能是部署在github上，所以会有点慢，后续准备买一个阿里云的服务器。</p>
 <p>解决：</p>
-<ol>
-<li><p>博客正在加载， 等一段时间刷新</p>
-</li>
-<li><p>如果还是不行，则清理chrome的cookie缓存再刷新即可</p>
+<p>1.博客正在加载， 等一段时间刷新</p>
+<p>2.如果还是不行，则清理chrome的cookie缓存再刷新即可</p>
 <p><img src="https://i.loli.net/2020/08/10/Iwpk2yb5OAjuoKf.png" alt="image-20200810152929992"></p>
-</li>
-</ol>
-<ol start="3">
-<li><p>清除特定网站下的缓存：</p>
+<p>3.清除特定网站下的缓存：</p>
 <p>打开开发者工具（F12），选择 Network——Disable cache 。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。</p>
-</li>
-</ol>
+<p>4.如果在文章标题中使用了当天的日期，可能无法及时得到页面更新。因为Github使用了格林尼治标准时间，也就是UTC。中国是东八时区，UTC+8，对于hexo来说是一个未来的时间，所以新的Posts不会被渲染。</p>
+<p>在hexo配置文件<code>_config.yml</code>中设置<code>timezone: Asia/Shanghai</code></p>
+<p>参考</p>
+<blockquote>
+<p>博客无法更新post文章  <a href="https://www.jianshu.com/p/b73c28e77760" target="_blank" rel="noopener">https://www.jianshu.com/p/b73c28e77760</a></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>博客</category>
