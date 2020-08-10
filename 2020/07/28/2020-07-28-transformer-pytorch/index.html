@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
 
@@ -51,18 +51,8 @@
 <meta property="og:image" content="https://i.loli.net/2020/08/06/1pea3WSThisHBql.png">
 <meta property="og:image" content="https://i.loli.net/2020/08/07/ZGa1snNULJtjFWS.png">
 <meta property="og:image" content="https://i.loli.net/2020/08/07/teSG1hufEjF4Zkv.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_113_0.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_1.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_3.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_5.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_7.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_9.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_11.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_13.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_15.png">
-<meta property="og:image" content="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_17.png">
 <meta property="article:published_time" content="2020-07-28T08:43:03.000Z">
-<meta property="article:modified_time" content="2020-08-10T09:24:47.955Z">
+<meta property="article:modified_time" content="2020-08-10T13:20:19.914Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="transformer">
 <meta name="twitter:card" content="summary">
@@ -280,7 +270,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-10 17:24:47" itemprop="dateModified" datetime="2020-08-10T17:24:47+08:00">2020-08-10</time>
+                <time title="修改时间：2020-08-10 21:20:19" itemprop="dateModified" datetime="2020-08-10T21:20:19+08:00">2020-08-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,6 +283,13 @@
             </span>
 
           
+            <span id="/2020/07/28/2020-07-28-transformer-pytorch/" class="post-meta-item leancloud_visitors" data-flag-title="2020-07-28-transformer解读-pytorch版本" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -300,17 +297,31 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span id="busuanzi_value_page_pv"></span>
             </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/07/28/2020-07-28-transformer-pytorch/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/28/2020-07-28-transformer-pytorch/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>46k</span>
+              <span>42k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>42 分钟</span>
+              <span>38 分钟</span>
             </span>
             <div class="post-description">transformer-pytorch</div>
 
@@ -718,71 +729,6 @@
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#类比于run_epoch函数  </span></span><br><span class="line"><span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(valid_iter):</span><br><span class="line">    src = batch.src.transpose(<span class="number">0</span>, <span class="number">1</span>)[:<span class="number">1</span>]</span><br><span class="line">    src_mask = (src != SRC.vocab.stoi[<span class="string">"&lt;blank&gt;"</span>]).unsqueeze(<span class="number">-2</span>)</span><br><span class="line">    out = greedy_decode(model, src, src_mask, </span><br><span class="line">                        max_len=<span class="number">60</span>, start_symbol=TGT.vocab.stoi[<span class="string">"&lt;s&gt;"</span>])</span><br><span class="line">    print(<span class="string">"Translation:"</span>, end=<span class="string">"\t"</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, out.size(<span class="number">1</span>)):</span><br><span class="line">        sym = TGT.vocab.itos[out[<span class="number">0</span>, i]]</span><br><span class="line">        <span class="keyword">if</span> sym == <span class="string">"&lt;/s&gt;"</span>: <span class="keyword">break</span></span><br><span class="line">        print(sym, end =<span class="string">" "</span>)</span><br><span class="line">    print()</span><br><span class="line">    print(<span class="string">"Target:"</span>, end=<span class="string">"\t"</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, batch.trg.size(<span class="number">0</span>)):</span><br><span class="line">        sym = TGT.vocab.itos[batch.trg.data[i, <span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">if</span> sym == <span class="string">"&lt;/s&gt;"</span>: <span class="keyword">break</span></span><br><span class="line">        print(sym, end =<span class="string">" "</span>)</span><br><span class="line">    print()</span><br><span class="line">    <span class="keyword">break</span></span><br><span class="line">Translation:	&lt;unk&gt; &lt;unk&gt; . In my language , that means , thank you very much . </span><br><span class="line">Gold:	&lt;unk&gt; &lt;unk&gt; . It means <span class="keyword">in</span> my language , thank you very much .</span><br></pre></td></tr></table></figure>
 
-<h3 id="Additional-Components-BPE-Search-Averaging"><a href="#Additional-Components-BPE-Search-Averaging" class="headerlink" title="Additional Components: BPE, Search, Averaging"></a>Additional Components: BPE, Search, Averaging</h3><blockquote>
-<p>So this mostly covers the transformer model itself. There are four aspects that we didn’t cover explicitly. We also have all these additional features implemented in <a href="https://github.com/opennmt/opennmt-py" target="_blank" rel="noopener">OpenNMT-py</a>.</p>
-</blockquote>
-<blockquote>
-<p>1) BPE/ Word-piece: We can use a library to first preprocess the data into subword units. See Rico Sennrich’s <a href="https://github.com/rsennrich/subword-nmt" target="_blank" rel="noopener">subword- nmt</a> implementation. These models will transform the training data to look like this:</p>
-</blockquote>
-<p>▁Die ▁Protokoll datei ▁kann ▁ heimlich ▁per ▁E - Mail ▁oder ▁FTP ▁an ▁einen ▁bestimmte n ▁Empfänger ▁gesendet ▁werden .</p>
-<blockquote>
-<p>2) Shared Embeddings: When using BPE with shared vocabulary we can share the same weight vectors between the source / target / generator. See the <a href="https://arxiv.org/abs/1608.05859" target="_blank" rel="noopener">(cite)</a> for details. To add this to the model simply do this:</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="literal">False</span>:</span><br><span class="line">    model.src_embed[<span class="number">0</span>].lut.weight = model.tgt_embeddings[<span class="number">0</span>].lut.weight</span><br><span class="line">    model.generator.lut.weight = model.tgt_embed[<span class="number">0</span>].lut.weight</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>3) Beam Search: This is a bit too complicated to cover here. See the <a href="https://github.com/OpenNMT/OpenNMT-py/blob/master/onmt/translate/Beam.py" target="_blank" rel="noopener">OpenNMT- py</a> for a pytorch implementation.</p>
-</blockquote>
-<blockquote>
-<p>4) Model Averaging: The paper averages the last k checkpoints to create an ensembling effect. We can do this after the fact if we have a bunch of models:</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">average</span><span class="params">(model, models)</span>:</span></span><br><span class="line">    <span class="string">"Average models into model"</span></span><br><span class="line">    <span class="keyword">for</span> ps <span class="keyword">in</span> zip(*[m.params() <span class="keyword">for</span> m <span class="keyword">in</span> [model] + models]):</span><br><span class="line">        p[<span class="number">0</span>].copy_(torch.sum(*ps[<span class="number">1</span>:]) / len(ps[<span class="number">1</span>:]))</span><br></pre></td></tr></table></figure>
-
-<h3 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h3><p>On the WMT 2014 English-to-German translation task, the big transformer model (Transformer (big) in Table 2) outperforms the best previously reported models (including ensembles) by more than 2.0 BLEU, establishing a new state-of-the-art BLEU score of 28.4. The configuration of this model is listed in the bottom line of Table 3. Training took 3.5 days on 8 P100 GPUs. Even our base model surpasses all previously published models and ensembles, at a fraction of the training cost of any of the competitive models.</p>
-<p>On the WMT 2014 English-to-French translation task, our big model achieves a BLEU score of 41.0, outperforming all of the previously published single models, at less than 1/4 the training cost of the previous state-of-the-art model. The Transformer (big) model trained for English-to-French used dropout rate Pdrop = 0.1, instead of 0.3.</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image(filename=<span class="string">"images/results.png"</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_113_0.png" alt="png"></p>
-<blockquote>
-<p>The code we have written here is a version of the base model. There are fully trained version of this system available here <a href="http://opennmt.net/Models-py/" target="_blank" rel="noopener">(Example Models)</a>.</p>
-<p>With the addtional extensions in the last section, the OpenNMT-py replication gets to 26.9 on EN-DE WMT. Here I have loaded in those parameters to our reimplemenation.</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">!wget https://s3.amazonaws.com/opennmt-models/en-de-model.pt</span><br><span class="line">model, SRC, TGT = torch.load(<span class="string">"en-de-model.pt"</span>)</span><br><span class="line">model.eval()</span><br><span class="line">sent = <span class="string">"▁The ▁log ▁file ▁can ▁be ▁sent ▁secret ly ▁with ▁email ▁or ▁FTP ▁to ▁a ▁specified ▁receiver"</span>.split()</span><br><span class="line">src = torch.LongTensor([[SRC.stoi[w] <span class="keyword">for</span> w <span class="keyword">in</span> sent]])</span><br><span class="line">src = Variable(src)</span><br><span class="line">src_mask = (src != SRC.stoi[<span class="string">"&lt;blank&gt;"</span>]).unsqueeze(<span class="number">-2</span>)</span><br><span class="line">out = greedy_decode(model, src, src_mask, </span><br><span class="line">                    max_len=<span class="number">60</span>, start_symbol=TGT.stoi[<span class="string">"&lt;s&gt;"</span>])</span><br><span class="line">print(<span class="string">"Translation:"</span>, end=<span class="string">"\t"</span>)</span><br><span class="line">trans = <span class="string">"&lt;s&gt; "</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, out.size(<span class="number">1</span>)):</span><br><span class="line">    sym = TGT.itos[out[<span class="number">0</span>, i]]</span><br><span class="line">    <span class="keyword">if</span> sym == <span class="string">"&lt;/s&gt;"</span>: <span class="keyword">break</span></span><br><span class="line">    trans += sym + <span class="string">" "</span></span><br><span class="line">print(trans)</span><br><span class="line">Translation:	&lt;s&gt; ▁Die ▁Protokoll datei ▁kann ▁ heimlich ▁per ▁E - Mail ▁oder ▁FTP ▁an ▁einen ▁bestimmte n ▁Empfänger ▁gesendet ▁werden .</span><br></pre></td></tr></table></figure>
-
-<h4 id="Attention-Visualization"><a href="#Attention-Visualization" class="headerlink" title="Attention Visualization"></a>Attention Visualization</h4><blockquote>
-<p>Even with a greedy decoder the translation looks pretty good. We can further visualize it to see what is happening at each layer of the attention</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">tgt_sent = trans.split()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">draw</span><span class="params">(data, x, y, ax)</span>:</span></span><br><span class="line">    seaborn.heatmap(data, </span><br><span class="line">                    xticklabels=x, square=<span class="literal">True</span>, yticklabels=y, vmin=<span class="number">0.0</span>, vmax=<span class="number">1.0</span>, </span><br><span class="line">                    cbar=<span class="literal">False</span>, ax=ax)</span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>, <span class="number">2</span>):</span><br><span class="line">    fig, axs = plt.subplots(<span class="number">1</span>,<span class="number">4</span>, figsize=(<span class="number">20</span>, <span class="number">10</span>))</span><br><span class="line">    print(<span class="string">"Encoder Layer"</span>, layer+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> h <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        draw(model.encoder.layers[layer].self_attn.attn[<span class="number">0</span>, h].data, </span><br><span class="line">            sent, sent <span class="keyword">if</span> h ==<span class="number">0</span> <span class="keyword">else</span> [], ax=axs[h])</span><br><span class="line">    plt.show()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>, <span class="number">2</span>):</span><br><span class="line">    fig, axs = plt.subplots(<span class="number">1</span>,<span class="number">4</span>, figsize=(<span class="number">20</span>, <span class="number">10</span>))</span><br><span class="line">    print(<span class="string">"Decoder Self Layer"</span>, layer+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> h <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        draw(model.decoder.layers[layer].self_attn.attn[<span class="number">0</span>, h].data[:len(tgt_sent), :len(tgt_sent)], </span><br><span class="line">            tgt_sent, tgt_sent <span class="keyword">if</span> h ==<span class="number">0</span> <span class="keyword">else</span> [], ax=axs[h])</span><br><span class="line">    plt.show()</span><br><span class="line">    print(<span class="string">"Decoder Src Layer"</span>, layer+<span class="number">1</span>)</span><br><span class="line">    fig, axs = plt.subplots(<span class="number">1</span>,<span class="number">4</span>, figsize=(<span class="number">20</span>, <span class="number">10</span>))</span><br><span class="line">    <span class="keyword">for</span> h <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        draw(model.decoder.layers[layer].self_attn.attn[<span class="number">0</span>, h].data[:len(tgt_sent), :len(sent)], </span><br><span class="line">            sent, tgt_sent <span class="keyword">if</span> h ==<span class="number">0</span> <span class="keyword">else</span> [], ax=axs[h])</span><br><span class="line">    plt.show()</span><br><span class="line">Encoder Layer <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_1.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Encoder Layer <span class="number">4</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_3.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Encoder Layer <span class="number">6</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_5.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decoder Self Layer <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_7.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decoder Src Layer <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_9.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decoder Self Layer <span class="number">4</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_11.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decoder Src Layer <span class="number">4</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_13.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decoder Self Layer <span class="number">6</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_15.png" alt="png"></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Decoder Src Layer <span class="number">6</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_119_17.png" alt="png"></p>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><blockquote>
-<p>Hopefully this code is useful for future research. Please reach out if you have any issues. If you find this code helpful, also check out our other OpenNMT tools.</p>
-</blockquote>
-
     </div>
 
     
@@ -813,7 +759,7 @@
       <footer class="post-footer">
          
           <div class="post-tags">
-              <a href="/tags/transformer/" rel="tag"<i class="fa fa-tags"></i>transformer</a>
+              <a href="/tags/transformer/" rel="tag"<i class="fab fa-envira"></i>transformer</a>
           </div>
 
         
@@ -843,6 +789,7 @@
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -889,7 +836,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接"><span class="nav-number">1.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Annotated-Transformer"><span class="nav-number">2.</span> <span class="nav-text">The Annotated Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型结构"><span class="nav-number">3.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder-and-Decoder-Stacks"><span class="nav-number">4.</span> <span class="nav-text">Encoder and Decoder Stacks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder"><span class="nav-number">4.1.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Decoder"><span class="nav-number">4.2.</span> <span class="nav-text">Decoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention"><span class="nav-number">4.3.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A0ttention在模型中的应用"><span class="nav-number">4.4.</span> <span class="nav-text">A0ttention在模型中的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Position-wise-前馈网络"><span class="nav-number">5.</span> <span class="nav-text">Position-wise 前馈网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embeddings-和-Softmax"><span class="nav-number">6.</span> <span class="nav-text">Embeddings 和 Softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置编码"><span class="nav-number">7.</span> <span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整模型"><span class="nav-number">8.</span> <span class="nav-text">完整模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练"><span class="nav-number">9.</span> <span class="nav-text">训练</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Batches-和-Masking"><span class="nav-number">9.1.</span> <span class="nav-text">Batches 和 Masking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-Loop"><span class="nav-number">9.2.</span> <span class="nav-text">Training Loop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-Data-和-Batching"><span class="nav-number">9.3.</span> <span class="nav-text">Training Data 和 Batching</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件-和-训练进度"><span class="nav-number">9.4.</span> <span class="nav-text">硬件 和 训练进度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optimizer"><span class="nav-number">9.5.</span> <span class="nav-text">Optimizer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Regularization"><span class="nav-number">9.6.</span> <span class="nav-text">Regularization</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Label-Smoothing"><span class="nav-number">9.6.1.</span> <span class="nav-text">Label Smoothing</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一个例子"><span class="nav-number">11.</span> <span class="nav-text">第一个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Synthetic-Data"><span class="nav-number">11.1.</span> <span class="nav-text">Synthetic Data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Loss-Computation"><span class="nav-number">11.2.</span> <span class="nav-text">Loss Computation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Greedy-Decoding"><span class="nav-number">11.3.</span> <span class="nav-text">Greedy Decoding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真实例子"><span class="nav-number">12.</span> <span class="nav-text">真实例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Loading"><span class="nav-number">12.1.</span> <span class="nav-text">Data Loading</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterators"><span class="nav-number">12.2.</span> <span class="nav-text">Iterators</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-GPU-Training"><span class="nav-number">12.3.</span> <span class="nav-text">Multi-GPU Training</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-the-System"><span class="nav-number">12.4.</span> <span class="nav-text">Training the System</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Additional-Components-BPE-Search-Averaging"><span class="nav-number">13.</span> <span class="nav-text">Additional Components: BPE, Search, Averaging</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Results"><span class="nav-number">14.</span> <span class="nav-text">Results</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention-Visualization"><span class="nav-number">14.1.</span> <span class="nav-text">Attention Visualization</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conclusion"><span class="nav-number">15.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考链接"><span class="nav-number">1.1.</span> <span class="nav-text">参考链接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Annotated-Transformer"><span class="nav-number">2.</span> <span class="nav-text">The Annotated Transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型结构"><span class="nav-number">3.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Encoder-and-Decoder-Stacks"><span class="nav-number">4.</span> <span class="nav-text">Encoder and Decoder Stacks</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Encoder"><span class="nav-number">4.1.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Decoder"><span class="nav-number">4.2.</span> <span class="nav-text">Decoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Attention"><span class="nav-number">4.3.</span> <span class="nav-text">Attention</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A0ttention在模型中的应用"><span class="nav-number">4.4.</span> <span class="nav-text">A0ttention在模型中的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Position-wise-前馈网络"><span class="nav-number">5.</span> <span class="nav-text">Position-wise 前馈网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Embeddings-和-Softmax"><span class="nav-number">6.</span> <span class="nav-text">Embeddings 和 Softmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位置编码"><span class="nav-number">7.</span> <span class="nav-text">位置编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整模型"><span class="nav-number">8.</span> <span class="nav-text">完整模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练"><span class="nav-number">9.</span> <span class="nav-text">训练</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Batches-和-Masking"><span class="nav-number">9.1.</span> <span class="nav-text">Batches 和 Masking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-Loop"><span class="nav-number">9.2.</span> <span class="nav-text">Training Loop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-Data-和-Batching"><span class="nav-number">9.3.</span> <span class="nav-text">Training Data 和 Batching</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件-和-训练进度"><span class="nav-number">9.4.</span> <span class="nav-text">硬件 和 训练进度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optimizer"><span class="nav-number">9.5.</span> <span class="nav-text">Optimizer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Regularization"><span class="nav-number">9.6.</span> <span class="nav-text">Regularization</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Label-Smoothing"><span class="nav-number">9.6.1.</span> <span class="nav-text">Label Smoothing</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一个例子"><span class="nav-number">11.</span> <span class="nav-text">第一个例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Synthetic-Data"><span class="nav-number">11.1.</span> <span class="nav-text">Synthetic Data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Loss-Computation"><span class="nav-number">11.2.</span> <span class="nav-text">Loss Computation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Greedy-Decoding"><span class="nav-number">11.3.</span> <span class="nav-text">Greedy Decoding</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真实例子"><span class="nav-number">12.</span> <span class="nav-text">真实例子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Loading"><span class="nav-number">12.1.</span> <span class="nav-text">Data Loading</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterators"><span class="nav-number">12.2.</span> <span class="nav-text">Iterators</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Multi-GPU-Training"><span class="nav-number">12.3.</span> <span class="nav-text">Multi-GPU Training</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-the-System"><span class="nav-number">12.4.</span> <span class="nav-text">Training the System</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -975,12 +922,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">127k</span>
+    <span title="站点总字数">123k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:56</span>
+    <span title="站点阅读时长">1:52</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -1068,6 +1015,35 @@
   
 
   
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'V06xtKF2qonsMYpPA6OqiRH0-gzGzoHsz',
+      appKey     : 'Q8gXivQlmWVnr48ahETG2v5X',
+      placeholder: "Just go go",
+      avatar     : 'monsterid',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
 
   
 

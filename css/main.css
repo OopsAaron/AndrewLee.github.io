@@ -1344,7 +1344,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ffff90;
+  background: #af06ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2859,7 +2859,7 @@ body {
   -ms-background-size: cover;
 /*左上角header顶部的部分 */
 /*左上角header */
-/*左下角sidebar */
+/*左边sidebar */
 /*post主题部分 */
 /*底部*/
 }
@@ -2867,13 +2867,31 @@ body .site-brand-container {
   background: #283747;
 }
 body .header-inner {
-  background: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.87);
+  border-radius: 10px;
 }
 body .sidebar {
-  opacity: 0.85;
+  opacity: 0.87;
+  border-radius: 10px;
+}
+body .sidebar-inner.affix-top {
+  border-radius: 10px;
+}
+body .sidebar-inner.affix {
+  border-radius: 10px;
 }
 body .content-wrap {
-  opacity: 0.85;
+  opacity: 0.87;
+}
+body #每个文章进行设置,
+body .content.index.posts-expand .post-block {
+  border-radius: 10px;
+}
+body .pagination {
+  border-radius: 10px;
+}
+body .comments {
+  border-radius: 10px;
 }
 body .footer > div > div {
   color: #2c3e50;
