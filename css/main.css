@@ -1344,7 +1344,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #9608ff;
+  background: #ff86ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2862,8 +2862,9 @@ body {
 /*post主题部分 */
 /*底部*/
 }
-body .header-inner {
+body .site-brand-container {
   opacity: 0.85;
+  background: #708090;
 }
 body .sidebar {
   opacity: 0.85;
