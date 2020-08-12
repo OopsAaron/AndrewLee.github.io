@@ -1344,7 +1344,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #7d3cff;
+  background: #eb5b54;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2892,6 +2892,12 @@ body .pagination {
 }
 body .comments {
   border-radius: 10px;
+}
+body .vempty {
+  display: none;
+}
+body .vpower.txt-right {
+  display: none;
 }
 body .footer > div > div {
   color: #2c3e50;
