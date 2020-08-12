@@ -289,7 +289,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>2k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -308,59 +308,77 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a class="header-anchor" href="#前言">¶</a>前言</h2>
+        <h2 id="前言">前言</h2>
 <p>跑实验需要用服务器，远程服务器我用的是XShell + FileZilla进行连接和传输文件，然而在操控linux服务器中需要用到一些常见的linux命令，之前学过《鸟哥linux》，但是一直没有总结过，现在总结下。</p>
-<h2 id="linux-常用命令"><a class="header-anchor" href="#linux-常用命令">¶</a>linux 常用命令</h2>
-<h3 id="ls-命令"><a class="header-anchor" href="#ls-命令">¶</a>ls 命令</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls  -a   <span class="comment"># 列出目录所有文件，包含以.开始的隐藏文件</span></span><br><span class="line"></span><br><span class="line">ls ~  <span class="comment">#进入主目录</span></span><br><span class="line"></span><br><span class="line">ls E: <span class="comment"># 在win中进入E盘</span></span><br></pre></td></tr></table></figure>
-<h3 id="cd-目录名"><a class="header-anchor" href="#cd-目录名">¶</a>cd [目录名]</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ..   <span class="comment">#返回上一级目录</span></span><br><span class="line"></span><br><span class="line">cd . /temp  <span class="comment"># 当前目录下的temp文件夹</span></span><br></pre></td></tr></table></figure>
-<h3 id="pwd-命令"><a class="header-anchor" href="#pwd-命令">¶</a>pwd 命令</h3>
+<h2 id="linux-常用命令">linux 常用命令</h2>
+<h3 id="ls-命令">ls 命令</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ls  -a   <span class="comment"># 列出目录所有文件，包含以.开始的隐藏文件</span></span><br><span class="line"></span><br><span class="line">ls ~  <span class="comment">#进入主目录</span></span><br><span class="line"></span><br><span class="line">ls E: <span class="comment"># 在win中进入E盘</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="cd-目录名">cd [目录名]</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ..   <span class="comment">#返回上一级目录</span></span><br><span class="line"></span><br><span class="line">cd . /temp  <span class="comment"># 当前目录下的temp文件夹</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="pwd-命令">pwd 命令</h3>
 <p>查看当前工作目录路径</p>
-<h3 id="mkdir-命令"><a class="header-anchor" href="#mkdir-命令">¶</a>mkdir 命令</h3>
+<h3 id="mkdir-命令">mkdir 命令</h3>
 <p>用于创建文件夹</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir temp  <span class="comment">#当前工作目录下创建名为 temp的文件夹</span></span><br><span class="line"></span><br><span class="line">mkdir -p /tmp/test/t1/t   <span class="comment"># 在 tmp 目录下创建路径为 test/t1/t 的目录，若不存在，则创建</span></span><br></pre></td></tr></table></figure>
-<h3 id="rm-命令"><a class="header-anchor" href="#rm-命令">¶</a>rm 命令</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir temp  <span class="comment">#当前工作目录下创建名为 temp的文件夹</span></span><br><span class="line"></span><br><span class="line">mkdir -p /tmp/test/t1/t   <span class="comment"># 在 tmp 目录下创建路径为 test/t1/t 的目录，若不存在，则创建</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="rm-命令">rm 命令</h3>
 <p>删除一个目录中的一个或多个文件或目录</p>
 <p>如果没有使用 -r 选项，则 rm 不会删除目录。如果使用 rm 来删除文件，通常仍可以将该文件恢复原状。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rm  -i  *.log <span class="comment"># 删除全部.log文件， 删除前逐一询问</span></span><br><span class="line"></span><br><span class="line">rm a.txt <span class="comment"># 删除文件a.txt</span></span><br><span class="line"></span><br><span class="line">rm -rf test <span class="comment"># 删除test文件夹 </span></span><br><span class="line"></span><br><span class="line">​	 <span class="comment">#-r 就是向下递归，不管有多少级目录，一并删除</span></span><br><span class="line"></span><br><span class="line">​	<span class="comment">#-f 就是直接强行删除，不作任何提示的意思</span></span><br></pre></td></tr></table></figure>
-<h3 id="vim-命令"><a class="header-anchor" href="#vim-命令">¶</a>vim 命令</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rm  -i  *.log <span class="comment"># 删除全部.log文件， 删除前逐一询问</span></span><br><span class="line"></span><br><span class="line">rm a.txt <span class="comment"># 删除文件a.txt</span></span><br><span class="line"></span><br><span class="line">rm -rf test <span class="comment"># 删除test文件夹 </span></span><br><span class="line"></span><br><span class="line">​	 <span class="comment">#-r 就是向下递归，不管有多少级目录，一并删除</span></span><br><span class="line"></span><br><span class="line">​	<span class="comment">#-f 就是直接强行删除，不作任何提示的意思</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="vim-命令">vim 命令</h3>
 <p>编辑文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  <span class="comment"># 创建a.txt文件并进入编辑状态 。 如果a.txt 已经存在，则直接进入编辑状态</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 按下i键，下端显示 –INSERT–。可以进行插入，输入文本 </span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 输入了之后 按Esc键退出编辑状态</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 键入 :wq!保存退出  <span class="comment"># 注意是在英文输入状态下进行的操作</span></span><br><span class="line"></span><br><span class="line">    :w 在编辑的过程中保存文件,相当于word中的ctrl+s    </span><br><span class="line"></span><br><span class="line">   :wq 保存文件并退出</span><br></pre></td></tr></table></figure>
-<h3 id="less-命令"><a class="header-anchor" href="#less-命令">¶</a>less  命令</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vim a.txt  <span class="comment"># 创建a.txt文件并进入编辑状态 。 如果a.txt 已经存在，则直接进入编辑状态</span></span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 按下i键，下端显示 –INSERT–。可以进行插入，输入文本 </span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> 输入了之后 按Esc键退出编辑状态</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> 键入 :wq!保存退出  <span class="comment"># 注意是在英文输入状态下进行的操作</span></span><br><span class="line"></span><br><span class="line">    :w 在编辑的过程中保存文件,相当于word中的ctrl+s    </span><br><span class="line"></span><br><span class="line">   :wq 保存文件并退出</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="less-命令">less 命令</h3>
 <p>有时实验结果较长，在终端前面的输出会无法显示，此命令可以在终端显示上屏无法查看的内容，可以<strong>分页显示</strong>。</p>
-<p>用法： 在执行命令后面加上|less即可，它可以用**<code>PageUp</code><strong>和</strong><code>PageDown</code><strong>按键上下翻页，也可以用</strong><code>上下方向键</code><strong>一点点查看。退出按</strong><code>q</code>**。</p>
-<p>一般显示的结果过长，都可在命令行后加上**|less**来分页显示</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py | less</span><br></pre></td></tr></table></figure>
+<p>用法： 在执行命令后面加上|less即可，它可以用<strong><code>PageUp</code></strong>和<strong><code>PageDown</code></strong>按键上下翻页，也可以用<strong><code>上下方向键</code></strong>一点点查看。退出按<strong><code>q</code></strong>。</p>
+<p>一般显示的结果过长，都可在命令行后加上<strong>|less</strong>来分页显示</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py | less</span><br></pre></td></tr></tbody></table></figure>
 <p>less也可直接查看文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less test.txt</span><br></pre></td></tr></table></figure>
-<h3 id="重定向"><a class="header-anchor" href="#重定向">¶</a>重定向</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python main.py &gt;test.txt  <span class="number">2</span>&gt;&amp;<span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#表示将标准输出（STDOUT）重定向到test.txt文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2&gt;&amp;1 ：把标准输出和标准错误一起重定向到一个文件中。1是标准输出的文件描述符，2是标准错误的文件描述符</span></span><br></pre></td></tr></table></figure>
-<h3 id="cat-命令"><a class="header-anchor" href="#cat-命令">¶</a>cat 命令</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less test.txt</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="重定向">重定向</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python main.py &gt;test.txt  <span class="number">2</span>&gt;&amp;<span class="number">1</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#表示将标准输出（STDOUT）重定向到test.txt文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2&gt;&amp;1 ：把标准输出和标准错误一起重定向到一个文件中。1是标准输出的文件描述符，2是标准错误的文件描述符</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="cat-命令">cat 命令</h3>
 <p>可以直接查看a.txt 文件</p>
-<h3 id="cp-命令"><a class="header-anchor" href="#cp-命令">¶</a>cp 命令</h3>
+<h3 id="cp-命令">cp 命令</h3>
 <p>复制文件/文件夹</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp [option] Source Directory</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp [option] Source Directory</span><br></pre></td></tr></tbody></table></figure>
 <p>1.如果要复制的源目录中还存在子目录，此时使用选项R递归地复制子目录。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r test file/  <span class="comment">#将目录test复制到目录file中</span></span><br></pre></td></tr></table></figure>
-<p>2…复制并重命名文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/samba/smb.conf  smb.backup  <span class="comment">#将/etc/samba/smb.conf备份到当前目录中，并将文件重命名 smb.backup</span></span><br></pre></td></tr></table></figure>
-<h3 id="swp文件"><a class="header-anchor" href="#swp文件">¶</a>.swp文件</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -r test file/  <span class="comment">#将目录test复制到目录file中</span></span><br></pre></td></tr></tbody></table></figure>
+<p>2..复制并重命名文件</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/samba/smb.conf  smb.backup  <span class="comment">#将/etc/samba/smb.conf备份到当前目录中，并将文件重命名 smb.backup</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="swp文件">.swp文件</h3>
 <p>非正常关闭vi/vim编辑器时（如不小心按下<code>ctrl+Z</code>强制退出）会生成一个.swp文件。</p>
-<h4 id="解决"><a class="header-anchor" href="#解决">¶</a>解决</h4>
+<h4 id="解决">解决</h4>
 <ul>
 <li>使用vim -r a.txt 来恢复文件</li>
 <li>然后在提示中删除.swp文件即可，以后就不会有提示了</li>
 </ul>
-<h3 id="Shell-Bash-退出码"><a class="header-anchor" href="#Shell-Bash-退出码">¶</a>Shell Bash 退出码</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exit <span class="number">0</span> :也就是说调用环境就认为你的这个程序执行正确</span><br><span class="line">exit <span class="number">1</span> :一般是出错定义这个<span class="number">1</span>，也可以是其他数字，很多系统程序这个错误编号是有约定的含义的。 </span><br><span class="line">但不为<span class="number">0</span> 就表示程序运行出错。 </span><br><span class="line">exit <span class="number">127</span>: command <span class="keyword">not</span> found <span class="comment">#指令输入错误</span></span><br></pre></td></tr></table></figure>
-<h3 id="ps-ef-grep-查找进程"><a class="header-anchor" href="#ps-ef-grep-查找进程">¶</a>ps -ef | grep 查找进程</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep main.py  <span class="comment">#其中main.py是要查找的关键字</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">ps命令将某个进程显示出来</span><br><span class="line"></span><br><span class="line">grep命令是查找</span><br><span class="line"></span><br><span class="line">中间的|是管道命令 是指ps命令与grep同时执行</span><br><span class="line"></span><br><span class="line">字段含义如下：</span><br><span class="line">UID    PID    PPID    C   STIME   TTY    TIME     CMD</span><br><span class="line"></span><br><span class="line">zzw   <span class="number">14124</span>  <span class="number">13991</span>   <span class="number">0</span>   <span class="number">00</span>:<span class="number">38</span>   pts/<span class="number">0</span>   <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  grep --color=auto dae</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">UID   ：程序被该 UID 所拥有</span><br><span class="line"></span><br><span class="line">PID   ：就是这个程序的 ID </span><br><span class="line"></span><br><span class="line">PPID  ：则是其上级父程序的ID</span><br><span class="line"></span><br><span class="line">C     ：CPU使用的资源百分比</span><br><span class="line"></span><br><span class="line">STIME ：系统启动时间</span><br><span class="line"></span><br><span class="line">TTY   ：登入者的终端机位置</span><br><span class="line"></span><br><span class="line">TIME  ：使用掉的CPU时间。</span><br><span class="line"></span><br><span class="line">CMD  ：所下达的是什么指令</span><br></pre></td></tr></table></figure>
+<h3 id="shell-bash-退出码">Shell Bash 退出码</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">exit <span class="number">0</span> :也就是说调用环境就认为你的这个程序执行正确</span><br><span class="line">exit <span class="number">1</span> :一般是出错定义这个<span class="number">1</span>，也可以是其他数字，很多系统程序这个错误编号是有约定的含义的。 </span><br><span class="line">但不为<span class="number">0</span> 就表示程序运行出错。 </span><br><span class="line">exit <span class="number">127</span>: command <span class="keyword">not</span> found <span class="comment">#指令输入错误</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="ps--ef-grep-查找进程">ps -ef | grep 查找进程</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -ef | grep main.py  <span class="comment">#其中main.py是要查找的关键字</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">ps命令将某个进程显示出来</span><br><span class="line"></span><br><span class="line">grep命令是查找</span><br><span class="line"></span><br><span class="line">中间的|是管道命令 是指ps命令与grep同时执行</span><br><span class="line"></span><br><span class="line">字段含义如下：</span><br><span class="line">UID    PID    PPID    C   STIME   TTY    TIME     CMD</span><br><span class="line"></span><br><span class="line">zzw   <span class="number">14124</span>  <span class="number">13991</span>   <span class="number">0</span>   <span class="number">00</span>:<span class="number">38</span>   pts/<span class="number">0</span>   <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  grep --color=auto dae</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">UID   ：程序被该 UID 所拥有</span><br><span class="line"></span><br><span class="line">PID   ：就是这个程序的 ID </span><br><span class="line"></span><br><span class="line">PPID  ：则是其上级父程序的ID</span><br><span class="line"></span><br><span class="line">C     ：CPU使用的资源百分比</span><br><span class="line"></span><br><span class="line">STIME ：系统启动时间</span><br><span class="line"></span><br><span class="line">TTY   ：登入者的终端机位置</span><br><span class="line"></span><br><span class="line">TIME  ：使用掉的CPU时间。</span><br><span class="line"></span><br><span class="line">CMD  ：所下达的是什么指令</span><br></pre></td></tr></tbody></table></figure>
 <p>这里是两个shell命令通过管道进行了结合，第一个ps能够列出当前系统所有活跃的进程，然后通过grep 关键字查找就能找到带有关键字的进程。<code>找到PID</code>（PID是输出的第二列那个数字）再杀掉。</p>
-<h3 id="服务器常用操作"><a class="header-anchor" href="#服务器常用操作">¶</a>服务器常用操作</h3>
+<h3 id="服务器常用操作">服务器常用操作</h3>
 <p>具体操作参考《服务器心得》</p>
-
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
     </div>
 
     
@@ -464,7 +482,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-常用命令"><span class="nav-number">2.</span> <span class="nav-text">linux 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls-命令"><span class="nav-number">2.1.</span> <span class="nav-text">ls 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd-目录名"><span class="nav-number">2.2.</span> <span class="nav-text">cd [目录名]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd-命令"><span class="nav-number">2.3.</span> <span class="nav-text">pwd 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir-命令"><span class="nav-number">2.4.</span> <span class="nav-text">mkdir 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-命令"><span class="nav-number">2.5.</span> <span class="nav-text">rm 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-命令"><span class="nav-number">2.6.</span> <span class="nav-text">vim 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less-命令"><span class="nav-number">2.7.</span> <span class="nav-text">less  命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向"><span class="nav-number">2.8.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat-命令"><span class="nav-number">2.9.</span> <span class="nav-text">cat 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp-命令"><span class="nav-number">2.10.</span> <span class="nav-text">cp 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swp文件"><span class="nav-number">2.11.</span> <span class="nav-text">.swp文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决"><span class="nav-number">2.11.1.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shell-Bash-退出码"><span class="nav-number">2.12.</span> <span class="nav-text">Shell Bash 退出码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps-ef-grep-查找进程"><span class="nav-number">2.13.</span> <span class="nav-text">ps -ef | grep 查找进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器常用操作"><span class="nav-number">2.14.</span> <span class="nav-text">服务器常用操作</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-常用命令"><span class="nav-number">2.</span> <span class="nav-text">linux 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls-命令"><span class="nav-number">2.1.</span> <span class="nav-text">ls 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd-目录名"><span class="nav-number">2.2.</span> <span class="nav-text">cd [目录名]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd-命令"><span class="nav-number">2.3.</span> <span class="nav-text">pwd 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir-命令"><span class="nav-number">2.4.</span> <span class="nav-text">mkdir 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-命令"><span class="nav-number">2.5.</span> <span class="nav-text">rm 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-命令"><span class="nav-number">2.6.</span> <span class="nav-text">vim 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less-命令"><span class="nav-number">2.7.</span> <span class="nav-text">less 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向"><span class="nav-number">2.8.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat-命令"><span class="nav-number">2.9.</span> <span class="nav-text">cat 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp-命令"><span class="nav-number">2.10.</span> <span class="nav-text">cp 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#swp文件"><span class="nav-number">2.11.</span> <span class="nav-text">.swp文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决"><span class="nav-number">2.11.1.</span> <span class="nav-text">解决</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell-bash-退出码"><span class="nav-number">2.12.</span> <span class="nav-text">Shell Bash 退出码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps--ef-grep-查找进程"><span class="nav-number">2.13.</span> <span class="nav-text">ps -ef | grep 查找进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器常用操作"><span class="nav-number">2.14.</span> <span class="nav-text">服务器常用操作</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -480,7 +498,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -493,7 +511,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -550,12 +568,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">132k</span>
+    <span title="站点总字数">136k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -702,6 +720,8 @@ window.addEventListener('pjax:success', () => {
 
 
     <div id="pjax">
+  
+
   
 
   

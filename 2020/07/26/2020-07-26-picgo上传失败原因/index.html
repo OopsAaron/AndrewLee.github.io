@@ -302,7 +302,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>309</span>
+              <span>305</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -321,20 +321,38 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a class="header-anchor" href="#前言">¶</a>前言</h3>
+        <h3 id="前言">前言</h3>
 <p>在使用后PicGo上传图片至github时总是会显示上传失败，以下是我的解决方案经验，我的情况是可以上传图片，但是偶尔会失败</p>
-<h3 id="case-1-检查服务及端口配置"><a class="header-anchor" href="#case-1-检查服务及端口配置">¶</a>case 1 检查服务及端口配置</h3>
+<h3 id="case-1-检查服务及端口配置">case 1 检查服务及端口配置</h3>
 <p>择相应的选项“设置server”，以下操作</p>
-<p><img src="https://i.loli.net/2020/07/27/lf7Bw2jDUqgIxMk.png" alt=""></p>
+<p><img src="https://i.loli.net/2020/07/27/lf7Bw2jDUqgIxMk.png"></p>
 <p>我们可以选择将开关先关闭，然后打开，确定后再重启软件，一般会成功。</p>
 <p>或者修改端口号： 如修改为36688</p>
 <p>记住，如果不行，那就直接关闭软件，然后等2分钟后，再打开picgo软件就可以上传成功了。</p>
-<h3 id="case-2-查看日志"><a class="header-anchor" href="#case-2-查看日志">¶</a>case 2 查看日志</h3>
+<h3 id="case-2-查看日志">case 2 查看日志</h3>
 <p>找到“设置日志文件”，然后打开日志文件，检查相应的日志，了解上传失败的原因。</p>
-<p><img src="https://i.loli.net/2020/07/27/421CU9GzgKkauxt.png" alt=""></p>
-<h3 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h3>
-<p><a href="https://www.shopee6.com/web/web-tutorial/picgo-github-fail.html" target="_blank" rel="noopener">https://www.shopee6.com/web/web-tutorial/picgo-github-fail.html</a></p>
-
+<p><img src="https://i.loli.net/2020/07/27/421CU9GzgKkauxt.png"></p>
+<h3 id="参考">参考</h3>
+<p>https://www.shopee6.com/web/web-tutorial/picgo-github-fail.html</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
     </div>
 
     
@@ -458,7 +476,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -471,7 +489,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -528,12 +546,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">132k</span>
+    <span title="站点总字数">136k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -680,6 +698,8 @@ window.addEventListener('pjax:success', () => {
 
 
     <div id="pjax">
+  
+
   
 
   

@@ -318,43 +318,60 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="newaxis用法"><a class="header-anchor" href="#newaxis用法">¶</a>newaxis用法</h3>
+        <h3 id="newaxis用法">newaxis用法</h3>
 <p>newaxis表示增加一个新的坐标轴</p>
 <ul>
 <li>x[:, np.newaxis] ，放在后面，会给列上增加维度</li>
 <li>x[np.newaxis, :] ，放在前面，会给行上增加维度</li>
 </ul>
 <p><strong>用途：</strong> 通常用它将一维的数据转换成一个矩阵，与代码后面的权重矩阵进行相乘。</p>
-<h4 id="第一个程序"><a class="header-anchor" href="#第一个程序">¶</a>第一个程序</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">a &#x3D; np.array([1,2,3])</span><br><span class="line">print (a.shape,&#39;\n&#39;,a)</span><br></pre></td></tr></table></figure>
+<h4 id="第一个程序">第一个程序</h4>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">a = np.array([1,2,3])</span><br><span class="line">print (a.shape,'\n',a)</span><br></pre></td></tr></tbody></table></figure>
 <p>结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(3,)</span><br><span class="line">[1 2 3]</span><br></pre></td></tr></table></figure>
-<h4 id="第二个程序"><a class="header-anchor" href="#第二个程序">¶</a>第二个程序</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; np.array([1,2,3])[:,np.newaxis]</span><br><span class="line">print (a.shape,&#39;\n&#39;,a)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(3,)</span><br><span class="line">[1 2 3]</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="第二个程序">第二个程序</h4>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([1,2,3])[:,np.newaxis]</span><br><span class="line">print (a.shape,'\n',a)</span><br></pre></td></tr></tbody></table></figure>
 <p>结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(3, 1)</span><br><span class="line">[[1]</span><br><span class="line">[2]</span><br><span class="line">[3]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(3, 1)</span><br><span class="line">[[1]</span><br><span class="line">[2]</span><br><span class="line">[3]]</span><br></pre></td></tr></tbody></table></figure>
 <p>和第一个程序相比，a的shape为（3，）现在为（3，1）变为二维数组了，之前为[1,2,3]，现在变为</p>
-<p>[[1]<br>
-[2]<br>
-[3]]</p>
-<h4 id="第三个程序"><a class="header-anchor" href="#第三个程序">¶</a>第三个程序</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a &#x3D; np.array([1,2,3])[np.newaxis,:]</span><br><span class="line">print (a.shape,&#39;\n&#39;,a)</span><br></pre></td></tr></table></figure>
+<p>[[1] [2] [3]]</p>
+<h4 id="第三个程序">第三个程序</h4>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = np.array([1,2,3])[np.newaxis,:]</span><br><span class="line">print (a.shape,'\n',a)</span><br></pre></td></tr></tbody></table></figure>
 <p>输出结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1, 3)</span><br><span class="line">[[1 2 3]]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1, 3)</span><br><span class="line">[[1 2 3]]</span><br></pre></td></tr></tbody></table></figure>
 <p>输出结果为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1, 3)</span><br><span class="line">[[1 2 3]]</span><br></pre></td></tr></table></figure>
-<h4 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h4>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(1, 3)</span><br><span class="line">[[1 2 3]]</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="总结">总结</h4>
 <p>np.newaxis的作用就是在原来的数组上增加一个维度。[np.newaxis,:]这个地方np.newaxis放的位置有关，第二个程序放在[:,]的后面，相当于在原来的后面增加一个维度，所以变为(3,1)，而第三个则放在前面，则为(1,3)。<code>加到哪一维，那一维就为1</code></p>
-<h3 id="concatenate用法"><a class="header-anchor" href="#concatenate用法">¶</a>concatenate用法</h3>
+<h3 id="concatenate用法">concatenate用法</h3>
 <p>-用于进行数组拼接</p>
 <p>函数定义：</p>
-<p><code>numpy.concatenate</code>((a1, a2, …), axis=0, out=None)</p>
+<p><code>numpy.concatenate</code>((a1, a2, ...), axis=0, out=None)</p>
 <ul>
 <li>axis=0: 合并行</li>
 <li>axis=1: 合并列</li>
 </ul>
 <p>例子如下：</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line"> &gt;&gt;&gt; b=np.array([[<span class="number">11</span>,<span class="number">21</span>,<span class="number">31</span>],[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]])</span><br><span class="line"> <span class="meta"># 合并行</span></span><br><span class="line"> &gt;&gt;&gt; np.concatenate((a,b,c),axis=<span class="number">0</span>)  <span class="meta"># 默认情况下，axis=0可以不写</span></span><br><span class="line"> array([[ <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">  [<span class="meta"> 4,  5,  6</span>],</span><br><span class="line">  [<span class="meta">11, 21, 31</span>],</span><br><span class="line">  [<span class="meta"> 7,  8,  9</span>]])</span><br><span class="line"> <span class="meta"># 合并列</span></span><br><span class="line"> &gt;&gt;&gt; np.concatenate((a,b),axis=<span class="number">1</span>) </span><br><span class="line">  array([[ <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">31</span>],</span><br><span class="line">  [<span class="meta"> 4,  5,  6,  7,  8,  9</span>]])</span><br></pre></td></tr></table></figure>
+<figure class="highlight csharp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]])</span><br><span class="line"> &gt;&gt;&gt; b=np.array([[<span class="number">11</span>,<span class="number">21</span>,<span class="number">31</span>],[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>]])</span><br><span class="line"> <span class="meta"># 合并行</span></span><br><span class="line"> &gt;&gt;&gt; np.concatenate((a,b,c),axis=<span class="number">0</span>)  <span class="meta"># 默认情况下，axis=0可以不写</span></span><br><span class="line"> array([[ <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>],</span><br><span class="line">  [<span class="meta"> 4,  5,  6</span>],</span><br><span class="line">  [<span class="meta">11, 21, 31</span>],</span><br><span class="line">  [<span class="meta"> 7,  8,  9</span>]])</span><br><span class="line"> <span class="meta"># 合并列</span></span><br><span class="line"> &gt;&gt;&gt; np.concatenate((a,b),axis=<span class="number">1</span>) </span><br><span class="line">  array([[ <span class="number">1</span>,  <span class="number">2</span>,  <span class="number">3</span>, <span class="number">11</span>, <span class="number">21</span>, <span class="number">31</span>],</span><br><span class="line">  [<span class="meta"> 4,  5,  6,  7,  8,  9</span>]])</span><br></pre></td></tr></tbody></table></figure>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
     </div>
 
     
@@ -478,7 +495,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -491,7 +508,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -548,12 +565,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">132k</span>
+    <span title="站点总字数">136k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -700,6 +717,8 @@ window.addEventListener('pjax:success', () => {
 
 
     <div id="pjax">
+  
+
   
 
   

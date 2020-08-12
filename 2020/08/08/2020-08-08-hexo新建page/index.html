@@ -303,7 +303,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>563</span>
+              <span>610</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -322,23 +322,45 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a class="header-anchor" href="#前言">¶</a>前言</h3>
+        <h3 id="前言">前言</h3>
 <p>在博客中需要一些个性化设置，添加一些page等 ，记录下我的操作</p>
-<h3 id="添加page-界面"><a class="header-anchor" href="#添加page-界面">¶</a>添加page 界面</h3>
+<h3 id="添加page-界面">添加page 界面</h3>
 <p>我想要添加一个“一句话感想”的page，于是可以这样操作</p>
 <p>step 1.hexo新建新的page界面</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page onesentence  <span class="comment"># onesentence 是新建page的名称 （最好是英文名）</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page onesentence  <span class="comment"># onesentence 是新建page的名称 （最好是英文名）</span></span><br></pre></td></tr></tbody></table></figure>
 <p>这时候在博客的source文件夹里会有一个onesentence的文件夹，并且里面生成了一个index.md文件，用于写一句话感想的内容</p>
 <p>step 2.在主题的配置文件 _config.yml 文件中的 menu 中进行匹配，如下图，添加一个onesentence项，<code>/onesentence</code>表示挂接到上述的新建文件夹里，</p>
-<p>在这里也可以设置图标，在fontawesome网站里找，我找了一个保龄球🎳的图标，和page主题没啥联系，就是看着顺眼 😆</p>
+<p>在这里也可以设置图标，在fontawesome网站里找，我找了一个保龄球<span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f3b3.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3b3.png?v8">🎳</span>的图标，和page主题没啥联系，就是看着顺眼 <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f606.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png?v8">😆</span></p>
 <p>此时<code>hexo s -g</code> 就可以看到已经有了这个界面，不过是英文的文件名，所以此时还要设置一下此文件名的中文名映射</p>
-<p><img src="https://i.loli.net/2020/08/08/jiUOEvuzWnT7Kmp.png" alt="image-20200808192748174"></p>
-<p>step 3.   打开<strong>themes\next\languages</strong>，我用的是zh-CN，打开此文件，在menu下添加<code>onesentence: 一句话</code>，即可完成中文映射，</p>
+<figure>
+<img src="https://i.loli.net/2020/08/08/jiUOEvuzWnT7Kmp.png" alt="image-20200808192748174"><figcaption>image-20200808192748174</figcaption>
+</figure>
+<p>step 3. 打开**themes*，我用的是zh-CN，打开此文件，在menu下添加<code>onesentence: 一句话</code>，即可完成中文映射，</p>
 <p>此时 hexo s -g ,就可以在本地服务器的侧边栏部分看到新添加的“一句话”page</p>
-<p><img src="https://i.loli.net/2020/08/08/cCymB2KXMh1OPN5.png" alt="image-20200808193652117"></p>
-<img src="https://i.loli.net/2020/08/08/ZrQkcR8IPspHMdi.png" alt="image-20200808194045722" style="zoom: 67%;" />
-<p>step 4.  编辑“一句话”页面下的md文件，部署就能看到内容</p>
-
+<figure>
+<img src="https://i.loli.net/2020/08/08/cCymB2KXMh1OPN5.png" alt="image-20200808193652117"><figcaption>image-20200808193652117</figcaption>
+</figure>
+<p><img src="https://i.loli.net/2020/08/08/ZrQkcR8IPspHMdi.png" alt="image-20200808194045722" style="zoom: 67%;"></p>
+<p>step 4. 编辑“一句话”页面下的md文件，部署就能看到内容</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
     </div>
 
     
@@ -462,7 +484,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -475,7 +497,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -532,12 +554,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">132k</span>
+    <span title="站点总字数">136k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:01</span>
+    <span title="站点阅读时长">2:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -684,6 +706,8 @@ window.addEventListener('pjax:success', () => {
 
 
     <div id="pjax">
+  
+
   
 
   
