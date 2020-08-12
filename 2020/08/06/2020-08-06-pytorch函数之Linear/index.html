@@ -309,7 +309,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id=""><a href="#" class="headerlink" title=""></a></h1><p>class torch.nn.Linear（in_features，out_features，bias = True ）</p>
+        <h1></h1>
+<p>class torch.nn.Linear（in_features，out_features，bias = True ）</p>
 <p>对传入数据应用线性变换：y = A x+ b</p>
 <p>参数：</p>
 <p>in_features - 每个输入样本的大小</p>
@@ -317,12 +318,8 @@
 <p>bias - 如果设置为False，则图层不会学习附加偏差。默认值：True</p>
 <p>代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">m &#x3D; nn.Linear(20, 30)</span><br><span class="line"></span><br><span class="line">input &#x3D; autograd.Variable(torch.randn(128, 20))</span><br><span class="line"></span><br><span class="line">output &#x3D; m(input)</span><br><span class="line"></span><br><span class="line">print(output.size())</span><br></pre></td></tr></table></figure>
-
-
-
 <p>输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.Size([128, 30])</span><br></pre></td></tr></table></figure>
-
 <p>分析:</p>
 <p>output.size()=矩阵size(128,20)*矩阵size（20,30）=(128,30)</p>
 
@@ -449,7 +446,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -462,7 +459,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -519,12 +516,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

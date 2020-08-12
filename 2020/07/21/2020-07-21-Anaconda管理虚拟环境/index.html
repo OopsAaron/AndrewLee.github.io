@@ -311,83 +311,62 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前一直用的是pycharm上的虚拟环境管理，后来觉得不利于管理。于是开始使用anaconda。</p>
+        <h2 id="前言"><a class="header-anchor" href="#前言">¶</a>前言</h2>
+<p>之前一直用的是pycharm上的虚拟环境管理，后来觉得不利于管理。于是开始使用anaconda。</p>
 <p>anaconda可以跨平台使用，我安装window版的anaconda，使用它管理虚拟环境。</p>
-<h2 id="下载并安装"><a href="#下载并安装" class="headerlink" title="下载并安装"></a>下载并安装</h2><p>到<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">官网</a>根据自己情况下载好anaconda版本，安装完毕，可通过以下两种方式进入anacon操作环境</p>
+<h2 id="下载并安装"><a class="header-anchor" href="#下载并安装">¶</a>下载并安装</h2>
+<p>到<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">官网</a>根据自己情况下载好anaconda版本，安装完毕，可通过以下两种方式进入anacon操作环境</p>
 <ul>
 <li>1.可以增加到path环境变量，打开cmd/powershell，即可操作</li>
 <li>2.打开Anaconda Prompt即可操作（推荐）</li>
 </ul>
 <p>在命令行输入<code>conda --version</code> ，显示出版本号，即安装成功</p>
-<h2 id="anaconda管理虚拟环境"><a href="#anaconda管理虚拟环境" class="headerlink" title="anaconda管理虚拟环境"></a>anaconda管理虚拟环境</h2><p>anaconda自带的是base环境，命令行前的（base）说明当前的虚拟环境是base环境 ，我们创建并管理的虚拟环境会放在<code>C:\Users\Administrator\anaconda3\envs</code> 里，</p>
-<h3 id="1-创建新的虚拟环境"><a href="#1-创建新的虚拟环境" class="headerlink" title="1.创建新的虚拟环境"></a>1.创建新的虚拟环境</h3><p>为自己的项目配置一个单独的虚拟环境</p>
+<h2 id="anaconda管理虚拟环境"><a class="header-anchor" href="#anaconda管理虚拟环境">¶</a>anaconda管理虚拟环境</h2>
+<p>anaconda自带的是base环境，命令行前的（base）说明当前的虚拟环境是base环境 ，我们创建并管理的虚拟环境会放在<code>C:\Users\Administrator\anaconda3\envs</code> 里，</p>
+<h3 id="1-创建新的虚拟环境"><a class="header-anchor" href="#1-创建新的虚拟环境">¶</a>1.创建新的虚拟环境</h3>
+<p>为自己的项目配置一个单独的虚拟环境</p>
 <p>创建一个名字叫做python36的虚拟环境， 同时指定python的版本，如果本机内没有安装这个版本的python，就会自动下载安装。 后面<code>python==3.6</code>一般可以不添加</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n python36  python==<span class="number">3.6</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-激活虚拟环境"><a href="#2-激活虚拟环境" class="headerlink" title="2. 激活虚拟环境"></a>2. 激活虚拟环境</h3><p>激活进入python36的虚拟环境。如果activate后什么参数都不加，就会进入anaconda自带的base环境</p>
+<h3 id="2-激活虚拟环境"><a class="header-anchor" href="#2-激活虚拟环境">¶</a>2. 激活虚拟环境</h3>
+<p>激活进入python36的虚拟环境。如果activate后什么参数都不加，就会进入anaconda自带的base环境</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda activate python36</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="3-退出虚拟环境"><a href="#3-退出虚拟环境" class="headerlink" title="3.退出虚拟环境"></a>3.退出虚拟环境</h3><p>在激活新环境的时候要先退出目前的环境至base环境，然后才能activate 新环境，不然代码会bug</p>
+<h3 id="3-退出虚拟环境"><a class="header-anchor" href="#3-退出虚拟环境">¶</a>3.退出虚拟环境</h3>
+<p>在激活新环境的时候要先退出目前的环境至base环境，然后才能activate 新环境，不然代码会bug</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="4-查看所有的虚拟环境"><a href="#4-查看所有的虚拟环境" class="headerlink" title="4.查看所有的虚拟环境"></a>4.查看所有的虚拟环境</h3><p>如果忘记了虚拟环境名称，可以如下命令</p>
+<h3 id="4-查看所有的虚拟环境"><a class="header-anchor" href="#4-查看所有的虚拟环境">¶</a>4.查看所有的虚拟环境</h3>
+<p>如果忘记了虚拟环境名称，可以如下命令</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env list</span><br></pre></td></tr></table></figure>
-
 <p><img src="https://i.loli.net/2020/07/22/gnUbt2eR7TZvjfy.png" alt="image-20200722093423681"></p>
 <p>可以看到目前的虚拟环境状况，共6个虚拟环境。其中<code>*</code>表示当前操作的虚拟环境。</p>
-<h3 id="5-安装第三方包"><a href="#5-安装第三方包" class="headerlink" title="5.安装第三方包"></a>5.安装第三方包</h3><p>现在pyhton36的虚拟环境除了python自带的一些官方包之外是没有其他包</p>
+<h3 id="5-安装第三方包"><a class="header-anchor" href="#5-安装第三方包">¶</a>5.安装第三方包</h3>
+<p>现在pyhton36的虚拟环境除了python自带的一些官方包之外是没有其他包</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda install requests <span class="comment">#安装requests包</span></span><br><span class="line">conda install keras==<span class="number">2.2</span><span class="number">.0</span> <span class="comment">#安装指定版本的keras</span></span><br></pre></td></tr></table></figure>
-
 <p>安装完成之后我们输入python进入解释器并import requests包, 好使的.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">anaconda search -t conda tensorflow <span class="comment"># 帮助找tensorflow可安装的包。 找到合适的资源（win64的版本包）  ，按照指示操作即可</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="6-卸载第三方包"><a href="#6-卸载第三方包" class="headerlink" title="6.卸载第三方包"></a>6.卸载第三方包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove requests</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="7-查看环境的包信息"><a href="#7-查看环境的包信息" class="headerlink" title="7.查看环境的包信息"></a>7.查看环境的包信息</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda list <span class="comment"># 查看当前环境的包信息</span></span><br><span class="line">conda list -n python36 <span class="comment">#查看指定环境的包信息</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="8-卸载环境"><a href="#8-卸载环境" class="headerlink" title="8.卸载环境"></a>8.卸载环境</h3><p>卸载test虚拟环境</p>
+<h3 id="6-卸载第三方包"><a class="header-anchor" href="#6-卸载第三方包">¶</a>6.卸载第三方包</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove requests</span><br></pre></td></tr></table></figure>
+<h3 id="7-查看环境的包信息"><a class="header-anchor" href="#7-查看环境的包信息">¶</a>7.查看环境的包信息</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda list <span class="comment"># 查看当前环境的包信息</span></span><br><span class="line">conda list -n python36 <span class="comment">#查看指定环境的包信息</span></span><br></pre></td></tr></table></figure>
+<h3 id="8-卸载环境"><a class="header-anchor" href="#8-卸载环境">¶</a>8.卸载环境</h3>
+<p>卸载test虚拟环境</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda remove -n test --all</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="9-conda查看tensorflow和keras的版本"><a href="#9-conda查看tensorflow和keras的版本" class="headerlink" title="9.conda查看tensorflow和keras的版本"></a>9.conda查看tensorflow和keras的版本</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>进入python解释器</span><br><span class="line"><span class="number">2.</span><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"><span class="number">3.</span>tf.__version__ <span class="comment">#注意是两个下划线</span></span><br><span class="line"><span class="number">4.</span> exit（） <span class="comment">#退出python操作环境  或者 ctrl + Z</span></span><br><span class="line">(keras 同理）</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="10-环境包的克隆"><a href="#10-环境包的克隆" class="headerlink" title="10.环境包的克隆"></a>10.环境包的克隆</h3><p>创建一个新的虚拟环境test， 将环境python36信息克隆到test中</p>
+<h3 id="9-conda查看tensorflow和keras的版本"><a class="header-anchor" href="#9-conda查看tensorflow和keras的版本">¶</a>9.conda查看tensorflow和keras的版本</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>进入python解释器</span><br><span class="line"><span class="number">2.</span><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"><span class="number">3.</span>tf.__version__ <span class="comment">#注意是两个下划线</span></span><br><span class="line"><span class="number">4.</span> exit（） <span class="comment">#退出python操作环境  或者 ctrl + Z</span></span><br><span class="line">(keras 同理）</span><br></pre></td></tr></table></figure>
+<h3 id="10-环境包的克隆"><a class="header-anchor" href="#10-环境包的克隆">¶</a>10.环境包的克隆</h3>
+<p>创建一个新的虚拟环境test， 将环境python36信息克隆到test中</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n   test --clone  python36</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="11-导入导出环境"><a href="#11-导入导出环境" class="headerlink" title="11.导入导出环境"></a>11.导入导出环境</h3><p>切换到了要导出的环境之后，使用命令将当前环境导出</p>
+<h3 id="11-导入导出环境"><a class="header-anchor" href="#11-导入导出环境">¶</a>11.导入导出环境</h3>
+<p>切换到了要导出的环境之后，使用命令将当前环境导出</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env export &gt; environment.yml</span><br></pre></td></tr></table></figure>
-
 <p>使用命令建立（导入）新的环境</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda env create -f environment.yml</span><br></pre></td></tr></table></figure>
-
-<p>注：<br>不过由于不同的操作平台（例如从windows迁移到linux），迁移的时候会报错，找不到安装的包，因为不同平台的包的格式是不一样的，，每个版本号后面的一串字符就类似于手机的序列号，就是指示用于不同环境下的。目前我没有办法进行有效迁移</p>
+<p>注：<br>
+不过由于不同的操作平台（例如从windows迁移到linux），迁移的时候会报错，找不到安装的包，因为不同平台的包的格式是不一样的，，每个版本号后面的一串字符就类似于手机的序列号，就是指示用于不同环境下的。目前我没有办法进行有效迁移</p>
 <p><img src="https://i.loli.net/2020/07/22/MEFRgdAxiuzyhDZ.png" alt="image-20200722102049506"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">补充：anaconda所谓的创建虚拟环境其实就是安装了一个真实的python环境, </span><br><span class="line">只不过我们可以通过activate,conda等命令去随意的切换我们当前的python环境, </span><br><span class="line">用不同版本的解释器和不同的包环境去运行python脚本.</span><br></pre></td></tr></table></figure>
-
-
-
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">补充：conda、anaconda概念的差别</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> conda可以理解为一个工具，也是一个可执行命令，其核心功能是包管理与环境管理。</span><br><span class="line">包管理与pip的使用类似，环境管理则允许用户方便地安装不同版本的python并快速切换。</span><br><span class="line"></span><br><span class="line"><span class="number">2.</span> Anaconda是一个打包的集合，里面预装好了conda、某个版本的python、众多packages、</span><br><span class="line">科学计算工具等，也称为Python的一种发行版。</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>Anaconda详细安装及使用教程：  <a href="https://blog.csdn.net/ITLearnHall/article/details/81708148" target="_blank" rel="noopener">https://blog.csdn.net/ITLearnHall/article/details/81708148</a></p>
+<h2 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h2>
+<p>Anaconda详细安装及使用教程：  <a href="https://blog.csdn.net/ITLearnHall/article/details/81708148" target="_blank" rel="noopener">https://blog.csdn.net/ITLearnHall/article/details/81708148</a></p>
 <p>Anaconda虚拟环境跨平台迁移：   <a href="https://blog.csdn.net/lixufeng1028/article/details/80669525" target="_blank" rel="noopener">https://blog.csdn.net/lixufeng1028/article/details/80669525</a></p>
 <p>不同tensorflow、keras、python的版本对应：  <a href="https://docs.floydhub.com/guides/environments/" target="_blank" rel="noopener">https://docs.floydhub.com/guides/environments/</a></p>
 
@@ -426,8 +405,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" rel="prev" title="2020-07-20-git使用指南">
-      <i class="fa fa-chevron-left"></i> 2020-07-20-git使用指南
+    <a href="/2020/07/20/2020-07-20-%20Transformer%E5%8E%9F%E7%90%86/" rel="prev" title="Transformer原理">
+      <i class="fa fa-chevron-left"></i> Transformer原理
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/07/22/2020-07-22-%20linux&vim%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" rel="next" title="linux & vim 常用操作-初级">
@@ -510,7 +489,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -523,7 +502,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -580,12 +559,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

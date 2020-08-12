@@ -322,25 +322,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="修改Git-Bash的默认打开工作路径"><a href="#修改Git-Bash的默认打开工作路径" class="headerlink" title="修改Git Bash的默认打开工作路径"></a>修改Git Bash的默认打开工作路径</h3><p>我每次想在我的博客文件夹里进入git bash，必须要打开文件夹才能进入，操作繁琐，于是在桌面建立git bash 快捷方式，并将git bash 的默认打开路径更改为我的博客文件夹下，这样点击图标，即能进入本地git仓库</p>
+        <h3 id="修改Git-Bash的默认打开工作路径"><a class="header-anchor" href="#修改Git-Bash的默认打开工作路径">¶</a>修改Git Bash的默认打开工作路径</h3>
+<p>我每次想在我的博客文件夹里进入git bash，必须要打开文件夹才能进入，操作繁琐，于是在桌面建立git bash 快捷方式，并将git bash 的默认打开路径更改为我的博客文件夹下，这样点击图标，即能进入本地git仓库</p>
 <p>1.找到git bash，右键属性，可以看到目标栏及起始位置栏。</p>
 <img src="https://i.loli.net/2020/08/04/tPL1uzsVApn5FvC.png" alt="img" style="zoom: 80%;" />
-
-
-
-<p>将目标栏中的 –cd-to-home 去掉；将起始位置中填写为本地git仓库的路径，即可完成操作。如下图所示，博客文件夹位置在<code>E:\myBlog</code></p>
+<p>将目标栏中的 --cd-to-home 去掉；将起始位置中填写为本地git仓库的路径，即可完成操作。如下图所示，博客文件夹位置在<code>E:\myBlog</code></p>
 <img src="https://i.loli.net/2020/08/04/Vw7Kg3U2OIZQ6R9.png" alt="image-20200804181206322" style="zoom: 50%;" />
-
-
-
 <p>注： 若在文件夹里进入 git bash，则然后按下<code>shift+F10</code> （激活右键菜单栏），再按<code>s</code>跳转到git bash，最后按下<code>enter</code>即可</p>
-<h3 id="博客打开网站和更新不完全"><a href="#博客打开网站和更新不完全" class="headerlink" title="博客打开网站和更新不完全"></a>博客打开网站和更新不完全</h3><p>在这几天在本地文件夹更新完配置文件对博客进行个性化设置时，使用<code>localhost:4000</code>访问本地blog可以正常显示更改后的样式，但是在登录网站域名就会出现不一致的现象，有时会响应速度慢，延时高，甚至连接超时。</p>
+<h3 id="博客打开网站和更新不完全"><a class="header-anchor" href="#博客打开网站和更新不完全">¶</a>博客打开网站和更新不完全</h3>
+<p>在这几天在本地文件夹更新完配置文件对博客进行个性化设置时，使用<code>localhost:4000</code>访问本地blog可以正常显示更改后的样式，但是在登录网站域名就会出现不一致的现象，有时会响应速度慢，延时高，甚至连接超时。</p>
 <p>在整个过程中一直没发现问题，因为本地localhost和网站不一致就不能理解。后来才发现，我的hexo命令写错了。本应该是hexo clean ，我错写为hexo clear，导致不能轻触缓存，所以在网站中不能及时更新显示。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean <span class="comment"># 清除缓存，网页正常情况下可以忽略此命令</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="博客无法连接"><a href="#博客无法连接" class="headerlink" title="博客无法连接"></a>博客无法连接</h3><p>本地服务器可以正常显示，但是博客连接不上</p>
+<h3 id="博客无法连接"><a class="header-anchor" href="#博客无法连接">¶</a>博客无法连接</h3>
+<p>本地服务器可以正常显示，但是博客连接不上</p>
 <p>如何可以ping 通，则代表不是域名方面的问题，应该就是服务器的问题，可能是部署在github上，所以会有点慢，后续准备买一个阿里云的服务器。</p>
 <p>解决：</p>
 <p>1.博客正在加载， 等一段时间刷新</p>
@@ -349,7 +343,7 @@
 <p>3.清除特定网站下的缓存：</p>
 <p>打开开发者工具（F12），选择 Network——Disable cache 。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。</p>
 <p>4.如果在文章标题中使用了当天的日期，可能无法及时得到页面更新。因为Github使用了格林尼治标准时间，也就是UTC。中国是东八时区，UTC+8，对于hexo来说是一个未来的时间，所以新的Posts不会被渲染。</p>
-<p>在hexo配置文件<code>_config.yml</code>中设置<code>timezone: Asia/Shanghai</code>  (有效解决问题)  :star:</p>
+<p>在hexo配置文件<code>_config.yml</code>中设置<code>timezone: Asia/Shanghai</code>  (有效解决问题)  ⭐️</p>
 <p>参考</p>
 <blockquote>
 <p>博客无法更新post文章  <a href="https://www.jianshu.com/p/b73c28e77760" target="_blank" rel="noopener">https://www.jianshu.com/p/b73c28e77760</a></p>
@@ -479,7 +473,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -492,7 +486,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -549,12 +543,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

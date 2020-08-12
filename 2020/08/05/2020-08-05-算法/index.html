@@ -299,7 +299,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>3.2k</span>
+              <span>3.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -318,15 +318,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="总说"><a href="#总说" class="headerlink" title="总说"></a><strong>总说</strong></h3><p>BPE，（byte pair encoder）字节对编码，也可以叫做digram coding双字母组合编码，<code>主要目的是为了数据压缩</code>，算法描述为<code>字符串里频率最常见的一对字符被一个没有在这个字符中出现的字符代替的层层迭代过程</code>。具体在下面描述。</p>
-<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><ol>
+        <h3 id="总说"><a class="header-anchor" href="#总说">¶</a><strong>总说</strong></h3>
+<p>BPE，（byte pair encoder）字节对编码，也可以叫做digram coding双字母组合编码，<code>主要目的是为了数据压缩</code>，算法描述为<code>字符串里频率最常见的一对字符被一个没有在这个字符中出现的字符代替的层层迭代过程</code>。具体在下面描述。</p>
+<h3 id="算法"><a class="header-anchor" href="#算法">¶</a>算法</h3>
+<ol>
 <li>准备足够大的训练语料</li>
 <li>确定期望的<strong>subword词表大小</strong></li>
 <li>将单词拆分为字符序列并在<strong>末尾添加后缀“ &lt;/ w&gt;”</strong>，统计单词频率。 本阶段的subword的粒度是字符。 例如，“ low”的频率为5，那么我们将其改写为“ l o w &lt;/ w&gt;”：5</li>
 <li>统计每一个连续字节对的出现频率，选择最高频者合并成新的subword</li>
 <li>重复第4步直到达到第2步设定的subword词表大小或下一个最高频的字节对出现频率为1</li>
 </ol>
-<p>停止符”</w>“的意义在于表示subword是词后缀。举例来说：”st”字词不加”</w>“可以出现在词首如”st ar”，加了”</w>“表明改字词位于词尾，如”wide st</w>“，二者意义截然不同。</p>
+<p>停止符&quot;</w>“的意义在于表示subword是词后缀。举例来说：“st&quot;字词不加”</w>“可以出现在词首如&quot;st ar”，加了”</w>“表明改字词位于词尾，如&quot;wide st</w>”，二者意义截然不同。</p>
 <p>每次合并后词表可能出现3种变化：</p>
 <ul>
 <li>+1，表明加入合并后的新字词，同时原来的2个子词还保留（2个字词不是完全同时连续出现）</li>
@@ -334,44 +336,40 @@
 <li>-1，表明加入合并后的新字词，同时原来的2个子词都被消解（2个字词同时连续出现）</li>
 </ul>
 <p>实际上，随着合并的次数增加，词表大小通常先增加后减小。</p>
-<h4 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a><strong>例子1</strong></h4><p>输入：</p>
+<h4 id="例子1"><a class="header-anchor" href="#例子1">¶</a><strong>例子1</strong></h4>
+<p>输入：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;'l o w &lt;/w&gt;': 5, 'l o w e r &lt;/w&gt;': 2, 'n e w e s t &lt;/w&gt;': 6, 'w i d e s t &lt;/w&gt;': 3&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Iter 1, 最高频连续字节对”e”和”s”出现了6+3=9次，合并成”es”。输出：</p>
+<p>Iter 1, 最高频连续字节对&quot;e&quot;和&quot;s&quot;出现了6+3=9次，合并成&quot;es&quot;。输出：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;'l o w &lt;/w&gt;': 5, 'l o w e r &lt;/w&gt;': 2, 'n e w es t &lt;/w&gt;': 6, 'w i d es t &lt;/w&gt;': 3&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Iter 2, 最高频连续字节对”es”和”t”出现了6+3=9次, 合并成”est”。输出：</p>
+<p>Iter 2, 最高频连续字节对&quot;es&quot;和&quot;t&quot;出现了6+3=9次, 合并成&quot;est&quot;。输出：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;'l o w &lt;/w&gt;': 5, 'l o w e r &lt;/w&gt;': 2, 'n e w est &lt;/w&gt;': 6, 'w i d est &lt;/w&gt;': 3&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Iter 3, 以此类推，最高频连续字节对为”est”和”</w>“ 输出：</p>
+<p>Iter 3, 以此类推，最高频连续字节对为&quot;est&quot;和&quot;</w>&quot; 输出：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;'l o w &lt;/w&gt;': 5, 'l o w e r &lt;/w&gt;': 2, 'n e w est&lt;/w&gt;': 6, 'w i d est&lt;/w&gt;': 3&#125;</span><br></pre></td></tr></table></figure>
-
 <p>……</p>
 <p>Iter n, 继续迭代<strong>直到达到预设的subword词表大小或下一个最高频的字节对出现频率为1</strong>。</p>
-<h3 id="BPE实现"><a href="#BPE实现" class="headerlink" title="BPE实现"></a>BPE实现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re, collections</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_stats</span><span class="params">(vocab)</span>:</span></span><br><span class="line">    pairs = collections.defaultdict(int)</span><br><span class="line">    <span class="keyword">for</span> word, freq <span class="keyword">in</span> vocab.items():</span><br><span class="line">        symbols = word.split()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(symbols)<span class="number">-1</span>):</span><br><span class="line">            pairs[symbols[i],symbols[i+<span class="number">1</span>]] += freq</span><br><span class="line">    <span class="keyword">return</span> pairs</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_vocab</span><span class="params">(pair, v_in)</span>:</span></span><br><span class="line">    v_out = &#123;&#125;</span><br><span class="line">    bigram = re.escape(<span class="string">' '</span>.join(pair))</span><br><span class="line">    p = re.compile(<span class="string">r'(?&lt;!\S)'</span> + bigram + <span class="string">r'(?!\S)'</span>)</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> v_in:</span><br><span class="line">        w_out = p.sub(<span class="string">''</span>.join(pair), word)</span><br><span class="line">        v_out[w_out] = v_in[word]</span><br><span class="line">    <span class="keyword">return</span> v_out</span><br><span class="line"></span><br><span class="line">vocab = &#123;<span class="string">'l o w &lt;/w&gt;'</span>: <span class="number">5</span>, <span class="string">'l o w e r &lt;/w&gt;'</span>: <span class="number">2</span>, <span class="string">'n e w e s t &lt;/w&gt;'</span>: <span class="number">6</span>, <span class="string">'w i d e s t &lt;/w&gt;'</span>: <span class="number">3</span>&#125;</span><br><span class="line">num_merges = <span class="number">1000</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(num_merges):</span><br><span class="line">    pairs = get_stats(vocab)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> pairs:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    best = max(pairs, key=pairs.get)</span><br><span class="line">    vocab = merge_vocab(best, vocab)</span><br><span class="line">    print(best)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print output</span></span><br><span class="line"><span class="comment"># ('e', 's')</span></span><br><span class="line"><span class="comment"># ('es', 't')</span></span><br><span class="line"><span class="comment"># ('est', '&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('l', 'o')</span></span><br><span class="line"><span class="comment"># ('lo', 'w')</span></span><br><span class="line"><span class="comment"># ('n', 'e')</span></span><br><span class="line"><span class="comment"># ('ne', 'w')</span></span><br><span class="line"><span class="comment"># ('new', 'est&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('low', '&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('w', 'i')</span></span><br><span class="line"><span class="comment"># ('wi', 'd')</span></span><br><span class="line"><span class="comment"># ('wid', 'est&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('low', 'e')</span></span><br><span class="line"><span class="comment"># ('lowe', 'r')</span></span><br><span class="line"><span class="comment"># ('lower', '&lt;/w&gt;')</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="编码和解码"><a href="#编码和解码" class="headerlink" title="编码和解码"></a>编码和解码</h3><ul>
-<li><h4 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h4></li>
+<h3 id="BPE实现"><a class="header-anchor" href="#BPE实现">¶</a>BPE实现</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re, collections</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_stats</span><span class="params">(vocab)</span>:</span></span><br><span class="line">    pairs = collections.defaultdict(int)</span><br><span class="line">    <span class="keyword">for</span> word, freq <span class="keyword">in</span> vocab.items():</span><br><span class="line">        symbols = word.split()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(symbols)<span class="number">-1</span>):</span><br><span class="line">            pairs[symbols[i],symbols[i+<span class="number">1</span>]] += freq</span><br><span class="line">    <span class="keyword">return</span> pairs</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_vocab</span><span class="params">(pair, v_in)</span>:</span></span><br><span class="line">    v_out = &#123;&#125;</span><br><span class="line">    bigram = re.escape(<span class="string">' '</span>.join(pair))</span><br><span class="line">    p = re.compile(<span class="string">r'(?&lt;!\S)'</span> + bigram + <span class="string">r'(?!\S)'</span>)</span><br><span class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> v_in:</span><br><span class="line">        w_out = p.sub(<span class="string">''</span>.join(pair), word)</span><br><span class="line">        v_out[w_out] = v_in[word]</span><br><span class="line">    <span class="keyword">return</span> v_out</span><br><span class="line"></span><br><span class="line">vocab = &#123;<span class="string">'l o w &lt;/w&gt;'</span>: <span class="number">5</span>, <span class="string">'l o w e r &lt;/w&gt;'</span>: <span class="number">2</span>, <span class="string">'n e w e s t &lt;/w&gt;'</span>: <span class="number">6</span>, <span class="string">'w i d e s t &lt;/w&gt;'</span>: <span class="number">3</span>&#125;</span><br><span class="line">num_merges = <span class="number">1000</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(num_merges):</span><br><span class="line">    pairs = get_stats(vocab)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> pairs:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    best = max(pairs, key=pairs.get)</span><br><span class="line">    vocab = merge_vocab(best, vocab)</span><br><span class="line">    print(best)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print output</span></span><br><span class="line"><span class="comment"># ('e', 's')</span></span><br><span class="line"><span class="comment"># ('es', 't')</span></span><br><span class="line"><span class="comment"># ('est', '&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('l', 'o')</span></span><br><span class="line"><span class="comment"># ('lo', 'w')</span></span><br><span class="line"><span class="comment"># ('n', 'e')</span></span><br><span class="line"><span class="comment"># ('ne', 'w')</span></span><br><span class="line"><span class="comment"># ('new', 'est&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('low', '&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('w', 'i')</span></span><br><span class="line"><span class="comment"># ('wi', 'd')</span></span><br><span class="line"><span class="comment"># ('wid', 'est&lt;/w&gt;')</span></span><br><span class="line"><span class="comment"># ('low', 'e')</span></span><br><span class="line"><span class="comment"># ('lowe', 'r')</span></span><br><span class="line"><span class="comment"># ('lower', '&lt;/w&gt;')</span></span><br></pre></td></tr></table></figure>
+<h3 id="编码和解码"><a class="header-anchor" href="#编码和解码">¶</a>编码和解码</h3>
+<ul>
+<li>
+<h4 id="编码"><a class="header-anchor" href="#编码">¶</a>编码</h4>
+</li>
 </ul>
 <p>在之前的算法中，我们已经得到了<strong>subword词表</strong>，<strong>对该词表按照子词长度由大到小排序</strong>。编码时，<strong>对于每个单词，遍历排好序的子词词表寻找是否有token是当前单词的子字符串，如果有，则该token是表示单词的tokens之一</strong>。</p>
 <p>我们从最长的token迭代到最短的token，尝试将每个单词中的子字符串替换为token。 最终，我们将迭代所有tokens，并将所有子字符串替换为tokens。 如果仍然有子字符串没被替换但所有token都已迭代完毕，则将剩余的子词替换为特殊token，如<unk>。</p>
-<h4 id="例子2"><a href="#例子2" class="headerlink" title="例子2"></a>例子2</h4><p>用得到subword词表去表示含有多个单词的句子</p>
+<h4 id="例子2"><a class="header-anchor" href="#例子2">¶</a>例子2</h4>
+<p>用得到subword词表去表示含有多个单词的句子</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 给定单词序列</span></span><br><span class="line">[“the&lt;/w&gt;”, “highest&lt;/w&gt;”, “mountain&lt;/w&gt;”]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设已有排好序的subword词表</span></span><br><span class="line">[“errrr&lt;/w&gt;”, “tain&lt;/w&gt;”, “moun”, “est&lt;/w&gt;”, “high”, “the&lt;/w&gt;”, “a&lt;/w&gt;”]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 迭代结果</span></span><br><span class="line">"the&lt;/w&gt;" -&gt; ["the&lt;/w&gt;"]</span><br><span class="line">"highest&lt;/w&gt;" -&gt; ["high", "est&lt;/w&gt;"]</span><br><span class="line">"mountain&lt;/w&gt;" -&gt; ["moun", "tain&lt;/w&gt;"]</span><br></pre></td></tr></table></figure>
-
 <p>编码的计算量很大。 在实践中，我们可以pre-tokenize所有单词，并在词典中保存单词tokenize的结果。 如果我们看到字典中不存在的未知单词。 我们应用上述编码方法对单词进行tokenize，然后将新单词的tokenization添加到字典中备用。</p>
 <ul>
-<li><h4 id="解码"><a href="#解码" class="headerlink" title="解码"></a>解码</h4></li>
+<li>
+<h4 id="解码"><a class="header-anchor" href="#解码">¶</a>解码</h4>
+</li>
 </ul>
 <p><strong>将所有的tokens拼在一起</strong>。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编码序列</span></span><br><span class="line">[“the&lt;/w&gt;”, “high”, “est&lt;/w&gt;”, “moun”, “tain&lt;/w&gt;”]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解码序列</span></span><br><span class="line">“the&lt;/w&gt; highest&lt;/w&gt; mountain&lt;/w&gt;”</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h4 id="例子3"><a href="#例子3" class="headerlink" title="例子3"></a>例子3</h4><p>比如我们想编码：</p>
+<h4 id="例子3"><a class="header-anchor" href="#例子3">¶</a>例子3</h4>
+<p>比如我们想编码：</p>
 <p>aaabdaaabac</p>
 <p>我们会发现这里的aa出现的词数最高（我们这里只看两个字符的频率），那么用这里没有的字符Z来替代aa：</p>
 <p>ZabdZabac</p>
@@ -511,7 +509,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -524,7 +522,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -581,12 +579,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

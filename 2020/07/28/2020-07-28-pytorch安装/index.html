@@ -293,7 +293,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>480</span>
+              <span>483</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -312,18 +312,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="Anaconda安装配置"><a href="#Anaconda安装配置" class="headerlink" title="Anaconda安装配置"></a>Anaconda安装配置</h3><p>由于墙的问题，用conda安装Pytorch过程中会连接失败，这是因为Anaconda.org的服务器在国外。在这里可以用清华TUNA镜像源，包含Anaconda仓库的镜像，将其加入conda的配置，配置如下：</p>
+        <h3 id="Anaconda安装配置"><a class="header-anchor" href="#Anaconda安装配置">¶</a>Anaconda安装配置</h3>
+<p>由于墙的问题，用conda安装Pytorch过程中会连接失败，这是因为Anaconda.org的服务器在国外。在这里可以用清华TUNA镜像源，包含Anaconda仓库的镜像，将其加入conda的配置，配置如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加Anaconda的TUNA镜像</span></span><br><span class="line"></span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line"></span><br><span class="line"><span class="comment">#TUNA的help中镜像地址加有引号，需要去掉</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置搜索时显示通道地址</span></span><br><span class="line"></span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
-
 <p>执行完上述命令后，会生成~/.condarc文件，记录着对conda的配置，直接手动创建、编辑该文件是相同的效果。</p>
-<h3 id="Pytorch安装"><a href="#Pytorch安装" class="headerlink" title="Pytorch安装"></a>Pytorch安装</h3><p>在这里的安装，我采用conda安装：</p>
+<h3 id="Pytorch安装"><a class="header-anchor" href="#Pytorch安装">¶</a>Pytorch安装</h3>
+<p>在这里的安装，我采用conda安装：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch torchvision -c soumith</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>进入python模式下，看能否导入torch成功：</p>
+<h3 id="测试"><a class="header-anchor" href="#测试">¶</a>测试</h3>
+<p>进入python模式下，看能否导入torch成功：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
-
 
     </div>
 
@@ -448,7 +446,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -461,7 +459,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -518,12 +516,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">123k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
