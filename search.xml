@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2020-08-14-解读卡尔曼滤波</title>
+    <url>/2020/08/14/2020-08-14-%E8%A7%A3%E8%AF%BB%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/</url>
+    <content><![CDATA[<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>研究方向</category>
+      </categories>
+      <tags>
+        <tag>卡尔曼滤波</tag>
+        <tag>RKN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020-07-28-transformer解读-pytorch版本</title>
     <url>/2020/07/28/2020-07-28-transformer-pytorch/</url>
     <content><![CDATA[<h3 id="前言">前言</h3>
@@ -1225,52 +1255,6 @@
         <tag>linux</tag>
         <tag>vim</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>2020-08-14-解读卡尔曼滤波</title>
-    <url>/2020/08/14/2020-08-14-%E8%A7%A3%E8%AF%BB%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2-1/</url>
-    <content><![CDATA[<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-  </entry>
-  <entry>
-    <title>2020-08-14-解读卡尔曼滤波</title>
-    <url>/2020/08/14/2020-08-14-%E8%A7%A3%E8%AF%BB%E5%8D%A1%E5%B0%94%E6%9B%BC%E6%BB%A4%E6%B3%A2/</url>
-    <content><![CDATA[<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
   </entry>
   <entry>
     <title>2020-08-12-新页面添加友链</title>
