@@ -1257,6 +1257,38 @@
       </tags>
   </entry>
   <entry>
+    <title>2020-08-16-服务器检修</title>
+    <url>/2020/08/16/2020-08-16-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A3%80%E4%BF%AE/</url>
+    <content><![CDATA[<h3 id="前言">前言</h3>
+<p>实验室服务器总是</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>服务器</category>
+      </categories>
+      <tags>
+        <tag>服务器</tag>
+        <tag>故障排除</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020-08-12-新页面添加友链</title>
     <url>/2020/08/12/2020-08-12-%E6%96%B0%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E5%8F%8B%E9%93%BE/</url>
     <content><![CDATA[<h3 id="前言">前言</h3>
@@ -1530,8 +1562,8 @@
         <category>next</category>
       </categories>
       <tags>
-        <tag>故障排除</tag>
         <tag>next</tag>
+        <tag>故障排除</tag>
       </tags>
   </entry>
   <entry>
