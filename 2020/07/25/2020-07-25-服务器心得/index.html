@@ -313,7 +313,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>5.9k</span>
+              <span>5.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -348,21 +348,13 @@
 <h4 id="nohup与session的关系">nohup与session的关系</h4>
 <p><code>如果我们在 session 中执行了 nohup 等类似的命令，当 session 消亡时，相关的进程并不会随着 session 结束，原因是这些进程不再受 SIGHUP 信号的影响。</code>比如我们执行下面的命令：</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup sleep <span class="number">1000</span> &gt;/dev/null <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></tbody></table></figure>
-<figure>
-<img src="https://i.loli.net/2020/07/29/cAzPToGdLKmRZ2e.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/29/cAzPToGdLKmRZ2e.png" alt="img"></p>
 <p>此时 sleep 进程的 sid 和其它进程是相同的，还可以通过 pstree 命令看到进程间的父子关系：</p>
-<figure>
-<img src="https://i.loli.net/2020/07/29/8ZQDMlkmTHy1a2G.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/29/8ZQDMlkmTHy1a2G.png" alt="img"></p>
 <p><code>如果我们退出当前 session 的领头进程(bash)，sleep 进程并不会退出，这样我们就可以放心的等待该进程运行结果了。</code> nohup 并不改变进程的 sid，同时也说明在这种情况中，虽然 session 的领头进程退出了，但是 session 依然没有被销毁(至少 sid 还在被引用)。重新建立连接，通过下面的命令查看 sleep 进程的信息，发现进程的 sid 依然是 7837：</p>
-<figure>
-<img src="https://i.loli.net/2020/07/29/5O83jJ2Hfsdoyil.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/29/5O83jJ2Hfsdoyil.png" alt="img"></p>
 <p>但是<code>此时的 sleep 已经被系统的 1 号进程 systemd 收养了</code>：</p>
-<figure>
-<img src="https://i.loli.net/2020/07/29/9quLvTHCNnES4F7.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/29/9quLvTHCNnES4F7.png" alt="img"></p>
 <h5 id="参考">参考</h5>
 <blockquote>
 <p>https://www.cnblogs.com/sparkdev/p/12146305.html</p>
@@ -429,9 +421,7 @@
 </blockquote>
 <h3 id="nvidia-smi使用">nvidia-smi使用</h3>
 <p><code>nvidia-smi</code> 显示出当前GPU的所有基础信息，监控GPU状态和使用情况。命令判断哪几块GPU空闲</p>
-<figure>
-<img src="https://i.loli.net/2020/07/22/u1CtU8Xgor45inh.png" alt="image-20200722153957282"><figcaption>image-20200722153957282</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/22/u1CtU8Xgor45inh.png" alt="image-20200722153957282"></p>
 <h4 id="解释相关参数含义">解释相关参数含义</h4>
 <p>GPU：本机中的GPU编号</p>
 <p>Name：GPU 类型</p>
@@ -452,16 +442,12 @@
 <p><code>sudo apt-get install tmux</code></p>
 <h4 id="基本概念">基本概念</h4>
 <p>tmux采用C/S模型构建，<code>输入tmux命令就相当于开启了一个服务器</code>，此时默认将新建一个会话，然后会话中默认新建一个窗口，窗口中默认新建一个面板。会话、窗口、面板之间的联系如下：</p>
-<figure>
-<img src="https://i.loli.net/2020/07/27/l4YyAISG8d1Lcp9.png" alt="image-20200726233552371"><figcaption>image-20200726233552371</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/27/l4YyAISG8d1Lcp9.png" alt="image-20200726233552371"></p>
 <p>一个tmux <code>session</code>（会话）可以包含多个<code>window</code>（窗口），窗口默认充满会话界面，因此这些窗口中可以运行相关性不大的任务。</p>
 <p>一个<code>window</code>又可以包含多个<code>pane</code>（面板），窗口下的面板，都处于同一界面下，这些面板适合运行相关性高的任务，以便同时观察到它们的运行情况。</p>
 <p>一般在一个<code>session</code>里进行新建<code>windows</code>和<code>pane</code>操作即可</p>
 <p>一个session显示如图</p>
-<figure>
-<img src="https://i.loli.net/2020/07/27/3bWsR57zZTUODF6.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/27/3bWsR57zZTUODF6.png" alt="img"></p>
 <h4 id="会话">会话</h4>
 <h5 id="新建会话">新建会话</h5>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tmux  <span class="comment"># 新建一个无名称的会话 </span></span><br><span class="line"></span><br><span class="line">tmux new -s s1 <span class="comment"># 新建一个名称为s1的会话</span></span><br></pre></td></tr></tbody></table></figure>

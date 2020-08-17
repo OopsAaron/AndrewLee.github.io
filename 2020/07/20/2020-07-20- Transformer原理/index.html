@@ -338,7 +338,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>20k</span>
+              <span>19k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -362,36 +362,24 @@
 <p>The Transformer was proposed in the paper <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention is All You Need</a>. A TensorFlow implementation of it is available as a part of the <a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noopener">Tensor2Tensor</a> package. Harvard’s NLP group created a <a href="http://nlp.seas.harvard.edu/2018/04/03/attention.html" target="_blank" rel="noopener">guide annotating the paper with PyTorch implementation</a>. In this post, we will attempt to oversimplify things a bit and introduce the concepts one by one to hopefully make it easier to understand to people without in-depth knowledge of the subject matter.</p>
 <h2 id="a-high-level-look">A High-Level Look</h2>
 <p>Let’s begin by looking at the model as a single black box. In a machine translation application, it would take a sentence in one language, and output its translation in another.</p>
-<figure>
-<img src="https://i.loli.net/2020/07/24/MJXH3BE5vi4wFao.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/24/MJXH3BE5vi4wFao.png" alt="img"></p>
 <p>Popping open that Optimus Prime goodness, we see an encoding component, a decoding component, and connections between them.</p>
-<figure>
-<img src="https://i.loli.net/2020/07/26/nvqhT56NEYVf9J7.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/26/nvqhT56NEYVf9J7.png" alt="img"></p>
 <p><code>The encoding component is a stack of encoders</code> (the paper stacks six of them on top of each other – there’s nothing magical about the number six, one can definitely experiment with other arrangements). <code>The decoding component is a stack of decoders of the same number.</code></p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/2zSYCOeodvq1mMV.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/2zSYCOeodvq1mMV.png" alt="img"></p>
 <p>The encoders are all identical in structure (yet they do not share weights). Each one is broken down into two sub-layers:</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/5Aqnfeo9iPQs1Oh.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/5Aqnfeo9iPQs1Oh.png" alt="img"></p>
 <p><code>The encoder’s inputs first flow through a self-attention layer –</code> a layer that helps the encoder look at other words in the input sentence as it encodes a specific word. We’ll look closer at self-attention later in the post.</p>
 <p><code>The outputs of the self-attention layer are fed to a feed-forward neural network</code>. The exact same feed-forward network is independently applied to each position.</p>
 <p><code>The decoder has both those layers, but between them is an attention layer that helps the decoder focus on relevant parts of the input sentence</code> (similar what attention does in <a href="https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/" target="_blank" rel="noopener">seq2seq models</a>).</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/Kmc68dxUuqfQRk4.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/Kmc68dxUuqfQRk4.png" alt="img"></p>
 <h2 id="bringing-the-tensors-into-the-picture">Bringing The Tensors Into The Picture</h2>
 <p>Now that we’ve seen the major components of the model, let’s start to look at the various vectors/tensors and how they flow between these components to turn the input of a trained model into an output.</p>
 <p>As is the case in NLP applications in general, <code>we begin by turning each input word into a vector using an</code> <a href="https://medium.com/deeper-learning/glossary-of-deep-learning-word-embedding-f90c3cec34ca" target="_blank" rel="noopener">embedding algorithm</a>.</p>
 <p><img src="https://i.loli.net/2020/07/25/jkPRN5E2cDTfL4p.png" alt="img"> <code>Each word is embedded into a vector of size 512</code>. We'll represent those vectors with these simple boxes.</p>
 <p>The embedding only happens in the bottom-most encoder. <code>The abstraction that is common to all the encoders is that they receive a list of vectors each of the size 512 – In the bottom encoder that would be the word embeddings, but in other encoders, it would be the output of the encoder that’s directly below.</code> The size of this list is hyperparameter we can set – basically it would be the length of the longest sentence in our training dataset.</p>
 <p>After embedding the words in our input sequence, each of them flows through each of the two layers of the encoder.</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/Aj4sHXynq1lOa2x.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/Aj4sHXynq1lOa2x.png" alt="img"></p>
 <p>Here we begin to see <code>one key property of the Transformer, which is that the word in each position flows through its own path in the encoder</code>. <code>There are dependencies between these paths</code> in the self-attention layer. The feed-forward layer does not have those dependencies, however, and <code>thus the various paths can be executed in parallel while flowing through the feed-forward layer.</code></p>
 <p>Next, we’ll switch up the example to a shorter sentence and we’ll look at what happens in each sub-layer of the encoder.</p>
 <h2 id="now-were-encoding">Now We’re Encoding!</h2>
@@ -416,22 +404,16 @@
 <p>They’re abstractions that are useful for calculating and thinking about attention. Once you proceed with reading how attention is calculated below, you’ll know pretty much all you need to know about the role each of these vectors plays.</p>
 <p><code>The **second step** in calculating self-attention is to calculate a score</code>. Say we’re calculating the self-attention for the first word in this example, “Thinking”. We need to score each word of the input sentence against this word. <code>The score determines how much focus to place on other parts of the input sentence as we encode a word at a certain position.</code></p>
 <p>The score is calculated by taking the dot product of the query vector with the key vector of the respective word we’re scoring. So if we’re processing the self-attention for the word in position #1, the first score would be the dot product of q1 and k1. The second score would be the dot product of q1 and k2.</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/xgtf9K4cJkRpbV2.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/xgtf9K4cJkRpbV2.png" alt="img"></p>
 <p><code>The **third and forth steps** are to divide the scores by 8</code> (the square root of the dimension of the <code>key vectors</code> used in the paper – 64. This leads to having more stable gradients. There could be other possible values here, but this is the default), <code>then pass the result through a softmax operation. Softmax normalizes the scores so they’re all positive and add up to 1.</code></p>
 <ul>
 <li></li>
 </ul>
-<figure>
-<img src="https://i.loli.net/2020/07/25/u7HQAF28ci3oPpq.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/u7HQAF28ci3oPpq.png" alt="img"></p>
 <p>This softmax score determines how much each word will be expressed at this position. <code>Clearly the word at this position will have the highest softmax score, but sometimes it’s useful to attend to another word that is relevant to the current word.</code></p>
 <p><code>The **fifth step** is to multiply each value vector by the softmax score</code> (in preparation to sum them up). The intuition here is to keep intact the values of the word(s) we want to focus on, and drown-out irrelevant words (by multiplying them by tiny numbers like 0.001, for example).</p>
 <p><code>The **sixth step** is to sum up the weighted value vectors.</code> This produces the output of the self-attention layer at this position (for the first word).</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/SNa4Km1EvVpyXIr.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/SNa4Km1EvVpyXIr.png" alt="img"></p>
 <p>That concludes the self-attention calculation. <code>The resulting vector is one we can send along to the feed-forward neural network</code>. In the actual implementation, however, <code>this calculation is done in matrix form for faster processing. So let’s look at that now that we’ve seen the intuition of the calculation on the word level.</code></p>
 <h2 id="matrix-calculation-of-self-attention">Matrix Calculation of Self-Attention</h2>
 <p><strong>The first step</strong> is to calculate the Query, Key, and Value matrices. We do that by packing our embeddings into a matrix X, and multiplying it by the weight matrices we’ve trained (WQ, WK, WV).</p>
@@ -446,24 +428,16 @@
 </ol>
 <p><img src="https://i.loli.net/2020/07/25/7UB4w8oijMvCfyq.png" alt="img"> With multi-headed attention, <code>we maintain separate Q/K/V weight matrices for each head resulting in different Q/K/V matrices.</code> As we did before, we multiply X by the WQ/WK/WV matrices to produce Q/K/V matrices.</p>
 <p>If we do the same self-attention calculation <code>we outlined above, just eight different times with different weight matrices, we end up with eight different Z matrices</code></p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/p9WTsRgd2ye7F8I.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/p9WTsRgd2ye7F8I.png" alt="img"></p>
 <p><code>This leaves us with a bit of a challenge.</code> The feed-forward layer is not expecting eight matrices – <code>it’s expecting a single matrix (a vector for each word). So we need a way to condense these eight down into a single matrix.</code></p>
 <p>How do we do that? <code>We concat the matrices then multiple them by an additional weights matrix WO.</code></p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/i7bU1pIfDqgZuAx.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/i7bU1pIfDqgZuAx.png" alt="img"></p>
 <p>That’s pretty much all there is to multi-headed self-attention. It’s quite a handful of matrices, I realize. Let me try to put them all in one visual so we can look at them in one place</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/YIVPms5cNDj2Mpq.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/YIVPms5cNDj2Mpq.png" alt="img"></p>
 <p>Now that we have touched upon attention heads, let’s revisit our example from before to see <code>where the different attention heads are focusing as we encode the word “it” in our example sentence:</code></p>
 <p><img src="https://i.loli.net/2020/07/25/nXZ4OMkluRFjwJH.png" alt="img"> As we encode the word "it", <code>one attention head is focusing most on "the animal", while another is focusing on "tired" -- in a sense, the model's representation of the word "it" bakes in some of the representation of both "animal" and "tired".</code></p>
 <p>If we add all the attention heads to the picture, however, things can be harder to interpret:</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/jk2hUsJGM6qxRwD.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/jk2hUsJGM6qxRwD.png" alt="img"></p>
 <h2 id="representing-the-order-of-the-sequence-using-positional-encoding">Representing The Order of The Sequence Using <code>Positional Encoding</code></h2>
 <p>One thing that’s missing from the model as we have described it so far is a way to account for the order of the words in the input sequence.</p>
 <p>To address this, the transformer adds a vector to each input embedding. <code>These vectors follow a specific pattern that the model learns, which helps it determine the position of each word, or the distance between different words in the sequence.</code> The intuition here is that adding these values to the embeddings provides meaningful distances between the embedding vectors once they’re projected into Q/K/V vectors and during dot-product attention.</p>
@@ -475,36 +449,22 @@
 <p><img src="https://i.loli.net/2020/07/25/XTrgBuPAKbU58lL.png" alt="img"> A real example of <code>positional encoding for 20 words (rows) with an embedding size of 512 (columns)</code>. You can see that it appears split in half down the center. <code>That's because the values of the left half are generated by one function (which uses sine), and the right half is generated by another function (which uses cosine).</code> They're then concatenated to form each of the positional encoding vectors.</p>
 <p>The formula for positional encoding is described in the paper (section 3.5). You can see the code for generating positional encodings in <a href="https://github.com/tensorflow/tensor2tensor/blob/23bd23b9830059fbc349381b70d9429b5c40a139/tensor2tensor/layers/common_attention.py" target="_blank" rel="noopener"><code>get_timing_signal_1d()</code></a>. <code>This is not the only possible method for positional encoding. It, however, gives the advantage of being able to scale to unseen lengths of sequences</code> (e.g. if our trained model is asked to translate a sentence longer than any of those in our training set).</p>
 <p><strong>July 2020 Update:</strong> The positional encoding shown above is from the Tranformer2Transformer implementation of the Transformer. The method shown in the paper is slightly different in that it doesn’t directly concatenate, but interweaves the two signals. The following figure shows what that looks like. <a href="https://github.com/jalammar/jalammar.github.io/blob/master/notebookes/transformer/transformer_positional_encoding_graph.ipynb" target="_blank" rel="noopener">Here’s the code to generate it</a>:</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/9V4sImeBjPaXQpE.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/9V4sImeBjPaXQpE.png" alt="img"></p>
 <h2 id="the-residuals">The <code>Residuals</code></h2>
 <p>One detail in the architecture of the encoder that we need to mention before moving on, is that each sub-layer (self-attention, ffnn) in each encoder has a residual connection around it, and is followed by a <a href="https://arxiv.org/abs/1607.06450" target="_blank" rel="noopener">layer-normalization</a> step.</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/uteZNE9q7wxIo6Y.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/uteZNE9q7wxIo6Y.png" alt="img"></p>
 <p>If we’re to visualize the vectors and the layer-norm operation associated with self attention, it would look like this:</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/2GZuRSainMsYfHQ.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/2GZuRSainMsYfHQ.png" alt="img"></p>
 <p>This goes for the sub-layers of the decoder as well. If we’re to think of a Transformer of 2 stacked encoders and decoders, it would look something like this:</p>
-<figure>
-<img src="https://i.loli.net/2020/07/25/9RHz2i8nZhyMPdt.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/25/9RHz2i8nZhyMPdt.png" alt="img"></p>
 <h2 id="the-decoder-side">The Decoder Side</h2>
 <p>Now that we’ve covered most of the concepts on the encoder side, we basically know how the components of decoders work as well. But let’s take a look at how they work together.</p>
 <p>The encoder start by processing the input sequence. <code>The output of the top encoder is then transformed into a set of attention vectors K and V. These are to be used by each decoder in its “encoder-decoder attention” layer which helps the decoder focus on appropriate places in the input sequence:</code></p>
-<figure>
-<img src="https://i.loli.net/2020/07/26/2MZ3SophkRgD9eJ.gif" alt="MQfaxEpcKV8AGDv"><figcaption>MQfaxEpcKV8AGDv</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/26/2MZ3SophkRgD9eJ.gif" alt="MQfaxEpcKV8AGDv"></p>
 <p>After finishing the encoding phase, we begin the decoding phase. <code>Each step in the decoding phase outputs an element from the output sequence (the English translation sentence in this case).</code></p>
 <p>The following steps repeat the process until a <code>special symbol</code> is reached indicating the transformer decoder has completed its output. <code>The output of each step is fed to the bottom decoder in the next time step, and the decoders bubble up their decoding results just like the encoders did</code>. And just like we did with the encoder inputs, <code>we embed and add positional encoding</code> to those decoder inputs to indicate the position of each word.</p>
-<figure>
-<img src="https://jalammar.github.io/images/t/transformer_decoding_2.gif" alt="img"><figcaption>img</figcaption>
-</figure>
-<figure>
-<img src="https://i.loli.net/2020/07/26/lwq4T3gIaEZHdu5.png" alt="image-20200726205210899"><figcaption>image-20200726205210899</figcaption>
-</figure>
+<p><img src="https://jalammar.github.io/images/t/transformer_decoding_2.gif" alt="img"></p>
+<p><img src="https://i.loli.net/2020/07/26/lwq4T3gIaEZHdu5.png" alt="image-20200726205210899"></p>
 <p>The self attention layers in the decoder operate in a slightly different way than the one in the encoder:</p>
 <p><code>In the decoder, the self-attention layer is only allowed to attend to earlier positions in the output sequence</code>. This is done by <code>masking future positions (</code>setting them to <code>-inf</code>) before the softmax step in the self-attention calculation.</p>
 <p><code>The “Encoder-Decoder Attention” layer works just like multiheaded self-attention</code>, except it creates its Queries matrix from the layer below it, and takes the Keys and Values matrix from the output of the encoder stack.</p>
@@ -603,10 +563,13 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" rel="next" title="2020-07-20-git使用指南">
-      2020-07-20-git使用指南 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" rel="prev" title="2020-07-20-git使用指南">
+      <i class="fa fa-chevron-left"></i> 2020-07-20-git使用指南
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/21/2020-07-21-Anaconda%E7%AE%A1%E7%90%86%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" rel="next" title="Anaconda管理虚拟环境">
+      Anaconda管理虚拟环境 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>

@@ -55,7 +55,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/08/07/ZGa1snNULJtjFWS.png">
 <meta property="og:image" content="https://i.loli.net/2020/08/07/teSG1hufEjF4Zkv.png">
 <meta property="article:published_time" content="2020-07-28T08:43:03.000Z">
-<meta property="article:modified_time" content="2020-08-12T06:46:18.731Z">
+<meta property="article:modified_time" content="2020-08-17T18:13:27.920Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="transformer">
 <meta name="twitter:card" content="summary">
@@ -278,7 +278,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-12 14:46:18" itemprop="dateModified" datetime="2020-08-12T14:46:18+08:00">2020-08-12</time>
+                <time title="修改时间：2020-08-18 02:13:27" itemprop="dateModified" datetime="2020-08-18T02:13:27+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -359,9 +359,7 @@
 <p>https://www.cnblogs.com/wevolf/p/12484972.html</p>
 </blockquote>
 <h3 id="the-annotated-transformer">The Annotated Transformer</h3>
-<figure>
-<img src="https://i.loli.net/2020/07/28/NUAyXWJ5DzHmjuv.png" alt="png"><figcaption>png</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/28/NUAyXWJ5DzHmjuv.png" alt="这是一张图片"></p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># !pip install http://download.pytorch.org/whl/cu80/torch-0.3.0.post4-cp36-cp36m-linux_x86_64.whl numpy matplotlib spacy torchtext seaborn </span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> math, copy, time</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn</span><br><span class="line">seaborn.set_context(context=<span class="string">"talk"</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p>Transformer使用了Self-Attention机制，它在编码每一词的时候都能够注意(attend to)整个句子，从而可以解决长距离依赖的问题，同时计算Self-Attention可以用矩阵乘法一次计算所有的时刻，因此可以充分利用计算资源(CPU/GPU上的矩阵运算都是充分优化和高度并行的)。</p>
 <h3 id="模型结构">模型结构</h3>
@@ -379,9 +377,7 @@
 <p>NLLLoss(Negative Log Likelihood Loss)是计算负log似然损失。它输入的x是log_softmax之后的结果(长度为5的数组)，y是真实分类(0-4)，输出就是x[y]。因此上面的代码为：</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">criterion(m(x), y)=m(x)[y]</span><br></pre></td></tr></tbody></table></figure>
 <p>The Transformer follows this overall architecture using stacked self-attention and point-wise, fully connected layers for both the encoder and decoder, shown in the left and right halves of Figure 1, respectively.</p>
-<figure>
-<img src="https://i.loli.net/2020/07/28/P3fSgRhrmFtlpxY.png" alt="png"><figcaption>png</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/28/P3fSgRhrmFtlpxY.png" alt="png"></p>
 <h3 id="encoder-and-decoder-stacks">Encoder and Decoder Stacks</h3>
 <h4 id="encoder">Encoder</h4>
 <p>Encoder和Decoder都是由N个相同结构的Layer堆积(stack)而成。<strong>因此我们首先定义clones函数，用于克隆相同的SubLayer。</strong></p>
@@ -408,9 +404,7 @@
 <p>Decoder和Encoder有一个关键的不同：Decoder在解码第t个时刻的时候只能使用<strong>1…t时刻</strong>的输入，而不能使用t+1时刻及其之后的输入。因此我们需要一个函数来产生一个Mask矩阵，所以代码如下：</p>
 <p>注意： t时刻包括t时刻的输入</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">subsequent_mask</span><span class="params">(size)</span>:</span>  <span class="comment">#将i后面的mask掉</span></span><br><span class="line">    <span class="string">"Mask out subsequent positions."</span></span><br><span class="line">    attn_shape = (<span class="number">1</span>, size, size)</span><br><span class="line">    subsequent_mask = np.triu(np.ones(attn_shape), k=<span class="number">1</span>).astype(<span class="string">'uint8'</span>) <span class="comment">#triu 上三角</span></span><br><span class="line">    <span class="keyword">return</span> torch.from_numpy(subsequent_mask) == <span class="number">0</span> <span class="comment">#将numpy格式转换为tensor格式，判断是否为0， 输出布尔值</span></span><br></pre></td></tr></tbody></table></figure>
-<figure>
-<img src="https://i.loli.net/2020/08/08/7brnPfDJxsLBtvh.png" alt="png"><figcaption>png</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/08/7brnPfDJxsLBtvh.png" alt="png"></p>
 <p>它的输出：</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">print(subsequent_mask(5))</span><br><span class="line"># 输出</span><br><span class="line">  1  0  0  0  0</span><br><span class="line">  1  1  0  0  0</span><br><span class="line">  1  1  1  0  0</span><br><span class="line">  1  1  1  1  0</span><br><span class="line">  1  1  1  1  1</span><br></pre></td></tr></tbody></table></figure>
 <p>我们发现它输出的是一个方阵，对角线和下面都是1。<strong>第一行只有第一列是1，它的意思是时刻1只能attend to输入1</strong>，第三行说明时刻3可以attend to {1,2,3}而不能attend to{4,5}的输入，因为在真正Decoder的时候这是属于Future的信息。代码首先使用triu产生一个上三角阵：</p>
@@ -420,9 +414,7 @@
 <h4 id="attention">Attention</h4>
 <p>An attention function can be described as mapping a query and a set of key-value pairs to an output, where the query, keys, values, and output are all vectors. The output is computed as a weighted sum of the values, where the weight assigned to each value is computed by a compatibility function of the query with the corresponding key.</p>
 <p>We call our particular attention “<code>Scaled Dot-Product Attention</code>”. The input consists of queries and keys of dimension <code>dk</code>, and values of dimension <code>dv</code>. We compute the dot products of the query with all keys, divide each by <code>√dk</code>, and apply a softmax function to obtain the weights on the values.</p>
-<figure>
-<img src="https://i.loli.net/2020/08/06/O3UNSGF7Poa1w4Q.png" alt="image-20200806015122441"><figcaption>image-20200806015122441</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/06/O3UNSGF7Poa1w4Q.png" alt="image-20200806015122441"></p>
 <p><strong>Attention可以看成一个函数，它的输入是Query,Key,Value和Mask，输出是一个Tensor</strong>。其中输出是Value的加权平均，而权重来自Query和Key的计算。具体的计算如下图所示，计算公式为：</p>
 <p><img src="https://i.loli.net/2020/07/28/WaSfHnNdt2L1AXU.png" alt="image-20200728212241453" style="zoom:50%;"></p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attention</span><span class="params">(query, key, value, mask=None, dropout=None)</span>:</span></span><br><span class="line">    <span class="string">"Compute 'Scaled Dot Product Attention'"</span></span><br><span class="line">    d_k = query.size(<span class="number">-1</span>) <span class="comment"># query.size的最后一维</span></span><br><span class="line">    scores = torch.matmul(query, key.transpose(<span class="number">-2</span>, <span class="number">-1</span>)) / math.sqrt(d_k)</span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:<span class="comment"># 如果有mask</span></span><br><span class="line">        scores = scores.masked_fill(mask == <span class="number">0</span>, <span class="number">-1e9</span>)</span><br><span class="line">    p_attn = F.softmax(scores, dim = <span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">if</span> dropout <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>: <span class="comment">#对p_attn进行dropout</span></span><br><span class="line">        p_attn = dropout(p_attn)</span><br><span class="line">    <span class="keyword">return</span> torch.matmul(p_attn, value), p_attn</span><br></pre></td></tr></tbody></table></figure>
@@ -499,9 +491,7 @@
 <p>假设输入是ID序列长度为10，<strong>如果输入Embedding之后是(10, 512)，那么位置编码的输出也是(10, 512)。</strong>上式中pos就是位置(0-9)，512维的偶数维使用sin函数，而奇数维使用cos函数。这种位置编码的好处是：PE_pos+k可以表示成 PE_pos的线性函数，这样网络就能容易的学到相对位置的关系。</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">15</span>, <span class="number">5</span>))</span><br><span class="line">pe = PositionalEncoding(<span class="number">20</span>, <span class="number">0</span>)</span><br><span class="line">y = pe.forward(Variable(torch.zeros(<span class="number">1</span>, <span class="number">100</span>, <span class="number">20</span>)))</span><br><span class="line">plt.plot(np.arange(<span class="number">100</span>), y[<span class="number">0</span>, :, <span class="number">4</span>:<span class="number">8</span>].data.numpy())</span><br><span class="line">plt.legend([<span class="string">"dim %d"</span>%p <span class="keyword">for</span> p <span class="keyword">in</span> [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]])</span><br></pre></td></tr></tbody></table></figure>
 <p>图是一个示例，向量的大小d_model=20，我们这里画出来第4、5、6和7维(下标从零开始)维的图像，最大的位置是100。我们可以看到它们都是正弦(余弦)函数，而且周期越来越长。</p>
-<figure>
-<img src="https://i.loli.net/2020/08/08/TfDHKvnM3emYysL.png" alt="png"><figcaption>png</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/08/TfDHKvnM3emYysL.png" alt="png"></p>
 <p>前面我们提到位置编码的好处是PE_pos+k可以表示成 P_Epos的线性函数，我们下面简单的验证一下。我们以第i维为例，为了简单，我们把<img src="https://i.loli.net/2020/08/06/iEoDOvKzB42N6Xe.png" alt="image-20200806104700979" style="zoom: 67%;">记作Wi，这是一个常量。</p>
 <p><img src="https://i.loli.net/2020/08/06/E9h2vXIDK1MAjUg.png" alt="image-20200806104725624" style="zoom:67%;"></p>
 <p>我们发现PE_pos+k 确实可以表示成 PE_pos的线性函数。</p>
@@ -568,9 +558,7 @@
 <p>Example of the curves of this model for different model sizes and for optimization hyperparameters.</p>
 </blockquote>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Three settings of the lrate hyperparameters.</span></span><br><span class="line">opts = [NoamOpt(<span class="number">512</span>, <span class="number">1</span>, <span class="number">4000</span>, <span class="literal">None</span>), </span><br><span class="line">        NoamOpt(<span class="number">512</span>, <span class="number">1</span>, <span class="number">8000</span>, <span class="literal">None</span>),</span><br><span class="line">        NoamOpt(<span class="number">256</span>, <span class="number">1</span>, <span class="number">4000</span>, <span class="literal">None</span>)]</span><br><span class="line">plt.plot(np.arange(<span class="number">1</span>, <span class="number">20000</span>), [[opt.rate(i) <span class="keyword">for</span> opt <span class="keyword">in</span> opts] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">20000</span>)])</span><br><span class="line">plt.legend([<span class="string">"512:4000"</span>, <span class="string">"512:8000"</span>, <span class="string">"256:4000"</span>])</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></tbody></table></figure>
-<figure>
-<img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_69_0.png" alt="png"><figcaption>png</figcaption>
-</figure>
+<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_69_0.png" alt="png"></p>
 <h4 id="regularization">Regularization</h4>
 <h5 id="label-smoothing">Label Smoothing</h5>
 <p>During training, we employed label smoothing of value ϵls=0.1ϵls=0.1 <a href="https://arxiv.org/abs/1512.00567" target="_blank" rel="noopener">(cite)</a>. This hurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score.</p>
@@ -582,16 +570,12 @@
 <p>Here we can see an example of how the mass is distributed to the words based on confidence.</p>
 </blockquote>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Example of label smoothing.</span></span><br><span class="line">crit = LabelSmoothing(<span class="number">5</span>, <span class="number">0</span>, <span class="number">0.4</span>)</span><br><span class="line">predict = torch.FloatTensor([[<span class="number">0</span>, <span class="number">0.2</span>, <span class="number">0.7</span>, <span class="number">0.1</span>, <span class="number">0</span>],</span><br><span class="line">                             [<span class="number">0</span>, <span class="number">0.2</span>, <span class="number">0.7</span>, <span class="number">0.1</span>, <span class="number">0</span>], </span><br><span class="line">                             [<span class="number">0</span>, <span class="number">0.2</span>, <span class="number">0.7</span>, <span class="number">0.1</span>, <span class="number">0</span>]])</span><br><span class="line">v = crit(Variable(predict.log()), </span><br><span class="line">         Variable(torch.LongTensor([<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>])))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show the target distributions expected by the system.</span></span><br><span class="line">plt.imshow(crit.true_dist)</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></tbody></table></figure>
-<figure>
-<img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_74_0.png" alt="png"><figcaption>png</figcaption>
-</figure>
+<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_74_0.png" alt="png"></p>
 <blockquote>
 <p>Label smoothing actually starts to penalize the model if it gets very confident about a given choice.</p>
 </blockquote>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">crit = LabelSmoothing(<span class="number">5</span>, <span class="number">0</span>, <span class="number">0.1</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loss</span><span class="params">(x)</span>:</span></span><br><span class="line">    d = x + <span class="number">3</span> * <span class="number">1</span></span><br><span class="line">    predict = torch.FloatTensor([[<span class="number">0</span>, x / d, <span class="number">1</span> / d, <span class="number">1</span> / d, <span class="number">1</span> / d],</span><br><span class="line">                                 ])</span><br><span class="line">    <span class="comment">#print(predict)</span></span><br><span class="line">    <span class="keyword">return</span> crit(Variable(predict.log()),</span><br><span class="line">                 Variable(torch.LongTensor([<span class="number">1</span>]))).data[<span class="number">0</span>]</span><br><span class="line">plt.plot(np.arange(<span class="number">1</span>, <span class="number">100</span>), [loss(x) <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">100</span>)])</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></tbody></table></figure>
-<figure>
-<img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_76_0.png" alt="png"><figcaption>png</figcaption>
-</figure>
+<p><img src="http://nlp.seas.harvard.edu/images/the-annotated-transformer_76_0.png" alt="png"></p>
 <h3 id="总结"><strong>总结</strong></h3>
 <p>transformer模型主要分为两大部分, 分别是编码器和解码器, 编码器负责把自然语言序列映射成为隐藏层(下图中第2步用九宫格比喻的部分), 含有自然语言序列的数学表达. 然后解码器把隐藏层再映射为自然语言序列, 从而使我们可以解决各种问题, 如情感分类, 命名实体识别, 语义关系抽取, 摘要生成, 机 器翻译等等, 下面我们简单说一下下图的每一步都做了什么:</p>
 <blockquote>
@@ -604,9 +588,7 @@
 <p>7.将得到的第二字再落下来, 直到解码器输出&lt;𝑒𝑛𝑑&gt;<end>(终止符), 即序列生成完成.</end></p>
 </blockquote>
 <p><img src="https://i.loli.net/2020/08/06/1pea3WSThisHBql.png" alt="image-20200806233205808" style="zoom:67%;"></p>
-<figure>
-<img src="https://i.loli.net/2020/08/07/ZGa1snNULJtjFWS.png" alt="transformer"><figcaption>transformer</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/07/ZGa1snNULJtjFWS.png" alt="transformer"></p>
 <p>原始data数据是：(30,10)</p>
 <p>src: (30,10) trg:(30,10)</p>
 <p>在encoder中，</p>

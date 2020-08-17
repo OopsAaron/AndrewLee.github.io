@@ -372,9 +372,7 @@
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall hexo-renderer-marked --save #卸载旧版本</span><br><span class="line"><span class="meta">#</span><span class="bash">因为之前为了支持emoji，我已经将hexo-renderer-marked换成了hexo-renderer-markdown-it，所以我卸载后者</span></span><br><span class="line">npm install hexo-renderer-pandoc --save #安装新版本</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="更新部署">更新部署</h4>
 <p>可以看到对于复杂的公式也是支持的~</p>
-<figure>
-<img src="https://i.loli.net/2020/08/13/cXzadkQeCvAIwfB.png" alt="image-20200813003737055"><figcaption>image-20200813003737055</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/13/cXzadkQeCvAIwfB.png" alt="image-20200813003737055"></p>
 <h3 id="注意事项">注意事项</h3>
 <p>如果你使用这款 Pandoc renderer，那么书写 Markdown 时候需要遵循 <a href="https://pandoc.org/MANUAL.html#pandocs-markdown" target="_blank" rel="noopener">Pandoc 对 Markdown 的规定</a>。</p>
 <p>有一些比较明显的需要注意的事项：正常的文字后面如果跟的是<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#lists" target="_blank" rel="noopener"><code>list</code></a>, <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#tables" target="_blank" rel="noopener"><code>table</code></a>或者<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#blockquotes" target="_blank" rel="noopener"><code>quotation</code></a>，文字后面需要空一行，如果不空行，这些环境将不能被 Pandoc renderer 正常渲染。</p>

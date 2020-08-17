@@ -339,13 +339,9 @@
 <p><img src="https://i.loli.net/2020/07/24/32grlE4uLGpQPCq.png"></p>
 <p>然后接下来我们要做的就是，把“I”单词作为下一个decoder的输入算一遍得到y2的输出概率分布，把“am”单词作为下一个decoder的输入算一遍也得到y2的输出概率分布。</p>
 <p>比如将“I”单词作为下一个decoder的输入算一遍得到y2的输出概率分布如下：</p>
-<figure>
-<img src="https://i.loli.net/2020/07/24/s6OErw5yT41uLPa.png" alt="image-20200724095714528"><figcaption>image-20200724095714528</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/24/s6OErw5yT41uLPa.png" alt="image-20200724095714528"></p>
 <p>比如将“am”单词作为下一个decoder的输入算一遍得到y2的输出概率分布如下：</p>
-<figure>
-<img src="https://i.loli.net/2020/07/24/Ng1ZyrxehmpUIoC.png" alt="image-20200724095747262"><figcaption>image-20200724095747262</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/07/24/Ng1ZyrxehmpUIoC.png" alt="image-20200724095747262"></p>
 <p>那么此时我们由于我们的beam size为2，也就是我们只能保留概率最大的两个序列，此时我们可以计算所有的序列概率：</p>
 <p>“I I” = 0.4<em>0.3 "I am" = 0.4</em>0.6 "I sChinese" = 0.4*0.1</p>
 <p>"am I" = 0.5<em>0.3 "am am" = 0.5</em>0.3 "am Chinese" = 0.5*0.4</p>

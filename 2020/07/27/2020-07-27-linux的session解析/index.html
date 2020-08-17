@@ -307,7 +307,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>2.5k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -345,14 +345,10 @@
 <h3 id="session-是什么">session 是什么？</h3>
 <p>我们常见的 Linux session 一般是指 shell session。Shell session 是终端中当前的状态，在终端中只能有一个 session。<code>当我们打开一个新的终端时，总会创建一个新的 shell session。</code></p>
 <p>就进程间的关系来说，session 由一个或多个进程组组成。一般情况下，来自单个登录的所有进程都属于同一个 session。我们可以通过下图来理解进程、进程组和 session 之间的关系：</p>
-<figure>
-<img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182042686-2100862807.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182042686-2100862807.png" alt="img"></p>
 <p><code>会话是由会话中的第一个进程创建的，一般情况下是打开终端时创建的 shell 进程。</code>该进程也叫 session 的领头进程。Session 中领头进程的 PID 也就是 session 的 SID。我们可以通过下面的命令查看 SID：</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -o pid,ppid,pgid,sid,tty,comm</span><br></pre></td></tr></tbody></table></figure>
-<figure>
-<img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182117962-99639442.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182117962-99639442.png" alt="img"></p>
 <p>Session 中的每个进程组被称为一个 job，有一个 job 会成为 session 的前台 job(foreground)，其它的 job 则是后台 job(background)。每个 session 连接一个控制终端(control terminal)，控制终端中的输入被发送给前台 job，从前台 job 产生的输出也被发送到控制终端上。同时由控制终端产生的信号，比如 ctrl + z 等都会传递给前台 job。</p>
 <p>一般情况下 session 和终端是一对一的关系，当我们打开多个终端窗口时，实际上就创建了多个 session。</p>
 <p><code>Session 的意义在于多个工作(job)在一个终端中运行，其中的一个为前台 job，它直接接收该终端的输入并把结果输出到该终端。其它的 job 则在后台运行。</code></p>
@@ -367,21 +363,13 @@
 <h3 id="nohup">nohup</h3>
 <p><code>如果我们在 session 中执行了 nohup 等类似的命令，当 session 消亡时，相关的进程并不会随着 session 结束，原因是这些进程不再受 SIGHUP 信号的影响。</code>比如我们执行下面的命令：</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup sleep <span class="number">1000</span> &gt;/dev/null <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></tbody></table></figure>
-<figure>
-<img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182343352-1366915632.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182343352-1366915632.png" alt="img"></p>
 <p>此时 sleep 进程的 sid 和其它进程是相同的，还可以通过 pstree 命令看到进程间的父子关系：</p>
-<figure>
-<img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182417115-817556079.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182417115-817556079.png" alt="img"></p>
 <p><code>如果我们退出当前 session 的领头进程(bash)，sleep 进程并不会退出，这样我们就可以放心的等待该进程运行结果了。</code> nohup 并不改变进程的 sid，同时也说明在这种情况中，虽然 session 的领头进程退出了，但是 session 依然没有被销毁(至少 sid 还在被引用)。重新建立连接，通过下面的命令查看 sleep 进程的信息，发现进程的 sid 依然是 7837：</p>
-<figure>
-<img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182448160-376880623.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182448160-376880623.png" alt="img"></p>
 <p>但是<code>此时的 sleep 已经被系统的 1 号进程 systemd 收养了</code>：</p>
-<figure>
-<img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182521953-1574746082.png" alt="img"><figcaption>img</figcaption>
-</figure>
+<p><img src="https://img2018.cnblogs.com/blog/952033/202001/952033-20200103182521953-1574746082.png" alt="img"></p>
 <h3 id="参考">参考</h3>
 <blockquote>
 <p>https://www.cnblogs.com/sparkdev/p/12146305.html</p>

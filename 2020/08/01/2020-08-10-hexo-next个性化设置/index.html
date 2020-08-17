@@ -296,7 +296,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>805</span>
+              <span>690</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -318,32 +318,22 @@
         <p>一些基本的个性化设置可以参考其它博客，本文只记录在我完成</p>
 <h3 id="修改文章底部的那个带号的标签">修改文章底部的那个带#号的标签</h3>
 <p>在原本next自带的标签格式如下所示：</p>
-<figure>
-<img src="https://i.loli.net/2020/08/10/GLtxuMpYd7WXmaV.png" alt="image-20200810180543537"><figcaption>image-20200810180543537</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/10/GLtxuMpYd7WXmaV.png" alt="image-20200810180543537"></p>
 <p>前面的<code>#</code>不太好看，在这里可以添加<code>font awesome</code>的<code>icon</code>，个性化标签显示</p>
 <p>修改模板 <code>/themes/next/layout/_macro/post.swig</code>，搜索 <code>rel="tag"</code>，将<code>rel="tag"&gt;</code>换成<code>rel="tag"&lt;i class="fa fa-tag"&gt;&lt;/i&gt;</code> ，其中"fa fa-tag"可以根据<code>font awesome</code>里自己选择喜欢的<code>icon</code></p>
 <p>因为在代码中不需要<code>tag_indicate</code>，所以可以将部分代码删去，如图中红框部分</p>
-<figure>
-<img src="https://i.loli.net/2020/08/10/2zhlEdQjqyTcPRo.png" alt="image-20200810181951506"><figcaption>image-20200810181951506</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/10/2zhlEdQjqyTcPRo.png" alt="image-20200810181951506"></p>
 <p>个性化后如下所示：</p>
-<figure>
-<img src="https://i.loli.net/2020/08/10/tuvBmHFRZ8JMk3S.png" alt="image-20200810180207065"><figcaption>image-20200810180207065</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/10/tuvBmHFRZ8JMk3S.png" alt="image-20200810180207065"></p>
 <h3 id="hexo-文章加密">hexo 文章加密</h3>
 <blockquote>
 <p><a href="https://vic.kim/2019/05/27/Hexo文章加密/" target="_blank" rel="noopener">https://vic.kim/2019/05/27/Hexo%E6%96%87%E7%AB%A0%E5%8A%A0%E5%AF%86/</a></p>
 </blockquote>
 <h3 id="在每篇文章末尾添加本文结束标记">在每篇文章末尾添加“本文结束”标记</h3>
 <p>修改模板 <code>/themes/next/layout/_macro/post.swig</code>，在<code></code>代码行中添加<code>&lt;div style="text-align:center;color: #ccc;font-size:14px;"&gt;-------------本文结束&lt;i class="fa fa-paw"&gt;&lt;/i&gt;感谢您的阅读-------------&lt;/div&gt;</code>即可完成设置，如下所示，红框内是添加内容</p>
-<figure>
-<img src="https://i.loli.net/2020/08/10/TQEoIcbKLGaC5dr.png" alt="image-20200810182801218"><figcaption>image-20200810182801218</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/10/TQEoIcbKLGaC5dr.png" alt="image-20200810182801218"></p>
 <p>个性化如下所示：</p>
-<figure>
-<img src="https://i.loli.net/2020/08/10/dCvbzpGBhs6excl.png" alt="image-20200810183022935"><figcaption>image-20200810183022935</figcaption>
-</figure>
+<p><img src="https://i.loli.net/2020/08/10/dCvbzpGBhs6excl.png" alt="image-20200810183022935"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
