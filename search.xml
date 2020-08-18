@@ -144,10 +144,10 @@
 <h3 id="poweredge-r740-机架式服务器基本操作">PowerEdge R740 机架式服务器基本操作</h3>
 <h4 id="设置开机启动顺序">设置开机启动顺序</h4>
 <p>开机按F2进入系统启动设置，也可以<strong>按F11进入快速启动配置</strong></p>
-<p><img src="https://img-blog.csdn.net/20160317170140560" alt="img"></p>
-<p><img src="https://img-blog.csdn.net/20160317170148670" alt="img"></p>
-<p><img src="https://img-blog.csdn.net/20160317170157107" alt="img"></p>
-<p><img src="https://img-blog.csdn.net/20160317170334173" alt="img"></p>
+<p><img src="https://i.loli.net/2020/08/18/XZFykAOdgmHjJDe.png" alt="image-20200818151126884"></p>
+<p><img src="https://i.loli.net/2020/08/18/OCK5cRzksAWIhyp.png" alt="image-20200818151216211"></p>
+<p><img src="https://i.loli.net/2020/08/18/FpgEyq8vGzBlPXD.png" alt="image-20200818151323442"></p>
+<p><img src="https://i.loli.net/2020/08/18/Rdf19rWcvAOHSp7.png" alt="image-20200818151824019"></p>
 <p>在<strong>Boot Sequence</strong>处将<strong>Hard drive C</strong>设置到第一位，即优先级最高</p>
 <h4 id="运行硬件检测">运行硬件检测</h4>
 <p>怀疑硬件故障了，运行了一下硬件检测。可以看到有哪些硬件。来验证所连接的硬件是否正常工作，排除故障。</p>
@@ -2136,9 +2136,10 @@
     <content><![CDATA[<h3 id="pytorch-中forward的使用以及原理---pytorch使用">pytorch 中forward的使用以及原理 --pytorch使用</h3>
 <p>https://blog.csdn.net/u011501388/article/details/84062483</p>
 <h4 id="阅读代码时的问题-记录">阅读代码时的问题 记录</h4>
-<h3 id="section"></h3>
 <h3 id="pytorch里面的torch.nn.parameter详解">PyTorch里面的torch.nn.Parameter()详解</h3>
 <p>https://cloud.tencent.com/developer/article/1608348</p>
+<p>chrome中github插件</p>
+<p>https://www.bilibili.com/video/BV1Kt4y1X7fw/?spm_id_from=trigger_reload</p>
 <h3 id="论文阅读的思维导图">论文阅读的思维导图</h3>
 <p>conda 安装新版本python之后，会覆盖之前的版本</p>
 <h1 id="linux-杀死暂停继续后台运行进程">LINUX 杀死、暂停、继续、后台运行进程</h1>
