@@ -32,6 +32,12 @@
 <meta property="og:site_name" content="思建的NLP之旅">
 <meta property="og:description" content="实验室服务器故障处理">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/08/25/zFQvdOa4rJZ8NCM.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/25/sNwuUrzBJ354xAd.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/25/cfUBayIj59q7OSY.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/25/Xn8RufD3AlKEhBC.png">
+<meta property="og:image" content="e:/myBlog/source_posts/image-20200825002331284.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/25/1zbncv7DyP43mHN.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201302/bg2013021502.jpg">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201302/bg2013021503.png">
 <meta property="og:image" content="http://www.ruanyifeng.com/blogimg/asset/201302/bg2013021504.jpg">
@@ -47,12 +53,12 @@
 <meta property="og:image" content="https://i.loli.net/2020/08/18/Yij4DdNxZ3w6RBF.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/08/18/tYB8e7lsuUyP9fc.jpg">
 <meta property="article:published_time" content="2020-08-16T07:27:19.000Z">
-<meta property="article:modified_time" content="2020-08-19T06:09:56.211Z">
+<meta property="article:modified_time" content="2020-08-24T16:31:49.108Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="服务器">
 <meta property="article:tag" content="故障排除">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://www.ruanyifeng.com/blogimg/asset/201302/bg2013021502.jpg">
+<meta name="twitter:image" content="https://i.loli.net/2020/08/25/zFQvdOa4rJZ8NCM.png">
 
 <link rel="canonical" href="http://yoursite.com/2020/08/16/2020-08-16-%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A3%80%E4%BF%AE/">
 
@@ -164,7 +170,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">38</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">39</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -271,7 +277,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-19 14:09:56" itemprop="dateModified" datetime="2020-08-19T14:09:56+08:00">2020-08-19</time>
+                <time title="修改时间：2020-08-25 00:31:49" itemprop="dateModified" datetime="2020-08-25T00:31:49+08:00">2020-08-25</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -316,13 +322,13 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>6.2k</span>
+              <span>7.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
             <div class="post-description">实验室服务器故障处理</div>
 
@@ -346,8 +352,89 @@
 <li>显示不出挂载的硬盘。 硬盘没插好。需要用劲将硬盘按进去 ，使其完全固定，才会插好。并且在开机的时候，硬盘位置处会亮灯的</li>
 </ul>
 <p>服务器上硬盘是有顺序的。根据服务器版面上的提示，按照从上到下，从左到右依次编号为0,1,2...， 优先级也是依次降低的。所以在启动界面，会优先加载优先级高的硬盘里的系统。 因为旧硬盘之前在上面。新硬盘在下面，后来更换位置，就可以正常加载新装的ubuntu系统。</p>
+<h4 id="实验室的服务器">实验室的服务器</h4>
+<p>有三台机架式服务器</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>dell poweredge R730</th>
+<th>dell poweredge R740</th>
+<th>thinkserver rd650</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>系统</td>
+<td>ubuntu</td>
+<td>ubuntu</td>
+<td>windows server 2008</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h4 id="配置网络以及远程ssh连接">配置网络以及远程ssh连接</h4>
+<p>本章节的大部分内容参考自<a href="https://blog.51cto.com/tangyade/2330627" target="_blank" rel="noopener">ubuntu16.04的网络配置</a></p>
+<p>截图来自于实际服务器操作</p>
+<p>参考博客 <a href="https://blog.csdn.net/weixin_43162402/article/details/88419024" target="_blank" rel="noopener">远程ssh连接ubuntu</a></p>
+<h5 id="配置网络">配置网络</h5>
+<p>打开ubuntu网络设置</p>
+<p>在IPv4设置中，增加地址和DNS服务器</p>
+<p><img src="https://i.loli.net/2020/08/25/zFQvdOa4rJZ8NCM.png" alt="image-20200825000649093"></p>
+<p>重启系统 <code>shutdown  -r  now</code></p>
+<p>如下 <code>ping www.baidu.com</code> , 如果可以ping通，则网络配置正确</p>
+<p><img src="https://i.loli.net/2020/08/25/sNwuUrzBJ354xAd.png" alt="image-20200825000941898"></p>
+<h5 id="配置ssh">配置ssh</h5>
+<h6 id="检查ssh服务并安装">检查ssh服务，并安装</h6>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ps -e|grep ssh <span class="comment">#抓取是否有ssh运行程序</span></span><br><span class="line">sudo apt-get update <span class="comment">#更新依赖</span></span><br><span class="line">sudo apt-get install openssh-sever  <span class="comment"># 安装ssh服务</span></span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://i.loli.net/2020/08/25/cfUBayIj59q7OSY.png" alt="image-20200825002257791"></p>
+<p><img src="https://i.loli.net/2020/08/25/Xn8RufD3AlKEhBC.png" alt="image-20200825002523612"></p>
+<h6 id="启动ssh">启动ssh</h6>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/ssh start  <span class="comment">#启动ssh</span></span><br><span class="line">sudo netstat -tlp</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="E:\myBlog\source_posts\image-20200825002331284.png" alt="image-20200825002331284"></p>
+<p><img src="https://i.loli.net/2020/08/25/1zbncv7DyP43mHN.png" alt="image-20200825002625207"></p>
+<h6 id="重启系统">重启系统</h6>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shutdown  -r  now</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="语言设置">语言设置</h4>
+<p>参考<a href="https://zhuanlan.zhihu.com/p/40755318" target="_blank" rel="noopener">ubuntu的语言设置（中文-&gt;英文）</a></p>
+<h4 id="安装软件">安装软件</h4>
+<h5 id="下载">下载</h5>
+<p>浏览器搜狗输入法的linux版本安装包。 选择<code>save file</code>选项</p>
+<h5 id="安装">安装</h5>
+<ul>
+<li><p>首先找到安装包所在文件夹，复制路径 。如路径<code>/home/dell2/Downloads/</code></p></li>
+<li><p>在安装包右键属性，复制文件名，如 ：<code>sougou_64.deb</code></p></li>
+<li><p>在terminal中命令行 <code>cd /home/dell2/Downloads/</code> 切换到当前文件夹，便于操作</p></li>
+<li><p>继续执行 <code>sudo dpkg -i sougou_64.deb</code> 需要root权限，所以要输入密码</p>
+<blockquote>
+<p>dpkg是linux的deb包管理。</p>
+<p>dpkg： 是Debian packager的简称，是由Debian开发出来的包管理器，软件包在发布时打包成.deb格式</p>
+<p>适用于Dpkg (Debian系)：Ubuntu 注：RPM (Red Hat系)：CentOS、Fedora</p>
+<p>dpkg支持 tar 包。 tar 只是一种压缩文件格式，所以，它只是把文件压缩打包而已</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i *.deb     deb文件的安装</span><br><span class="line">dpkg -r *.deb     deb文件的卸载</span><br><span class="line">dpkg -l           查看当前系统中已经安装的软件包的信息</span><br></pre></td></tr></tbody></table></figure>
+</blockquote></li>
+</ul>
+<h5 id="更新依赖">更新依赖</h5>
+<blockquote>
+<p>dpkg常用命令行dpkg和rpm命令虽然可以解决安装，卸载和查询，但是对于软件包直接的依赖，比如安装的软件包依赖于很多其他的软件包，这两个软件只会将依赖打印出来告诉用户，需要用户一个一个的手动去先安装依赖，当依赖包又依赖其他包时，对于用户实在是不够友好，于是apt和yum出现了，他们的能够自动将依赖下载安装</p>
+<p>apt的全称是Advanced Packaging Tool是Linux系统下的一款安装包管理工具。</p>
+</blockquote>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  <span class="comment">#更新依赖</span></span><br><span class="line">sudo apt-get install -f  <span class="comment">#修复依赖.使用此命令可修复依赖关系，假如有软件因依赖关系不满足而无法安装，就可以运行此命令自动修复安装程序包所依赖的包。特别是在使用dpkg命令安装deb软件包时出现依赖问题常需要此命令来修复。</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="安装完毕">安装完毕</h5>
+<p>打开ubuntu搜索栏就可以搜索到软件，就可以使用啦</p>
 <h3 id="计算机启动过程boot">计算机启动过程（boot）</h3>
-<p>计算机启动过程分成四个阶段。 大部分参考自博客<a href="http://www.ruanyifeng.com/blog/2013/02/booting.html" target="_blank" rel="noopener">计算机是如何启动的？</a></p>
+<p>计算机启动过程分成四个阶段。 大部分内容参考自博客<a href="http://www.ruanyifeng.com/blog/2013/02/booting.html" target="_blank" rel="noopener">计算机是如何启动的？</a></p>
 <h4 id="一第一阶段bios"><strong>一、第一阶段：BIOS</strong></h4>
 <p>是一组<strong>固化到计算机内主板上一个ROM芯片上的程序</strong>，计算机通电后，第一件事就是读取它。</p>
 <p>它保存着计算机最重要的基本输入输出的程序、系统设置信息、开机后自检程序和系统自启动程序。其主要功能是为计算机提供最底层的、最直接的硬件设置和控制。</p>
@@ -647,7 +734,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机启动过程boot"><span class="nav-number">2.</span> <span class="nav-text">计算机启动过程（boot）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一第一阶段bios"><span class="nav-number">2.1.</span> <span class="nav-text">一、第一阶段：BIOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件自检"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 硬件自检</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动顺序"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 启动顺序</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二第二阶段主引导记录mbr"><span class="nav-number">2.2.</span> <span class="nav-text">二、第二阶段：主引导记录（MBR）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主引导记录的结构"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 主引导记录的结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分区表"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 分区表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三第三阶段硬盘启动"><span class="nav-number">2.3.</span> <span class="nav-text">三、第三阶段：硬盘启动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#情况a卷引导记录"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 情况A：卷引导记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#情况b扩展分区和逻辑分区"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 情况B：扩展分区和逻辑分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#情况c启动管理器常用"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 情况C：启动管理器（常用）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四第四阶段操作系统"><span class="nav-number">2.4.</span> <span class="nav-text">四、第四阶段：操作系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bios和uefi的区别"><span class="nav-number">3.</span> <span class="nav-text">BIOS和UEFI的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bios设置"><span class="nav-number">4.</span> <span class="nav-text">BIOS设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#u盘启动"><span class="nav-number">4.1.</span> <span class="nav-text">U盘启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机存储术语-扇区磁盘块页"><span class="nav-number">5.</span> <span class="nav-text">计算机存储术语: 扇区，磁盘块，页</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#页page"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">页，page</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux磁盘分区"><span class="nav-number">6.</span> <span class="nav-text">linux磁盘分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poweredge-r740-机架式服务器基本操作"><span class="nav-number">7.</span> <span class="nav-text">PowerEdge R740 机架式服务器基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置开机启动顺序"><span class="nav-number">7.1.</span> <span class="nav-text">设置开机启动顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行硬件检测"><span class="nav-number">7.2.</span> <span class="nav-text">运行硬件检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换空间"><span class="nav-number">8.</span> <span class="nav-text">交换空间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是swap"><span class="nav-number">8.1.</span> <span class="nav-text">什么是swap?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">8.2.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器ubuntu基本操作"><span class="nav-number">9.</span> <span class="nav-text">服务器ubuntu基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关机"><span class="nav-number">9.1.</span> <span class="nav-text">关机</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实验室的服务器"><span class="nav-number">1.1.</span> <span class="nav-text">实验室的服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置网络以及远程ssh连接"><span class="nav-number">1.2.</span> <span class="nav-text">配置网络以及远程ssh连接</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#配置网络"><span class="nav-number">1.2.1.</span> <span class="nav-text">配置网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置ssh"><span class="nav-number">1.2.2.</span> <span class="nav-text">配置ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#检查ssh服务并安装"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">检查ssh服务，并安装</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#启动ssh"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">启动ssh</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#重启系统"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">重启系统</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语言设置"><span class="nav-number">1.3.</span> <span class="nav-text">语言设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装软件"><span class="nav-number">1.4.</span> <span class="nav-text">安装软件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载"><span class="nav-number">1.4.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装"><span class="nav-number">1.4.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新依赖"><span class="nav-number">1.4.3.</span> <span class="nav-text">更新依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装完毕"><span class="nav-number">1.4.4.</span> <span class="nav-text">安装完毕</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机启动过程boot"><span class="nav-number">2.</span> <span class="nav-text">计算机启动过程（boot）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一第一阶段bios"><span class="nav-number">2.1.</span> <span class="nav-text">一、第一阶段：BIOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#硬件自检"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1 硬件自检</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动顺序"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.2 启动顺序</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二第二阶段主引导记录mbr"><span class="nav-number">2.2.</span> <span class="nav-text">二、第二阶段：主引导记录（MBR）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主引导记录的结构"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 主引导记录的结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分区表"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 分区表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三第三阶段硬盘启动"><span class="nav-number">2.3.</span> <span class="nav-text">三、第三阶段：硬盘启动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#情况a卷引导记录"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 情况A：卷引导记录</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#情况b扩展分区和逻辑分区"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 情况B：扩展分区和逻辑分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#情况c启动管理器常用"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.3 情况C：启动管理器（常用）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四第四阶段操作系统"><span class="nav-number">2.4.</span> <span class="nav-text">四、第四阶段：操作系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bios和uefi的区别"><span class="nav-number">3.</span> <span class="nav-text">BIOS和UEFI的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bios设置"><span class="nav-number">4.</span> <span class="nav-text">BIOS设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#u盘启动"><span class="nav-number">4.1.</span> <span class="nav-text">U盘启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算机存储术语-扇区磁盘块页"><span class="nav-number">5.</span> <span class="nav-text">计算机存储术语: 扇区，磁盘块，页</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#页page"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">页，page</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux磁盘分区"><span class="nav-number">6.</span> <span class="nav-text">linux磁盘分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#poweredge-r740-机架式服务器基本操作"><span class="nav-number">7.</span> <span class="nav-text">PowerEdge R740 机架式服务器基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置开机启动顺序"><span class="nav-number">7.1.</span> <span class="nav-text">设置开机启动顺序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行硬件检测"><span class="nav-number">7.2.</span> <span class="nav-text">运行硬件检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换空间"><span class="nav-number">8.</span> <span class="nav-text">交换空间</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是swap"><span class="nav-number">8.1.</span> <span class="nav-text">什么是swap?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">8.2.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器ubuntu基本操作"><span class="nav-number">9.</span> <span class="nav-text">服务器ubuntu基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关机"><span class="nav-number">9.1.</span> <span class="nav-text">关机</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -663,7 +750,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -746,12 +833,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">151k</span>
+    <span title="站点总字数">153k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:17</span>
+    <span title="站点阅读时长">2:19</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
