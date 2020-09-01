@@ -632,10 +632,99 @@
       </tags>
   </entry>
   <entry>
+    <title>2020-08-04-博客优化以及问题解决</title>
+    <url>/2020/08/04/2020-08-04-%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="修改git-bash的默认打开工作路径">修改Git Bash的默认打开工作路径</h3>
+<p>我每次想在我的博客文件夹里进入git bash，必须要打开文件夹才能进入，操作繁琐，于是在桌面建立git bash 快捷方式，并将git bash 的默认打开路径更改为我的博客文件夹下，这样点击图标，即能进入本地git仓库</p>
+<p>1.找到git bash，右键属性，可以看到目标栏及起始位置栏。</p>
+<p><img src="https://i.loli.net/2020/08/04/tPL1uzsVApn5FvC.png" alt="img" style="zoom: 80%;"></p>
+<p>将目标栏中的 --cd-to-home 去掉；将起始位置中填写为本地git仓库的路径，即可完成操作。如下图所示，博客文件夹位置在<code>E:\myBlog</code></p>
+<p><img src="https://i.loli.net/2020/08/04/Vw7Kg3U2OIZQ6R9.png" alt="image-20200804181206322" style="zoom: 50%;"></p>
+<p>注： 若在文件夹里进入 git bash，则然后按下<code>shift+F10</code> （激活右键菜单栏），再按<code>s</code>跳转到git bash，最后按下<code>enter</code>即可</p>
+<h3 id="博客打开网站和更新不完全">博客打开网站和更新不完全</h3>
+<p>在这几天在本地文件夹更新完配置文件对博客进行个性化设置时，使用<code>localhost:4000</code>访问本地blog可以正常显示更改后的样式，但是在登录网站域名就会出现不一致的现象，有时会响应速度慢，延时高，甚至连接超时。</p>
+<p>在整个过程中一直没发现问题，因为本地localhost和网站不一致就不能理解。后来才发现，我的hexo命令写错了。本应该是hexo clean ，我错写为hexo clear，导致不能轻触缓存，所以在网站中不能及时更新显示。</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean <span class="comment"># 清除缓存，网页正常情况下可以忽略此命令</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="博客无法连接">博客无法连接</h3>
+<p>本地服务器可以正常显示，但是博客连接不上</p>
+<p>如何可以ping 通，则代表不是域名方面的问题，应该就是服务器的问题，可能是部署在github上，所以会有点慢，后续准备买一个阿里云的服务器。</p>
+<p>解决：</p>
+<p>1.博客正在加载， 等一段时间刷新</p>
+<p>2.如果还是不行，则清理chrome的cookie缓存再刷新即可， 可以解决问题，但是操作麻烦。</p>
+<p><img src="https://i.loli.net/2020/08/10/Iwpk2yb5OAjuoKf.png" alt="image-20200810152929992"></p>
+<p>3.清除特定网站下的缓存：</p>
+<p>打开开发者工具（F12），选择 Network——Disable cache 。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。</p>
+<p>4.如果在文章标题中使用了当天的日期，可能无法及时得到页面更新。因为Github使用了格林尼治标准时间，也就是UTC。中国是东八时区，UTC+8，对于hexo来说是一个未来的时间，所以新的Posts不会被渲染。</p>
+<p>在hexo配置文件<code>_config.yml</code>中设置<code>timezone: Asia/Shanghai</code> (有效解决问题) <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8">⭐</span></p>
+<p>参考</p>
+<blockquote>
+<p>博客无法更新post文章 https://www.jianshu.com/p/b73c28e77760</p>
+</blockquote>
+<h3 id="clone的时候无法clone-next的内容">clone的时候无法clone next的内容</h3>
+<h4 id="问题">问题</h4>
+<p>在使用git将myblog文件夹的博客内容push到github上之后，发现对于<code>./theme/next</code>中的内容无法上传</p>
+<h4 id="原因">原因</h4>
+<p>next当时是clone别人的仓库，在我的myblog文件夹里本身就有一个<code>.git</code>的隐藏文件，然而我在博客文件夹里又引用了next的git仓库，所以导致上述问题</p>
+<blockquote>
+<p>任意文件夹中，用 <code>git init</code> 命令初始化仓库，即可在此文件夹下创建 <code>.git</code> 文件夹（<code>.</code>打头为隐藏文件夹，所以平时可能看不到）。这个文件夹之外的部分叫做工作区（Working Directory），<code>.git</code> 文件夹我们称做 Git仓库 (Git Repository)。</p>
+</blockquote>
+<h4 id="解决">解决</h4>
+<p>1.将themes/next这个文件里的.git文件删除，这样next文件就相当于是一个普通文件，可以上传到myblog仓库里。但是当next有大更新的时候不会提示</p>
+<p>2.保留next 的.git，将next下的<code>_config.yml</code>和其它修改的文件单独复制出来（主要是<code>_config.yml</code>），备份一下到./source/文件夹下，将这些文件作为普通文件上传。这样next的.git不用删除，同时next文件夹下的内容不会上传。</p>
+<h3 id="添加自启动项">添加自启动项</h3>
+<p>添加开机自启动项，在文件管理器的路径栏输入</p>
+<p><code>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
+<p>然后将要添加的软件快捷方式复制到里面即可,如下：</p>
+<p><strong><img src="https://i.loli.net/2020/08/31/dqOpCylYLNQ8EoV.png" alt="image-20200831170347078"></strong></p>
+<h3 id="anaconda-prompt找不到">anaconda prompt找不到</h3>
+<h4 id="操作">操作</h4>
+<p>在开始栏里面找不到anaconda prompt的内容，自己在anaconda3文件夹里也没看到anaconda prompt的启动项。在powershell里使用conda，功能并不完整（如无法实现基本的<code>conda activate</code>）， 于是考虑将其添加到开始栏里，这样以后操作方便一些</p>
+<p>step 1 :打开cmd, 进入到anaconda3的安装目录，下方是我的目录，于是操作如下：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\Users\Administrator\anaconda3</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="E:\myBlog\source_posts\image-20200902003632825.png" alt="image-20200902003632825"></p>
+<p>step 2 : 进入到Anaconda的安装目录后，输入：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">python .\Lib\_nsis.py mkmenus</span><br></pre></td></tr></tbody></table></figure>
+<p>通过看文件夹目录树可以发现<code>anaconda prompt</code> 应该存在于<code>.\Lib\_nsis.py</code>文件里，用python运行 ，添加到开始栏里</p>
+<p>step 3 打开左下角的开始栏，可以发现出现了<code>anaconda prompt</code></p>
+<blockquote>
+<h4 id="参考">参考</h4>
+<p><a href="https://www.py.cn/tools/anaconda/16426.html" target="_blank" rel="noopener">anaconda prompt找不到怎么解决？</a></p>
+</blockquote>
+<h4 id="参考-1">参考</h4>
+<blockquote>
+<p><a href="https://www.py.cn/tools/anaconda/16426.html" target="_blank" rel="noopener">anaconda prompt找不到怎么解决？</a></p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>故障排除</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020-07-28-transformer解读-pytorch版本</title>
     <url>/2020/07/28/2020-07-28-transformer-pytorch/</url>
     <content><![CDATA[<h3 id="前言">前言</h3>
-<p>最近几天都在阅读哈佛pytorch实现transformer的代码，代码风格很好，很值得参考和研读。和实验室师兄又在一起讨论了几次，代码思路和实现过程基本都了解了，对于原论文 <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">“Attention is All You Need”</a> 中关于transformer模型的理解又深入了许多。果然要想了解模型，还是要好好研读实现代码。以便于后面自己结合模型的研究。s</p>
+<p>最近几天都在阅读哈佛pytorch实现transformer的代码，代码风格很好，很值得参考和研读。和实验室师兄又在一起讨论了几次，代码思路和实现过程基本都了解了，对于原论文 <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">“Attention is All You Need”</a> 中关于transformer模型的理解又深入了许多。果然要想了解模型，还是要好好研读实现代码。以便于后面自己结合模型的研究。</p>
 <p>本篇是对实现代码的注释，加上了自己的理解，也会有一些函数的介绍扩充。</p>
 <h4 id="参考链接">参考链接</h4>
 <blockquote>
@@ -2915,77 +3004,6 @@
       </tags>
   </entry>
   <entry>
-    <title>2020-08-04-博客优化以及问题解决</title>
-    <url>/2020/08/04/2020-08-04-%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="修改git-bash的默认打开工作路径">修改Git Bash的默认打开工作路径</h3>
-<p>我每次想在我的博客文件夹里进入git bash，必须要打开文件夹才能进入，操作繁琐，于是在桌面建立git bash 快捷方式，并将git bash 的默认打开路径更改为我的博客文件夹下，这样点击图标，即能进入本地git仓库</p>
-<p>1.找到git bash，右键属性，可以看到目标栏及起始位置栏。</p>
-<p><img src="https://i.loli.net/2020/08/04/tPL1uzsVApn5FvC.png" alt="img" style="zoom: 80%;"></p>
-<p>将目标栏中的 --cd-to-home 去掉；将起始位置中填写为本地git仓库的路径，即可完成操作。如下图所示，博客文件夹位置在<code>E:\myBlog</code></p>
-<p><img src="https://i.loli.net/2020/08/04/Vw7Kg3U2OIZQ6R9.png" alt="image-20200804181206322" style="zoom: 50%;"></p>
-<p>注： 若在文件夹里进入 git bash，则然后按下<code>shift+F10</code> （激活右键菜单栏），再按<code>s</code>跳转到git bash，最后按下<code>enter</code>即可</p>
-<h3 id="博客打开网站和更新不完全">博客打开网站和更新不完全</h3>
-<p>在这几天在本地文件夹更新完配置文件对博客进行个性化设置时，使用<code>localhost:4000</code>访问本地blog可以正常显示更改后的样式，但是在登录网站域名就会出现不一致的现象，有时会响应速度慢，延时高，甚至连接超时。</p>
-<p>在整个过程中一直没发现问题，因为本地localhost和网站不一致就不能理解。后来才发现，我的hexo命令写错了。本应该是hexo clean ，我错写为hexo clear，导致不能轻触缓存，所以在网站中不能及时更新显示。</p>
-<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean <span class="comment"># 清除缓存，网页正常情况下可以忽略此命令</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="博客无法连接">博客无法连接</h3>
-<p>本地服务器可以正常显示，但是博客连接不上</p>
-<p>如何可以ping 通，则代表不是域名方面的问题，应该就是服务器的问题，可能是部署在github上，所以会有点慢，后续准备买一个阿里云的服务器。</p>
-<p>解决：</p>
-<p>1.博客正在加载， 等一段时间刷新</p>
-<p>2.如果还是不行，则清理chrome的cookie缓存再刷新即可， 可以解决问题，但是操作麻烦。</p>
-<p><img src="https://i.loli.net/2020/08/10/Iwpk2yb5OAjuoKf.png" alt="image-20200810152929992"></p>
-<p>3.清除特定网站下的缓存：</p>
-<p>打开开发者工具（F12），选择 Network——Disable cache 。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。</p>
-<p>4.如果在文章标题中使用了当天的日期，可能无法及时得到页面更新。因为Github使用了格林尼治标准时间，也就是UTC。中国是东八时区，UTC+8，对于hexo来说是一个未来的时间，所以新的Posts不会被渲染。</p>
-<p>在hexo配置文件<code>_config.yml</code>中设置<code>timezone: Asia/Shanghai</code> (有效解决问题) <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8">⭐</span></p>
-<p>参考</p>
-<blockquote>
-<p>博客无法更新post文章 https://www.jianshu.com/p/b73c28e77760</p>
-</blockquote>
-<h3 id="clone的时候无法clone-next的内容">clone的时候无法clone next的内容</h3>
-<h4 id="问题">问题</h4>
-<p>在使用git将myblog文件夹的博客内容push到github上之后，发现对于<code>./theme/next</code>中的内容无法上传</p>
-<h4 id="原因">原因</h4>
-<p>next当时是clone别人的仓库，在我的myblog文件夹里本身就有一个<code>.git</code>的隐藏文件，然而我在博客文件夹里又引用了next的git仓库，所以导致上述问题</p>
-<blockquote>
-<p>任意文件夹中，用 <code>git init</code> 命令初始化仓库，即可在此文件夹下创建 <code>.git</code> 文件夹（<code>.</code>打头为隐藏文件夹，所以平时可能看不到）。这个文件夹之外的部分叫做工作区（Working Directory），<code>.git</code> 文件夹我们称做 Git仓库 (Git Repository)。</p>
-</blockquote>
-<h4 id="解决">解决</h4>
-<p>1.将themes/next这个文件里的.git文件删除，这样next文件就相当于是一个普通文件，可以上传到myblog仓库里。但是当next有大更新的时候不会提示</p>
-<p>2.保留next 的.git，将next下的<code>_config.yml</code>和其它修改的文件单独复制出来（主要是<code>_config.yml</code>），备份一下到./source/文件夹下，将这些文件作为普通文件上传。这样next的.git不用删除，同时next文件夹下的内容不会上传。</p>
-<h3 id="添加自启动项">添加自启动项</h3>
-<p>添加开机自启动项，在文件管理器的路径栏输入</p>
-<p><code>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
-<p>然后将要添加的软件快捷方式复制到里面即可,如下：</p>
-<p><strong><img src="https://i.loli.net/2020/08/31/dqOpCylYLNQ8EoV.png" alt="image-20200831170347078"></strong></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>故障排除</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2020-08-01-hexo+next个性化设置</title>
     <url>/2020/08/01/2020-08-10-hexo-next%E4%B8%AA%E6%80%A7%E5%8C%96%E8%AE%BE%E7%BD%AE/</url>
     <content><![CDATA[<p>一些基本的个性化设置可以参考其它博客，本文只记录在我完成</p>
@@ -3054,13 +3072,13 @@
   <entry>
     <title>2020-07-30-pytorch使用手册</title>
     <url>/2020/07/30/2020-07-30-pytorch%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/</url>
-    <content><![CDATA[<h3 id="python中对于对象的拷贝分为浅拷贝copy和深拷贝deepcopy两种方式其中浅拷贝由完成而深拷贝由copy模块中deepcopy函数担任"><strong>python中对于对象的拷贝分为浅拷贝(copy)和深拷贝(deepcopy)两种方式。其中浅拷贝由“=”完成。而深拷贝由copy模块中deepcopy()函数担任。</strong></h3>
-<h3 id="浅拷贝和深拷贝的区别是浅拷贝只是将原对象在内存中引用地址拷贝过来了让新的对象指向这个地址而深拷贝是将这个对象的所有内容遍历拷贝过来了相当于跟原来没关系了所以如果你这时候修改原来对象的值跟他没关系了不会随之更改"><strong><em>*浅拷贝和深拷贝的区别是：浅拷贝只是将原对象在内存中引用地址拷贝过来了。让新的对象指向这个地址。而深拷贝是将这个对象的所有内容遍历拷贝过来了，相当于跟原来没关系了，所以如果你这时候修改原来对象的值跟他没关系了，不会随之更改。*</em></strong></h3>
-<h3 id="浅拷贝的使用"><strong>1.浅拷贝"="的使用</strong></h3>
+    <content><![CDATA[<p>python中对于对象的拷贝分为浅拷贝(copy)和深拷贝(deepcopy)两种方式。其中浅拷贝由“=”完成。而深拷贝由copy模块中deepcopy()函数担任。</p>
+<p>浅拷贝和深拷贝的区别是：浅拷贝只是将原对象在内存中引用地址拷贝过来了。让新的对象指向这个地址。而深拷贝是将这个对象的所有内容遍历拷贝过来了，相当于跟原来没关系了，所以如果你这时候修改原来对象的值跟他没关系了，不会随之更改。</p>
+<h3 id="浅拷贝的使用">1.浅拷贝"="的使用</h3>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">#1.使用=复制不可变对象的值，以及复制以后修改其值后的变化。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val1 = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val2 = val1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">"val1 is :{0},val2 is :{1}"</span>.format(val1,val2))<span class="comment">#val1 is :1000,val2 is :1000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(id(val1),id(val2))  <span class="comment">#34052192 34052192</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#这时候修改val1的值，尽管val2指向val1.但因为val1是不可变类型，修改其值，会重新给新值分配内存，然后指向他。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val1 += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(val1,id(val1),val2,id(val2)) <span class="comment">#1001 10131616 1000 10131568  值不一样，内存地址也不一样了</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#1.使用=复制可变对象的值，以及复制以后修改其值后的变化。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls1 =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls2 = ls1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(id(ls1),id(ls2)) <span class="comment">#43702792 43702792 直接使用=复制变量，内存地址一样，值也一样。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(ls1,ls2) <span class="comment">#[1, 2, 3, 4] [1, 2, 3, 4]直接使用=复制变量，内存地址一样，值也一样。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#这时候修改可变对的值,因为其值可变，所以只需要在原内存地址上修改即可。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls1.append(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(id(ls1),id(ls2)) <span class="comment">#可变对象修改其值，内存引用不变</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(ls1,ls2) <span class="comment">#[1, 2, 3, 4, 5] [1, 2, 3, 4, 5] 因为两个变量的内存指向一样，所以值也一样。</span></span><br></pre></td></tr></tbody></table></figure>
 <h3 id="深拷贝copy.deepcopy函数">2.深拷贝：copy.deepcopy()函数</h3>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">#1.使用copy.deepcopy()拷贝不可变对象的值，以及复制以后修改其值后的变化。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val1 = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val2 = copy.deepcopy(val1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">"val1 is :{0},val2 is :{1}"</span>.format(val1,val2))<span class="comment">#val1 is :1000,val2 is :1000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(id(val1),id(val2))  <span class="comment">#33717408 33717408 对于不可变对象，深度拷贝内存地址没有修改。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val1 += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(val1,id(val1),val2,id(val2)) <span class="comment">#1001 33717904 1000 33717408</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#1.使用copy.deepcopy()复制可变对象的值，以及复制以后修改其值后的变化。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls1 =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls2 = copy.deepcopy(ls1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(id(ls1),id(ls2)) <span class="comment">#34628472 34628712 注意对于可变对象深度拷贝后内存地址都修改了。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(ls1,ls2) <span class="comment">#[1, 2, 3, 4] [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls1.append(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(id(ls1),id(ls2)) <span class="comment">#34628472 34628712</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(ls1,ls2) <span class="comment">#[1, 2, 3, 4, 5] [1, 2, 3, 4] #注意这个时候ls2的值没有随着ls1修改。</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="总结其实对于浅拷贝和深拷贝来说如果拷贝对象都是不可变对象的话那么两者效果是一样的如果是可变对象的话拷贝的方式只是拷贝了内存中的地址引用两个对象的地址引用一样所以两个对象的值会随着一方的修改而修改而对于deepcopy来说如果是可变对象的话那么拷贝内容后新对象的内存地址也会重新分配跟原来的内存地址不一样了所以两者任意修改变量的内容不会对另一方造成影响">总结：其实对于浅拷贝和深拷贝来说，如果拷贝对象都是不可变对象的话，那么两者效果是一样的。如果是可变对象的话，“=”拷贝的方式，只是拷贝了内存中的地址引用，两个对象的地址引用一样，所以两个对象的值会随着一方的修改而修改。而对于deepcopy()来说，如果是可变对象的话，那么拷贝内容后新对象的内存地址也会重新分配，跟原来的内存地址不一样了。所以两者任意修改变量的内容不会对另一方造成影响。</h3>
+<p>总结：其实对于浅拷贝和深拷贝来说，如果拷贝对象都是不可变对象的话，那么两者效果是一样的。如果是可变对象的话，“=”拷贝的方式，只是拷贝了内存中的地址引用，两个对象的地址引用一样，所以两个对象的值会随着一方的修改而修改。而对于deepcopy()来说，如果是可变对象的话，那么拷贝内容后新对象的内存地址也会重新分配，跟原来的内存地址不一样了。所以两者任意修改变量的内容不会对另一方造成影响。</p>
 <h3 id="注意一个特殊的copy跟深浅拷贝都有区别慎用">3.注意一个特殊的copy(),跟深浅拷贝都有区别，慎用。</h3>
 <ol type="1">
 <li>copy.copy对于可变类型，会进行浅拷贝</li>
@@ -3068,13 +3086,15 @@
 </ol>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="number">1.</span>使用copy()拷贝不可变对象</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val1 = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">val2 = copy.copy(val1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(val1,val2)<span class="comment">##1000 1000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(id(val1),id(val2))<span class="comment">#8551568 8551568</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">2.</span>使用copy（）拷贝可变对象</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls1 =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls2 = copy.copy(ls1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ls1.append(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(ls1,ls2)  <span class="comment">#[1, 2, 3, 4, 5] [1, 2, 3, 4]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">看上去copy()函数效果和deepcopy()效果一样，可变对象拷贝后值也没有随着一个对象的修改而修改。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">然后真实情况真是这样嘛？请看下面的案例，同样是拷贝可变对象。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">origin = [<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cop1 = copy.copy(origin)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cop2 = copy.deepcopy(origin)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">origin[<span class="number">2</span>][<span class="number">0</span>] = <span class="string">"hey!"</span>  <span class="comment">#修改数据源的值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(cop1,cop2) <span class="comment">#[1, 2, ['hey!', 4]] [1, 2, [3, 4]]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">很显然这时copy（）函数拷贝的值随着原对象的值修改了，而deepcopy()的值没有随着原对象的值修改。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">主要是因为deepcopy会将复杂对象的每一层复制一个单独的个体出来对于copy（）函数要慎用，慎用。</span><br></pre></td></tr></tbody></table></figure>
 <p>神经网络的典型处理如下所示：</p>
-<h3 id="定义可学习参数的网络结构堆叠各层和层的设计-2.-数据集输入-3.-对输入进行处理由定义的网络层进行处理主要体现在网络的前向传播-4.-计算loss-由loss层计算-5.-反向传播求梯度-6.-根据梯度改变参数值最简单的实现方式sgd为-weight-weight---learning_rate-gradient"><strong>1. 定义可学习参数的网络结构（堆叠各层和层的设计）； 2. 数据集输入； 3. 对输入进行处理（由定义的网络层进行处理）,主要体现在网络的前向传播； 4. 计算loss ，由Loss层计算； 5. 反向传播求梯度； 6. 根据梯度改变参数值,最简单的实现方式（SGD）为:</strong> weight = weight - learning_rate * gradient</h3>
+<ol type="1">
+<li>定义可学习参数的网络结构（堆叠各层和层的设计）； 2. 数据集输入； 3. 对输入进行处理（由定义的网络层进行处理）,主要体现在网络的前向传播； 4. 计算loss ，由Loss层计算； 5. 反向传播求梯度； 6. 根据梯度改变参数值,最简单的实现方式（SGD）为: weight = weight - learning_rate * gradient</li>
+</ol>
 <p>下面是利用PyTorch定义深度网络层（Op）示例：</p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeatureL2Norm</span><span class="params">(torch.nn.Module)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        super(FeatureL2Norm, self).__init__()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, feature)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        epsilon = <span class="number">1e-6</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#        print(feature.size())</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#        print(torch.pow(torch.sum(torch.pow(feature,2),1)+epsilon,0.5).size())</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        norm = torch.pow(torch.sum(torch.pow(feature,<span class="number">2</span>),<span class="number">1</span>)+epsilon,<span class="number">0.5</span>).unsqueeze(<span class="number">1</span>).expand_as(feature)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> torch.div(feature,norm)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FeatureRegression</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, output_dim=<span class="number">6</span>, use_cuda=True)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        super(FeatureRegression, self).__init__()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        self.conv = nn.Sequential(</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            nn.Conv2d(<span class="number">225</span>, <span class="number">128</span>, kernel_size=<span class="number">7</span>, padding=<span class="number">0</span>),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            nn.BatchNorm2d(<span class="number">128</span>),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            nn.Conv2d(<span class="number">128</span>, <span class="number">64</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">0</span>),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            nn.BatchNorm2d(<span class="number">64</span>),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            nn.ReLU(inplace=<span class="literal">True</span>),</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        self.linear = nn.Linear(<span class="number">64</span> * <span class="number">5</span> * <span class="number">5</span>, output_dim)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> use_cuda:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            self.conv.cuda()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            self.linear.cuda()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        x = self.conv(x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        x = x.view(x.size(<span class="number">0</span>), <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        x = self.linear(x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></tbody></table></figure>
 <p>由上例代码可以看到，不论是在定义网络结构还是定义网络层的操作（Op），均需要定义forward函数，下面看一下<a href="https://pytorch.org/docs/stable/nn.html" target="_blank" rel="noopener">PyTorch官网</a>对PyTorch的forward方法的描述：</p>
 <p><img src="https://img-blog.csdnimg.cn/20181114105426553.PNG" alt="img"></p>
 <p>那么调用forward方法的具体流程是什么样的呢？<a href="https://blog.csdn.net/u012436149/article/details/70145598" target="_blank" rel="noopener">具体流程是这样的：</a></p>
-<h3 id="以一个module为例-1.-调用module的call方法-2.-module的call里面调用module的forward方法-3.-forward里面如果碰到module的子类回到第1步如果碰到的是function的子类继续往下-4.-调用function的call方法-5.-function的call方法调用了function的forward方法-6.-function的forward返回值-7.-module的forward返回值-8.-在module的call进行forward_hook操作然后返回值">以一个Module为例： <strong>1. 调用module的call方法 2. module的call里面调用module的forward方法 3. forward里面如果碰到Module的子类，回到第1步，如果碰到的是Function的子类，继续往下 4. 调用Function的call方法 5. Function的call方法调用了Function的forward方法。 6. Function的forward返回值 7. module的forward返回值 8. 在module的call进行forward_hook操作，然后返回值。</strong></h3>
+<p>以一个Module为例： <strong>1. 调用module的call方法 2. module的call里面调用module的forward方法 3. forward里面如果碰到Module的子类，回到第1步，如果碰到的是Function的子类，继续往下 4. 调用Function的call方法 5. Function的call方法调用了Function的forward方法。 6. Function的forward返回值 7. module的forward返回值 8. 在module的call进行forward_hook操作，然后返回值。</strong></p>
 <p>上述中“调用module的call方法”是指nn.Module 的__call__方法。定义__call__方法的类可以当作函数调用，具体参考Python的面向对象编程。也就是说，当把定义的网络模型model当作函数调用的时候就自动调用定义的网络模型的forward方法。nn.Module 的__call__方法部分源码如下所示：</p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, *input, **kwargs)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   result = self.forward(*input, **kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword">for</span> hook <span class="keyword">in</span> self._forward_hooks.values():</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="comment">#将注册的hook拿出来用</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       hook_result = hook(self, input, result)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   ...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> result</span><br></pre></td></tr></tbody></table></figure>
 <p>可以看到，当执行model(x)的时候，底层自动调用forward方法计算结果。具体示例如下：</p>
@@ -3153,14 +3173,24 @@
     <url>/2020/07/28/2020-07-28-pytorch%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<h3 id="anaconda安装配置">Anaconda安装配置</h3>
 <p>由于墙的问题，用conda安装Pytorch过程中会连接失败，这是因为Anaconda.org的服务器在国外。在这里可以用清华TUNA镜像源，包含Anaconda仓库的镜像，将其加入conda的配置，配置如下：</p>
-<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">#添加Anaconda的TUNA镜像</span></span><br><span class="line"></span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line"></span><br><span class="line"><span class="comment">#TUNA的help中镜像地址加有引号，需要去掉</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置搜索时显示通道地址</span></span><br><span class="line"></span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">#添加Anaconda的TUNA镜像</span></span><br><span class="line"></span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line"></span><br><span class="line"><span class="comment">#TUNA的help中镜像地址加有引号，需要去掉</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置搜索时显示通道地址</span></span><br><span class="line"></span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></tbody></table></figure>
 <p>执行完上述命令后，会生成~/.condarc文件，记录着对conda的配置，直接手动创建、编辑该文件是相同的效果。</p>
+<p>https://www.jianshu.com/p/39819bcb889f</p>
+<p>https://blog.csdn.net/weixin_39278265/article/details/84782550</p>
+<p>镜像源内容理解一下？？？</p>
+<p>conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ 好用！</p>
+<p>清华镜像源好像用不了了</p>
+<p>为啥要使用镜像源？ 国内有啥比较靠谱的anaconda镜像源</p>
+<p>https://www.py.cn/tools/anaconda/16426.html anaconda 问题</p>
+<p><img src="E:\myBlog\source_posts\image-20200901232602677.png" alt="image-20200901232602677"></p>
 <h3 id="pytorch安装">Pytorch安装</h3>
 <p>在这里的安装，我采用conda安装：</p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">conda install pytorch torchvision -c soumith</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="测试">测试</h3>
 <p>进入python模式下，看能否导入torch成功：</p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">python</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> torch</span><br></pre></td></tr></tbody></table></figure>
+<p>conda install pytorch=0.3.0</p>
+<p>conda install torchvision==0.2.1</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -3970,7 +4000,7 @@
 <p>之前一直用的是pycharm上的虚拟环境管理，后来觉得不利于管理。于是开始使用anaconda。</p>
 <p>anaconda可以跨平台使用，我安装window版的anaconda，使用它管理虚拟环境。</p>
 <h2 id="下载并安装">下载并安装</h2>
-<p>到<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">官网</a>根据自己情况下载好anaconda版本，安装完毕，可通过以下两种方式进入anacon操作环境</p>
+<p>到<a href="https://www.anaconda.com/download/" target="_blank" rel="noopener">官网</a>根据自己情况下载好anaconda版本，安装完毕，可通过以下两种方式进入anaconda操作环境</p>
 <ul>
 <li>1.可以增加到path环境变量，打开cmd/powershell，即可操作</li>
 <li>2.打开Anaconda Prompt即可操作（推荐）</li>
