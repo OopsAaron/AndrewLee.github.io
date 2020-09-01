@@ -1665,6 +1665,7 @@
 <h4 id="小结-2">小结</h4>
 <p>了解工作区和暂存区的概念，并通过例子加强<code>git status</code> 、<code>git add</code>、<code>git</code></p>
 <p><code>commit</code>的理解</p>
+<p>如果不用<code>git add</code>到暂存区，那就不会加入到<code>commit</code>中。也就是说<code>commit</code>只会提交暂存区里的内容</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
