@@ -25,12 +25,12 @@
   </script>
 
 
-  <meta name="description" content="git的进阶使用总结">
+  <meta name="description" content="不断更新 ，在实践中总结git知识点。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2020-08-31-git进阶">
 <meta property="og:url" content="http://yoursite.com/2020/08/31/2020-08-31-git%E8%BF%9B%E9%98%B6/index.html">
 <meta property="og:site_name" content="思建的NLP之旅">
-<meta property="og:description" content="git的进阶使用总结">
+<meta property="og:description" content="不断更新 ，在实践中总结git知识点。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2020/08/31/fTmxaAeZG1iSCLd.png">
 <meta property="og:image" content="https://i.loli.net/2020/08/31/nVd3hGKLJy6f7zH.png">
@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/09/01/CIASBwaTMEY3Gh1.png">
 <meta property="og:image" content="https://i.loli.net/2020/09/01/T8jefu37XvFnZMJ.png">
 <meta property="article:published_time" content="2020-08-31T08:41:49.000Z">
-<meta property="article:modified_time" content="2020-09-01T02:42:47.836Z">
+<meta property="article:modified_time" content="2020-09-01T06:23:05.922Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -277,7 +277,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-01 10:42:47" itemprop="dateModified" datetime="2020-09-01T10:42:47+08:00">2020-09-01</time>
+                <time title="修改时间：2020-09-01 14:23:05" itemprop="dateModified" datetime="2020-09-01T14:23:05+08:00">2020-09-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -322,7 +322,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>4.2k</span>
+              <span>4.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -330,7 +330,7 @@
               </span>
               <span>4 分钟</span>
             </span>
-            <div class="post-description">git的进阶使用总结</div>
+            <div class="post-description">不断更新 ，在实践中总结git知识点。</div>
 
         </div>
       </header>
@@ -343,6 +343,15 @@
       
         <h3 id="前言">前言</h3>
 <p>之前总结过git的一些基本命令，后来使用了更多git，写博客用于记录。不断更新 ，在实践中总结git知识点。</p>
+<p>回顾下之前的git基本操作</p>
+<ul>
+<li>将现有的项目添加提交并上传到远程仓库</li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>clone代码</li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="git-status-和-git-diff">git status 和 git diff</h3>
 <p>在对文件进行修改之后，可以用 <code>git status</code> 查看结果，可以让我们时刻掌握仓库当前的状态</p>
 <p><img src="https://i.loli.net/2020/08/31/fTmxaAeZG1iSCLd.png" alt="image-20200831180231338" style="zoom:67%;"></p>
@@ -470,6 +479,7 @@
 <li>一种是文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</li>
 </ul>
 <p>总之，就是让这个文件回到最近一次<code>git commit</code>或<code>git add</code>时的状态。</p>
+<p><code>git checkout</code>其实是<strong>用版本库里的版本替换工作区的版本</strong>，无论工作区是修改还是删除，都可以“一键还原”。</p>
 <h5 id="注">注</h5>
 <ul>
 <li>文件必须写当前git bash 下的完整路径，可以参考<code>git status</code>下的modified部分路径名称，如上的<code>source/_posts/</code></li>
@@ -500,6 +510,8 @@
 <li>场景2：当你不但改乱了工作区某个文件的内容，还<code>添加到了暂存区</code>时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，就回到了场景1，第二步按场景1操作，用命令<code>git checkout -- file</code>。</li>
 <li>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考<code>版本回退</code>，不过前提是没有推送到远程库。</li>
 </ul>
+<p>远程</p>
+<p>分支暂时用不到，就没有学习</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -725,12 +737,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">171k</span>
+    <span title="站点总字数">172k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:35</span>
+    <span title="站点阅读时长">2:36</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

@@ -34,12 +34,15 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2020/07/20/45pTnsvKBbYPDCQ.png">
 <meta property="og:image" content="https://i.loli.net/2020/08/10/TBqj7pxGadESw1m.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png">
 <meta property="og:image" content="https://i.loli.net/2020/07/21/AeMFUSKwfWGkjpr.png">
 <meta property="og:image" content="https://i.loli.net/2020/07/22/5EWcOhQ8MBCem4s.png">
 <meta property="og:image" content="https://i.loli.net/2020/07/22/H6JKBeIwhcTkN5z.png">
 <meta property="og:image" content="https://i.loli.net/2020/07/22/oLMuDQOmg6xaBYU.png">
 <meta property="article:published_time" content="2020-07-20T11:39:44.000Z">
-<meta property="article:modified_time" content="2020-08-31T15:10:59.119Z">
+<meta property="article:modified_time" content="2020-09-01T06:23:00.483Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -262,7 +265,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-31 23:10:59" itemprop="dateModified" datetime="2020-08-31T23:10:59+08:00">2020-08-31</time>
+                <time title="修改时间：2020-09-01 14:23:00" itemprop="dateModified" datetime="2020-09-01T14:23:00+08:00">2020-09-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -307,7 +310,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>3k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -350,6 +353,16 @@
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
 <p>刷新github，即可看到上传的文件</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="注">注</h4>
+<p>在<code>git commit -m "first commit"</code>中，若名称<code>first commit</code>不加引号，则不能有空格</p>
+<p>如下则会报错</p>
+<p><img src="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png" alt="image-20200901141302927"></p>
+<p>不知道原因，我用<code>git status</code> 排查了一下，发现已经添加到暂存区了，所以应该是<code>commit</code>的原因</p>
+<p><img src="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png" alt="image-20200901142150766"></p>
+<p>可以看到，<code>changes to be committed</code> ，说明都在暂存区，等待提交<code>commit</code></p>
+<p>将空格去掉，或者加上双引号即可成功</p>
+<p><img src="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png" alt="image-20200901141341959"></p>
+<p>之后就可以push到远程仓库中了</p>
 <h4 id="参考">参考</h4>
 <blockquote>
 <p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用git命令清单-阮一峰</a> <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html" target="_blank" rel="noopener">读懂diff-阮一峰</a> <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">git教程-廖雪峰</a> <a href="http://www.runoob.com/git/git-install-setup.html" target="_blank" rel="noopener">git教程-菜鸟教程</a> <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">gitbook</a> <a href="http://gitbook.liuhui998.com/index." target="_blank" rel="noopener">Git Community Book</a></p>
@@ -519,7 +532,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用git上传本地项目到github"><span class="nav-number">1.</span> <span class="nav-text">利用git上传本地项目到github</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定用户"><span class="nav-number">1.1.</span> <span class="nav-text">1.绑定用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成密钥ssh-key"><span class="nav-number">1.2.</span> <span class="nav-text">2.生成密钥SSH key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提交到github"><span class="nav-number">1.3.</span> <span class="nav-text">3.提交到github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#从只会git-add-.的菜鸟到掌握git基本功能"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">从只会git add .的菜鸟到掌握git基本功能</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo更新到网站"><span class="nav-number">2.</span> <span class="nav-text">hexo更新到网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一般命令"><span class="nav-number">2.1.</span> <span class="nav-text">一般命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合命令"><span class="nav-number">2.2.</span> <span class="nav-text">组合命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo高级操作"><span class="nav-number">3.</span> <span class="nav-text">hexo高级操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#config.yml"><span class="nav-number">3.1.</span> <span class="nav-text">_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaffolds"><span class="nav-number">3.2.</span> <span class="nav-text">scaffolds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#public"><span class="nav-number">3.3.</span> <span class="nav-text">public</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source"><span class="nav-number">3.4.</span> <span class="nav-text">source</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为github仓库添加readme"><span class="nav-number">3.5.</span> <span class="nav-text">为github仓库添加readme</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#themes"><span class="nav-number">3.6.</span> <span class="nav-text">themes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考-1"><span class="nav-number">3.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用git上传本地项目到github"><span class="nav-number">1.</span> <span class="nav-text">利用git上传本地项目到github</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定用户"><span class="nav-number">1.1.</span> <span class="nav-text">1.绑定用户</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成密钥ssh-key"><span class="nav-number">1.2.</span> <span class="nav-text">2.生成密钥SSH key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提交到github"><span class="nav-number">1.3.</span> <span class="nav-text">3.提交到github</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注"><span class="nav-number">1.4.</span> <span class="nav-text">注</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">1.5.</span> <span class="nav-text">参考</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#从只会git-add-.的菜鸟到掌握git基本功能"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">从只会git add .的菜鸟到掌握git基本功能</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo更新到网站"><span class="nav-number">2.</span> <span class="nav-text">hexo更新到网站</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一般命令"><span class="nav-number">2.1.</span> <span class="nav-text">一般命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合命令"><span class="nav-number">2.2.</span> <span class="nav-text">组合命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo高级操作"><span class="nav-number">3.</span> <span class="nav-text">hexo高级操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#config.yml"><span class="nav-number">3.1.</span> <span class="nav-text">_config.yml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scaffolds"><span class="nav-number">3.2.</span> <span class="nav-text">scaffolds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#public"><span class="nav-number">3.3.</span> <span class="nav-text">public</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source"><span class="nav-number">3.4.</span> <span class="nav-text">source</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为github仓库添加readme"><span class="nav-number">3.5.</span> <span class="nav-text">为github仓库添加readme</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#themes"><span class="nav-number">3.6.</span> <span class="nav-text">themes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考-1"><span class="nav-number">3.7.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -618,12 +631,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">171k</span>
+    <span title="站点总字数">172k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:35</span>
+    <span title="站点阅读时长">2:36</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
