@@ -1204,7 +1204,7 @@
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">tmux detach <span class="comment"># 断开当前会话，会话在后台运行</span></span><br></pre></td></tr></tbody></table></figure>
 <h5 id="进入之前的会话">进入之前的会话</h5>
 <p>断开会话后，想要接着上次留下的现场继续工作，就要使用到tmux的attach命令了，语法为<code>tmux attach-session -t session-name</code>，可简写为<code>tmux a -t session-name</code> 或 <code>tmux a</code>。通常我们使用如下两种方式之一即可：</p>
-<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">tmux a <span class="comment"># 默认进入第一个会话</span></span><br><span class="line">tmux a -t demo <span class="comment"># 进入到名称为demo的会话</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">tmux a <span class="comment"># 默认进入第一个会话dd</span></span><br><span class="line">tmux a -t demo <span class="comment"># 进入到名称为demo的会话</span></span><br></pre></td></tr></tbody></table></figure>
 <h5 id="关闭会话">关闭会话</h5>
 <p>会话的使命完成后，一定是要关闭的。我们可以使用tmux的kill命令</p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">tmux kill-session -t demo <span class="comment"># 关闭demo会话 </span></span><br><span class="line"></span><br><span class="line">tmux kill-server <span class="comment"># 关闭服务器，即关闭所有会话</span></span><br><span class="line"></span><br><span class="line">tmux kill-session -a -t s1　　<span class="comment">#关闭除s1外的所有会话</span></span><br></pre></td></tr></tbody></table></figure>
@@ -1291,8 +1291,8 @@
 </tr>
 <tr class="even">
 <td style="text-align: center;"><code>Ctrl+b</code></td>
-<td style="text-align: center;"><code>o</code></td>
-<td style="text-align: center;">选择下一面板</td>
+<td style="text-align: center;"><code>Ctrl+o</code></td>
+<td style="text-align: center;">顺时针旋转当前窗口中的所有面板</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;"><code>Ctrl+b</code></td>
@@ -1845,7 +1845,97 @@
   <entry>
     <title>2020-08-31-一周论文分享（第1期）</title>
     <url>/2020/08/31/2020-08-31-%E4%B8%80%E5%91%A8%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%EF%BC%88%E7%AC%AC1%E6%9C%9F%EF%BC%89/</url>
-    <content><![CDATA[<p>记录每周值得分享的论文，周一发布《reformer-the eficient transformer》《Transformer-XL-Attentive Language Models Beyond a Fixed-Length Context》</p>
+    <content><![CDATA[<h3 id="reformerthe-eficient-transformer">《reformer：the eficient transformer》</h3>
+<h4 id="论文概况">论文概况</h4>
+<ul>
+<li>来源：ICLR 2020</li>
+<li>arXiv: 1901.02860</li>
+<li>作者：Nikita Kitaev ，Anselm Levskaya</li>
+<li>论文地址：<a href="https://openreview.net/forum?id=rkgNKkHtvB" target="_blank" rel="noopener" class="uri">https://openreview.net/forum?id=rkgNKkHtvB</a></li>
+<li>Code url：<a href="https://github.com/google/trax/tree/master/trax/models/reformer" target="_blank" rel="noopener" class="uri">https://github.com/google/trax/tree/master/trax/models/reformer</a></li>
+<li>论文组会报告于<code>2020.08.30</code></li>
+</ul>
+<h4 id="背景">背景</h4>
+<p>Transformer架构被广泛用于自然语言处理中，并在许多任务上产生了最新的结果</p>
+<h5 id="问题">问题</h5>
+<ol type="1">
+<li>大型的 Transformer 可以在许多任务上实现 sota，但是面临着参数过多的问题，导致所占内存过大，造成资源紧张.</li>
+</ol>
+<p>在最大的配置中，参数数量已经超过了 5亿/层，层数多达 64。</p>
+<ol start="2" type="1">
+<li><p>具有 <em>N</em> 层的模型要消耗 <em>N</em> 倍于单层模型的内存，因为每一层中的激活都需要存储以进行反向传播。</p></li>
+<li><p>由于点乘注意力本身的局限性，导致不能处理长序列数据，否则会导致效率不高</p></li>
+</ol>
+<p>也就是说transformer的上下文窗口有限制范围。最多也就几千个单词。</p>
+<blockquote>
+<p>Transformer 的强大来源于注意力机制 ，通过这一机制，Transformer 将上下文窗口内所有可能的单词对纳入考虑，以理解它们之间的联系。因此，如果文本包含 10 万个单词，Transformer 将需要评估 100 亿单词对（10 万 x 10 万），这显然不切实际。</p>
+<p>另一个问题是如何保存每个模型层的输出 。对于使用大型上下文窗口的应用来说，存储多个模型层输出的内存需求会迅速变得过大。这意味着，实际使用大量层的 Transformer 模型只能用于生成几小段落的文本或一小段的音乐。</p>
+</blockquote>
+<h5 id="解决方案">解决方案</h5>
+<ol type="1">
+<li><p>使用可逆残差（reversible residual layers）代替标准残差（standard residuals），这使得存储在训练过程中仅激活一次，而不是 n 次（此处 n 指层数），更有效地使用可用内存</p></li>
+<li><p>将点乘注意力（dot-product attention）替换为一个使用局部敏感哈希（locality-sensitive hashing）的点乘注意力，将复杂度从 O(L2 ) 变为 O(L log L)，此处 L 指序列的长度，来降低长序列的处理复杂度</p></li>
+</ol>
+<p><strong>Reformer与使用完全Transformer所获得的结果相匹配，但运行速度要快得多，尤其是在文本任务上，并且内存效率要高几个数量级。</strong></p>
+<h4 id="局部敏感哈希lsh-注意力">局部敏感哈希(LSH) 注意力</h4>
+<h5 id="原始注意力">原始注意力</h5>
+<p>公式如下：<span class="math inline">\(Attention (Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d_{k}}}\right) V\)</span></p>
+<p>self-attention操作的核心 ——<span class="math inline">\(QK^T\)</span> 表示key和query之间的相似度得分</p>
+<p>计算带有所有k的q的点积，并用√dk进行缩放，然后应用softmax函数来获得v的权重。用来消除hidden size这个参数对注意力分布的影响。对于每个query，我们在所有keys上计算一个softmax，以确保矩阵的每一行和为1—— 确保新的隐藏状态的大小不依赖于序列长度。</p>
+<p>最后，我们用我们的注意力矩阵乘以我们的values矩阵，为每个token生成一个新的隐藏表示。</p>
+<hr>
+<blockquote>
+<h5 id="例子">例子</h5>
+<p>Key:(batch, length,d_model)</p>
+<p>Query:(batch, length,d_model)</p>
+<p>-&gt; <span class="math inline">\(QK^T\)</span>　:(batch, length,length)</p>
+<p>-&gt; 复杂度： O(<span class="math inline">\(L^2\)</span> )</p>
+<p>-&gt;原始的transformer结构难以处理过长的序列长度</p>
+</blockquote>
+<p><img src="https://i.loli.net/2020/09/03/9mdzrXcGKZ5FPi3.png" alt="image-20200903163000933"></p>
+<p><img src="https://i.loli.net/2020/09/03/6QvMn1qxGXzwKmC.png" alt="image-20200903161441529"></p>
+<p>其实，在softmax中，对于每个查询 <em>q</em>，我们只需要注意最接近 <em>q</em> 的键 <em>k</em>。<strong>并不一定需要那些注意力权重很小的token。</strong></p>
+<p>例如，如果序列长度是 64K，对于每个 <em>q</em>，我们可以只考虑 32 或 64 个最近的键的一个小子集。因为这些是和<em>q</em>最需要注意的</p>
+<h5 id="局部敏感哈希lsh">局部敏感哈希(LSH)</h5>
+<p><img src="https://i.loli.net/2020/09/03/zQI9n2ubZYDV7SL.png" alt="image-20200903163152560"></p>
+<p>局部敏感哈希使用<code>球形投影点的随机旋转</code>，通过argmax在有符号轴投影上<code>建立桶（bucket）</code>。 在此高度简化的2D描绘中，对于三个不同的角度hash，两个点x和y不太可能共享相同的哈希桶（上方），除非它们的球面投影彼此靠近（下方）。</p>
+<p>该图演示了一个用<code>4个桶进行3轮哈希的设置</code>。下面的图中的向量映射到了同一个bucket，因为它们的输入很接近，而上一张图中的向量映射到第一个和最后一个bucket。</p>
+<p>LSH是一组将高维向量映射到一组离散值(桶/集群)的方法。是解决在高维空间中快速找到最近邻居（最相似）的问题。</p>
+<p><code>基本思想</code>：选择 <em>hash</em> 函数，对于两个点 p 和 q，如果 q 接近 p，那么很有可能我们有 hash(q) == hash(p)</p>
+<h5 id="局部敏感哈希lsh-注意力-1">局部敏感哈希(LSH) 注意力</h5>
+<p><img src="https://i.loli.net/2020/09/03/KgnJ7iB2kImcshX.png" alt="image-20200903163641310"></p>
+<p>完全不同的方法来处理序列长度问题，丢弃了<code>query投影</code>（Q=K）（实验结果发现，学习不同的keys和queries的投影并不是严格必要的），<code>并将注意力权重替换为key的函数（hash函数）</code>，以此降低复杂度</p>
+<p>步骤如下：</p>
+<p>1.使用LSH为每个token计算一个桶</p>
+<p>2.根据相同的桶进行归类排序</p>
+<p>3.分块并将标准的点乘注意力应用到桶中的token的块上，从而大大降低计算负载</p>
+<h4 id="内存问题">内存问题</h4>
+<p>单层能够执行长序列的单模型。但是，当使用梯度下降训练多层模型时，由于需要保存每一层的激活（函数），以用于执行逆推。一个传统的 Transformer 模型具有十几个或更多的层，通过缓存这些层的值，内存将会很快用完。</p>
+<p>可逆层：在反向传播时，按需重新计算每个层的输入，而不是将其保存在内存中。其中来自网络最后一层的激活用于还原来自任何中间层的激活。</p>
+<p>原始的残差网络：<span class="math inline">\(Y=F(x)\)</span></p>
+<p>可逆层的残差网络： 注意我们如何从它的输出(Y ₁, Y ₂)计算物体的输入(X ₁, X ₂)。</p>
+<p><span class="math inline">\(\begin{array}{ll}y_{1}=x_{1}+F\left(x_{2}\right) &amp; y_{2}=x_{2}+G\left(y_{1}\right) \\ x_{2}=y_{2}-G\left(y_{1}\right) &amp; x_{1}=y_{1}-F\left(x_{2}\right) \\ Y_{1}=X_{1}+\text { Attention }\left(X_{2}\right) &amp; Y_{2}=X_{2}+\text { FeedForward }\left(Y_{1}\right)\end{array}\)</span></p>
+<p>示意图如下</p>
+<p><img src="https://i.loli.net/2020/09/03/WX3lcQrmB16pI2Y.png" alt="image-20200903164816966"></p>
+<p><img src="https://i.loli.net/2020/09/03/FgHKa4QNrsjlzMh.png" alt="image-20200903164907447"></p>
+<h4 id="实验">🚀实验</h4>
+<p>作者分别对图像生成任务 <em>imagenet64</em>(长度为 12K)和文本任务 <em>enwik8</em>(长度为 64K)进行了实验，评价了可逆 Transformer 和 LSH 哈希对内存、精度和速度的影响。</p>
+<p>🎉可逆 Transformer 匹配基准：他们的实验结果表明，可逆的 Transformer 可以节省内存不牺牲精度：</p>
+<p><img src="https://i.loli.net/2020/09/03/LwSPM5qFuBfQhaZ.png" alt="null"></p>
+<p>在 enwik8 和 imagenet64 训练中，可逆性对性能的影响</p>
+<p>🎉LSH 注意力匹配基准：注意 LSH 注意力是一个近似的全注意力，其准确性随着散列值的增加而提高。当哈希值为 8 时，LSH 的注意力几乎等于完全注意力：</p>
+<p><img src="https://i.loli.net/2020/09/03/t4zNAXOf6iEZ7cH.jpg" alt="null"></p>
+<p>LSH 注意力作为散列循环对 imagenet64 的影响</p>
+<p>🎉他们也证明了传统注意力的速度随着序列长度的增加而变慢，而 LSH 注意力速度保持稳定，它运行在序列长度~ 100k 在 8GB 的 GPU 上的正常速度：</p>
+<p><img src="https://i.loli.net/2020/09/03/aGRcA42EiNSBz8v.jpg" alt="null"></p>
+<p>注意力评估的速度作为全注意力和 LSH 注意力的输入长度的函数</p>
+<blockquote>
+<p>与 Transformer 模型相比，最终的 Reformer 模型具有更高的存储效率和更快的存储速度。</p>
+</blockquote>
+<h4 id="参考">参考</h4>
+<p><a href="https://www.6aiq.com/article/1583729200869" target="_blank" rel="noopener" class="uri">https://www.6aiq.com/article/1583729200869</a></p>
+<p><a href="https://thinkwee.top/2020/02/07/reformer/" target="_blank" rel="noopener" class="uri">https://thinkwee.top/2020/02/07/reformer/</a></p>
+<p><a href="https://aijishu.com/a/1060000000100293" target="_blank" rel="noopener" class="uri">https://aijishu.com/a/1060000000100293</a></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1880,6 +1970,7 @@
 <p>参考</p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzA5ODEzMjIyMA==&amp;mid=2247501483&amp;idx=1&amp;sn=9b21f8e62fa2b4b33045900a1e721d30&amp;chksm=9094cf38a7e3462ed5901bd8b0b8ebf99a892b31d75aa6eaf8b3c8cc7698b1d708fd0891ab3e&amp;mpshare=1&amp;scene=1&amp;srcid=08304BRBOlTyXb4qDBM5SGTj&amp;sharer_sharetime=1598771438122&amp;sharer_shareid=2c9f868695c34cf5ff5f7a42eab3d2ed&amp;key=9b9af4fa8e2c96d71311b901f9c755ada338c70880cf596dfe4bc2b5ca69cfb094a0a310cf713fb50591ef0933e5f438e73110d797ab7406eeefa5dd5f4c460076a3e94537447c235df683c3eb24a048c7472ad2cdef063ec759505ebb6902987eb9a08ca55be656525ace69f39c8cdbedf7f2b71fa3d2c7c2c4b0dd2e660589&amp;ascene=1&amp;uin=ODEyNzQwMTM5&amp;devicetype=Windows+10+x64&amp;version=62090529&amp;lang=zh_CN&amp;exportkey=A4y9BBn%2B1GAGlkX0mhK71n0%3D&amp;pass_ticket=tS9Bcx3H%2FQ34yaxv%2F0nHTttU4aZeBoKDlw2k4Zwl5JMpqZkqPjEwcrpqIlAybtka" target="_blank" rel="noopener">沈向阳：读论文的三个层次</a></p>
 <p><a href="https://www.youtube.com/watch?v=Du7qLsToW-o&amp;t=443s" target="_blank" rel="noopener">youtube视频，沈向阳读论文</a></p>
+<p><a href="https://mp.weixin.qq.com/s?subscene=19&amp;__biz=MzIzNjc1NzUzMw==&amp;mid=2247546863&amp;idx=2&amp;sn=275577791d4cee894bd874eedc846f88&amp;chksm=e8d0809ddfa7098b90f2d601d59c1ea11162180387dd9677a96c03e666c1b1e05f8e719d989e&amp;scene=7&amp;ascene=1&amp;devicetype=Windows+10+x64&amp;version=62090529&amp;nettype=cmnet&amp;abtest_cookie=AAACAA%3D%3D&amp;lang=zh_CN&amp;exportkey=Ax%2BhWVV2Xr753%2BtDF%2BAIKRw%3D&amp;pass_ticket=sT%2F05g2Sqp72CoAfTsiZ8TDrxTKg0f%2FTh968brMSrSyOqE%2F1GuTq0PTOveYYBqof&amp;wx_header=0&amp;key=573aef4c1f9b4b5fc4e631a99eb0547e4182bf3ee5dd048cf4487f739b93c9b004f67e751713dea6880a5a922c03ceb30730558ff6be83d973abec53f6fb592491c98a1e205921d9c380c59d6f30c92ea2b1836956318f54b99e962b4d620a7ca074f2e317b259e495570360cc981c43758194fb5e38587a176b8af431cca351&amp;uin=ODEyNzQwMTM5" target="_blank" rel="noopener">吴恩达教你如何读论文：绘制进度表格，论文至少看三遍，还要问自己问题</a></p>
 </blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -3182,6 +3273,16 @@
 <p>清华镜像源好像用不了了</p>
 <p>为啥要使用镜像源？ 国内有啥比较靠谱的anaconda镜像源</p>
 <p>https://www.py.cn/tools/anaconda/16426.html anaconda 问题</p>
+<h3 id="anaconda-中的镜像源的基本操作">Anaconda 中的镜像源的基本操作</h3>
+<h4 id="显示原来的镜像源">显示原来的镜像源</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> conda config --show channels <span class="comment"># 在conda配置中只是显示channels项</span></span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https://pypi.doubanio.com/simple/ <span class="comment">#自己添加配置的镜像源</span></span><br><span class="line">  - defaults   <span class="comment">#默认的channel</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="添加新镜像源">添加新镜像源</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/ <span class="comment">#后面的是镜像源地址，来自清华的镜像源</span></span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">channels: <span class="comment">#添加后的channels项</span></span><br><span class="line">  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">  - https://pypi.doubanio.com/simple/</span><br><span class="line">  - defaults</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="删除旧镜像源">删除旧镜像源</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> conda config --remove channels https://pypi.doubanio.com/simple/</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight cpp"><table><tbody><tr><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https:<span class="comment">//mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span></span><br><span class="line">  - defaults</span><br></pre></td></tr></tbody></table></figure>
 <p><img src="E:\myBlog\source_posts\image-20200901232602677.png" alt="image-20200901232602677"></p>
 <h3 id="pytorch安装">Pytorch安装</h3>
 <p>在这里的安装，我采用conda安装：</p>
