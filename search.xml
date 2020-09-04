@@ -632,95 +632,6 @@
       </tags>
   </entry>
   <entry>
-    <title>2020-08-04-博客优化以及问题解决</title>
-    <url>/2020/08/04/2020-08-04-%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h3 id="修改git-bash的默认打开工作路径">修改Git Bash的默认打开工作路径</h3>
-<p>我每次想在我的博客文件夹里进入git bash，必须要打开文件夹才能进入，操作繁琐，于是在桌面建立git bash 快捷方式，并将git bash 的默认打开路径更改为我的博客文件夹下，这样点击图标，即能进入本地git仓库</p>
-<p>1.找到git bash，右键属性，可以看到目标栏及起始位置栏。</p>
-<p><img src="https://i.loli.net/2020/08/04/tPL1uzsVApn5FvC.png" alt="img" style="zoom: 80%;"></p>
-<p>将目标栏中的 --cd-to-home 去掉；将起始位置中填写为本地git仓库的路径，即可完成操作。如下图所示，博客文件夹位置在<code>E:\myBlog</code></p>
-<p><img src="https://i.loli.net/2020/08/04/Vw7Kg3U2OIZQ6R9.png" alt="image-20200804181206322" style="zoom: 50%;"></p>
-<p>注： 若在文件夹里进入 git bash，则然后按下<code>shift+F10</code> （激活右键菜单栏），再按<code>s</code>跳转到git bash，最后按下<code>enter</code>即可</p>
-<h3 id="博客打开网站和更新不完全">博客打开网站和更新不完全</h3>
-<p>在这几天在本地文件夹更新完配置文件对博客进行个性化设置时，使用<code>localhost:4000</code>访问本地blog可以正常显示更改后的样式，但是在登录网站域名就会出现不一致的现象，有时会响应速度慢，延时高，甚至连接超时。</p>
-<p>在整个过程中一直没发现问题，因为本地localhost和网站不一致就不能理解。后来才发现，我的hexo命令写错了。本应该是hexo clean ，我错写为hexo clear，导致不能轻触缓存，所以在网站中不能及时更新显示。</p>
-<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean <span class="comment"># 清除缓存，网页正常情况下可以忽略此命令</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="博客无法连接">博客无法连接</h3>
-<p>本地服务器可以正常显示，但是博客连接不上</p>
-<p>如何可以ping 通，则代表不是域名方面的问题，应该就是服务器的问题，可能是部署在github上，所以会有点慢，后续准备买一个阿里云的服务器。</p>
-<p>解决：</p>
-<p>1.博客正在加载， 等一段时间刷新</p>
-<p>2.如果还是不行，则清理chrome的cookie缓存再刷新即可， 可以解决问题，但是操作麻烦。</p>
-<p><img src="https://i.loli.net/2020/08/10/Iwpk2yb5OAjuoKf.png" alt="image-20200810152929992"></p>
-<p>3.清除特定网站下的缓存：</p>
-<p>打开开发者工具（F12），选择 Network——Disable cache 。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。</p>
-<p>4.如果在文章标题中使用了当天的日期，可能无法及时得到页面更新。因为Github使用了格林尼治标准时间，也就是UTC。中国是东八时区，UTC+8，对于hexo来说是一个未来的时间，所以新的Posts不会被渲染。</p>
-<p>在hexo配置文件<code>_config.yml</code>中设置<code>timezone: Asia/Shanghai</code> (有效解决问题) <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8">⭐</span></p>
-<p>参考</p>
-<blockquote>
-<p>博客无法更新post文章 https://www.jianshu.com/p/b73c28e77760</p>
-</blockquote>
-<h3 id="clone的时候无法clone-next的内容">clone的时候无法clone next的内容</h3>
-<h4 id="问题">问题</h4>
-<p>在使用git将myblog文件夹的博客内容push到github上之后，发现对于<code>./theme/next</code>中的内容无法上传</p>
-<h4 id="原因">原因</h4>
-<p>next当时是clone别人的仓库，在我的myblog文件夹里本身就有一个<code>.git</code>的隐藏文件，然而我在博客文件夹里又引用了next的git仓库，所以导致上述问题</p>
-<blockquote>
-<p>任意文件夹中，用 <code>git init</code> 命令初始化仓库，即可在此文件夹下创建 <code>.git</code> 文件夹（<code>.</code>打头为隐藏文件夹，所以平时可能看不到）。这个文件夹之外的部分叫做工作区（Working Directory），<code>.git</code> 文件夹我们称做 Git仓库 (Git Repository)。</p>
-</blockquote>
-<h4 id="解决">解决</h4>
-<p>1.将themes/next这个文件里的.git文件删除，这样next文件就相当于是一个普通文件，可以上传到myblog仓库里。但是当next有大更新的时候不会提示</p>
-<p>2.保留next 的.git，将next下的<code>_config.yml</code>和其它修改的文件单独复制出来（主要是<code>_config.yml</code>），备份一下到./source/文件夹下，将这些文件作为普通文件上传。这样next的.git不用删除，同时next文件夹下的内容不会上传。</p>
-<h3 id="添加自启动项">添加自启动项</h3>
-<p>添加开机自启动项，在文件管理器的路径栏输入</p>
-<p><code>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
-<p>然后将要添加的软件快捷方式复制到里面即可,如下：</p>
-<p><strong><img src="https://i.loli.net/2020/08/31/dqOpCylYLNQ8EoV.png" alt="image-20200831170347078"></strong></p>
-<h3 id="anaconda-prompt找不到">anaconda prompt找不到</h3>
-<h4 id="操作">操作</h4>
-<p>在开始栏里面找不到anaconda prompt的内容，自己在anaconda3文件夹里也没看到anaconda prompt的启动项。在powershell里使用conda，功能并不完整（如无法实现基本的<code>conda activate</code>）， 于是考虑将其添加到开始栏里，这样以后操作方便一些</p>
-<p>step 1 :打开cmd, 进入到anaconda3的安装目录，下方是我的目录，于是操作如下：</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\Users\Administrator\anaconda3</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="E:\myBlog\source_posts\image-20200902003632825.png" alt="image-20200902003632825"></p>
-<p>step 2 : 进入到Anaconda的安装目录后，输入：</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">python .\Lib\_nsis.py mkmenus</span><br></pre></td></tr></tbody></table></figure>
-<p>通过看文件夹目录树可以发现<code>anaconda prompt</code> 应该存在于<code>.\Lib\_nsis.py</code>文件里，用python运行 ，添加到开始栏里</p>
-<p>step 3 打开左下角的开始栏，可以发现出现了<code>anaconda prompt</code></p>
-<blockquote>
-<h4 id="参考">参考</h4>
-<p><a href="https://www.py.cn/tools/anaconda/16426.html" target="_blank" rel="noopener">anaconda prompt找不到怎么解决？</a></p>
-</blockquote>
-<h4 id="参考-1">参考</h4>
-<blockquote>
-<p><a href="https://www.py.cn/tools/anaconda/16426.html" target="_blank" rel="noopener">anaconda prompt找不到怎么解决？</a></p>
-</blockquote>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>博客</category>
-      </categories>
-      <tags>
-        <tag>故障排除</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2020-07-28-transformer解读-pytorch版本</title>
     <url>/2020/07/28/2020-07-28-transformer-pytorch/</url>
     <content><![CDATA[<h3 id="前言">前言</h3>
@@ -1050,6 +961,12 @@
 <p>Once trained we can decode the model to produce a set of translations. Here we simply translate the first sentence in the validation set. This dataset is pretty small so the translations with greedy search are reasonably accurate.</p>
 </blockquote>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">#类比于run_epoch函数  </span></span><br><span class="line"><span class="keyword">for</span> i, batch <span class="keyword">in</span> enumerate(valid_iter):</span><br><span class="line">    src = batch.src.transpose(<span class="number">0</span>, <span class="number">1</span>)[:<span class="number">1</span>]</span><br><span class="line">    src_mask = (src != SRC.vocab.stoi[<span class="string">"&lt;blank&gt;"</span>]).unsqueeze(<span class="number">-2</span>)</span><br><span class="line">    out = greedy_decode(model, src, src_mask, </span><br><span class="line">                        max_len=<span class="number">60</span>, start_symbol=TGT.vocab.stoi[<span class="string">"&lt;s&gt;"</span>])</span><br><span class="line">    print(<span class="string">"Translation:"</span>, end=<span class="string">"\t"</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, out.size(<span class="number">1</span>)):</span><br><span class="line">        sym = TGT.vocab.itos[out[<span class="number">0</span>, i]]</span><br><span class="line">        <span class="keyword">if</span> sym == <span class="string">"&lt;/s&gt;"</span>: <span class="keyword">break</span></span><br><span class="line">        print(sym, end =<span class="string">" "</span>)</span><br><span class="line">    print()</span><br><span class="line">    print(<span class="string">"Target:"</span>, end=<span class="string">"\t"</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, batch.trg.size(<span class="number">0</span>)):</span><br><span class="line">        sym = TGT.vocab.itos[batch.trg.data[i, <span class="number">0</span>]]</span><br><span class="line">        <span class="keyword">if</span> sym == <span class="string">"&lt;/s&gt;"</span>: <span class="keyword">break</span></span><br><span class="line">        print(sym, end =<span class="string">" "</span>)</span><br><span class="line">    print()</span><br><span class="line">    <span class="keyword">break</span></span><br><span class="line">Translation:	&lt;unk&gt; &lt;unk&gt; . In my language , that means , thank you very much . </span><br><span class="line">Gold:	&lt;unk&gt; &lt;unk&gt; . It means <span class="keyword">in</span> my language , thank you very much .</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="理解qkv">理解QKV</h3>
+<p>作者：繁华里流浪 链接：https://www.zhihu.com/question/298810062/answer/1336554776 来源：知乎 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>我认为attention主要分为两个核心步骤：1. 计算注意力权重 2. 加权求和</p>
+<p>其中Q(query)，K(key)用来计算对应的注意力权重atten_i，V(value)用来进行加权求和也就是求最后attention的结果。</p>
+<p><img src="E:\myBlog\source_posts\image-20200904164236348.png" alt="image-20200904164236348"></p>
+<p>在理解attention的时候我想了一个买水果的例子。今天你要去水果摊买水果，首先你脑袋里会想出一个买水果的标准（个大、成色好、价格美丽等）作为 query，然后你就去各个水果摊逛了，水果摊主上来给你拿出水果一顿介绍（我这香甜可口，新鲜美味，性价比高）这就是 key，然后你会通过水果的情况 key 和自己心中标准 query 权衡给这个水果摊子打个分，当你一条水果街都走完了，你就对整条街的水果摊都有了一个性价比分数（atten），然后根据这个性价比分数就开始买了，这个水果摊好分数高，我买多点，那个水果摊性价比分数低不能满足我的需求我就少买点，最后我就从不同的水果摊采购了不同数量的水果（value）放进了自己的推推车里（output）</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1640,115 +1557,6 @@
       </tags>
   </entry>
   <entry>
-    <title>2020-07-20-git使用指南</title>
-    <url>/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<h3 id="利用git上传本地项目到github">利用git上传本地项目到github</h3>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">利用git上传本地项目到github</span><br><span class="line"></span><br><span class="line">1.绑定用户</span><br><span class="line"></span><br><span class="line">2.设置ssh key 并为github账号配置ssh key</span><br><span class="line"></span><br><span class="line">3.上传本地项目到github</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="绑定用户">1.绑定用户</h4>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">$ git config --global user.name "OopsAaron" # 注册github时的name</span><br><span class="line">$ git config --global user.email "1574468139@qq.com" # 注册github时的email</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="生成密钥ssh-key">2.生成密钥SSH key</h4>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"1574468139@qq.com"</span></span><br></pre></td></tr></tbody></table></figure>
-<p>此时，在根目录的.ssh文件中会生成公钥和密钥文件</p>
-<p>打开<a href="https://link.zhihu.com/?target=http%3A//github.com/">github</a>，在头像下面点击<code>settings</code>，再点击<code>SSH and GPG keys</code>，新建一个SSH，名字随便。</p>
-<p>git bash中输入</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub <span class="comment"># 复制.ssh里的公钥文件到github中</span></span><br></pre></td></tr></tbody></table></figure>
-<p>将输出的内容复制到框中，点击确定保存。即建立了ssh连接</p>
-<p><img src="https://i.loli.net/2020/07/20/45pTnsvKBbYPDCQ.png" alt="image-20200720163835551"></p>
-<p><img src="https://i.loli.net/2020/08/10/TBqj7pxGadESw1m.png" alt="image-20200810192758491"></p>
-<p>github上新建一个仓库后，在本地进行初始化本地仓库以及上传文件</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git init #初始化仓库</span><br><span class="line"></span><br><span class="line">#复制git clone中的ssh地址</span><br><span class="line"></span><br><span class="line">git remote add origin git@github.com:OopsAaron/myBlog.git #远程连接仓库 （后部分是ssh地址）</span><br><span class="line"></span><br><span class="line">		（若出现fatal: remote origin already exists. 则执行 git remote rm origin，</span><br><span class="line"> 		 再重新执行git remote add origin git@github.com:OopsAaron/myBlog.git）</span><br></pre></td></tr></tbody></table></figure>
-<p>在本地写md文件以及修改，然后进行提交到github， 并更新到网站上。</p>
-<h4 id="提交到github">3.提交到github</h4>
-<blockquote>
-<p>提交到 github 中的myBlog文件夹中</p>
-</blockquote>
-<p>将现有的项目添加并上传 (在所在目录下右键git bash)</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
-<p>刷新github，即可看到上传的文件</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="注">注</h4>
-<p>在<code>git commit -m "first commit"</code>中，若名称<code>first commit</code>不加引号，则不能有空格</p>
-<p>如下则会报错</p>
-<p><img src="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png" alt="image-20200901141302927"></p>
-<p>不知道原因，我用<code>git status</code> 排查了一下，发现已经添加到暂存区了，所以应该是<code>commit</code>的原因</p>
-<p><img src="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png" alt="image-20200901142150766"></p>
-<p>可以看到，<code>changes to be committed</code> ，说明都在暂存区，等待提交<code>commit</code></p>
-<p>将空格去掉，或者加上双引号即可成功</p>
-<p><img src="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png" alt="image-20200901141341959"></p>
-<p>之后就可以push到远程仓库中了</p>
-<h4 id="参考">参考</h4>
-<blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用git命令清单-阮一峰</a> <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html" target="_blank" rel="noopener">读懂diff-阮一峰</a> <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">git教程-廖雪峰</a> <a href="http://www.runoob.com/git/git-install-setup.html" target="_blank" rel="noopener">git教程-菜鸟教程</a> <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">gitbook</a> <a href="http://gitbook.liuhui998.com/index." target="_blank" rel="noopener">Git Community Book</a></p>
-<h6 id="从只会git-add-.的菜鸟到掌握git基本功能"><a href="https://juejin.im/post/6844903586023866375" target="_blank" rel="noopener">从只会git add .的菜鸟到掌握git基本功能</a></h6>
-</blockquote>
-<h3 id="hexo更新到网站">hexo更新到网站</h3>
-<p>提交到github中的<code>OopsAaron</code>文件中托管，并更新到网站</p>
-<p>在本地编写完md文件，所在目录下右键git bash</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new new_article  # 新建md文件</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">e.g.</span><br><span class="line">#打开Typora（已添加到环境变量）</span><br><span class="line">hexo new 2020-07-20-tensorflow笔记</span><br><span class="line">#Typora自动跳出新建笔记界面， 这时笔记会自带已预设好的title、description等(因为用的是hexo new 命令)</span><br><span class="line"></span><br><span class="line">注： 1.预设的标签不能空着，不用的话去掉</span><br><span class="line"> 	2. 在每一个title冒号后面要空格，再添加信息 ，不然会报错，示例如下</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="https://i.loli.net/2020/07/21/AeMFUSKwfWGkjpr.png" alt="image-20200721232830843"></p>
-<h4 id="一般命令">一般命令</h4>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean # </span><br><span class="line"></span><br><span class="line">hexo g  # ==hexo generate 生成静态网页至public目录 </span><br><span class="line"></span><br><span class="line">hexo s # ==hexo server 可以在本地预览效果 http://localhost:4000/   ctrl+C 退出预览</span><br><span class="line"></span><br><span class="line">hexo d # ==hexo deploy 部署到github上，并可以看到发布的文章</span><br><span class="line"></span><br><span class="line">hexo help # 查看帮助</span><br><span class="line"></span><br><span class="line">hexo version # 查看版本</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="组合命令">组合命令</h4>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo s -g  # 生成静态网页并本地预览</span><br><span class="line"></span><br><span class="line">hexo d -g  # 生成并上传</span><br><span class="line"></span><br><span class="line">hexo clean &amp;&amp; hexo d -g &amp;&amp; hexo s  #一步到位</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="hexo高级操作">hexo高级操作</h3>
-<p>hexo的根目录结构如下所示</p>
-<p><img src="https://i.loli.net/2020/07/22/5EWcOhQ8MBCem4s.png" alt="image-20200722181143933"></p>
-<h4 id="config.yml">_config.yml</h4>
-<p>网站配置信息，也就是本文所称的<strong>站点配置文件</strong>，可以在此配置大部分的参数。</p>
-<h4 id="scaffolds">scaffolds</h4>
-<p>模版文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
-<p>Hexo的模板是指新建的markdown文件中默认填充的内容。例如，在使用<code>hexo new 文章名</code>时，默认生成的md文件会包含如下内容：</p>
-<p><img src="https://i.loli.net/2020/07/22/H6JKBeIwhcTkN5z.png" alt="image-20200722182540918"></p>
-<p>默认内容就在scaffold/post.md中保存</p>
-<p>假如对每篇博客我都需要添加分类<code>categories</code>，每次都手动添加太麻烦，我希望每次默认生成都有<code>categories:</code>，那么就可以在scaffold/post.md中添加categories</p>
-<p>保存后，每次新建一篇文章时都会包含post.md中的内容。</p>
-<p>当然，你也可以在scaffolds文件夹下创建自己的博客模板，我创建一个名为<code>blog</code>的模板：</p>
-<p><img src="https://i.loli.net/2020/07/22/oLMuDQOmg6xaBYU.png" alt="image-20200722182806115"></p>
-<p>通过如下命令调用我创建的blog模板新建文章，在<code>_posts</code>中生成md文件，并且是以blog.md为模板的</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new blog 2020-07-22-测试blog</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="public">public</h4>
-<p>该文件夹中的内容将被最终push到github仓库中。</p>
-<h4 id="source">source</h4>
-<p>资源文件夹是存放用户资源的地方。除<code>_posts</code> 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件（如刚刚生成的about文件夹）会被拷贝到 public 文件夹。</p>
-<h4 id="为github仓库添加readme">为github仓库添加readme</h4>
-<p>既然 source 文件夹中的内容将全部被推送到 public 文件夹，public 文件夹中的内容又将被最终push到github仓库中，那么如果我们想要为github仓库添加readme.md，只要在 source 文件夹中创建就好了：</p>
-<p>部署到github，就有readme了，但我们发现，README.md已经被解析为README.html，显示的全是html代码，并不是我们想要的文档格式的内容</p>
-<p>为了解决这个问题，我们回到source文件夹，将<code>README.md</code>重命名为<code>README.MDOWN</code>，再部署到github即可</p>
-<p>source文件夹中，.md会被解析为html，并放到 public 文件夹被push到github，但.MDWN不会被解析。</p>
-<h4 id="themes">themes</h4>
-<p>主题文件夹，下载的主题都保存在此文件夹下。Hexo 会根据主题来生成静态页面。</p>
-<h4 id="参考-1">参考</h4>
-<blockquote>
-<p>Hexo+Github博客搭建： https://zhuanlan.zhihu.com/p/35668237 git上传文件： https://blog.csdn.net/sinat_20177327/article/details/76062030 git版本管理工具详细教程： https://www.cnblogs.com/cuixiaoying/p/11821797.html</p>
-</blockquote>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2020-08-08-vim常见操作</title>
     <url>/2020/08/08/2020-08-08-vim%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C/</url>
     <content><![CDATA[<h3 id="常规操作">常规操作</h3>
@@ -1845,7 +1653,7 @@
   <entry>
     <title>2020-08-31-一周论文分享（第1期）</title>
     <url>/2020/08/31/2020-08-31-%E4%B8%80%E5%91%A8%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%EF%BC%88%E7%AC%AC1%E6%9C%9F%EF%BC%89/</url>
-    <content><![CDATA[<h3 id="reformerthe-eficient-transformer">《reformer：the eficient transformer》</h3>
+    <content><![CDATA[<h3 id="reformerthe-eficient-transformer">reformer：the eficient transformer</h3>
 <h4 id="论文概况">论文概况</h4>
 <ul>
 <li>来源：ICLR 2020</li>
@@ -1877,7 +1685,7 @@
 <li><p>将点乘注意力（dot-product attention）替换为一个使用局部敏感哈希（locality-sensitive hashing）的点乘注意力，将复杂度从 O(L2 ) 变为 O(L log L)，此处 L 指序列的长度，来降低长序列的处理复杂度</p></li>
 </ol>
 <p><strong>Reformer与使用完全Transformer所获得的结果相匹配，但运行速度要快得多，尤其是在文本任务上，并且内存效率要高几个数量级。</strong></p>
-<h4 id="局部敏感哈希lsh-注意力">局部敏感哈希(LSH) 注意力</h4>
+<h4 id="注意力问题">注意力问题</h4>
 <h5 id="原始注意力">原始注意力</h5>
 <p>公式如下：<span class="math inline">\(Attention (Q, K, V)=\operatorname{softmax}\left(\frac{Q K^{T}}{\sqrt{d_{k}}}\right) V\)</span></p>
 <p>self-attention操作的核心 ——<span class="math inline">\(QK^T\)</span> 表示key和query之间的相似度得分</p>
@@ -1902,7 +1710,7 @@
 <p>该图演示了一个用<code>4个桶进行3轮哈希的设置</code>。下面的图中的向量映射到了同一个bucket，因为它们的输入很接近，而上一张图中的向量映射到第一个和最后一个bucket。</p>
 <p>LSH是一组将高维向量映射到一组离散值(桶/集群)的方法。是解决在高维空间中快速找到最近邻居（最相似）的问题。</p>
 <p><code>基本思想</code>：选择 <em>hash</em> 函数，对于两个点 p 和 q，如果 q 接近 p，那么很有可能我们有 hash(q) == hash(p)</p>
-<h5 id="局部敏感哈希lsh-注意力-1">局部敏感哈希(LSH) 注意力</h5>
+<h5 id="lsh注意力">LSH注意力</h5>
 <p><img src="https://i.loli.net/2020/09/03/KgnJ7iB2kImcshX.png" alt="image-20200903163641310"></p>
 <p>完全不同的方法来处理序列长度问题，丢弃了<code>query投影</code>（Q=K）（实验结果发现，学习不同的keys和queries的投影并不是严格必要的），<code>并将注意力权重替换为key的函数（hash函数）</code>，以此降低复杂度</p>
 <p>步骤如下：</p>
@@ -1918,7 +1726,7 @@
 <p>示意图如下</p>
 <p><img src="https://i.loli.net/2020/09/03/WX3lcQrmB16pI2Y.png" alt="image-20200903164816966"></p>
 <p><img src="https://i.loli.net/2020/09/03/FgHKa4QNrsjlzMh.png" alt="image-20200903164907447"></p>
-<h4 id="实验">🚀实验</h4>
+<h4 id="实验">实验</h4>
 <p>作者分别对图像生成任务 <em>imagenet64</em>(长度为 12K)和文本任务 <em>enwik8</em>(长度为 64K)进行了实验，评价了可逆 Transformer 和 LSH 哈希对内存、精度和速度的影响。</p>
 <p>🎉可逆 Transformer 匹配基准：他们的实验结果表明，可逆的 Transformer 可以节省内存不牺牲精度：</p>
 <p><img src="https://i.loli.net/2020/09/03/LwSPM5qFuBfQhaZ.png" alt="null"></p>
@@ -1932,10 +1740,69 @@
 <blockquote>
 <p>与 Transformer 模型相比，最终的 Reformer 模型具有更高的存储效率和更快的存储速度。</p>
 </blockquote>
-<h4 id="参考">参考</h4>
+<h4 id="参考">🚀参考</h4>
+<blockquote>
 <p><a href="https://www.6aiq.com/article/1583729200869" target="_blank" rel="noopener" class="uri">https://www.6aiq.com/article/1583729200869</a></p>
 <p><a href="https://thinkwee.top/2020/02/07/reformer/" target="_blank" rel="noopener" class="uri">https://thinkwee.top/2020/02/07/reformer/</a></p>
 <p><a href="https://aijishu.com/a/1060000000100293" target="_blank" rel="noopener" class="uri">https://aijishu.com/a/1060000000100293</a></p>
+</blockquote>
+<h3 id="transformer-xl-attentive-language-models-beyond-a-fixed-length-context">Transformer-XL : Attentive Language Models Beyond a Fixed-Length Context</h3>
+<h4 id="论文概况-1">论文概况</h4>
+<ul>
+<li>来源：ACL 2019</li>
+<li>arXiv: 1901.02860</li>
+<li>作者：ZihangDai , ZhilinYang , YimingYang</li>
+<li>论文地址： <a href="https://arxiv.org/abs/1901.02860" target="_blank" rel="noopener" class="uri">https://arxiv.org/abs/1901.02860</a></li>
+<li>Code url：<a href="https://github.com/kimiyoung/transformer-xl" target="_blank" rel="noopener" class="uri">https://github.com/kimiyoung/transformer-xl</a></li>
+<li>论文组会报告于<code>2020.08.15</code></li>
+</ul>
+<h4 id="背景-1">背景</h4>
+<h5 id="问题-1">问题</h5>
+<p>Transformer存在局限性：</p>
+<p>1.在语言建模时的设置受到固定长度（segment）的限制。对长距离依赖的建模能力仍然不足</p>
+<p>2.因为transformer将文本等分为相同的片段，导致了上下文碎片</p>
+<h5 id="解决方案-1">解决方案</h5>
+<p>使学习不再仅仅依赖于定长，且不破坏时间的相关性。</p>
+<ol type="1">
+<li>提出<strong>片段级递归机制(segment-level recurrence mechanism)</strong>，引入一个<strong>记忆(memory)</strong>模块（类似于cache或cell） 之前计算过了不需要重复计算，直接为后面片段使用。</li>
+</ol>
+<ul>
+<li>使得<code>长距离依赖的建模</code>成为可能；</li>
+<li>使得片段之间产生交互，解决上下文碎片化问题</li>
+</ul>
+<p>2.提出<strong>相对位置编码机制</strong>，代替绝对位置编码。 Transformer的绝对位置编码指的是一个片段中，为1 为2 。如果是多个片段同时考虑的话，那么这种1，2就会重复，所以使用了相对位置编码的方法。这样可以在多个片段（segment）中使用相对编码。具体内容见论文</p>
+<p>注：两者是一起使用的，共同解决transformer存在的局限性</p>
+<h4 id="模型-transformer-xl">模型 transformer-XL</h4>
+<h5 id="原始transformer">原始transformer</h5>
+<p><img src="https://i.loli.net/2020/09/04/YU3mC2hIOA9ncrj.gif" alt="v2-732805e00feb35e41f1d00f8df516950_b"></p>
+<h5 id="片段注意力机制">片段注意力机制</h5>
+<p>为了解决长距离依赖，文章引入一个memory状态。</p>
+<p>在训练过程中，每个片段的表示为最后的隐层状态，表示片段的序号，表示片段的长度，表示隐层维度。</p>
+<p>在计算片段的表示时，用memory缓存片段层的隐层状态，用来更新，这样就给下一个片段同了上文，长距离依赖也通过memory保存了下来。并且，最大可能的依赖长度线性增长，达到**N*L**</p>
+<p><img src="https://i.loli.net/2020/09/04/IjUWo7DahsNPAkv.gif" alt="v2-a8210cd2f9bfb9307ba81d694dc4e4b4_b"></p>
+<h5 id="评估阶段">评估阶段</h5>
+<h6 id="原始transformer-1">原始transformer</h6>
+<p><img src="https://i.loli.net/2020/09/04/epOcXjYTy835dJv.gif" alt="v2-13a38126e684b838e5ed207fd5cae944_b"></p>
+<h6 id="transformer-xl">Transformer-XL</h6>
+<p><img src="https://i.loli.net/2020/09/04/qdYL5RsQEOFS8nG.gif" alt="v2-502e1e1fec12b326ace579e059b3b3df_b"></p>
+<h4 id="实验-1">实验</h4>
+<p>实验部分是对基于Transformer-XL的语言模型进行评估，分为字符级和词级。评价指标分别是bpc(每字符位数)和PPL(困惑度)，越小越好。enwiki8和text8用的是bpc。Transformer-XL在多个语言模型基准测试中实现了最先进的结果。 Transformer-XL第一个在char级语言模型基准enwiki8上突破1.0。</p>
+<p><strong>去除实验：</strong></p>
+<p><img src="https://i.loli.net/2020/09/04/ZV1lpewdtanoWi9.png" alt="image-20200904153950861"></p>
+<p>重点是本文设计的相对位置编码<strong>优于</strong>其他工作，memory的设计也有很大的提升。</p>
+<p>最后，Transformer-XL在评估阶段的速度也明显快于 vanilla Transformer，特别是对于较长的上下文。例如，对于 800 个字符的上下文长度，Transformer-XL 比Vanilla Transformer 快 363 倍；而对于 3800 字符的上下文，Transformer-XL 快了 1874 倍。</p>
+<h4 id="创新点">创新点</h4>
+<ul>
+<li>提出了片段级递归机制和相对位置编码机制</li>
+<li>依赖关系比原始Transformer长450％，并且在评估过程中，其速度比原始Transformer快1800倍以上</li>
+</ul>
+<h4 id="参考-1">🚀参考</h4>
+<blockquote>
+<p><a href="https://www.cnblogs.com/shona/p/12041055.html" target="_blank" rel="noopener" class="uri">https://www.cnblogs.com/shona/p/12041055.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/83062195" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/83062195</a></p>
+<p><a href="https://www.cnblogs.com/mj-selina/p/12373636.html" target="_blank" rel="noopener" class="uri">https://www.cnblogs.com/mj-selina/p/12373636.html</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/70745925" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/70745925</a></p>
+</blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1960,6 +1827,7 @@
       </categories>
       <tags>
         <tag>论文</tag>
+        <tag>transformer</tag>
         <tag>论文分享</tag>
       </tags>
   </entry>
@@ -1995,122 +1863,7 @@
   <entry>
     <title>2020-08-29-temp</title>
     <url>/2020/08/29/2020-08-29-temp/</url>
-    <content><![CDATA[<h1 id="哈希革新transformer这篇iclr高分论文让一块gpu处理64k长度序列">哈希革新Transformer：这篇ICLR高分论文让一块GPU处理64K长度序列</h1>
-<p>Transformer 是近期 NLP 领域里最热门的模型之一，但因为算力消耗过大，对于个人研究者来说一直不太友好。近日一篇入选 ICLR 2020 的<code>研究提出了「Reformer」，把跑 Transformer 模型的硬件要求压缩到了只需一块 GPU，同时效果不变。</code></p>
-<p>大型的 Transformer 往往可以在许多任务上实现 sota，但训练这些模型的成本很高，尤其是在序列较长的时候。在 ICLR 的入选论文中，我们发现了一篇由谷歌和伯克利研究者发表的优质论文。文章介绍了两种提高 Transformer 效率的技术，<code>**最终的 Reformer 模型和 Transformer 模型在性能上表现相似，并且在长序列中拥有更高的存储效率和更快的速度**</code>。论文最终获得了「8，8，6」的高分。</p>
-<p><img src="E:\myBlog\source_posts\image.png" alt="img"></p>
-<p>在最开始，文章提出了<code>将点乘注意力（dot-product attention）替换为一个使用局部敏感哈希（locality-sensitive hashing）的点乘注意力，将复杂度从 O(L2 ) 变为 O(L log L)，此处 L 指序列的长度</code>。</p>
-<p>此外，研究者使用<code>可逆残差（reversible residual layers）代替标准残差（standard residuals），这使得存储在训练过程中仅激活一次，而不是 n 次（此处 n 指层数）</code>。最终的 Reformer 模型和 Transformer 模型在性能上表现相同，同时在长序列中拥有更高的存储效率和更快的速度。</p>
-<p>这篇论文在评审过程中收获了「一致通过」，并被认为将产生重大影响，也经过了几位外部评审的详细审查，最终获得了「8，8，6」的高分。</p>
-<ul>
-<li>论文地址：https://openreview.net/forum?id=rkgNKkHtvB</li>
-<li>代码：https://github.com/google/trax/blob/master/trax/models/research/reformer.py</li>
-</ul>
-<p><strong>引言</strong></p>
-<p>Transformer 架构被广泛用于自然语言处理中，并且在许多任务中实现了 sota。为了获得这些结果，研究者不得不开始训练更大的 Transformer 模型。在最大的配置中，参数数量已经超过了 0.5B/层，层数多达 64。</p>
-<p>诸如此类的大型 Transformer 模型频频出现，到底是客观上必须要求如此多的资源，还是仅仅是因为处理效率不够高？</p>
-<p>可以参考下面这些数据：</p>
-<p>0.5B 的参数占据了 2GB 的内存，嵌入大小为 1024、批处理大小为 8 的 64K token 的激活要用 64K×1K×8 = 0.5B 浮点数，需要另外 2GB 的内存。</p>
-<p>如果说每层的内存占用只有这么一些的话，部署 Transformer 会比实际中更容易，但是事情并不是这样的。以上的估计只包括了每层的内存占用情况和输入的激活损失，并没有考虑 Transformer 上的内存占用问题：</p>
-<ul>
-<li>由于激活需要被存储并用于反向传播，有着 N 层的模型的大小比单层大了 N 倍；</li>
-<li>由于中间的全连接层的深度 d_ff 通常远大于注意力激活层的深度 d_model，因此需要占用很大的内存；</li>
-<li>在长度为 L 的序列上的 attention 的计算和时间复杂度是 O(L2)，所以即使是一个有 64K 字符的序列就会耗尽 GPU 的内存。</li>
-</ul>
-<p>研究者提出了一种 Reformer 模型来解决刚才说的那些问题：</p>
-<ul>
-<li>可逆层（Reversible layer），这个东西最早是 Gomez 等人引入的，在整个模型中启用单个副本，所以 N factor 就消失了；</li>
-<li>在前馈层（feed-forward layer）分开激活和分块处理，消除 d_ff factor，节省前馈层的内存；</li>
-<li>基于局部敏感哈希（locality-sensitive hashing，LSH）的近似注意力计算，让注意力层的 O(L2) 因子替代 O(L) 因子，实现在长序列上的操作。</li>
-</ul>
-<h3 id="局部敏感哈希">局部敏感哈希</h3>
-<p><strong>局部敏感哈希的基本思想类似于一种空间域转换思想，LSH算法基于一个假设，如果两个文本在原有的数据空间是相似的，那么分别经过哈希函数转换以后的它们也具有很高的相似度；相反，如果它们本身是不相似的，那么经过转换后它们应仍不具有相似性。</strong></p>
-<p>局部敏感哈希这样的哈希函数可以具有上述的功能，可以保持数据转化前后的相似性</p>
-<p>局部敏感哈希的最大特点就在于保持数据的相似性</p>
-<p>==========</p>
-<p>理解语言、音乐或视频之类<code>序列数据 (Sequential Data) 的任务充满挑战，尤其是当这些数据依赖于时间跨度较广的上下文时。</code></p>
-<p><code>例如，在一个视频中，如果某个人或某个物体在消失很长一段时间后才重新出现，许多模型会忘记它的样子。</code>而在语言领域，长短期记忆 (LSTM) 神经网络会考虑足够多的上下文来执行 逐句翻译 。在这种情况下，上下文窗口 (Context Window) 的范围（即翻译中考虑的数据范围）会涵盖数十到上百个单词。</p>
-<p>最新的 Transformer <a href="https://flashgene.com/archives/tag/模型" target="_blank" rel="noopener">模型</a> 不仅<code>提高了逐句翻译的性能</code>，而且可以用于通过多文档摘要生成完整的 Wikipedia 文章 。<code>由于 Transformer 使用的上下文窗口扩展到了数千个单词，使上述情景得以实现。凭借宽泛的上下文窗口，Transformer 的应用范围从文本扩展到了包括像素、音符在内的其他场景，可以用于生成 音乐 和 图像 。</code></p>
-<p>但是，Transformer 的<code>上下文窗口有限制范围。</code></p>
-<p>Transformer 的强大来源于 <em>注意力</em> (Attention) 机制 ，通过这一机制，Transformer 将上下文窗口内所有可能的单词对纳入考虑，以理解它们之间的联系。因此，如果文本包含 10 万个单词，Transformer 将需要评估 100 亿单词对（10 万 x 10 万），这显然不切实际。</p>
-<p>另一个实践问题是 <code>如何保存每个模型层的输出</code> 。对于使用大型上下文窗口的应用来说，存储多个模型层输出的内存需求会迅速变得过大（从几层模型层的数 G 级别到 <a href="https://mp.weixin.qq.com/s?__biz=MzAwODY4OTk2Mg==&amp;mid=2652051496&amp;idx=1&amp;sn=d15b291b45dc090187bcb0714f76a65b&amp;chksm=808cb86db7fb317b0e26802cb0929e9e8462357f7c0d786471e15131d735c94adb881bfbe47d&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">数千层</a> 模型层的数 T 级别）。<code>这意味着，实际使用大量层的 Transformer 模型只能用于生成几小段落的文本或一小段的音乐。</code></p>
-<p>今天，我们推出了 <a href="https://flashgene.com/archives/tag/reformer" target="_blank" rel="noopener">Reformer</a> ，一个设计为处理多达 100 万单词的上下文窗口的 Transformer 模型，所有工作在单个加速器上进行且仅使用 16 GB 内存。<code>此模型将综合运用两种关键技术来解决 Transformer 在长上下文窗口的注意力和内存分配问题的应用限制</code>。<a href="https://flashgene.com/archives/tag/reformer" target="_blank" rel="noopener">Reformer</a> <code>使用局部敏感哈希 (Locality-Sensitive-Hashing, LSH) 来降低长序列的处理复杂度和 可逆残差层 ，从而更有效地使用可用内存。</code></p>
-<h4 id="注意力问题">注意力问题</h4>
-<p>将 Transformer 模型应用于宽范围的文本序列时，第一个挑战是如何处理注意力层。</p>
-<p>局部敏感哈希的挑战在于通过计算向量匹配哈希函数，而不是搜索所有可能的向量。例如，在翻译任务中，来自网络首层的每个向量表示一个单词（甚至是后续层中更大量的上下文），而不同语言中相同单词的向量可获得相同的哈希值。</p>
-<p>在下图中，不同的颜色表示不同的哈希值，相似的词则具有相同的颜色。分配哈希值后，序列重新排列，将具有相同哈希值的元素放在一起，再分为多个片段（或多个区块）以实现并行处理。然后在这些短得多的区块（及其相近邻块以覆盖溢出）内应用注意力，从而大大降低计算负载。</p>
-<p><img src="E:\myBlog\source_posts\image-20200829223953263.png" alt="image-20200829223953263"></p>
-<p>局部敏感哈希：Reformer 接收 Key 的序列，其中每个键值代表首层中每个单词（在图像的情况下为像素）和后续层中大量的上下文向量。将局部敏感哈希应用到序列之后，依照键值的哈希值对其排序并分块。注意力仅针对于单个区块及其直接邻块</p>
-<h4 id="内存问题">内存问题</h4>
-<p>虽然局部敏感哈希解决了注意力问题，但仍然存在内存问题。</p>
-<p><code>一个单层的网络一般需要多达几 GB 的内存以及单个 GPU，因此，单层能够执行长序列的单模型。但是，当使用梯度下降训练多层模型时，由于需要保存每一层的激活（函数），以用于执行逆推。一个传统的 Transformer 模型具有十几个或更多的层，通过缓存这些层的值，内存将会很快用完。</code></p>
-<p>第二种 Reformer 中实现的新方法是在反向传播期 (Back-Propagation) 间，按需重新计算每个层的输入，而不是将其保存在内存中。这是使用 可逆层 来实现的，其中来自网络最后一层的激活 (Activation) 用于还原来自任何中间层的激活 (Activation)，这相当于反向运行网络。</p>
-<p>在典型的残差网络中，通过网络传递的输入将会向堆栈中的每一层不断添加至向量。相反，可逆层中每个层有两组激活。一组遵循刚才描述的标准过程，从一层逐步更新到下一层，但是另一组仅捕获第一层的变更。因此，若要反向运行网络，只需简单地减去每一层应用的激活。</p>
-<p><img src="E:\myBlog\source_posts\image-20200829225435706.png" alt="image-20200829225435706"></p>
-<p>可逆层：（图 a）在标准残差网络中，每一层的激活用于将输入更新到下一层。（图 b）在可逆网络中，将会维持两组激活，只有其中一组逐层更新。（图 c）这种方法可使网络反向运行，以还原所有中间值</p>
-<h4 id="reformer-的应用">Reformer 的应用</h4>
-<p><code>这两种新方法能让 Reformer 具有更高的效率，可以在仅有 16GB 内存的单个加速器上处理长达一百万个单词的文本序列。正因为 Reformer 的高效率，可以被直接应用于上下文窗口远大于任何最新 (SOTA) 文本域数据集的数据。借助 Reformer 能处理如此大规模数据集的能力，可促进社区创建大规模数据集的速度。</code></p>
-<p>在不缺乏大规模上下文数据的领域中，我们选择图像生成作为我们实验 Reformer 的对象。在这份 Colab 笔记 [1] 中，我们提供了一些示例，说明如何使用 Reformer 将部分图像变得“完整”。从下图上行所示的图像片段开始，Reformer 可以逐像素生成全画幅图像（下行）。</p>
-<p>========</p>
-<h2 id="the-reformer">The Reformer</h2>
-<p>"Reformer: The Efficient Transformer"的作者采用了<code>一种完全不同的方法来处理序列长度问题</code>。首先，他们观察到学习不同的keys和queries的投影并不是严格必要的。<code>他们丢弃了query投影，并将注意力权重替换为key的函数。</code></p>
-<p>现在，注意力块不再包含queries的单独投影，我们只有key和value对。然而，<code>计算key的协同矩阵(通过将每个key与其他key进行比较)仍然是非常昂贵的。</code></p>
-<p>不幸的是我们可能并没有利用好所有的这些计算。softmax的输出通常由几个关键元素控制 — 其余的往往在噪声中消失。<code>我们在计算softmax的时候，并不一定需要那些注意力权重很小的token。</code></p>
-<p>在编写传统软件时，我们总是会遇到这个问题。如果我们<code>想找到与给定key对应的value，我们通常不会遍历所有key的列表并检查每个key是否匹配。</code>相反，我们使用散列映射数据结构来执行O(1)的查找，而不是O(n)比较。</p>
-<p>方便的是，<code>向量空间的哈希映射确实存在类似的情况，它被称为“局部敏感哈希”(LSH)。正是基于这种方法，Reformer的论文的作者们希望产生一个transformer的替代方案，以避免使用点积注意力的平方复杂性。</code></p>
-<h2 id="局部敏感哈希-lsh">局部敏感哈希 (LSH)</h2>
-<p>局部敏感哈希是一组将高维向量映射到一组离散值(桶/集群)的方法。它最常用来作为近似最近邻搜索的一种方法，用于近似的重复检测或视觉搜索等应用。</p>
-<p>局部敏感哈希方法尝试将高维空间中相近的向量以高概率分配到相同的哈希。<code>有效的哈希函数有很多种，最简单的可能是随机投影。</code></p>
-<p>换句话说，我们选择一个随机的向量集合，观察输入向量在每个向量上的投影是正的还是负的，然后使用这个二值向量来表示给定向量的预期存储区。下图说明了LSH投影矩阵“u”中单个向量的处理过程。绿色的正号表示与向量u点积为正的点，而红色的负号表示与向量u点积为负的点。</p>
-<p><img src="E:\myBlog\source_posts\bVAfX" alt="640.png"></p>
-<h2 id="lsh注意力">LSH注意力</h2>
-<p>Reformer的论文选择了局部敏感哈希的angular变体。<code>它们首先约束每个输入向量的L2范数(即将向量投影到一个单位球面上)，然后应用一系列的旋转，最后找到每个旋转向量所属的切片。</code></p>
-<p><img src="E:\myBlog\source_posts\bVAfZ" alt="640.jpg"></p>
-<p>该图演示了一个用<code>4个桶进行3轮哈希的设置</code>。下面的图中的向量映射到了同一个bucket，因为它们的输入很接近，而上一张图中的向量映射到第一个和最后一个bucket。</p>
-<p><code>在为每个token计算一个桶之后，将根据它们的桶对这些token进行排序，并将标准的点积注意力应用到桶中的token的块上。</code></p>
-<p><img src="E:\myBlog\source_posts\bVAf0" alt="640-1.png"></p>
-<p>有了足够多的桶，这就大大减少了所有的给定的token需要处理的token的数量 —— 在实验中，Reformer的论文运行的模型被配置为使用128块大小的块。因此，LSH操作将昂贵的key协同矩阵乘法的上下文大小限制为更易于管理的值。</p>
-<p><code>我们现在的时间复杂度为O (L*log(L)) ，而不是时间复杂度成正比O (L²)， 这允许我们把注意力操作扩展到更长的序列的时候不会由于运行时间而受到影响。</code></p>
-<p><code>因为这个分桶过程是随机的，所以Reformer有选择地多次运行这个过程，以减少两个在输入空间很近的向量被随机地放在不同的桶中的可能性。当所有的事情都做了之后，你就有了一个完全替代标准的多头注意力的方法</code>，它可以与计算完整的注意力矩阵相媲美。</p>
-<h2 id="内存复杂度">内存复杂度</h2>
-<p>不幸的是，实现更好的时间复杂度只是问题的一半。<code>如果我们将新的LSH注意力块替换为标准的多头注意力，并尝试输入新长度的信息，我们将很快认识到系统中的下一个瓶颈 — 内存复杂性。</code></p>
-<p>即使我们已经非常小心地最小化了注意力操作的计算复杂度，<code>我们仍然必须将所有的key和value存储在内存中，更糟糕的是，在训练期间，我们需要缓存激活以计算参数更新。</code></p>
-<p><code>Reformer论文使用了序列长度为64k的enwiki8语言建模数据集来做实验，隐藏单元的大小为1024，层数为12层，这意味着存储key和value需要2 * 64000 * 1024 * 12 = ~ 1.5B个浮点数，大约是6GB的内存。使用这种内存使用方式，我们将无法在训练期间使用大的批处理大小，从而影响我们的运行时间。</code></p>
-<p>一个选择是实现gradient checkpoint来帮助限制我们的内存使用。允许我们减少内存使用，只存储从正向传递中的关键的激活，剩余的在反向传递中重新计算。因此，我们可以选择只在key和value投影之前存储隐藏状态，而不是存储key和value，然后第二次重新投影隐藏状态来计算梯度。</p>
-<p>不幸的是，这使我们的后向传递的成本增加了一倍，因此我们能够支持更大的批处理大小所获得的好处将通过重新计算得到部分缓解。更重要的是，即使我们选择只存储输入的一小部分，存储单个层的激活需要250MB的空间，这意味着我们很难在12GB的GPU上支持超过12个样本的批处理大小。</p>
-<h2 id="revnets">Re<strong>vN</strong>ets</h2>
-<p>幸运的是，我们还有其他方法来减少内存使用。RevNet。</p>
-<p>RevNets有个非常聪明的计算技巧，<code>通过以一种特定的方式构造每一层，使内存使用与网络深度保持一致。每一层分为两个部分，X₁和X₂</code>，前向计算</p>
-<p>可视化一下，看起来就是这样：</p>
-<p><img src="E:\myBlog\source_posts\bVAf1" alt="640-2.png"></p>
-<p>来自RevNet论文的图，图(a)为RevNet的前向，图(b)为相应的反向。</p>
-<p>由于该层的特定结构，我们可以编写一个自定义函数参数更新，这意味着我们不需要缓存任何激活来计算我们的后向传播。类似于使用梯度检查点，我们仍然需要做一些冗余计算。<code>然而，由于每一层的输入（x）都可以很容易地从它的输出（y）中构造出来，我们的内存使用不再随网络中层数的增加而增加。</code></p>
-<p>在实践中，<code>Reformer定义f(x)是LSH注意力块，g (x)是标准的前向块，来自transformer结构。</code></p>
-<p><img src="E:\myBlog\source_posts\bVAf2" alt="640-3.png"></p>
-<p><code>有了RevNet架构，我们只需要在内存中存储单层的激活，就可以在训练期间使用更大的批处理大小！现在我们不再受训练期间激活的内存占用的限制，我们可以利用LSH注意力块改进时间复杂度。</code></p>
-<p>重要的是，语言模型的loss不会因为可逆层结构而降低。</p>
-<p><img src="E:\myBlog\source_posts\bVAf3" alt="640-4.png"></p>
-<p>这些变化实现起来并不容易 —— 很明显Nikita Kitaev, Łukasz Kaiser和Anselm Levskaya付出巨大的努力在平衡时间和内存。</p>
-<p>总的来说，这些变化使得序列长度的扩展成为可能。虽然结果是初步的，但在enwiki8上的实验表明，在语言建模任务上，Reformer可以与它的重量级前辈竞争。</p>
-<p><img src="E:\myBlog\source_posts\bVAf4" alt="640-1.jpg"></p>
-<p>实验结果</p>
-<p>下图是不同的方法在这两个数据集上的表现，可以看到，无论是共享QK还是可逆Transformer，都不会影响效果。</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/17768144-79d4bfe33746f056.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
-<p>下图是<code>不同哈希桶数的LSH注意力的表现</code>。显然，<code>数量越多，效果越好，这是因为关注就越精确，同时模型代价就越高。</code></p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/17768144-cc4f71f61863a84b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
-<p>最后是<code>Reformer的层数对于性能的影响</code>。下图（左）是Big Reformer随层变化的不同效果，20层依然无压力。而下图（右）是普通注意力和LSH注意力在不同序列长度的速度比较，当序列很长的时候，LSH具有显著的优势。</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/17768144-2dd73f9b6168d019.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1200/format/webp" alt="img"></p>
-<h2 id="总结">总结</h2>
-<hr>
-<p>位置敏感哈希的注意力和可逆层构成了Reformer的蓝图，非常高兴可以看到基于transformer的结构选择去优化和处理长序列的问题，而不是简单的扩展之前的工作。</p>
-<p>===</p>
-<p>Transformer中的注意力计算需要让矩阵Q和K的转置相乘。我们假定它们的形状都是[ batch_size, length, dimension ]，那么如果序列长度有64K，就有得到一个64K*64K的矩阵，显然是不现实的。</p>
-<p>对于局部敏感哈希注意力而言，需要 Q=K，以及 V，它们的 shape 都是 [batch size,length,d_model]，而重点关注的是 QK^T，有着 [batch size,length,length] 的 shape。进一步来说，对于每个 q_i，实际需要关注的是它们在 key 的接近值。例如，如果 K 是 64K，对于每个 q_i，只需要考虑一小部分，如 32 个到 64 个最接近的 keys。</p>
-<p>这样一来就需要找到最近邻的值，这就需要局部敏感哈希（LSH）了，它能够快速在高维空间中找到最近邻。一个局部敏感哈希算法可以将每个向量 x 转换为 hash h(x)，和这个 x 靠近的哈希更有可能有着相同的哈希值，而距离远的则不会。在这里，研究者希望最近的向量最可能得到相同的哈希值，或者 hash-bucket 大小相似的更有可能相同。</p>
-<p>虽然 LSH 提升了时间效率，但仍然存在一个内存的问题。当训练一个具有梯度下降的多层模型时，需要保存每一层的激活值，以便在向后传递中使用。一个典型的 Transformer 模型有 12 个或更多的层，因此，如果用来缓存来自每个层的值，那么内存很快就会用完。</p>
-<p>在 Reformer 中实现的第二个新方法是在反向传播期间按需重新计算每个层的输入，而不是将其存储在内存中。这是通过使用<strong>可逆层</strong>来实现的，其中来自网络的最后一层的激活被用来恢复来自任何中间层的激活，这相当于反向运行网络。在一个典型的残差网络中，栈中的每一层都不断地增加通过网络的向量。相反，可逆层对每个层有两组激活。一个遵循刚才描述的标准过程，并从一个层逐步更新到下一个层，但是另一个只捕获对第一个层的更改。因此，要反向运行网络，只需减去应用于每个层的激活。<img src="E:\myBlog\source_posts\17768144-92afd80bc919cfd1.png" alt="img"></p>
-<p><img src="E:\myBlog\source_posts\17768144-aebc2f755db51a88.png" alt="img"></p>
-<script>
+    <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -2137,9 +1890,21 @@
 <p>win10自动更新edge，但是新版的edge用的是Chromium内核，新功能添加不少，也全部支持chrome的插件，但是对pdf的支持不友好，和chrome一个德行<span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f611.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f611.png?v8">😑</span>。导致我在旧版本edge阅读论文时做的笔记在新版edge体验感极差，于是想着回退到旧版本 （edge不就是用来阅读论文的 ）<span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f606.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png?v8">😆</span></p>
 <h3 id="版本回退">版本回退</h3>
 <p>百度后发现将新版本的edge删除，就可以自己回退到旧版本的edge</p>
-<p>geek强制删除新版edge之后，发现原来的一些设置消失了。系统不太稳定，可能是删除了一些系统配置文件。</p>
-<p>为啥？？？</p>
-<p>下次还是少用geek强制删除吧，乖乖在<code>程序与功能</code>中卸载删除吧</p>
+<p>geek<code>强制删除</code>新版edge之后，系统回退到旧版edge了。但是同时发现原来的一些设置消失了，系统不太稳定，可能是强制删除了一些系统配置文件。不太清楚具体原因，待解决</p>
+<p>导致如下两个功能消失</p>
+<ul>
+<li>在开始栏中不显示安装的软件</li>
+<li>在文件夹右键不能使用<code>发送到</code>功能</li>
+</ul>
+<p>目前发现这两个不能使用的功能。可能还存在其它故障。平时经常通过<code>开始栏</code>打开软件，不显示之后有点麻烦</p>
+<h3 id="解决">解决</h3>
+<p>用<code>listary</code>软件快速搜索软件名称，（双击ctrl键打开搜索框），然后添加到Rolan中，如图所示</p>
+<p><img src="https://i.loli.net/2020/09/04/Kbk3ERwsMJ9AhlP.png" alt="image-20200904145340602" style="zoom:80%;"></p>
+<h3 id="小结">小结</h3>
+<ul>
+<li>下次还是少用geek强制删除吧，乖乖在<code>程序与功能</code>中卸载删除吧，有可能涉及系统配置文件的就不要轻易删除</li>
+<li>等待新版edge友好支持论文阅读</li>
+</ul>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -3092,6 +2857,95 @@
       </categories>
       <tags>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2020-08-04-博客优化以及问题解决</title>
+    <url>/2020/08/04/2020-08-04-%E5%8D%9A%E5%AE%A2%E4%BC%98%E5%8C%96%E4%BB%A5%E5%8F%8A%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h3 id="修改git-bash的默认打开工作路径">修改Git Bash的默认打开工作路径</h3>
+<p>我每次想在我的博客文件夹里进入git bash，必须要打开文件夹才能进入，操作繁琐，于是在桌面建立git bash 快捷方式，并将git bash 的默认打开路径更改为我的博客文件夹下，这样点击图标，即能进入本地git仓库</p>
+<p>1.找到git bash，右键属性，可以看到目标栏及起始位置栏。</p>
+<p><img src="https://i.loli.net/2020/08/04/tPL1uzsVApn5FvC.png" alt="img" style="zoom: 80%;"></p>
+<p>将目标栏中的 --cd-to-home 去掉；将起始位置中填写为本地git仓库的路径，即可完成操作。如下图所示，博客文件夹位置在<code>E:\myBlog</code></p>
+<p><img src="https://i.loli.net/2020/08/04/Vw7Kg3U2OIZQ6R9.png" alt="image-20200804181206322" style="zoom: 50%;"></p>
+<p>注： 若在文件夹里进入 git bash，则然后按下<code>shift+F10</code> （激活右键菜单栏），再按<code>s</code>跳转到git bash，最后按下<code>enter</code>即可</p>
+<h3 id="博客打开网站和更新不完全">博客打开网站和更新不完全</h3>
+<p>在这几天在本地文件夹更新完配置文件对博客进行个性化设置时，使用<code>localhost:4000</code>访问本地blog可以正常显示更改后的样式，但是在登录网站域名就会出现不一致的现象，有时会响应速度慢，延时高，甚至连接超时。</p>
+<p>在整个过程中一直没发现问题，因为本地localhost和网站不一致就不能理解。后来才发现，我的hexo命令写错了。本应该是hexo clean ，我错写为hexo clear，导致不能轻触缓存，所以在网站中不能及时更新显示。</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean <span class="comment"># 清除缓存，网页正常情况下可以忽略此命令</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="博客无法连接">博客无法连接</h3>
+<p>本地服务器可以正常显示，但是博客连接不上</p>
+<p>如何可以ping 通，则代表不是域名方面的问题，应该就是服务器的问题，可能是部署在github上，所以会有点慢，后续准备买一个阿里云的服务器。</p>
+<p>解决：</p>
+<p>1.博客正在加载， 等一段时间刷新</p>
+<p>2.如果还是不行，则清理chrome的cookie缓存再刷新即可， 可以解决问题，但是操作麻烦。</p>
+<p><img src="https://i.loli.net/2020/08/10/Iwpk2yb5OAjuoKf.png" alt="image-20200810152929992"></p>
+<p>3.清除特定网站下的缓存：</p>
+<p>打开开发者工具（F12），选择 Network——Disable cache 。需要清除某网站缓存时 F12 打开开发者工具就会自动清除这个网站的缓存，而不必清除所有网站的缓存了。</p>
+<p>4.如果在文章标题中使用了当天的日期，可能无法及时得到页面更新。因为Github使用了格林尼治标准时间，也就是UTC。中国是东八时区，UTC+8，对于hexo来说是一个未来的时间，所以新的Posts不会被渲染。</p>
+<p>在hexo配置文件<code>_config.yml</code>中设置<code>timezone: Asia/Shanghai</code> (有效解决问题) <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8">⭐</span></p>
+<p>参考</p>
+<blockquote>
+<p>博客无法更新post文章 https://www.jianshu.com/p/b73c28e77760</p>
+</blockquote>
+<h3 id="clone的时候无法clone-next的内容">clone的时候无法clone next的内容</h3>
+<h4 id="问题">问题</h4>
+<p>在使用git将myblog文件夹的博客内容push到github上之后，发现对于<code>./theme/next</code>中的内容无法上传</p>
+<h4 id="原因">原因</h4>
+<p>next当时是clone别人的仓库，在我的myblog文件夹里本身就有一个<code>.git</code>的隐藏文件，然而我在博客文件夹里又引用了next的git仓库，所以导致上述问题</p>
+<blockquote>
+<p>任意文件夹中，用 <code>git init</code> 命令初始化仓库，即可在此文件夹下创建 <code>.git</code> 文件夹（<code>.</code>打头为隐藏文件夹，所以平时可能看不到）。这个文件夹之外的部分叫做工作区（Working Directory），<code>.git</code> 文件夹我们称做 Git仓库 (Git Repository)。</p>
+</blockquote>
+<h4 id="解决">解决</h4>
+<p>1.将themes/next这个文件里的.git文件删除，这样next文件就相当于是一个普通文件，可以上传到myblog仓库里。但是当next有大更新的时候不会提示</p>
+<p>2.保留next 的.git，将next下的<code>_config.yml</code>和其它修改的文件单独复制出来（主要是<code>_config.yml</code>），备份一下到./source/文件夹下，将这些文件作为普通文件上传。这样next的.git不用删除，同时next文件夹下的内容不会上传。</p>
+<h3 id="添加自启动项">添加自启动项</h3>
+<p>添加开机自启动项，在文件管理器的路径栏输入</p>
+<p><code>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code></p>
+<p>然后将要添加的软件快捷方式复制到里面即可,如下：</p>
+<p><strong><img src="https://i.loli.net/2020/08/31/dqOpCylYLNQ8EoV.png" alt="image-20200831170347078"></strong></p>
+<h3 id="anaconda-prompt找不到">anaconda prompt找不到</h3>
+<h4 id="操作">操作</h4>
+<p>在开始栏里面找不到anaconda prompt的内容，自己在anaconda3文件夹里也没看到anaconda prompt的启动项。在powershell里使用conda，功能并不完整（如无法实现基本的<code>conda activate</code>）， 于是考虑将其添加到开始栏里，这样以后操作方便一些</p>
+<p>step 1 :打开cmd, 进入到anaconda3的安装目录，下方是我的目录，于是操作如下：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\Users\Administrator\anaconda3</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="E:\myBlog\source_posts\image-20200902003632825.png" alt="image-20200902003632825"></p>
+<p>step 2 : 进入到Anaconda的安装目录后，输入：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">python .\Lib\_nsis.py mkmenus</span><br></pre></td></tr></tbody></table></figure>
+<p>通过看文件夹目录树可以发现<code>anaconda prompt</code> 应该存在于<code>.\Lib\_nsis.py</code>文件里，用python运行 ，添加到开始栏里</p>
+<p>step 3 打开左下角的开始栏，可以发现出现了<code>anaconda prompt</code></p>
+<blockquote>
+<h4 id="参考">参考</h4>
+<p><a href="https://www.py.cn/tools/anaconda/16426.html" target="_blank" rel="noopener">anaconda prompt找不到怎么解决？</a></p>
+</blockquote>
+<h4 id="参考-1">参考</h4>
+<blockquote>
+<p><a href="https://www.py.cn/tools/anaconda/16426.html" target="_blank" rel="noopener">anaconda prompt找不到怎么解决？</a></p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>博客</category>
+      </categories>
+      <tags>
+        <tag>故障排除</tag>
       </tags>
   </entry>
   <entry>
@@ -4350,6 +4204,115 @@
       </categories>
       <tags>
         <tag>Transformer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2020-07-20-git使用指南</title>
+    <url>/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h3 id="利用git上传本地项目到github">利用git上传本地项目到github</h3>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">利用git上传本地项目到github</span><br><span class="line"></span><br><span class="line">1.绑定用户</span><br><span class="line"></span><br><span class="line">2.设置ssh key 并为github账号配置ssh key</span><br><span class="line"></span><br><span class="line">3.上传本地项目到github</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="绑定用户">1.绑定用户</h4>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">$ git config --global user.name "OopsAaron" # 注册github时的name</span><br><span class="line">$ git config --global user.email "1574468139@qq.com" # 注册github时的email</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="生成密钥ssh-key">2.生成密钥SSH key</h4>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"1574468139@qq.com"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>此时，在根目录的.ssh文件中会生成公钥和密钥文件</p>
+<p>打开<a href="https://link.zhihu.com/?target=http%3A//github.com/">github</a>，在头像下面点击<code>settings</code>，再点击<code>SSH and GPG keys</code>，新建一个SSH，名字随便。</p>
+<p>git bash中输入</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub <span class="comment"># 复制.ssh里的公钥文件到github中</span></span><br></pre></td></tr></tbody></table></figure>
+<p>将输出的内容复制到框中，点击确定保存。即建立了ssh连接</p>
+<p><img src="https://i.loli.net/2020/07/20/45pTnsvKBbYPDCQ.png" alt="image-20200720163835551"></p>
+<p><img src="https://i.loli.net/2020/08/10/TBqj7pxGadESw1m.png" alt="image-20200810192758491"></p>
+<p>github上新建一个仓库后，在本地进行初始化本地仓库以及上传文件</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git init #初始化仓库</span><br><span class="line"></span><br><span class="line">#复制git clone中的ssh地址</span><br><span class="line"></span><br><span class="line">git remote add origin git@github.com:OopsAaron/myBlog.git #远程连接仓库 （后部分是ssh地址）</span><br><span class="line"></span><br><span class="line">		（若出现fatal: remote origin already exists. 则执行 git remote rm origin，</span><br><span class="line"> 		 再重新执行git remote add origin git@github.com:OopsAaron/myBlog.git）</span><br></pre></td></tr></tbody></table></figure>
+<p>在本地写md文件以及修改，然后进行提交到github， 并更新到网站上。</p>
+<h4 id="提交到github">3.提交到github</h4>
+<blockquote>
+<p>提交到 github 中的myBlog文件夹中</p>
+</blockquote>
+<p>将现有的项目添加并上传 (在所在目录下右键git bash)</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
+<p>刷新github，即可看到上传的文件</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="注">注</h4>
+<p>在<code>git commit -m "first commit"</code>中，若名称<code>first commit</code>不加引号，则不能有空格</p>
+<p>如下则会报错</p>
+<p><img src="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png" alt="image-20200901141302927"></p>
+<p>不知道原因，我用<code>git status</code> 排查了一下，发现已经添加到暂存区了，所以应该是<code>commit</code>的原因</p>
+<p><img src="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png" alt="image-20200901142150766"></p>
+<p>可以看到，<code>changes to be committed</code> ，说明都在暂存区，等待提交<code>commit</code></p>
+<p>将空格去掉，或者加上双引号即可成功</p>
+<p><img src="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png" alt="image-20200901141341959"></p>
+<p>之后就可以push到远程仓库中了</p>
+<h4 id="参考">参考</h4>
+<blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用git命令清单-阮一峰</a> <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html" target="_blank" rel="noopener">读懂diff-阮一峰</a> <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">git教程-廖雪峰</a> <a href="http://www.runoob.com/git/git-install-setup.html" target="_blank" rel="noopener">git教程-菜鸟教程</a> <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">gitbook</a> <a href="http://gitbook.liuhui998.com/index." target="_blank" rel="noopener">Git Community Book</a></p>
+<h6 id="从只会git-add-.的菜鸟到掌握git基本功能"><a href="https://juejin.im/post/6844903586023866375" target="_blank" rel="noopener">从只会git add .的菜鸟到掌握git基本功能</a></h6>
+</blockquote>
+<h3 id="hexo更新到网站">hexo更新到网站</h3>
+<p>提交到github中的<code>OopsAaron</code>文件中托管，并更新到网站</p>
+<p>在本地编写完md文件，所在目录下右键git bash</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new new_article  # 新建md文件</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">e.g.</span><br><span class="line">#打开Typora（已添加到环境变量）</span><br><span class="line">hexo new 2020-07-20-tensorflow笔记</span><br><span class="line">#Typora自动跳出新建笔记界面， 这时笔记会自带已预设好的title、description等(因为用的是hexo new 命令)</span><br><span class="line"></span><br><span class="line">注： 1.预设的标签不能空着，不用的话去掉</span><br><span class="line"> 	2. 在每一个title冒号后面要空格，再添加信息 ，不然会报错，示例如下</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://i.loli.net/2020/07/21/AeMFUSKwfWGkjpr.png" alt="image-20200721232830843"></p>
+<h4 id="一般命令">一般命令</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean # </span><br><span class="line"></span><br><span class="line">hexo g  # ==hexo generate 生成静态网页至public目录 </span><br><span class="line"></span><br><span class="line">hexo s # ==hexo server 可以在本地预览效果 http://localhost:4000/   ctrl+C 退出预览</span><br><span class="line"></span><br><span class="line">hexo d # ==hexo deploy 部署到github上，并可以看到发布的文章</span><br><span class="line"></span><br><span class="line">hexo help # 查看帮助</span><br><span class="line"></span><br><span class="line">hexo version # 查看版本</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="组合命令">组合命令</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo s -g  # 生成静态网页并本地预览</span><br><span class="line"></span><br><span class="line">hexo d -g  # 生成并上传</span><br><span class="line"></span><br><span class="line">hexo clean &amp;&amp; hexo d -g &amp;&amp; hexo s  #一步到位</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="hexo高级操作">hexo高级操作</h3>
+<p>hexo的根目录结构如下所示</p>
+<p><img src="https://i.loli.net/2020/07/22/5EWcOhQ8MBCem4s.png" alt="image-20200722181143933"></p>
+<h4 id="config.yml">_config.yml</h4>
+<p>网站配置信息，也就是本文所称的<strong>站点配置文件</strong>，可以在此配置大部分的参数。</p>
+<h4 id="scaffolds">scaffolds</h4>
+<p>模版文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
+<p>Hexo的模板是指新建的markdown文件中默认填充的内容。例如，在使用<code>hexo new 文章名</code>时，默认生成的md文件会包含如下内容：</p>
+<p><img src="https://i.loli.net/2020/07/22/H6JKBeIwhcTkN5z.png" alt="image-20200722182540918"></p>
+<p>默认内容就在scaffold/post.md中保存</p>
+<p>假如对每篇博客我都需要添加分类<code>categories</code>，每次都手动添加太麻烦，我希望每次默认生成都有<code>categories:</code>，那么就可以在scaffold/post.md中添加categories</p>
+<p>保存后，每次新建一篇文章时都会包含post.md中的内容。</p>
+<p>当然，你也可以在scaffolds文件夹下创建自己的博客模板，我创建一个名为<code>blog</code>的模板：</p>
+<p><img src="https://i.loli.net/2020/07/22/oLMuDQOmg6xaBYU.png" alt="image-20200722182806115"></p>
+<p>通过如下命令调用我创建的blog模板新建文章，在<code>_posts</code>中生成md文件，并且是以blog.md为模板的</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new blog 2020-07-22-测试blog</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="public">public</h4>
+<p>该文件夹中的内容将被最终push到github仓库中。</p>
+<h4 id="source">source</h4>
+<p>资源文件夹是存放用户资源的地方。除<code>_posts</code> 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件（如刚刚生成的about文件夹）会被拷贝到 public 文件夹。</p>
+<h4 id="为github仓库添加readme">为github仓库添加readme</h4>
+<p>既然 source 文件夹中的内容将全部被推送到 public 文件夹，public 文件夹中的内容又将被最终push到github仓库中，那么如果我们想要为github仓库添加readme.md，只要在 source 文件夹中创建就好了：</p>
+<p>部署到github，就有readme了，但我们发现，README.md已经被解析为README.html，显示的全是html代码，并不是我们想要的文档格式的内容</p>
+<p>为了解决这个问题，我们回到source文件夹，将<code>README.md</code>重命名为<code>README.MDOWN</code>，再部署到github即可</p>
+<p>source文件夹中，.md会被解析为html，并放到 public 文件夹被push到github，但.MDWN不会被解析。</p>
+<h4 id="themes">themes</h4>
+<p>主题文件夹，下载的主题都保存在此文件夹下。Hexo 会根据主题来生成静态页面。</p>
+<h4 id="参考-1">参考</h4>
+<blockquote>
+<p>Hexo+Github博客搭建： https://zhuanlan.zhihu.com/p/35668237 git上传文件： https://blog.csdn.net/sinat_20177327/article/details/76062030 git版本管理工具详细教程： https://www.cnblogs.com/cuixiaoying/p/11821797.html</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
       </tags>
   </entry>
 </search>
