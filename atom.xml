@@ -40,9 +40,9 @@
     
       <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
     
-      <category term="transformer" scheme="http://yoursite.com/tags/transformer/"/>
-    
       <category term="论文分享" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/"/>
+    
+      <category term="transformer" scheme="http://yoursite.com/tags/transformer/"/>
     
   </entry>
   
@@ -133,7 +133,7 @@
     <link href="http://yoursite.com/2020/08/25/2020-08-25-chrome%E6%8F%92%E4%BB%B6/"/>
     <id>http://yoursite.com/2020/08/25/2020-08-25-chrome%E6%8F%92%E4%BB%B6/</id>
     <published>2020-08-25T12:21:35.000Z</published>
-    <updated>2020-08-30T07:18:22.441Z</updated>
+    <updated>2020-08-31T12:16:47.636Z</updated>
     
     <content type="html"><![CDATA[<h3 id="下载提速"><strong>下载提速</strong></h3><ul><li><h4 id="使用场景"><strong>使用场景</strong></h4></li></ul><p>Chrome的下载速度，有时候确实是慢得可以跟某网盘相媲美了，甚至赶不上某些国产浏览器。</p><p>这是因为，Google为了兼容所有的电脑性能和带宽，在Chrome中采取的是保守<strong>单线程下载机制</strong>，这就导致很多时候下载速度非常慢了。</p><p><img src="https://i.loli.net/2020/08/25/5ZMgPIUfc2YndtE.png" alt="img"></p><p>不过，很多人都不知道的是，Chrome其实也是自带多线程下载功能的。所谓多线程下载，就是可以同时对资源建立多个连接，提升下载速度。</p><p>只是这个功能是默认关闭的，需要用户手动去开启。</p><ul><li><h4 id="使用方法"><strong>使用方法</strong></h4></li></ul><p>在浏览器地址栏输入以下网址并回车：</p><p><strong>chrome://flags/#enable-parallel-downloading</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/D1XlU0QfU3GnNfPmPtO4D3rncDTK3kFcCxQMtjnyMUqI5hTIZydfXEDTnp06YjKEBIbdlnvUoFj3ht3ibXUatiaw/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p>在Parallel downloading的后面选项里，把「default」改为「Enabled」，并按照提示重启浏览器。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/D1XlU0QfU3GnNfPmPtO4D3rncDTK3kFcYca3x5SEBJpOky2icdUADwP04jUYiaib6WvUQZ9XlSNHdeiach2RMydRGg/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><p>这样就可以开启多线程下载了，经过实际测试，下载速度至少提高了三倍左右（也有可能下载速度飙升一段时间又跌回去）。</p><h3 id="link-to-text-fragment">Link to Text Fragment</h3><p>实际上就是带锚点功能的网页分享工具。</p><p>所谓锚文本，简单来说就像是关键词的定位，将关键字指向指向另一个页面的链接就是锚文本。这个工具则可以让你将网页上选中的文本片段生成为一个锚文本。</p><p><strong>当你点击这个锚文本时，就会直接跳转到该网页对应标记的锚点上了。</strong></p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/D1XlU0QfU3FtLAG0sobAP0xrYk6LJk6m3AU0icjVgSjiavYp3msxibjM7D9U6PXFbzm4wUeZ6OkaFibhPXLFeIBLOQ/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><h4 id="使用方法-1"><strong>使用方法</strong></h4><h5 id="生成锚文本"><strong>生成锚文本</strong></h5><p>鼠标划词选中文本，在右键菜单中选择【Copy Link to Text Fragment】，然后可以看到该文本被黄色标记。</p><p><img src="https://i.loli.net/2020/08/25/ns29PiDENtvJp3R.gif" alt="img"></p><h5 id="打开锚文本"><strong>打开锚文本</strong></h5><p>此时，锚文本已经自动生成并复制到你的剪贴板上，你可以将它发送给需要分享的好友，或者在浏览器中打开，另存为书签。</p><p>可以看到，在浏览器内打开这个锚文本，网页会自动定位到我们做了锚点的文本部分，再也不需要我们自行阅读查找，非常方便。</p><p><img src="https://mmbiz.qpic.cn/mmbiz_gif/D1XlU0QfU3FtLAG0sobAP0xrYk6LJk6m5F5vhCQoN8IeaxDibdMzqk2jFVjhDDhGMJdY3ZHpibCicN5yWbsRoN9Bg/640?wx_fmt=gif&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1" alt="img"></p><p>需要注意的是，这个锚文本也<strong>仅限在安装了Link to Text Fragment插件的浏览器上打开</strong>，若没有安装则不会跳转对应位置。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
     
@@ -290,9 +290,9 @@
       <category term="服务器" scheme="http://yoursite.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     
-      <category term="服务器" scheme="http://yoursite.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
       <category term="故障排除" scheme="http://yoursite.com/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/"/>
+    
+      <category term="服务器" scheme="http://yoursite.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
   </entry>
   

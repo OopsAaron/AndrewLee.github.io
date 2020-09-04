@@ -1344,7 +1344,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #03a40b;
+  background: #ffff3b;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2844,7 +2844,7 @@ mjx-container + br {
   }
 }
 body {
-  background: url("/images/background.jpg");
+  background: url("/images/2160background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
@@ -2863,11 +2863,12 @@ body .site-brand-container {
   background: #283747;
 }
 body .header-inner {
-  background: rgba(255,255,255,0.87);
+/*
+     background: rgba(255,255,255,0.87); //背景是白色，  0.85是透明度
+   */
   border-radius: 10px;
 }
 body .sidebar {
-  opacity: 0.87;
   border-radius: 10px;
 }
 body .sidebar-inner.affix-top {
@@ -2875,9 +2876,6 @@ body .sidebar-inner.affix-top {
 }
 body .sidebar-inner.affix {
   border-radius: 10px;
-}
-body .content-wrap {
-  opacity: 0.87;
 }
 body #每个文章进行设置,
 body .content.index.posts-expand .post-block {
