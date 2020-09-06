@@ -74,7 +74,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/08/18/Yij4DdNxZ3w6RBF.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/08/18/tYB8e7lsuUyP9fc.jpg">
 <meta property="article:published_time" content="2020-08-16T07:27:19.000Z">
-<meta property="article:modified_time" content="2020-09-04T14:57:19.728Z">
+<meta property="article:modified_time" content="2020-09-05T12:15:37.600Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="故障排除">
 <meta property="article:tag" content="服务器">
@@ -181,7 +181,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">24</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -191,7 +191,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">46</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">50</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -298,7 +298,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-04 22:57:19" itemprop="dateModified" datetime="2020-09-04T22:57:19+08:00">2020-09-04</time>
+                <time title="修改时间：2020-09-05 20:15:37" itemprop="dateModified" datetime="2020-09-05T20:15:37+08:00">2020-09-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -468,7 +468,7 @@
 <p>dpkg： 是Debian packager的简称，是由Debian开发出来的包管理器，软件包在发布时打包成.deb格式</p>
 <p>适用于Dpkg (Debian系)：Ubuntu 注：RPM (Red Hat系)：CentOS、Fedora</p>
 <p>dpkg支持 tar 包。 tar 只是一种压缩文件格式，所以，它只是把文件压缩打包而已</p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i *.deb     deb文件的安装</span><br><span class="line">dpkg -r *.deb     deb文件的卸载</span><br><span class="line">dpkg -l           查看当前系统中已经安装的软件包的信息</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i *.deb     deb文件的安装</span><br><span class="line">dpkg -r *.deb     deb文件的卸载</span><br><span class="line">dpkg -l           查看当前系统中已经安装的软件包的信息</span><br></pre></td></tr></tbody></table></figure>
 </blockquote></li>
 </ul>
 <h5 id="更新依赖">更新依赖</h5>
@@ -476,7 +476,8 @@
 <p>dpkg常用命令行dpkg和rpm命令虽然可以解决安装，卸载和查询，但是对于软件包直接的依赖，比如安装的软件包依赖于很多其他的软件包，这两个软件只会将依赖打印出来告诉用户，需要用户一个一个的手动去先安装依赖，当依赖包又依赖其他包时，对于用户实在是不够友好，于是apt和yum出现了，他们的能够自动将依赖下载安装</p>
 <p>apt的全称是Advanced Packaging Tool是Linux系统下的一款安装包管理工具。</p>
 </blockquote>
-<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  <span class="comment">#更新依赖</span></span><br><span class="line">sudo apt-get install -f  <span class="comment">#修复依赖.使用此命令可修复依赖关系，假如有软件因依赖关系不满足而无法安装，就可以运行此命令自动修复安装程序包所依赖的包。特别是在使用dpkg命令安装deb软件包时出现依赖问题常需要此命令来修复。</span></span><br></pre></td></tr></tbody></table></figure>
+<p>一般如果提示软件安装失败，那么应该就是缺少依赖。这时候应该更新依赖并且修复依赖。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update  <span class="comment">#更新依赖</span></span><br><span class="line">sudo apt-get install -f  <span class="comment">#修复依赖.使用此命令可修复依赖关系，假如有软件因依赖关系不满足而无法安装，就可以运行此命令自动修复安装程序包所依赖的包。特别是在使用dpkg命令安装deb软件包时出现依赖问题常需要此命令来修复。</span></span><br><span class="line"><span class="comment">#修复依赖之后如果还是出错，那么就再次运行此命令。注意提示</span></span><br></pre></td></tr></tbody></table></figure>
 <h5 id="安装完毕">安装完毕</h5>
 <p>打开ubuntu搜索栏就可以搜索到软件，就可以使用啦</p>
 <h4 id="卸载软件">卸载软件</h4>
@@ -889,7 +890,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -902,7 +903,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -972,12 +973,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">179k</span>
+    <span title="站点总字数">189k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:43</span>
+    <span title="站点阅读时长">2:52</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
