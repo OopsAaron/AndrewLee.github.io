@@ -36,6 +36,8 @@
 <meta property="og:image" content="e:/myBlog/source_posts/v2-70217570123ac6faceb84350c0bdf5a2_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-c4ad3ff740a6b9b6fe7fada9efec0535_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-1db59a5b781da76859c1382a8ed06d24_1440w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-a7b5591feb14da95d29103913b61265a_1440w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-24f1ffc4ef118948501eb713685c068a_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-3a287a91ca86c00e843155896ea5d687_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-561263b8bd9845a7c4b66efa23cd7265_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-204cdd0ef756577532052643d31709e6_1440w.jpg">
@@ -58,7 +60,7 @@
 <meta property="og:image" content="e:/myBlog/source_posts/v2-5764393bf407b6e4e2a91d51fe8b323c_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-430d47091489721ff7ee3e50500ea7e2_1440w.jpg">
 <meta property="article:published_time" content="2020-09-05T16:06:55.000Z">
-<meta property="article:modified_time" content="2020-09-06T07:08:43.833Z">
+<meta property="article:modified_time" content="2020-09-06T08:24:27.562Z">
 <meta property="article:author" content="李思建">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="e:/myBlog/source_posts/v2-f4cd91e23a8770247625f3601e010e7b_1440w.jpg">
@@ -274,7 +276,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-06 00:06:55 / 修改时间：15:08:43" itemprop="dateCreated datePublished" datetime="2020-09-06T00:06:55+08:00">2020-09-06</time>
+              <time title="创建时间：2020-09-06 00:06:55 / 修改时间：16:24:27" itemprop="dateCreated datePublished" datetime="2020-09-06T00:06:55+08:00">2020-09-06</time>
             </span>
 
           
@@ -310,7 +312,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>7.4k</span>
+              <span>8.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -356,48 +358,70 @@
 <h4 id="两种不确定性">两种不确定性</h4>
 <p>接下来，我们界定一下不确定性的分类问题。一般来讲，不确定性可以分为两类：</p>
 <ol type="1">
-<li><strong>数据的不确定性</strong>：也被称为偶然（Aleatoric）不确定性，它描述的是数据中内在的噪声，即无法避免的误差，这个现象不能通过增加采样数据来削弱。例如有时候拍照的手稍微颤抖画面便会模糊，这种数据是不能通过增加拍照次数来消除的。因此解决这个问题的方法一般是提升数据采集时候的稳定性，或者提升衡量指标的精度以囊括各类客观影响因素。</li>
-<li><strong>模型的不确定性</strong>：也被称为认知（Epistemic）不确定性。它指出，模型自身对输入数据的估计可能因为训练不佳、训练数据不够等原因而不准确，与某一单独的数据无关。因此，认知不确定性测量的，是训练过程本身所估计的模型参数的不确定性。这种不确定性是可以通过有针对性的调整（增加训练数据等方式）来缓解甚至解决的。</li>
+<li><strong>数据的不确定性</strong>：也被称为偶然（Aleatoric）不确定性，它描述的是<strong>数据中内在的噪声，即无法避免的误差，这个现象不能通过增加采样数据来削弱。</strong>例如有时候拍照的手稍微颤抖画面便会模糊，这种数据是不能通过增加拍照次数来消除的。因此解决这个问题的方法一般是提升数据采集时候的稳定性，或者提升衡量指标的精度以囊括各类客观影响因素。</li>
+<li><strong>模型的不确定性</strong>：也被称为认知（Epistemic）不确定性。它指出，<strong>模型自身对输入数据的估计可能因为训练不佳、训练数据不够等原因而不准确，与某一单独的数据无关</strong>。因此，认知不确定性测量的，是训练过程本身所估计的模型参数的不确定性。这种不确定性是可以通过有针对性的调整（增加训练数据等方式）来缓解甚至解决的。</li>
 </ol>
-<h2 id="深度学习中的不确定性问题"><strong>深度学习中的不确定性问题</strong></h2>
-<p>如果单看深度学习网络本身，它是确定性的，例如简单的多层前馈网络，在训练好以后，其结构、权重以及对某一个样本所输出类别的概率都是确定的。因此，在深度神经网络中引入不确定性的一个方法就是引入贝叶斯法则，从而得到贝叶斯神经网络（BNN）。</p>
-<p>简单而言，如下图，贝叶斯神经网络的权重不像普通神经网络是一个具体数值，而是一个概率分布，表示每一个权重w遵循一个分布，而非之前是一个确定的数值。因此在训练和推理中，网络的权重会变化，根据分布来随机采样。通过这种方法可以建模各个参数本身存在的不确定性。</p>
+<h3 id="深度学习中的不确定性问题">深度学习中的不确定性问题</h3>
+<p><strong>如果单看深度学习网络本身，它是确定性的，例如简单的多层前馈网络，在训练好以后，其结构、权重以及对某一个样本所输出类别的概率都是确定的。因此，在深度神经网络中引入不确定性的一个方法就是引入贝叶斯法则，从而得到贝叶斯神经网络（BNN）。</strong></p>
+<p>简单而言，如下图，贝叶斯神经网络的<strong>权重不像普通神经网络是一个具体数值，而是一个概率分布，表示每一个权重w遵循一个分布，而非之前是一个确定的数值</strong>。因此在训练和推理中，网络的权重会变化，<strong>根据分布来随机采样</strong>。通过这种方法可以建模各个参数本身存在的不确定性。</p>
 <p><img src="E:\myBlog\source_posts\v2-70217570123ac6faceb84350c0bdf5a2_1440w.jpg" alt="img"></p>
-<p>然而，由于在实际应用中参数量十分巨大，要严格根据贝叶斯公式计算后验概率几乎不现实，因此为了将网络应用于大型数据集，就需要高效的近似计算方法。早期比较有名的方法是通过马尔科夫链蒙特卡洛采样法（MCMC-sampling）来逼近假定的参数分布，但是由于这种方法很慢，因此发展出了一系列更好的近似计算后验概率的方法，如下：</p>
-<h2 id="变分推断"><strong>变分推断</strong></h2>
-<p>变分推断的基本方法就是引入变分分布对BNN优化过程中涉及到的后验概率进行近似估计，这种方法较为高效。</p>
+<p>然而，由于在实际应用中参数量十分巨大，要严格根据贝叶斯公式计算后验概率几乎不现实，因此为了将网络应用于大型数据集，就<strong>需要高效的近似计算方法</strong>。早期比较有名的方法是通过马尔科夫链蒙特卡洛采样法（MCMC-sampling）来逼近假定的参数分布，但是由于这种方法很慢，因此发展出了一系列更好的<strong>近似计算后验概率</strong>的方法，如下：</p>
+<h4 id="变分推断">变分推断</h4>
+<p>变分推断的基本方法就是<strong>引入变分分布对BNN优化过程中涉及到的后验概率进行近似估计，这种方法较为高效。</strong></p>
 <p><img src="E:\myBlog\source_posts\v2-c4ad3ff740a6b9b6fe7fada9efec0535_1440w.jpg" alt="img"></p>
-<p><strong>Dropout=BNN+VI</strong></p>
+<h4 id="dropoutbnnvi">Dropout=BNN+VI</h4>
 <p><img src="E:\myBlog\source_posts\v2-1db59a5b781da76859c1382a8ed06d24_1440w.jpg" alt="img"></p>
-<p>这种dropout方法也称为蒙特卡洛dropout，进一步简化了对后验概率分布的近似计算，它认为常见的dropout技术实际上等于在贝叶斯网络中进行变分推断。通过上图的对比，我们可以直观理解标准神经网络经过dropout之后，在每一层随机取消一些神经元，把连接变稀疏的网络是什么样子。</p>
+<p>这种<strong>dropout方法</strong>也称为蒙特卡洛dropout，进一步简化了对后验概率分布的近似计算，它认为常见的dropout技术实际上等于在贝叶斯网络中进行变分推断。通过上图的对比，我们可以直观理解标准神经网络经过dropout之后，在每一层随机取消一些神经元，把连接变稀疏的网络是什么样子。</p>
 <p>可以证明，在假设每一个神经元都服从一个离散的伯努利分布的情况下，经dropout方法处理的神经网络的优化过程实际上等价于在一个贝叶斯网络中进行变分推断。由于这种结构中每个节点的权重是被多个子网络共享的，因此它的训练和推理相对高效。这项理论成果近年来得到了较多的应用。</p>
-<h2 id="模型融合"><strong>模型融合</strong></h2>
-<p>这也是一种进行不确定性估计的基本方法，其大致思路是，从一个数据集中进行多次随机采样，分别训练模型，然后再将这些模型的推理结果综合，其均值作为预测结果，方差作为预测的不确定性。另外需要强调的是，蒙特卡洛dropout可以认为是一种特殊的模型融合方法。</p>
+<p>我们在前向传播的时候，让某个神经元的激活值以<strong>一定的概率p停止工作</strong>（每一个批次都是随机），这样可以使模型泛化性更强，因为它不会太依赖某些局部的特征。</p>
+<p><strong>dropout掉不同的隐藏神经元就类似在训练不同的网络，随机删掉一半隐藏神经元导致网络结构已经不同，整个dropout过程就相当于对很多个不同的神经网络取平均。而不同的网络产生不同的过拟合，一些互为“反向”的拟合相互抵消就可以达到整体上减少过拟合。</strong></p>
+<h5 id="dropout具体工作流程">Dropout具体工作流程</h5>
+<p>假设我们要训练这样一个神经网络，如图所示。</p>
+<p><img src="E:\myBlog\source_posts\v2-a7b5591feb14da95d29103913b61265a_1440w.jpg" alt="标准的神经网络"></p>
+<p>输入是x输出是y，正常的流程是：我们首先把x通过网络前向传播，然后把误差反向传播以决定如何更新参数让网络进行学习。使用Dropout之后，过程变成如下：</p>
+<p>（1）首先<strong>随机（临时）</strong>删掉网络中一半的隐藏神经元，输入输出神经元保持不变（图中虚线为部分临时被删除的神经元）</p>
+<p><img src="E:\myBlog\source_posts\v2-24f1ffc4ef118948501eb713685c068a_1440w.jpg" alt="部分临时被删除的神经元"></p>
+<p>（2） 然后把输入x通过修改后的网络前向传播，然后把得到的损失结果通过修改的网络反向传播。一小批训练样本执行完这个过程后，在<strong>没有被删除的神经元上</strong>按照随机梯度下降法更新对应的参数（w，b）。</p>
+<p>（3）然后继续重复这一过程：</p>
+<ul>
+<li><strong>恢复被删掉的神经元</strong>（此时被删除的神经元保持原样，而没有被删除的神经元已经有所更新）</li>
+<li>从隐藏层神经元中<strong>随机选择</strong>一个一半大小的子集临时删除掉（备份被删除神经元的参数）。</li>
+<li>对一小批训练样本，先前向传播然后反向传播损失并根据随机梯度下降法更新参数（w，b） （没有被删除的那一部分参数得到更新，删除的神经元参数保持被删除前的结果）。</li>
+</ul>
+<p>不断重复这一过程。</p>
+<h5 id="参考">参考</h5>
+<blockquote>
+<p><a href="https://zhuanlan.zhihu.com/p/38200980" target="_blank" rel="noopener">深度学习中Dropout原理解析</a></p>
+</blockquote>
+<h4 id="模型融合">模型融合</h4>
+<p>这也是一种进行不确定性估计的基本方法，其大致思路是，<strong>从一个数据集中进行多次随机采样，分别训练模型，然后再将这些模型的推理结果综合，其均值作为预测结果，方差作为预测的不确定性。</strong>另外需要强调的是，蒙特卡洛dropout可以认为是一种特殊的模型融合方法。</p>
 <p><img src="E:\myBlog\source_posts\v2-3a287a91ca86c00e843155896ea5d687_1440w.jpg" alt="img"></p>
-<h2 id="回归问题中的数据不确定性"><strong>回归问题中的数据不确定性</strong></h2>
-<p>这是一种数据估计的标准做法。给定输入x_i，解一个函数f(x_i)，使得它逼近ground truth y_i。假设这个函数f(x_i)遵循一个高斯分布，那么其均值就是y_i，方差就是σ（也依赖于x_i）。这时，如果对这个高斯分布取似然度，再取负的log值，那么就可以得到下图中的损失函数L。因此在优化的时候，除了希望优化f(x_i)逼近y_i，同时也需要优化σ(x_i)，它表示这个高斯分布的不确定性，σ越大越不确定。</p>
+<h3 id="回归问题中的数据不确定性">回归问题中的数据不确定性</h3>
+<p>这是一种数据估计的标准做法。<strong>给定输入x_i，解一个函数f(x_i)，使得它逼近ground truth y_i。假设这个函数f(x_i)遵循一个高斯分布，那么其均值就是y_i，方差就是σ（也依赖于x_i）。</strong></p>
+<p><strong>这时，如果对这个高斯分布取似然度，再取负的log值，那么就可以得到下图中的损失函数L。因此在优化的时候，除了希望优化f(x_i)逼近y_i，同时也需要优化σ(x_i)，它表示这个高斯分布的不确定性，σ越大越不确定。</strong></p>
 <p>因此当f很容易逼近y的时候，那么公式中第一项L2范数就会很小，这时即便σ也小，但结果依然不会很大；当f很难逼近y，即f很难学习的时候，第一项中的L2范数就会很大，这时优化过程就会使得σ也变大，从而使得整个第一项减小，因此学到的σ会随着数据学习的难度做自我调整。</p>
 <p><img src="E:\myBlog\source_posts\v2-561263b8bd9845a7c4b66efa23cd7265_1440w.jpg" alt="img"></p>
-<p>我们借助一个直观例子来理解模型不确定性与数据不确定性。首先这里的ground truth函数为一个正弦函数，即图中橙色的点是测试数据，而训练数据是从[-5，+5]区间采样的蓝色点，研究人员对每一个蓝色点都添加了高斯噪声，因此可以看到这些蓝色点明显偏离ground truth。</p>
-<p>下方左图是用贝叶斯网络加dropout进行的模型不确定性估计。红色曲线为估计出来的预测值，延其上下分布的黄色面积则为每一个点对应的方差。在进行模型不确定性估计时，系统会对每个输入点估计多次，每次会随机采样模型的权重，以求出对每个输入点多次预测所得到的均值和方差。可以发现，蓝色点区域之外的部分预测的方差很大，这是因为模型没有见过这样的数据。</p>
-<p>下方右图中红色曲线为估计出来的预测值，曲线上下的黄色跨度就是每一个点通过数据不确定性估计方法所学出的方差。可以发现，原本输入数据中有噪声的部分，其预测出的方差比较大，反映出模型对这样的输出拥有较大的不确定性。</p>
+<h4 id="简单例子">简单例子</h4>
+<p>我们借助一个直观例子来理解模型不确定性与数据不确定性。首先这里的<strong>ground truth函数为一个正弦函数</strong>，即图中橙色的点是测试数据，而<strong>训练数据是从[-5，+5]区间采样的蓝色点，研究人员对每一个蓝色点都添加了高斯噪声，因此可以看到这些蓝色点明显偏离ground truth。</strong></p>
+<p>下方左图是用贝叶斯网络加dropout进行的<strong>模型不确定性估计</strong>。<strong>红色曲线为估计出来的预测值，延其上下分布的黄色面积则为每一个点对应的方差</strong>。在进行模型不确定性估计时，系统会对每个输入点估计多次，每次会随机采样模型的权重，以求出对每个输入点多次预测所得到的均值和方差。可以发现，蓝色点区域之外的部分预测的方差很大，这是因为模型没有见过这样的数据。（<strong>因为蓝色是训练数据</strong>，其它是测试数据，没见过的，所以方差就会较大，也就是不确定性较高）</p>
+<p>下方右图中红色曲线为估计出来的预测值，是<strong>数据不确定性估计</strong>，曲线上下的黄色跨度就是每一个点通过数据不确定性估计方法所学出的方差。可以发现，原本输入数据中有噪声的部分，其预测出的方差比较大，反映出模型对这样的输出拥有较大的不确定性。</p>
 <p><img src="E:\myBlog\source_posts\v2-204cdd0ef756577532052643d31709e6_1440w.jpg" alt="img"></p>
-<h2 id="不确定性的计算机视觉应用"><strong>不确定性的计算机视觉应用</strong></h2>
+<h3 id="不确定性的计算机视觉应用">不确定性的计算机视觉应用</h3>
 <p><img src="E:\myBlog\source_posts\v2-db8c3c72e98abbcc4e942182af129773_1440w.jpg" alt="img"></p>
-<p>尽管不确定性在机器学习中已经有很长历史，但是直到2017年（就我所知）随着NeurlPS论文<em>What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision</em>的提出，它才开始真正应用在基于深度学习的视觉预测任务中。这篇论文本身没有太多方法创新，通过将已知的方法 用于语义分割与深度回归任务，取得了不错的结果。通过在模型中引入不确定性估计的已有理论成果，使得原本任务的精度得到了显著提升。</p>
+<p>尽管不确定性在机器学习中已经有很长历史，但是直到2017年（就我所知）随着NeurlPS论文<em>What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision</em>的提出，它才开始真正应用在基于深度学习的视觉预测任务中。这篇论文本身没有太多方法创新，通过将已知的方法 用于语义分割与深度回归任务，取得了不错的结果。<strong>通过在模型中引入不确定性估计的已有理论成果，使得原本任务的精度得到了显著提升。</strong></p>
 <p>通过论文给出的定性结果可以较为直观的理解模型不确定性和数据不确定性。如下图，系统估计出来的不确定性是有明确含义即很容易理解的，图中上半部分做语义分割，下半部分做深度估计。</p>
 <p><img src="https://picb.zhimg.com/80/v2-cf9cf0d7715af33b38dc8fa8b71b8aa0_1440w.jpg" alt="img"></p>
-<p>整张图的第4、5列分别是数据不确定性和模型不确定性的结果。红色部分表示不确定程度较大，蓝色部分表示较为确定。从数据不确定性结果（第4列）可以看到，红色部分往往出现在物体边界处，表示这些区域的像素更加具有二义性，系统不太清楚这部分像素究竟属于前景还是背景，另外这部分信息在训练数据中（即ground truth）往往也较模糊。可以发现，系统给出的数据不确定结果符合人类直观理解。</p>
-<p>从模型不确定性结果（第5列）可以看到，模型对出现人的部分给出了很高的不确定性，这是因为模型在训练中很少遇到人的数据，因此模型很难估计出人所处位置的深度，将该区域标记为高度不确定。</p>
-<h2 id="物体检测中的数据不确定性"><strong>物体检测中的数据不确定性</strong></h2>
+<p><strong>整张图的第4、5列分别是数据不确定性和模型不确定性的结果。红色部分表示不确定程度较大，蓝色部分表示较为确定。从数据不确定性结果（第4列）可以看到，红色部分往往出现在物体边界处，表示这些区域的像素更加具有二义性，系统不太清楚这部分像素究竟属于前景还是背景，另外这部分信息在训练数据中（即ground truth）往往也较模糊。可以发现，系统给出的数据不确定结果符合人类直观理解。</strong></p>
+<p><strong>从模型不确定性结果（第5列）可以看到，模型对出现人的部分给出了很高的不确定性，这是因为模型在训练中很少遇到人的数据，因此模型很难估计出人所处位置的深度，将该区域标记为高度不确定。</strong></p>
+<h4 id="物体检测中的数据不确定性">物体检测中的数据不确定性</h4>
 <p><img src="E:\myBlog\source_posts\v2-1903283dad4aa9d88845448bc049769c_1440w.jpg" alt="img"></p>
 <p>在物体检测任务中，很大一部分不确定性来源于标注数据的不确定。上图给出了几个典型例子，可以看到，在标注边界框的时候，由于存在各种物体角度、遮挡，所以往往很难评价一个边界框标注的好坏。由于标注规则不一、数据本身存在的各种不确定性，因此具有二义性的数据标注会导致具有二义性的学习结果，从而将不确定性引入了模型，进一步输出结果也是不确定的。</p>
 <p>针对这个问题，有研究人员在CVPR 2019、ICCV 2019提出了两篇颇有价值的论文，其核心思想类似，将每一个边界框的4个坐标均认为呈高斯分布，然后分别估计其均值和方差。用上述介绍的数据不确定性回归公式来替代传统的L1损失，将原来所需要预测的4个变量扩充为8个变量。</p>
 <p>因此，这种方法除了可以估计边界框每一个坐标之外，还让它们都带有了一个不确定性参数。利用这些不确定性数据，可以进一步做很多事情（比如在NMS中作为权重来对边界框位置进行投票）。</p>
-<h2 id="人脸识别中的模型不确定性"><strong>人脸识别中的模型不确定性</strong></h2>
+<h4 id="人脸识别中的模型不确定性">人脸识别中的模型不确定性</h4>
 <p><img src="E:\myBlog\source_posts\v2-2ed109ae30b1f6d3e0c558987ed79a40_1440w.jpg" alt="img"></p>
 <p>对于在人脸识别任务中如何估计模型不确定性，推荐大家上图中的论文工作，其核心思想是，将BNN+dropout用到人脸识别任务中，如图所示，dropout层（红色）被加在每一个卷积block之后，从而构建了一个蒙特卡洛Dropout网络。在训练过程中，每当流程到达这些层的时候，就会随机丢掉一些神经元，从而实现模拟参数分布的效果。在测试过程中，每一个图像都会经过该网络多次，进而可以多这些结果估计均值与方差，将方差作为预测结果的不确定性。</p>
-<h2 id="人脸识别中的数据不确定性pfe方法"><strong>人脸识别中的数据不确定性：PFE方法</strong></h2>
+<h4 id="人脸识别中的数据不确定性pfe方法">人脸识别中的数据不确定性：PFE方法</h4>
 <p><img src="E:\myBlog\source_posts\v2-98aea9ce223af68aeb8bfe55bf2f3f90_1440w.jpg" alt="img"></p>
 <p>PFE方法全称为Probabilistic Face Embeddings，其核心思想是用概率分布来替代传统确定的人脸嵌入特征。传统的方法会将输入图像映射到一个高维空间中，得到一个表示特征的向量，然而对于这些方法而言，输出的向量都是确定的，因此被称为deterministic embedding。PFE引入了不确定性，将输出向量认为是一个概率分布，而不再是一个确定的向量，它有一个均值μ、方差σ。</p>
 <p>均值代表对图像的嵌入，方差描述了模型对输入数据的不确定性。该方法希望同时估计μ和σ，并且σ能够根据输入图像的质量、包含噪声的程度进行自适应的学习。在上图右方的示例中可以看到，每一个输出的特征z不再是一个点，而是一个高斯形状的概率分布（椭圆），椭圆的大小就描述了估计的不确定性。</p>
@@ -409,7 +433,7 @@
 <p>研究人员对清晰图片添加了不同程度的噪声，蓝色线代表原图与模糊图之间的相似度分数，而红色代表两张来自不同ID的图随模糊程度的增加所计算的相似度。可以发现对于同一ID（蓝线），随着模糊程度增加，相似度也逐渐降低；而对于不同ID，随着模糊程度增加相似度却在增加。这说明依据该相似度可能会将两张来自不同ID的模糊图像错认为是同一张图。这一现象在其它很多论文中也同样被观测到。</p>
 <p><img src="https://picb.zhimg.com/80/v2-e38487eb964f4dc56b7ba89689ea5158_1440w.jpg" alt="img"></p>
 <p>然而在经过PFE论文提出的MLS相似度修正之后，情况得到了很大改善。如右图，当图片模糊度增加时，对同样ID的图来说，其相似度没有变得太小，而不同ID图像的相似度也没有变得太大。这个实验证明这种计算图像相似度的新metric在面对低质量图片时更加鲁棒。</p>
-<h2 id="pfe方法的缺陷"><strong>PFE方法的缺陷</strong></h2>
+<h4 id="pfe方法的缺陷">PFE方法的缺陷</h4>
 <p>虽然PFE方法取得了重要进展，但是缺点也很明显，因为它并没有学习身份特征（identity-feature），每一个identity的特征嵌入是确定的，PFE只是增加了一个估计方差的小网络分支，这导致必须用一个新的metric（即MLS）来计算所有样本对的距离。而使用MLS这个度量函数带来的缺陷在实际工业应用中是代价较高的：第一，我们需要额外存储方差向量；第二，相比传统的余弦相似度，MLS相似度的计算资源消耗也更大。</p>
 <p>受此启发，我们团队在投递给CVPR 2020的新论文中不仅做到了估计方差，同时也能更新每个样本的特征。下图为传统方法、PFE与我们团队方法的对比。</p>
 <p><img src="E:\myBlog\source_posts\v2-03439f4dd208a5466bf146bb13a51a37_1440w.jpg" alt="img"></p>
@@ -434,7 +458,7 @@
 <p>进一步，我们团队使用了ResNet-64作为backbone（与PFE的SOTA模型backbone深度一致），来将本文方法同SOTA方法在最困难的数据集IJB-C上进行性能对比，结果显示在每一个指标上我们团队方法均实现了领先。为了测试本文方法对噪声信息干扰的鲁棒性，团队对图片人工施加了高斯噪声（从0到40%），可以发现，当噪声越明显的时候，本文引入的不确定估计方法的优越性也约高。</p>
 <p><img src="E:\myBlog\source_posts\v2-430d47091489721ff7ee3e50500ea7e2_1440w.jpg" alt="img"></p>
 <h4 id="section"></h4>
-<h3 id="参考">🚀参考</h3>
+<h3 id="参考-1">🚀参考</h3>
 <blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/95774787" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/95774787</a></p>
 </blockquote>
@@ -560,7 +584,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#何为不确定性估计"><span class="nav-number">2.1.</span> <span class="nav-text">何为不确定性估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何不确定性重要"><span class="nav-number">2.2.</span> <span class="nav-text">为何不确定性重要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两种不确定性"><span class="nav-number">2.3.</span> <span class="nav-text">两种不确定性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深度学习中的不确定性问题"><span class="nav-number"></span> <span class="nav-text">深度学习中的不确定性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变分推断"><span class="nav-number"></span> <span class="nav-text">变分推断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型融合"><span class="nav-number"></span> <span class="nav-text">模型融合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回归问题中的数据不确定性"><span class="nav-number"></span> <span class="nav-text">回归问题中的数据不确定性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不确定性的计算机视觉应用"><span class="nav-number"></span> <span class="nav-text">不确定性的计算机视觉应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物体检测中的数据不确定性"><span class="nav-number"></span> <span class="nav-text">物体检测中的数据不确定性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#人脸识别中的模型不确定性"><span class="nav-number"></span> <span class="nav-text">人脸识别中的模型不确定性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#人脸识别中的数据不确定性pfe方法"><span class="nav-number"></span> <span class="nav-text">人脸识别中的数据不确定性：PFE方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pfe方法的缺陷"><span class="nav-number"></span> <span class="nav-text">PFE方法的缺陷</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#法1从头学习一个分类模型"><span class="nav-number">1.</span> <span class="nav-text">法1：从头学习一个分类模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#法2从现有模型出发学习回归模型"><span class="nav-number">2.</span> <span class="nav-text">法2：从现有模型出发学习回归模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">🚀参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#何为不确定性估计"><span class="nav-number">2.1.</span> <span class="nav-text">何为不确定性估计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何不确定性重要"><span class="nav-number">2.2.</span> <span class="nav-text">为何不确定性重要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两种不确定性"><span class="nav-number">2.3.</span> <span class="nav-text">两种不确定性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度学习中的不确定性问题"><span class="nav-number">3.</span> <span class="nav-text">深度学习中的不确定性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变分推断"><span class="nav-number">3.1.</span> <span class="nav-text">变分推断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dropoutbnnvi"><span class="nav-number">3.2.</span> <span class="nav-text">Dropout&#x3D;BNN+VI</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dropout具体工作流程"><span class="nav-number">3.2.1.</span> <span class="nav-text">Dropout具体工作流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">3.2.2.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型融合"><span class="nav-number">3.3.</span> <span class="nav-text">模型融合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#回归问题中的数据不确定性"><span class="nav-number">4.</span> <span class="nav-text">回归问题中的数据不确定性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简单例子"><span class="nav-number">4.1.</span> <span class="nav-text">简单例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不确定性的计算机视觉应用"><span class="nav-number">5.</span> <span class="nav-text">不确定性的计算机视觉应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#物体检测中的数据不确定性"><span class="nav-number">5.1.</span> <span class="nav-text">物体检测中的数据不确定性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#人脸识别中的模型不确定性"><span class="nav-number">5.2.</span> <span class="nav-text">人脸识别中的模型不确定性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#人脸识别中的数据不确定性pfe方法"><span class="nav-number">5.3.</span> <span class="nav-text">人脸识别中的数据不确定性：PFE方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pfe方法的缺陷"><span class="nav-number">5.4.</span> <span class="nav-text">PFE方法的缺陷</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#法1从头学习一个分类模型"><span class="nav-number">6.</span> <span class="nav-text">法1：从头学习一个分类模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#法2从现有模型出发学习回归模型"><span class="nav-number">7.</span> <span class="nav-text">法2：从现有模型出发学习回归模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">7.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考-1"><span class="nav-number">8.</span> <span class="nav-text">🚀参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -659,7 +683,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">189k</span>
+    <span title="站点总字数">190k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
