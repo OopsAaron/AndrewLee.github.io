@@ -391,9 +391,9 @@
       <category term="服务器" scheme="http://yoursite.com/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     
-      <category term="故障排除" scheme="http://yoursite.com/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/"/>
-    
       <category term="服务器" scheme="http://yoursite.com/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+      <category term="故障排除" scheme="http://yoursite.com/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4/"/>
     
   </entry>
   
