@@ -1253,6 +1253,149 @@
       </tags>
   </entry>
   <entry>
+    <title>2020-09-07-实验日志</title>
+    <url>/2020/09/07/2020-09-07-%E5%AE%9E%E9%AA%8C%E6%97%A5%E5%BF%97/</url>
+    <content><![CDATA[<h3 id="虚拟环境配置">虚拟环境配置</h3>
+<h4 id="笔记本">笔记本</h4>
+<table>
+<thead>
+<tr class="header">
+<th>名称</th>
+<th>配置</th>
+<th>用处</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sijian36</td>
+<td>tf 1.9.0</td>
+<td>普通跑实验</td>
+</tr>
+<tr class="even">
+<td>python714</td>
+<td>tf 1.14.0</td>
+<td>RKN</td>
+</tr>
+<tr class="odd">
+<td>ronghe</td>
+<td>tf 1.14.0</td>
+<td>transformer和Rkn</td>
+</tr>
+</tbody>
+</table>
+<h4 id="r740">R740</h4>
+<table>
+<thead>
+<tr class="header">
+<th>名称</th>
+<th>配置</th>
+<th>用处</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>sijian1</td>
+<td>tf 1.13</td>
+<td>一般实验</td>
+</tr>
+<tr class="even">
+<td>pytorth030</td>
+<td>torch 0.3</td>
+<td>哈佛torch版transformer</td>
+</tr>
+<tr class="odd">
+<td>lsjRKN</td>
+<td>tf 1.14</td>
+<td>RKN</td>
+</tr>
+</tbody>
+</table>
+<h3 id="日志">日志</h3>
+<h4 id="section"><strong>2020-09-06</strong></h4>
+<h5 id="主要内容">主要内容</h5>
+<p>笔记本的RKN实验</p>
+<p>跑通是在RKNmaster文件跑</p>
+<hr>
+<p>哈佛torch版transformer实验</p>
+<p>R740中 LSJ/annotated-transformer1/main5.py(pytorch030)</p>
+<p>是之前上传到R740跑的实验</p>
+<p>LSJ/annotated-transformer是前一阵为了将函数改成直通型流程而从笔记本上上传的</p>
+<h5 id="出现问题">出现问题</h5>
+<p>在R740跑RKN实验</p>
+<p><code>attributeerror: module 'tensorflow.keras.initializers'  has no attribute 'normal'</code> 解决</p>
+<p>将RKN.py 77行 normal 改为 <strong>RandomNormal</strong> 还是出错</p>
+<p>再次出错 keep.dim出错</p>
+<p>修改 将keep.dim=True参数去掉 再运行</p>
+<p>​ <img src="E:\myBlog\source_posts\0" alt="img"></p>
+<ul>
+<li>运行结果是没有tf.matrix_band_part 这个参数，于是百度发现，</li>
+<li>新版本：tf.matrix_band_part变成tf.linalg.band_part 于是修改再运行</li>
+</ul>
+<p>运行结果显示</p>
+<p>​ <img src="E:\myBlog\source_posts\0" alt="img"></p>
+<p>于是百度，原因是</p>
+<p>The image from your input pipeline is of type 'uint8', you need to type cast it to 'float32', You can do this after the image jpeg decoder:</p>
+<p>以下更改，在RKN.py中插入h = tf.cast(h, tf.float32)</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"></span><br><span class="line">def _prop_through_layers(inputs, layers):</span><br><span class="line"></span><br><span class="line">​    """propagates inputs through layers"""</span><br><span class="line"></span><br><span class="line">​    h = inputs</span><br><span class="line"></span><br><span class="line">h = tf.cast(h, tf.float32)</span><br><span class="line"></span><br><span class="line">​    for layer in layers:</span><br><span class="line"></span><br><span class="line">​        h = layer(h)</span><br><span class="line"></span><br><span class="line">​    return h</span><br></pre></td></tr></tbody></table></figure>
+<p>还是报错</p>
+<p><strong>放弃使用sijian1 以及刚刚对RKNmaser的修改</strong></p>
+<p>将笔记本中的RKNmaster 复制为rknmas上传到R740 名字为<strong>rknmas</strong></p>
+<p>参考了笔记本中的虚拟环境，在R740新建lsjRKN的虚拟环境，<strong>tf版本为1.14 python：3.6</strong></p>
+<p>可以跑通实验</p>
+<p>实验可以在R740跑起来，但是为什么论文作者的github代码上tensorflow版本是1.13 不好使，但是在tensorflow1.14就可以跑起来？？？？</p>
+<p>在笔记本上跑的 设置epoch=5</p>
+<p>​ <img src="E:\myBlog\source_posts\0" alt="img"></p>
+<h4 id="section-1"><strong>2020-09-07</strong></h4>
+<h5 id="主要内容-1">主要内容</h5>
+<p>配置transformer和RKN融合的实验虚拟环境 测试代码</p>
+<p>下载的是<a href="https://github.com/Kyubyong/transformer" target="_blank" rel="noopener">paperwithcode-transformer</a> 代码，准备融合RKN</p>
+<p>具体的配置如下：</p>
+<hr>
+<p><strong>Requirements</strong></p>
+<ul>
+<li>python==3.x (Let's move on to python 3 if you still use python 2)</li>
+<li>tensorflow==1.12.0</li>
+<li>numpy&gt;=1.15.4</li>
+<li>sentencepiece==0.1.8</li>
+<li>tqdm&gt;=4.28.1 #显示进度条的包</li>
+</ul>
+<hr>
+<p>github下载代码，放到<code>C:\Users\Administrator\PycharmProjects</code>目录下，文件名为 <code>transformer-master</code></p>
+<p><code>python714</code>是可以运行RKN的，在笔记本上，根据<code>python714</code> clone了<code>ronghe</code> ，并添加所需要的包</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">conda install tqdm</span><br><span class="line"></span><br><span class="line">pip install  sentencepiece==0.1.8 <span class="comment"># conda 安装出错 ，于是用pip安装</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="出现问题-1"><strong>出现问题</strong></h5>
+<p>此代码不是官方代码，虽然可以实现transformer，但是使用的数据集是小型的<code>IWSLT 2016 de-en</code>，而不是transformer论文中使用的大型数据集WMT，但是官方代码又很难读，而且有很多用不到的接口</p>
+<p>在纠结，要用目前的代码进行融合，还是用官方的代码呢？</p>
+<p>问过师兄，现在还是不用官方的transformer代码，就用目前的代码，只是验证，不用管实验数据集，先将现在的代码结合RKN再说</p>
+<h4 id="section-2"><strong>2020-09-08</strong></h4>
+<h5 id="主要内容-2">主要内容</h5>
+<p>阅读整理RKN的代码</p>
+<p>将昨天的transformer数据集无法读取的问题解决</p>
+<h5 id="遇到问题">遇到问题</h5>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <tags>
+        <tag>故障排除</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020-09-06-如何保持高效学习工作</title>
     <url>/2020/09/06/2020-09-06-%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C/</url>
     <content><![CDATA[<h3 id="前言">前言</h3>
