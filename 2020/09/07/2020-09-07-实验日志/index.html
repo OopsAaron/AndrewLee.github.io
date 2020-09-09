@@ -39,7 +39,7 @@
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200909132740936.png">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200909134011883.png">
 <meta property="article:published_time" content="2020-09-07T12:44:43.000Z">
-<meta property="article:modified_time" content="2020-09-09T05:46:37.299Z">
+<meta property="article:modified_time" content="2020-09-09T05:57:12.850Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="故障排除">
 <meta name="twitter:card" content="summary">
@@ -262,7 +262,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-09 13:46:37" itemprop="dateModified" datetime="2020-09-09T13:46:37+08:00">2020-09-09</time>
+                <time title="修改时间：2020-09-09 13:57:12" itemprop="dateModified" datetime="2020-09-09T13:57:12+08:00">2020-09-09</time>
               </span>
 
           
@@ -298,7 +298,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>2.3k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -341,7 +341,7 @@
 <tr class="odd">
 <td>ronghe</td>
 <td>tf 1.14.0</td>
-<td>transformer和Rkn</td>
+<td>transformer和RKN</td>
 </tr>
 </tbody>
 </table>
@@ -357,7 +357,7 @@
 <tbody>
 <tr class="odd">
 <td>sijian1</td>
-<td>tf 1.13</td>
+<td>tf 1.13.0</td>
 <td>一般实验</td>
 </tr>
 <tr class="even">
@@ -367,8 +367,13 @@
 </tr>
 <tr class="odd">
 <td>lsjRKN</td>
-<td>tf 1.14</td>
+<td>tf 1.14.0</td>
 <td>RKN</td>
+</tr>
+<tr class="even">
+<td>ronghe</td>
+<td>tf 1.14.0</td>
+<td>transformer和RKN</td>
 </tr>
 </tbody>
 </table>
@@ -410,7 +415,7 @@
 <h4 id="section-1"><strong>2020-09-07</strong></h4>
 <h5 id="主要内容-1">主要内容</h5>
 <p>配置transformer和RKN融合的实验虚拟环境 测试代码</p>
-<p>下载的是<a href="https://github.com/Kyubyong/transformer" target="_blank" rel="noopener">paperwithcode-transformer</a> 代码，准备融合RKN</p>
+<p>下载的是<a href="https://github.com/Kyubyong/transformer" target="_blank" rel="noopener">Kyubyong/transformer</a> 代码，准备融合RKN</p>
 <p>具体的配置如下：</p>
 <hr>
 <p><strong>Requirements</strong></p>
@@ -442,9 +447,15 @@
 <p>在R740新建环境ronghe，根据lsjRKN来建的</p>
 <p>第三方包也安装成功</p>
 <h5 id="遇到问题-1"><strong>遇到问题</strong></h5>
-<p>在解决完之后，一定要看报错的位置，可能这个已解决，但是其它相同的问题不同位置也会报错，同样解决就可以了</p>
+<ol type="1">
+<li></li>
+</ol>
 <p><img src="E:\myBlog\source_posts\image-20200909094144959.png" alt="image-20200909094144959"></p>
-<p>在笔记本上跑此实验，发现内存不够，超出内容超过10%</p>
+<h6 id="注">注</h6>
+<p>在解决完之后，一定要看报错的位置，可能这个已解决，但是其它相同的问题不同位置也会报错，同样解决就可以了</p>
+<ol start="2" type="1">
+<li>在笔记本上跑此实验，发现内存不够，超出内容超过10%</li>
+</ol>
 <p><code>Allocation of 1196032000 exceeds 10% of system memory</code></p>
 <p>解决</p>
 <p>减少banch_size ， 但是还是超出，但是应该是在现有环境下实验可以跑通的，于是想着在R740上跑</p>
@@ -453,7 +464,7 @@
 <p>开始跑train.py 并将输出保存在train99.txt中（9月9日）</p>
 <p><img src="E:\myBlog\source_posts\image-20200909134011883.png" alt="image-20200909134011883"></p>
 <p>这个WARNING是什么意思呢？</p>
-<p>猜想：</p>
+<p>猜想：源代码需要的是<code>tf1.12</code>版本 我配置的是<code>tf 1.14</code>版本，不知道是不是这个原因 。晚上回寝百度一下</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -577,7 +588,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#笔记本"><span class="nav-number">1.1.</span> <span class="nav-text">笔记本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r740服务器"><span class="nav-number">1.2.</span> <span class="nav-text">R740服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">2.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.1.</span> <span class="nav-text">2020-09-06</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容"><span class="nav-number">2.1.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">2.2.</span> <span class="nav-text">2020-09-07</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">2.3.</span> <span class="nav-text">2020-09-08</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.3.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">2.4.</span> <span class="nav-text">2020-09-09</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#笔记本"><span class="nav-number">1.1.</span> <span class="nav-text">笔记本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r740服务器"><span class="nav-number">1.2.</span> <span class="nav-text">R740服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">2.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.1.</span> <span class="nav-text">2020-09-06</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容"><span class="nav-number">2.1.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">2.2.</span> <span class="nav-text">2020-09-07</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">2.3.</span> <span class="nav-text">2020-09-08</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.3.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">2.4.</span> <span class="nav-text">2020-09-09</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">注</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
