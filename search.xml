@@ -1283,7 +1283,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="r740">R740</h4>
+<h4 id="r740服务器">R740服务器</h4>
 <table>
 <thead>
 <tr class="header">
@@ -1326,13 +1326,13 @@
 <p>将RKN.py 77行 normal 改为 <strong>RandomNormal</strong> 还是出错</p>
 <p>再次出错 keep.dim出错</p>
 <p>修改 将keep.dim=True参数去掉 再运行</p>
-<p>​ <img src="E:\myBlog\source_posts\0" alt="img"></p>
+<p>​ <img src="https://i.loli.net/2020/09/08/h7Ma3lm82eFSuWX.png" alt="img"></p>
 <ul>
 <li>运行结果是没有tf.matrix_band_part 这个参数，于是百度发现，</li>
 <li>新版本：tf.matrix_band_part变成tf.linalg.band_part 于是修改再运行</li>
 </ul>
 <p>运行结果显示</p>
-<p>​ <img src="E:\myBlog\source_posts\0" alt="img"></p>
+<p>​ <img src="https://i.loli.net/2020/09/08/h7Ma3lm82eFSuWX.png" alt="img"></p>
 <p>于是百度，原因是</p>
 <p>The image from your input pipeline is of type 'uint8', you need to type cast it to 'float32', You can do this after the image jpeg decoder:</p>
 <p>以下更改，在RKN.py中插入h = tf.cast(h, tf.float32)</p>
@@ -1344,7 +1344,7 @@
 <p>可以跑通实验</p>
 <p>实验可以在R740跑起来，但是为什么论文作者的github代码上tensorflow版本是1.13 不好使，但是在tensorflow1.14就可以跑起来？？？？</p>
 <p>在笔记本上跑的 设置epoch=5</p>
-<p>​ <img src="E:\myBlog\source_posts\0" alt="img"></p>
+<p>​ <img src="https://i.loli.net/2020/09/08/h7Ma3lm82eFSuWX.png" alt="img"></p>
 <h4 id="section-1"><strong>2020-09-07</strong></h4>
 <h5 id="主要内容-1">主要内容</h5>
 <p>配置transformer和RKN融合的实验虚拟环境 测试代码</p>
@@ -1371,7 +1371,27 @@
 <h5 id="主要内容-2">主要内容</h5>
 <p>阅读整理RKN的代码</p>
 <p>将昨天的transformer数据集无法读取的问题解决</p>
+<p>将RKN在R740上跑，并保存在<code>test1.txt</code>文件中，可以用<code>less</code> 查看</p>
 <h5 id="遇到问题">遇到问题</h5>
+<p>RKN代码读的一脸懵</p>
+<p>transformer代码bug还未修复 <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f62d.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f62d.png?v8">😭</span></p>
+<h4 id="section-3"><strong>2020-09-09</strong></h4>
+<h5 id="主要内容-3">主要内容</h5>
+<p>在R740新建环境ronghe，根据lsjRKN来建的</p>
+<p>第三方包也安装成功</p>
+<h5 id="遇到问题-1"><strong>遇到问题</strong></h5>
+<p>在解决完之后，一定要看报错的位置，可能这个已解决，但是其它相同的问题不同位置也会报错，同样解决就可以了</p>
+<p><img src="E:\myBlog\source_posts\image-20200909094144959.png" alt="image-20200909094144959"></p>
+<p>在笔记本上跑此实验，发现内存不够，超出内容超过10%</p>
+<p><code>Allocation of 1196032000 exceeds 10% of system memory</code></p>
+<p>解决</p>
+<p>减少banch_size ， 但是还是超出，但是应该是在现有环境下实验可以跑通的，于是想着在R740上跑</p>
+<p>在R740跑prepro.py实验，如下输出，并INFO：done （表示完成）</p>
+<p><img src="E:\myBlog\source_posts\image-20200909132740936.png" alt="image-20200909132740936"></p>
+<p>开始跑train.py 并将输出保存在train99.txt中（9月9日）</p>
+<p><img src="E:\myBlog\source_posts\image-20200909134011883.png" alt="image-20200909134011883"></p>
+<p>这个WARNING是什么意思呢？</p>
+<p>猜想：</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -3038,7 +3058,7 @@
     <label for="hbePass">输入密码，查看文章</label>
     <div class="bottom-line"></div>
   </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="60538e9416c404b4b7457c2693fcb1c80ad4730351f64da5488d3b397a8b1058">b2636caa15154e7869096a6b870b46d4f9822c1e031b2d83b47c9c2cc6713956b74f0bf410c1d2c65843fb3c558f4afedd38e18d2f3ac178a01e97d68d8064885dd59d51fff996e09068e1a036158bcc6c3fe8b8fdf67083ddc8c4f595e9d6e8ed0a8ec2db6d74cc502e5071431c9be605cc093e4db8411eff873f63eb41f80ea803e12db33955033004441a9abd8820ddf306abfb79a99592a22f53964c9315ed223ed01005a3f81225eedda0e6e499388623037cd44645f87eb63ca01343c645b39e915e16281248b499092c688da74afe2935123576adad39ed6dba05d7da2faa5e1bf2762b8ba5c54cf70c808451d47fa9be8345594ce669e784c20c90bbc5c559c541d8ef9a27ce02db76b9e381dcc6ac1ff513a06b2d5872f5c716fb7f5d86363d3f475d28a81858b32df00fa15d6cfac6299ea1b3febc4eacd17147a307e9b90c94860f56389366d4f9609a68e8c876ec767a4eb7205bd25a773709320eab3787e03723c41cc1a2bfda9a969ac88dc8d205dd9c159f06be3b075d7d751912735a72d3e757b4e02b7f9092da5bec29216c989caf2b9a2c191bdccbf5228d86a6ec4926c5078cb62aae6458f16dea8617eb6cbd27d4d4cf04ab010045425128a33e092a052e984ce0763f91d3c070e5e784a45d0b56709659b7d7b73bb297498456207f4850aece54a967984fd2e196ab8cac1446e757d1def14d4b63afa3adbe86c8f9053b8d1610505c9c5f23c7d11ff4bbc0f9a77fbfa17b1d997f882ea3ab2946d5e144749e671eb7f4acdd07ea06b5c562ad14efcee487b016efd0df4ec1f00ccbfb74dd3f8d84b35d319b2fe560563b22eac16e69ad27434c71f6a1e4eb7b83ab19be1b76d2e0378d0330f98d4093e7f2cd2d2c29414ecbd578bd8221210b0b9eebedaf19904bebd5f7ba83f4144f60ec20b599aaec7bb43597536716d88e2a057f9bcb84e12a944031cc</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="c897b3179bbaa42aa7df3fa9ff1c4bf13d729b75271b31722f5495e92289017e">d7a5eba5289407f7930223d42c8ae30925b3b5fc2235a9d22f5ee0ef5500d8a40a98e10ff8803096a72e922d7409d408fdb6c16247bfa5a3e2a16be532d01091dec5c29e776f1d99e379b5e8df1ba5a51954978b6d5090026c279a4be55add612ee8ef2abe0e0124775bd254d66b28a35b91e69f453a2c7b3251e97df17bf2bdd780757c81a2ca4583c11382ed7c5dacabae1e6866541e2d856a3f250f91534542eb9f12d2d3ccbfdc6ec4b94bb2f0e319e2f37f5e8766beae069d5e1192317bc5c41e99bfaca56f34ac4877704fb2447aca1216a4efb913b4a84e53467303d61c3c2eecae4895a6c235fb9a988329fa58beb2f20cd251b59b6eb9703a944902c03c66a80661e9f24d517c02df1edb05e72df497a74aba21e46c46a78f5afe66222fe5b02bb0f0db3b2181bc58b28340b22dbae245a7706fdf1b1803fe998008337829722dee9e3c283b5d1479bd8eaabde6da64e3509d0281e17486e4b6d8e38c8b9a7986da04ec4114edef4b1b686dca923863b189239dd81914730d61ad9492ff0c9253287adf830217ee4a486591d8e2f252b45227bfa141f763dcf910c43a83f6ff5c927d418416320ce050e5736b605d6408731ffacef6dabfcab2fb5c3b529ebca1ad67cf82926f0eb3879bdbced910d435ba5c5e85a26f8c1e099ca278ffbbf53d6ff11a01f23f8ff49edf036cc8226f8e2e99245e7491985ba446968a6690ea05c9da95c77f06e45c5348d65ec430911d2e6ce7d55f5db5986ff0da5bf8e5230c8eceb2bc15e565da2a11b8fbbdfc44bb47cc20bf7e754f8e267ad6d3e2ee36d5d19a86aab12e4ca759be910c938dc300bb6ab818e9246cbee28a3d5c32fdc9f5edea6633695d2ed20c8fab721d95904c8022e1e43eca52226787d7127e6b19393eafe1d2270040b716aa3ed5d9296051a089305fb09243067b2711e4d3a4a29f202c11df1d9957def80716687af201f8b6b4667081890ab3555b557598da576a3cc42badd5818d55d8a71cfc4ada79a6cb818c12d0338c2e06665af7007c4fc86629983582654fdf128cca</script>
 </div>
 <script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
@@ -4574,6 +4594,15 @@
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">ps -ef | grep main.py  <span class="comment">#其中main.py是要查找的关键字</span></span><br></pre></td></tr></tbody></table></figure>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">ps命令将某个进程显示出来</span><br><span class="line"></span><br><span class="line">grep命令是查找</span><br><span class="line"></span><br><span class="line">中间的|是管道命令 是指ps命令与grep同时执行</span><br><span class="line"></span><br><span class="line">字段含义如下：</span><br><span class="line">UID    PID    PPID    C   STIME   TTY    TIME     CMD</span><br><span class="line"></span><br><span class="line">zzw   <span class="number">14124</span>  <span class="number">13991</span>   <span class="number">0</span>   <span class="number">00</span>:<span class="number">38</span>   pts/<span class="number">0</span>   <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  grep --color=auto dae</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">UID   ：程序被该 UID 所拥有</span><br><span class="line"></span><br><span class="line">PID   ：就是这个程序的 ID </span><br><span class="line"></span><br><span class="line">PPID  ：则是其上级父程序的ID</span><br><span class="line"></span><br><span class="line">C     ：CPU使用的资源百分比</span><br><span class="line"></span><br><span class="line">STIME ：系统启动时间</span><br><span class="line"></span><br><span class="line">TTY   ：登入者的终端机位置</span><br><span class="line"></span><br><span class="line">TIME  ：使用掉的CPU时间。</span><br><span class="line"></span><br><span class="line">CMD  ：所下达的是什么指令</span><br></pre></td></tr></tbody></table></figure>
 <p>这里是两个shell命令通过管道进行了结合，第一个ps能够列出当前系统所有活跃的进程，然后通过grep 关键字查找就能找到带有关键字的进程。<code>找到PID</code>（PID是输出的第二列那个数字）再杀掉。</p>
+<h3 id="uptime-查看系统运行时间">uptime 查看系统运行时间</h3>
+<p>它依次显示：系统当前时间、系统已经运行了多长时间、目前有多少登陆用户、系统在过去的1分钟、5分钟、15分钟内的平均负载。</p>
+<p><img src="E:\myBlog\source_posts\image-20200908232753725.png" alt="image-20200908232753725"></p>
+<p>13:52:48 系统当前时间</p>
+<p>up 12 days 21:48 ： 系统运行有12 天21小时48分钟了</p>
+<h4 id="参考">参考</h4>
+<blockquote>
+<p><a href="https://www.jb51.net/LINUXjishu/353818.html" target="_blank" rel="noopener">Linux查看系统和进程运行时间的多种方法</a></p>
+</blockquote>
 <h3 id="服务器常用操作">服务器常用操作</h3>
 <p>具体操作参考《服务器心得》</p>
 <script>
@@ -4640,7 +4669,7 @@
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">conda remove -n test --all</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="conda查看tensorflow和keras的版本">9.conda查看tensorflow和keras的版本</h3>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="number">1.</span>进入python解释器</span><br><span class="line"><span class="number">2.</span><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf </span><br><span class="line"><span class="number">3.</span>tf.__version__ <span class="comment">#注意是两个下划线</span></span><br><span class="line"><span class="number">4.</span> exit（） <span class="comment">#退出python操作环境  或者 ctrl + Z</span></span><br><span class="line">(keras 同理）</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="环境包的克隆">10.环境包的克隆</h3>
+<h3 id="虚拟环境的克隆">10.虚拟环境的克隆</h3>
 <p>创建一个新的虚拟环境test， 将环境python36信息克隆到test中</p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">conda create -n   test --clone  python36</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="导入导出环境">11.导入导出环境</h3>
