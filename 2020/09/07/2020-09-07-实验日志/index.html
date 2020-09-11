@@ -25,12 +25,12 @@
   </script>
 
 
-  <meta name="description" content="记录在跑实验的一些配置以及遇到的问题解决">
+  <meta name="description" content="记录在跑实验的一些配置以及遇到的问题解决，保持更新">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2020-09-07-实验日志">
 <meta property="og:url" content="http://yoursite.com/2020/09/07/2020-09-07-%E5%AE%9E%E9%AA%8C%E6%97%A5%E5%BF%97/index.html">
 <meta property="og:site_name" content="思建的NLP之旅">
-<meta property="og:description" content="记录在跑实验的一些配置以及遇到的问题解决">
+<meta property="og:description" content="记录在跑实验的一些配置以及遇到的问题解决，保持更新">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2020/09/08/h7Ma3lm82eFSuWX.png">
 <meta property="og:image" content="https://i.loli.net/2020/09/08/h7Ma3lm82eFSuWX.png">
@@ -40,11 +40,8 @@
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200909134011883.png">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200910200948426.png">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200910211644840.png">
-<meta property="og:image" content="e:/myBlog/source/_posts/image-20200910220045321.png">
-<meta property="og:image" content="e:/myBlog/source_posts/image-20200910221947824.png">
-<meta property="og:image" content="e:/myBlog/source_posts/image-20200910222011793.png">
 <meta property="article:published_time" content="2020-09-07T12:44:43.000Z">
-<meta property="article:modified_time" content="2020-09-10T14:40:43.977Z">
+<meta property="article:modified_time" content="2020-09-11T01:23:13.995Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="故障排除">
 <meta name="twitter:card" content="summary">
@@ -160,7 +157,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">51</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">52</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -267,7 +264,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-10 22:40:43" itemprop="dateModified" datetime="2020-09-10T22:40:43+08:00">2020-09-10</time>
+                <time title="修改时间：2020-09-11 09:23:13" itemprop="dateModified" datetime="2020-09-11T09:23:13+08:00">2020-09-11</time>
               </span>
 
           
@@ -303,7 +300,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>3.2k</span>
+              <span>3.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -311,7 +308,7 @@
               </span>
               <span>3 分钟</span>
             </span>
-            <div class="post-description">记录在跑实验的一些配置以及遇到的问题解决</div>
+            <div class="post-description">记录在跑实验的一些配置以及遇到的问题解决，保持更新</div>
 
         </div>
       </header>
@@ -382,8 +379,8 @@
 <td>transformer和RKN</td>
 </tr>
 <tr class="odd">
-<td>ronghe3</td>
-<td>tf-gpu1.13.1</td>
+<td>ronghe6</td>
+<td>tf-gpu1.14.0</td>
 <td>gpu加速融合</td>
 </tr>
 </tbody>
@@ -481,38 +478,44 @@
 <li>在740中跑的太慢了，不知道具体原因。在看源代码进行修改</li>
 </ol>
 <h4 id="section-4">2020-09-10</h4>
+<h5 id="主要内容-4">主要内容</h5>
+<p>更改虚拟环境，可以使用GPU对实验进行加速</p>
+<p>阅读transformer的代码，明天融合</p>
 <p>对跑实验的一些warning都已经修改了，复制项目名字为<code>transformer-mas</code></p>
 <p>上传到R740中，命名<code>transformer-mas</code></p>
+<h5 id="遇到问题-2">遇到问题</h5>
 <p><img src="E:\myBlog\source_posts\image-20200910200948426.png" alt="image-20200910200948426"></p>
 <p>新建<code>ronghe3</code>虚拟环境</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda install python==3.6.10  <span class="comment">#这样可以 ，但是为什么 python==3.6.1 和  python==3.6.0 是不可以的呢？？</span></span><br><span class="line">pip install tensorflow-gpu==1.13.1</span><br></pre></td></tr></tbody></table></figure>
 <p>在已经安装了tensorflow-gpu的<code>ronghe3</code>基础上，克隆了<code>ronghe4</code>，进行接下来的操作</p>
-<p>注</p>
+<h6 id="注-1">注</h6>
 <p>如果执行<code>conda install tensorflow==1.13.1</code></p>
 <p>安装错误 ，导入不了tensorflow-gpu，应该是和CUDA版本不匹配</p>
 <p><img src="E:\myBlog\source_posts\image-20200910211644840.png" alt="image-20200910211644840"></p>
+<h5 id="参考">参考</h5>
+<p><a href="https://www.tensorflow.org/install/gpu?hl=zh-cn" target="_blank" rel="noopener">tensorflow官方，GPU 支持</a></p>
 <p><code>ronghe5</code></p>
-<p>pip install tensorflow-gpu==1.12.0</p>
+<p><code>pip install tensorflow-gpu==1.12.0</code></p>
+<p>还是跑不通</p>
 <p><code>ronghe6</code></p>
-<p><code>pip install tensorflow-gpu==1.14.0</code></p>
-<p>终于可以跑通了，不会报错了</p>
-<p>测试如下：</p>
-<p>pyhton</p>
-<p>import tensorflow as tf</p>
-<p>tf.config.experimental.list_logical_devices()</p>
-<p>显示如下则表示tensorflow支持的</p>
-<p><img src="E:\myBlog\source\_posts\image-20200910220045321.png" alt="image-20200910220045321" style="zoom:150%;"></p>
-<p>表示tensorflow支持device：CPU：0 ，支持device：GPU：0,1,2,3</p>
-<p><img src="E:\myBlog\source_posts\image-20200910221947824.png" alt="image-20200910221947824"></p>
-<p><img src="E:\myBlog\source_posts\image-20200910222011793.png" alt="image-20200910222011793"></p>
-<p>我的实验进程号是<code>21195</code>，在<code>processes</code>中可以看到使用了<code>GPU1,2</code></p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda install python==3.6.10  <span class="comment">#这样可以 ，但是为什么 python==3.6.1 和  python==3.6.0 是不可以的呢？？</span></span><br><span class="line">pip install tensorflow-gpu==1.14.0</span><br></pre></td></tr></tbody></table></figure>
+<p>终于可以跑通了，不会报错了！！！</p>
+<p>测试安装的tensorflow是否可用GPU，可以使用。测试如下：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pyhton <span class="comment">#进入python操作环境</span></span><br><span class="line"></span><br><span class="line">import tensorflow as tf </span><br><span class="line">sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))</span><br></pre></td></tr></tbody></table></figure>
 <p>如何查看是否使用了GPU呢？</p>
 <p>ronghe6在RKN上是可以跑通的 ，时间很短！！！</p>
 <p>GPU四个全用，和只用一个 ？？</p>
 <p>一个GPU被多个实验使用？？</p>
 <p>tensorflowGPU版本会使用cpu吗？？？？</p>
 <p>tensorflow的兼容性问题 cuda的兼容性问题 ？？</p>
-<p>一般如果要对服务器上的实验进行更改的话，怎能会简单一些</p>
+<p>为什么RKN实验在跑， transformer的实验就停下了 ？？ 一个GPU不支持多个实验吗 ？</p>
+<p>如何显示图形呢？？</p>
+<p>一般如果要对服务器上的实验进行更改的话，怎能会简单一些？？</p>
+<p>RKN实验跑完了，保存在test2.txt中</p>
+<blockquote>
+<p>tensorflow-gpu 1.5版本及以上要求CUDA版本为9.0</p>
+<p>tensorflow-gpu 1.3及以上版本要求cudnn版本为V6及以上</p>
+</blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -574,7 +577,10 @@
     <a href="/2020/09/06/2020-09-06-%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C/" rel="prev" title="2020-09-06-如何保持高效学习工作">
       <i class="fa fa-chevron-left"></i> 2020-09-06-如何保持高效学习工作
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/11/2020-09-11-gpu%E5%AE%9E%E9%AA%8C%E5%8A%A0%E9%80%9F/" rel="next" title="2020-09-11-gpu实验加速">
+      2020-09-11-gpu实验加速 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -636,7 +642,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#笔记本"><span class="nav-number">1.1.</span> <span class="nav-text">笔记本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r740服务器"><span class="nav-number">1.2.</span> <span class="nav-text">R740服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">2.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.1.</span> <span class="nav-text">2020-09-06</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容"><span class="nav-number">2.1.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">2.2.</span> <span class="nav-text">2020-09-07</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">2.3.</span> <span class="nav-text">2020-09-08</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.3.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">2.4.</span> <span class="nav-text">2020-09-09</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-4"><span class="nav-number">2.5.</span> <span class="nav-text">2020-09-10</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#笔记本"><span class="nav-number">1.1.</span> <span class="nav-text">笔记本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r740服务器"><span class="nav-number">1.2.</span> <span class="nav-text">R740服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">2.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.1.</span> <span class="nav-text">2020-09-06</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容"><span class="nav-number">2.1.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">2.2.</span> <span class="nav-text">2020-09-07</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">2.3.</span> <span class="nav-text">2020-09-08</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.3.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">2.4.</span> <span class="nav-text">2020-09-09</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-4"><span class="nav-number">2.5.</span> <span class="nav-text">2020-09-10</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-2"><span class="nav-number">2.5.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注-1"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">注</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">2.5.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -652,7 +658,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -735,12 +741,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">193k</span>
+    <span title="站点总字数">202k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:56</span>
+    <span title="站点阅读时长">3:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
