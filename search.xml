@@ -1294,9 +1294,9 @@
 <h3 id="查看nvidia的显卡信息和使用情况">查看Nvidia的显卡信息和使用情况</h3>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">nvidia-smi</span><br></pre></td></tr></tbody></table></figure>
 <p>显示如下：</p>
-<p><img src="E:\myBlog\source_posts\image-20200910221947824.png" alt="image-20200910221947824"></p>
+<p><img src="https://i.loli.net/2020/09/11/OQZjHpocke5S9FE.png" alt="image-20200910221947824"></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">ps aux | grep train.py #我的实验名称为train.py</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="E:\myBlog\source_posts\image-20200910222011793.png" alt="image-20200910222011793"></p>
+<p><img src="https://i.loli.net/2020/09/11/7lujWDbiqnV6zwG.png" alt="image-20200910222011793"></p>
 <p>可以看到，我的实验进程号是<code>21195</code>，在<code>processes</code>中可以看到使用了<code>GPU1,2</code></p>
 <h3 id="指定gpu实验加速">指定GPU实验加速</h3>
 <p>如果电脑有多个GPU，tensorflow默认全部使用。</p>
@@ -1332,7 +1332,7 @@
 <hr>
 <p>在Tensorflow中使用gpu和cpu是有很大的差别的。在小数据集的情况下，cpu和gpu的性能差别不大。不过在大数据集的情况下，cpu的时间显著增加，而gpu变化并不明显。</p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> timeit</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cpu_run</span><span class="params">(num)</span>:</span></span><br><span class="line">  <span class="keyword">with</span> tf.device(<span class="string">'/cpu:0'</span>):</span><br><span class="line">    cpu_a=tf.random.normal([<span class="number">1</span>,num])</span><br><span class="line">    cpu_b=tf.random.normal([num,<span class="number">1</span>])</span><br><span class="line">    c=tf.matmul(cpu_a,cpu_b)</span><br><span class="line">  <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gpu_run</span><span class="params">(num)</span>:</span></span><br><span class="line">  <span class="keyword">with</span> tf.device(<span class="string">'/gpu:0'</span>):</span><br><span class="line">    gpu_a=tf.random.normal([<span class="number">1</span>,num])</span><br><span class="line">    gpu_b=tf.random.normal([num,<span class="number">1</span>])</span><br><span class="line">    c=tf.matmul(gpu_a,gpu_b)</span><br><span class="line">  <span class="keyword">return</span> c</span><br><span class="line">k=<span class="number">10</span></span><br><span class="line">m=<span class="number">7</span></span><br><span class="line">cpu_result=np.arange(m,dtype=np.float32)</span><br><span class="line">gpu_result=np.arange(m,dtype=np.float32)</span><br><span class="line">x_time=np.arange(m)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">  k=k*<span class="number">10</span></span><br><span class="line">  x_time[i]=k</span><br><span class="line">  cpu_str=<span class="string">'cpu_run('</span>+str(k)+<span class="string">')'</span></span><br><span class="line">  gpu_str=<span class="string">'gpu_run('</span>+str(k)+<span class="string">')'</span></span><br><span class="line">  <span class="comment">#print(cpu_str)</span></span><br><span class="line">  cpu_time=timeit.timeit(cpu_str,<span class="string">'from __main__ import cpu_run'</span>,number=<span class="number">10</span>)</span><br><span class="line">  gpu_time=timeit.timeit(gpu_str,<span class="string">'from __main__ import gpu_run'</span>,number=<span class="number">10</span>)</span><br><span class="line">  <span class="comment"># 正式计算10次，取平均时间</span></span><br><span class="line">  cpu_time=timeit.timeit(cpu_str,<span class="string">'from __main__ import cpu_run'</span>,number=<span class="number">10</span>)</span><br><span class="line">  gpu_time=timeit.timeit(gpu_str,<span class="string">'from __main__ import gpu_run'</span>,number=<span class="number">10</span>)</span><br><span class="line">  cpu_result[i]=cpu_time</span><br><span class="line">  gpu_result[i]=gpu_time</span><br><span class="line"></span><br><span class="line">print(cpu_result)</span><br><span class="line">print(gpu_result)</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line">ax.set_xscale(<span class="string">"log"</span>)</span><br><span class="line">ax.set_adjustable(<span class="string">"datalim"</span>)</span><br><span class="line">ax.plot(x_time,cpu_result)</span><br><span class="line">ax.plot(x_time,gpu_result)</span><br><span class="line">ax.grid()</span><br><span class="line">plt.draw()</span><br><span class="line">plt.show()</span><br><span class="line"><span class="number">123456789101112131415161718192021222324252627282930313233343536373839404142434445464748</span></span><br></pre></td></tr></tbody></table></figure>
-<p><img src="E:\myBlog\source_posts\20200410100801828.png" alt="在这里插入图片描述"> 蓝线是cpu的耗时，而红线是gpu的耗时。</p>
+<p><img src="https://i.loli.net/2020/09/11/tRxAb2wY5qKGF4D.png" alt="在这里插入图片描述"> 蓝线是cpu的耗时，而红线是gpu的耗时。</p>
 <p>更多gpu内容可参考</p>
 <blockquote>
 <p><a href="https://docs.pythontab.com/tensorflow/how_tos/using_gpu/" target="_blank" rel="noopener">tensorflow官方文档，使用 GPUs</a></p>
@@ -1501,7 +1501,7 @@
 <li></li>
 <li>添加上encoding='ascii',error='ignore'就可以解决</li>
 </ol>
-<p><img src="E:\myBlog\source_posts\image-20200909094144959.png" alt="image-20200909094144959"></p>
+<p><img src="https://i.loli.net/2020/09/11/vCfMGWJ975VEiRl.png" alt="image-20200909094144959"></p>
 <h6 id="注">注</h6>
 <p>在解决完之后，一定要看报错的位置，可能这个已解决，但是其它相同的问题不同位置也会报错，同样解决就可以了</p>
 <ol start="2" type="1">
@@ -1511,9 +1511,9 @@
 <p><strong>解决</strong></p>
 <p>减少<code>banch_size</code> ， 但是还是超出，但是应该是在现有环境下实验可以跑通的，于是想着在R740上跑</p>
 <p>在R740跑<code>prepro.py</code>实验，如下输出，并<code>INFO：done</code> （表示完成）</p>
-<p><img src="E:\myBlog\source_posts\image-20200909132740936.png" alt="image-20200909132740936"></p>
+<p><img src="https://i.loli.net/2020/09/11/BAb9krnJ8dCYKTX.png" alt="image-20200909132740936"></p>
 <p>开始跑<code>train.py</code> 并将输出保存在train99.txt中（9月9日）</p>
-<p><img src="E:\myBlog\source_posts\image-20200909134011883.png" alt="image-20200909134011883"></p>
+<p><img src="https://i.loli.net/2020/09/11/7UpXhTBcnGNILtH.png" alt="image-20200909134011883"></p>
 <p>这个WARNING是什么意思呢？</p>
 <p>猜想：源代码需要的是<code>tf1.12</code>版本 我配置的是<code>tf 1.14</code>版本，不知道是不是这个原因 。晚上回寝百度一下</p>
 <ol start="3" type="1">
@@ -1526,14 +1526,14 @@
 <p>对跑实验的一些warning都已经修改了，复制项目名字为<code>transformer-mas</code></p>
 <p>上传到R740中，命名<code>transformer-mas</code></p>
 <h5 id="遇到问题-2">遇到问题</h5>
-<p><img src="E:\myBlog\source\_posts\image-20200910200948426.png" alt="image-20200910200948426" style="zoom:200%;"></p>
+<p><img src="https://i.loli.net/2020/09/11/HUMOjGrYSiZlPo5.png" alt="image-20200910200948426" style="zoom:200%;"></p>
 <p>新建<code>ronghe3</code>虚拟环境</p>
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">conda install python==3.6.10  <span class="comment">#这样可以 ，但是为什么 python==3.6.1 和  python==3.6.0 是不可以的呢？？</span></span><br><span class="line">pip install tensorflow-gpu==1.13.1</span><br></pre></td></tr></tbody></table></figure>
 <p>在已经安装了tensorflow-gpu的<code>ronghe3</code>基础上，克隆了<code>ronghe4</code>，进行接下来的操作</p>
 <h6 id="注-1">注</h6>
 <p>如果执行<code>conda install tensorflow==1.13.1</code></p>
 <p>安装错误 ，导入不了tensorflow-gpu，应该是和CUDA版本不匹配</p>
-<p><img src="E:\myBlog\source_posts\image-20200910211644840.png" alt="image-20200910211644840"></p>
+<p><img src="https://i.loli.net/2020/09/11/CgXZf5vQzdODpyU.png" alt="image-20200910211644840"></p>
 <h5 id="参考">参考</h5>
 <p><a href="https://www.tensorflow.org/install/gpu?hl=zh-cn" target="_blank" rel="noopener">tensorflow官方，GPU 支持</a></p>
 <p><code>ronghe5</code></p>
