@@ -38,10 +38,10 @@
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200909094144959.png">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200909132740936.png">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200909134011883.png">
-<meta property="og:image" content="e:/myBlog/source_posts/image-20200910200948426.png">
+<meta property="og:image" content="e:/myBlog/source/_posts/image-20200910200948426.png">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20200910211644840.png">
 <meta property="article:published_time" content="2020-09-07T12:44:43.000Z">
-<meta property="article:modified_time" content="2020-09-11T01:23:13.995Z">
+<meta property="article:modified_time" content="2020-09-11T08:41:13.322Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="故障排除">
 <meta name="twitter:card" content="summary">
@@ -264,7 +264,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-11 09:23:13" itemprop="dateModified" datetime="2020-09-11T09:23:13+08:00">2020-09-11</time>
+                <time title="修改时间：2020-09-11 16:41:13" itemprop="dateModified" datetime="2020-09-11T16:41:13+08:00">2020-09-11</time>
               </span>
 
           
@@ -300,7 +300,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>3.5k</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -484,7 +484,7 @@
 <p>对跑实验的一些warning都已经修改了，复制项目名字为<code>transformer-mas</code></p>
 <p>上传到R740中，命名<code>transformer-mas</code></p>
 <h5 id="遇到问题-2">遇到问题</h5>
-<p><img src="E:\myBlog\source_posts\image-20200910200948426.png" alt="image-20200910200948426"></p>
+<p><img src="E:\myBlog\source\_posts\image-20200910200948426.png" alt="image-20200910200948426" style="zoom:200%;"></p>
 <p>新建<code>ronghe3</code>虚拟环境</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conda install python==3.6.10  <span class="comment">#这样可以 ，但是为什么 python==3.6.1 和  python==3.6.0 是不可以的呢？？</span></span><br><span class="line">pip install tensorflow-gpu==1.13.1</span><br></pre></td></tr></tbody></table></figure>
 <p>在已经安装了tensorflow-gpu的<code>ronghe3</code>基础上，克隆了<code>ronghe4</code>，进行接下来的操作</p>
@@ -503,7 +503,6 @@
 <p>测试安装的tensorflow是否可用GPU，可以使用。测试如下：</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pyhton <span class="comment">#进入python操作环境</span></span><br><span class="line"></span><br><span class="line">import tensorflow as tf </span><br><span class="line">sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))</span><br></pre></td></tr></tbody></table></figure>
 <p>如何查看是否使用了GPU呢？</p>
-<p>ronghe6在RKN上是可以跑通的 ，时间很短！！！</p>
 <p>GPU四个全用，和只用一个 ？？</p>
 <p>一个GPU被多个实验使用？？</p>
 <p>tensorflowGPU版本会使用cpu吗？？？？</p>
