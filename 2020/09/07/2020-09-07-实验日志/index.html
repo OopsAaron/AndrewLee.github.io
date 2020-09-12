@@ -40,9 +40,9 @@
 <meta property="og:image" content="https://i.loli.net/2020/09/11/7UpXhTBcnGNILtH.png">
 <meta property="og:image" content="https://i.loli.net/2020/09/11/HUMOjGrYSiZlPo5.png">
 <meta property="og:image" content="https://i.loli.net/2020/09/11/CgXZf5vQzdODpyU.png">
-<meta property="og:image" content="e:/myBlog/source_posts/image-20200911212759446.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/11/zkqMvhElw2ubg9U.png">
 <meta property="article:published_time" content="2020-09-07T12:44:43.000Z">
-<meta property="article:modified_time" content="2020-09-11T14:10:49.589Z">
+<meta property="article:modified_time" content="2020-09-12T07:00:06.228Z">
 <meta property="article:author" content="李思建">
 <meta property="article:tag" content="故障排除">
 <meta name="twitter:card" content="summary">
@@ -265,7 +265,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-11 22:10:49" itemprop="dateModified" datetime="2020-09-11T22:10:49+08:00">2020-09-11</time>
+                <time title="修改时间：2020-09-12 15:00:06" itemprop="dateModified" datetime="2020-09-12T15:00:06+08:00">2020-09-12</time>
               </span>
 
           
@@ -301,7 +301,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>4k</span>
+              <span>4.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -503,23 +503,35 @@
 <p>终于可以跑通了，不会报错了！！！</p>
 <p>测试安装的tensorflow是否可用GPU，可以使用。测试如下：</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pyhton <span class="comment">#进入python操作环境</span></span><br><span class="line"></span><br><span class="line">import tensorflow as tf </span><br><span class="line">sess = tf.Session(config=tf.ConfigProto(log_device_placement=True))</span><br></pre></td></tr></tbody></table></figure>
-<p>一个GPU被多个实验使用，但是如果实验超过显存大小，就会都被挂掉，会显示<code>stopped</code>字样</p>
-<p>一个实验可以用多个GPU，但是需要更改部分代码，让其支持多GPU</p>
 <p>RKN实验跑完了，保存在test2.txt中</p>
 <blockquote>
 <p>tensorflow-gpu 1.5版本及以上要求CUDA版本为9.0</p>
 <p>tensorflow-gpu 1.3及以上版本要求cudnn版本为V6及以上</p>
 </blockquote>
 <h4 id="section-5">2020-09-11</h4>
-<p>用xshell在服务器linux端只能显示控制台输出，如果想要显示图像，比如<code>matplotlib</code>包，则要下载<code>xmanage</code></p>
+<h5 id="主要内容-5">主要内容</h5>
+<p>解决在linux显示图形的问题</p>
+<p>解决transformer实验报错</p>
+<h5 id="遇到问题-3">遇到问题</h5>
+<ol type="1">
+<li>用xshell在服务器linux端只能显示控制台输出，如果想要显示图像，比如<code>matplotlib</code>包，则要下载<code>xmanage</code></li>
+</ol>
 <p>由于需要收费，没有下载</p>
-<p><img src="E:\myBlog\source_posts\image-20200911212759446.png" alt="image-20200911212759446"></p>
+<p><img src="https://i.loli.net/2020/09/11/zkqMvhElw2ubg9U.png" alt="image-20200911212759446"></p>
 <p>解决方法： 可以用<code>plt.savafig</code>保存到服务器，再保存在本地笔记本</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">matplotlib.use(<span class="string">'Agg'</span>)</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib.font_manager <span class="keyword">import</span> FontProperties</span><br><span class="line">X = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]</span><br><span class="line">dataY = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">1</span>]</span><br><span class="line">plt.xlabel(<span class="string">"x轴"</span>);</span><br><span class="line">plt.ylabel(<span class="string">"y轴"</span>);</span><br><span class="line">plt.savefig(<span class="string">"./lisijian.png"</span>,dpi=<span class="number">100</span>) <span class="comment">#保存在本文件夹下的lisijian.png</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
 <p>报错<code>_tkinter.TclError: couldn't connect to display "localhost:32.0"</code></p>
 <p>原因： 问题在于，您使用的是一个交互式后端，它试图为您创建图形窗口，但由于您断开了启动模拟时可用的x服务器，所以失败了。</p>
 <p>解决方法：使用非交互式后端(请参见<a href="https://matplotlib.org/faq/usage_faq.html#what-is-a-backend" target="_blank" rel="noopener">后端</a>？)比如：Agg(用于Png格式，PDF, SVG或PS。在生成图形的脚本中，只需在import matplotlib.pyplot as plt之前调用matplotlib.use(）即可</p>
 <p>比如<code>matplotlib.use('Agg')</code></p>
+<ol start="2" type="1">
+<li><p>在transformer实验中，才开始没注意，今天才发现有一个错误，如下:</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AssertionError: Bad argument number <span class="keyword">for</span> Name: 3, expecting 4</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<p>解决方法：因为对结果的影响不可观,所以就没去在意 ,后面发现用其他docker并没有多少问题,而且每次都出现一堆warning很影响美观性,于是百度准备解决这个问题</p>
+<p><strong>后来发现是有个gast的库版本太高,导致不兼容的问题,降级gast即可解决</strong></p>
+<p>使用pip进行降级</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --user gast==0.2.2</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>待解决：</strong></p>
 <p><strong>tensorflow的兼容性问题 cuda的兼容性问题 ？？</strong></p>
 <p><strong>一般如果要对服务器上的实验进行更改的话，怎能会简单一些？？</strong></p>
@@ -649,7 +661,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#笔记本"><span class="nav-number">1.1.</span> <span class="nav-text">笔记本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r740服务器"><span class="nav-number">1.2.</span> <span class="nav-text">R740服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">2.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.1.</span> <span class="nav-text">2020-09-06</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容"><span class="nav-number">2.1.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">2.2.</span> <span class="nav-text">2020-09-07</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">2.3.</span> <span class="nav-text">2020-09-08</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.3.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">2.4.</span> <span class="nav-text">2020-09-09</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-4"><span class="nav-number">2.5.</span> <span class="nav-text">2020-09-10</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-2"><span class="nav-number">2.5.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注-1"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">注</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">2.5.3.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-5"><span class="nav-number">2.6.</span> <span class="nav-text">2020-09-11</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟环境配置"><span class="nav-number">1.</span> <span class="nav-text">虚拟环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#笔记本"><span class="nav-number">1.1.</span> <span class="nav-text">笔记本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#r740服务器"><span class="nav-number">1.2.</span> <span class="nav-text">R740服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志"><span class="nav-number">2.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#section"><span class="nav-number">2.1.</span> <span class="nav-text">2020-09-06</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容"><span class="nav-number">2.1.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题"><span class="nav-number">2.1.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">2.2.</span> <span class="nav-text">2020-09-07</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#出现问题-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">出现问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-2"><span class="nav-number">2.3.</span> <span class="nav-text">2020-09-08</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题"><span class="nav-number">2.3.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-3"><span class="nav-number">2.4.</span> <span class="nav-text">2020-09-09</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">注</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-4"><span class="nav-number">2.5.</span> <span class="nav-text">2020-09-10</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-2"><span class="nav-number">2.5.2.</span> <span class="nav-text">遇到问题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注-1"><span class="nav-number">2.5.2.1.</span> <span class="nav-text">注</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考"><span class="nav-number">2.5.3.</span> <span class="nav-text">参考</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-5"><span class="nav-number">2.6.</span> <span class="nav-text">2020-09-11</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#主要内容-5"><span class="nav-number">2.6.1.</span> <span class="nav-text">主要内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#遇到问题-3"><span class="nav-number">2.6.2.</span> <span class="nav-text">遇到问题</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -748,12 +760,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">204k</span>
+    <span title="站点总字数">206k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:06</span>
+    <span title="站点阅读时长">3:08</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
