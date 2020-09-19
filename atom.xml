@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-14T09:14:07.600Z</updated>
+  <updated>2020-09-19T07:01:37.149Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2020-09-19-一周论文分享（第2期）</title>
+    <link href="http://yoursite.com/2020/09/19/2020-09-19-%E4%B8%80%E5%91%A8%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%EF%BC%88%E7%AC%AC2%E6%9C%9F%EF%BC%89/"/>
+    <id>http://yoursite.com/2020/09/19/2020-09-19-%E4%B8%80%E5%91%A8%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%EF%BC%88%E7%AC%AC2%E6%9C%9F%EF%BC%89/</id>
+    <published>2020-09-19T02:58:48.000Z</published>
+    <updated>2020-09-19T07:01:37.149Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="联邦学习">联邦学习</h4><p>参考 <a href="https://zhuanlan.zhihu.com/p/79284686" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/79284686</a></p><p>背景</p><p>1.现实生活中，除了少数巨头公司能够满足，绝大多数企业都存在数据量少，数据质量差的问题，不足以支撑人工智能技术的实现；</p><p>2.同时国内外监管环境也在逐步加强数据保护，因此数据在安全合规的前提下自由流动，成了大势所趋，所以不能获取很多涉及用户隐私的信息。</p><p>3.数据的不充分交流，同时也导致即使在同一个公司内，数据也往往以孤岛形式出现。</p><p>基于以上不足以支撑实现、不允许粗暴交换、不愿意贡献价值三点，</p><p>现在大量存在的<strong>数据孤岛</strong>，以及隐私保护问题，联邦学习被提出。</p><p>概念</p><p>本质：联邦学习本质上是一种<strong>分布式</strong>机器学习技术，或机器学习<strong>框架</strong>。</p><p>目标：联邦学习的目标是在保证数据隐私安全及合法合规的基础上，实现共同建模，提升AI模型的效果。</p><p>前身：联邦学习最早在 2016 年由谷歌提出，原本用于解决安卓手机终端用户在本地更新模型的问题；</p><p><img src="E:\myBlog\source_posts\v2-657a9f63512351691e60af9d88a34605_720w.jpg" alt="img"></p><h2 id="横向联邦学习">3.1 横向联邦学习</h2><p><strong>适用场景：</strong></p><p>横向联邦学习的本质是<strong>样本的联合</strong>，适用于参与者间业态相同但触达客户不同，即特征重叠多，用户重叠少时的场景，比如不同地区的银行间，他们的业务相似（特征相似），但用户不同（样本不同）</p><p><strong>学习过程：</strong></p><p><img src="E:\myBlog\source_posts\v2-23616816b92a6d62be206b0aa28ba393_720w.jpg" alt="img"></p><p>step1：参与方各自从服务器A下载最新模型；</p><p>step2：每个参与方利用本地数据训练模型，加密梯度上传给服务器A，服务器A聚合各用户的梯度更新模型参数；</p><p>step3：服务器A返回更新后的模型给各参与方；</p><p>step4：各参与方更新各自模型。</p><p><strong>步骤解读：</strong>在传统的机器学习建模中，通常是把模型训练需要的数据集合到一个数据中心然后再训练模型，之后预测。在横向联邦学习中，可以看作是<strong>基于样本的分布式模型训练</strong>，分发全部数据到不同的机器，每台机器从服务器下载模型，然后利用本地数据训练模型，之后返回给服务器需要更新的参数；服务器聚合各机器上的返回的参数，更新模型，再把最新的模型反馈到每台机器。</p><p>在这个过程中，每台机器下都是<strong>相同且完整的模型</strong>，且机器之间不交流不依赖，在预测时每台机器也可以<strong>独立预测</strong>，可以把这个过程看作成基于样本的分布式模型训练。谷歌最初就是采用横向联邦的方式解决安卓手机终端用户在本地更新模型的问题的。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    
+    <summary type="html">
+    
+      记录每周值得分享的论文，周一发布、
+《reformer-the eficient transformer》、
+《Transformer-XL-Attentive Language Models Beyond a Fixed-Length Context》
+
+    
+    </summary>
+    
+    
+      <category term="论文分享" scheme="http://yoursite.com/categories/%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/"/>
+    
+    
+      <category term="论文" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87/"/>
+    
+      <category term="论文分享" scheme="http://yoursite.com/tags/%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/"/>
+    
+  </entry>
   
   <entry>
     <title>2020-09-14-修改pytorch版transformer代码</title>
@@ -76,13 +104,13 @@
   </entry>
   
   <entry>
-    <title>2020-09-06-如何保持高效学习工作</title>
-    <link href="http://yoursite.com/2020/09/06/2020-09-06-%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C/"/>
-    <id>http://yoursite.com/2020/09/06/2020-09-06-%E5%A6%82%E4%BD%95%E4%BF%9D%E6%8C%81%E9%AB%98%E6%95%88%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C/</id>
+    <title>2020-09-06-学习工作杂记</title>
+    <link href="http://yoursite.com/2020/09/06/2020-09-06-%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C%E6%9D%82%E8%AE%B0/"/>
+    <id>http://yoursite.com/2020/09/06/2020-09-06-%E5%AD%A6%E4%B9%A0%E5%B7%A5%E4%BD%9C%E6%9D%82%E8%AE%B0/</id>
     <published>2020-09-06T06:38:39.000Z</published>
-    <updated>2020-09-06T14:14:07.185Z</updated>
+    <updated>2020-09-19T14:02:42.167Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>多做总结，提高学习效率，不要拖延</p><h3 id="怎样从熬夜中恢复过来">怎样从熬夜中恢复过来</h3><p>1． 不要打盹，5min不能够得到休息</p><p>2． 吃早餐 一个小时内吃早餐（全谷物和蛋白质） ，可以充满活力，认知能力可以提高，最好不摄入糖，会让人发困</p><p>3． 出去走。自然光可以让身体发热</p><p>4． 开始办公时候，喝一杯咖啡</p><p>5． 工作：首先完成最困难的部分，最开始的几个小时是一天中效率最高的时候</p><p>6． 会议之前可以喝一杯咖啡，有效时间是半小时</p><p>7． 午饭不吃过多的糖，会犯困</p><p>8． 下午可以喝一杯咖啡这时候是最困的时候。三点之后不能摄入咖啡，有效时间7 小时</p><p>9． 下午可以做一下简单的事情</p><h3 id="在家寝室学习">在家&amp;寝室学习</h3><ol type="1"><li><p>行为影响态度。换掉睡衣，接近类似学校的状态。希望自己成为什么样子， 就穿成什么样子</p></li><li></li></ol><p><img src="https://i.loli.net/2020/09/06/QDutkAwlLGgKTBo.png"></p><ol start="3" type="1"><li>先做一道题再说。（计划太多，无从下手。过分犹豫）不要想太多，直接动手</li></ol><p><img src="https://i.loli.net/2020/09/06/CerZI164jAU85qO.png"></p><ol start="4" type="1"><li>拒绝含糖食物</li></ol><p>自控力需要能量的供给，学习前可以吃块糖，可以补充能量。但是减少高gi食物，如酸奶果汁薯片，或者碳水类食物（米饭面条土豆）。多吃瘦肉、蔬菜、水果，能够增强自控力，还能瘦</p><ol start="5" type="1"><li><p>不要用时间做计划，用学习量做计划。（因为会拖延）拒绝整点学习、计划学习时间，采用今天背多少单词等，一个清晰明确的目标会事半功倍</p></li><li><p>保持工作区的整洁，不放无关的物品。使手机飞行模式、黑白模式</p></li></ol><p><img src="https://i.loli.net/2020/09/06/UO5JydTCmLIKa12.png"></p><h3 id="戒掉手机避免用意志力来克制">戒掉手机（避免用意志力来克制）</h3><p>1． 替代法 并不是真正想做，而是习惯了某种行为。可以买一个手机模型，终止大脑的无意识行为，给大脑一个选择的机会</p><p>2． 心理暗示。‘我不玩手机‘ 而不是’我不能玩手机‘</p><p>3． 优化环境。环境的影响很大。搭建一个良好的环境。睡觉前把手机放在客厅，学习时增加获得手机的难度</p><p>4． 负面反馈。人们对于损失和负面事件的敏感度高于正面事件的敏感</p><p>5． 看实时学习视频，看到别人学习 自己也不好意思玩</p><p>休息放空自己，会使得注意力更集中</p><p>把社交软件放在小文件夹里再放到手指不容易碰到的地方，如果一段时间又习惯了点这个位置的社交软件，就再更换桌面排布</p><h3 id="自己习惯">自己习惯</h3><p>对于我自己来说，习惯睡觉前进行一些文字记录的工作，比如写博客做总结，就是不会再去接触一些新知识。把第二天要做的事情列好，或者直接找好第二天最难工作内容的参考资料，对第二天工作内容有一个大概的印象，这样第二天一早就可以直攻克艰难的部分，避免其它琐碎的事情</p><p>起床的时候，提前找好第二天要穿的衣服，同时可以适量补充水分</p><p>在进行学习的时候，先设置5分钟，休息5分钟，再逐渐增加时间，进入状态，多学习时间不休息</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>多做总结，提高效率，不要拖延</p><h3 id="怎样从熬夜中恢复过来">怎样从熬夜中恢复过来</h3><p>1． 不要打盹，5min不能够得到休息</p><p>2． 吃早餐 一个小时内吃早餐（全谷物和蛋白质） ，可以充满活力，认知能力可以提高，最好不摄入糖，会让人发困</p><p>3． 出去走。自然光可以让身体发热</p><p>4． 开始办公时候，喝一杯咖啡</p><p>5． 工作：首先完成最困难的部分，最开始的几个小时是一天中效率最高的时候</p><p>6． 会议之前可以喝一杯咖啡，有效时间是半小时</p><p>7． 午饭不吃过多的糖，会犯困</p><p>8． 下午可以喝一杯咖啡这时候是最困的时候。三点之后不能摄入咖啡，有效时间7 小时</p><p>9． 下午可以做一下简单的事情</p><h3 id="在家寝室学习">在家&amp;寝室学习</h3><ol type="1"><li><p>行为影响态度。换掉睡衣，接近类似学校的状态。希望自己成为什么样子， 就穿成什么样子</p></li><li></li></ol><p><img src="https://i.loli.net/2020/09/06/QDutkAwlLGgKTBo.png"></p><ol start="3" type="1"><li>先做一道题再说。（计划太多，无从下手。过分犹豫）不要想太多，直接动手</li></ol><p><img src="https://i.loli.net/2020/09/06/CerZI164jAU85qO.png"></p><ol start="4" type="1"><li>拒绝含糖食物</li></ol><p>自控力需要能量的供给，学习前可以吃块糖，可以补充能量。但是减少高gi食物，如酸奶果汁薯片，或者碳水类食物（米饭面条土豆）。多吃瘦肉、蔬菜、水果，能够增强自控力，还能瘦</p><ol start="5" type="1"><li><p>不要用时间做计划，用学习量做计划。（因为会拖延）拒绝整点学习、计划学习时间，采用今天背多少单词等，一个清晰明确的目标会事半功倍</p></li><li><p>保持工作区的整洁，不放无关的物品。使手机飞行模式、黑白模式</p></li></ol><p><img src="https://i.loli.net/2020/09/06/UO5JydTCmLIKa12.png"></p><h3 id="戒掉手机避免用意志力来克制">戒掉手机（避免用意志力来克制）</h3><p>1． 替代法 并不是真正想做，而是习惯了某种行为。可以买一个手机模型，终止大脑的无意识行为，给大脑一个选择的机会</p><p>2． 心理暗示。‘我不玩手机‘ 而不是’我不能玩手机‘</p><p>3． 优化环境。环境的影响很大。搭建一个良好的环境。睡觉前把手机放在客厅，学习时增加获得手机的难度</p><p>4． 负面反馈。人们对于损失和负面事件的敏感度高于正面事件的敏感</p><p>5． 看实时学习视频，看到别人学习 自己也不好意思玩</p><p>休息放空自己，会使得注意力更集中</p><p>把社交软件放在小文件夹里再放到手指不容易碰到的地方，如果一段时间又习惯了点这个位置的社交软件，就再更换桌面排布</p><h3 id="自己习惯">自己习惯</h3><p>对于我自己来说，习惯睡觉前进行一些文字记录的工作，比如写博客做总结，就是不会再去接触一些新知识。把第二天要做的事情列好，或者直接找好第二天最难工作内容的参考资料，对第二天工作内容有一个大概的印象，这样第二天一早就可以直攻克艰难的部分，避免其它琐碎的事情</p><p>起床的时候，提前找好第二天要穿的衣服，同时可以适量补充水分</p><p>在进行学习的时候，先设置5分钟，休息5分钟，再逐渐增加时间，进入状态，多学习时间不休息</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
     
     <summary type="html">
     
@@ -241,25 +269,6 @@
     <summary type="html">
     
       阅读沈向阳教授的《读论文的三个层次》总结
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>2020-08-29-temp</title>
-    <link href="http://yoursite.com/2020/08/29/2020-08-29-temp/"/>
-    <id>http://yoursite.com/2020/08/29/2020-08-29-temp/</id>
-    <published>2020-08-29T13:01:01.000Z</published>
-    <updated>2020-09-03T12:36:33.158Z</updated>
-    
-    <content type="html"><![CDATA[<script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
-    
-    <summary type="html">
-    
-      杂
     
     </summary>
     
