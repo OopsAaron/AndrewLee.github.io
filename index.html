@@ -143,7 +143,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">53</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">54</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -567,6 +567,220 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/28/2020-09-28-windows-terminal%E6%8E%A2%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="李思建">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="思建的NLP之旅">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/28/2020-09-28-windows-terminal%E6%8E%A2%E7%B4%A2/" class="post-title-link" itemprop="url">2020-09-28-windows-terminal探索</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-28 10:38:58" itemprop="dateCreated datePublished" datetime="2020-09-28T10:38:58+08:00">2020-09-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-29 09:32:53" itemprop="dateModified" datetime="2020-09-29T09:32:53+08:00">2020-09-29</time>
+              </span>
+
+          
+            <span id="/2020/09/28/2020-09-28-windows-terminal%E6%8E%A2%E7%B4%A2/" class="post-meta-item leancloud_visitors" data-flag-title="2020-09-28-windows-terminal探索" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/28/2020-09-28-windows-terminal%E6%8E%A2%E7%B4%A2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/28/2020-09-28-windows-terminal%E6%8E%A2%E7%B4%A2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前言">前言</h3>
+<p>优化方法终于考完了，最近几天都是在复习。可以放松两天，折腾一下</p>
+<h3 id="windows-terminal">windows terminal</h3>
+<h4 id="安装windows-terminal">安装Windows Terminal</h4>
+<p>在Windows上，可以安装<code>Windows Terminal</code>。有点类似于MacOS上的<code>iTerm</code>，可以说是Windows下最舒适的终端。</p>
+<p>在<code>windows store</code>中安装即可，比较方便，如下图所示</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/cvQbJDZsKLo08E6fxsGqkb19ibKiamSjYurBJiaY3UKxw8zpTDE74Pibw7PQTw0ib4XeImWRzwlZia6AdXeicq7ACOWow/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p>
+<h3 id="安装ubuntu子系统">安装Ubuntu子系统</h3>
+<p>此时，我们仅仅安装了一个命令行终端而已，还是需要在<code>Windows</code>上安装<code>Ubuntu</code>。</p>
+<p>只需要两步</p>
+<p>1.在系统中开启子系统功能</p>
+<p>2.在<code>windows store</code>安装linux版本即可。我安装的是<code>ubuntu 18.04 LTS</code>版本的，和实验室服务器一个版本号，利于操作。</p>
+<blockquote>
+<p>关于LTS</p>
+<p>1.LTS= 长期支持版本，你会在较长的时间内获得安全、维护和(有时有)功能的更新。</p>
+<p>2.LTS 版本被认为是最稳定的版本，它经历了广泛的测试，并且大多包含了多年积累的改进。</p>
+<p>3.对于ubuntu，没两年发布一个LST版本，比如ubuntu 16.04 ubuntu 18.04等等，代表的是发布的年份。</p>
+<p>4.最新的 LTS 版本是 Ubuntu 20.04 ，它将被支持到 2025 年 4 月，支持5年的软件更新和修补。换句话说，Ubuntu 20.04 在那之前都会收到软件更新。非 LTS 版本只支持九个月。</p>
+</blockquote>
+<p>如下图，在控制面板，找到程序选项，点击 “启用或关闭Windows功能”。</p>
+<p><img src="https://i.loli.net/2020/09/28/KQ3LocsNrBxiRf5.png" alt="image-20200928105917992"></p>
+<p>从弹出的对话框里，划到最下边，然后给“适用于Linux的Windows子系统“，打勾，完事！</p>
+<p><img src="https://i.loli.net/2020/09/28/HPVhtscoGj8iCRA.png" alt="image-20200928105907117"></p>
+<p>在windows中访问ubuntu系统</p>
+<p>可以认为在windows 文件资源管理器中开辟一个空间用来储存ubuntu系统，但是如何找到位置呢？</p>
+<p>执行如下命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home  </span><br><span class="line">explorer.exe .  <span class="comment">#用文件资源管理器来打开当前home目录所在位置</span></span><br></pre></td></tr></tbody></table></figure>
+<p>可以看到是在<code>网络</code>一栏中， 可以看到ubuntu的文件目录。但是返回到<code>网络</code>根目录，却显示是无文件夹。不知道为什么。</p>
+<p>为了操作方便，我把这个长长的目录，右键映射到了Z盘上。如图，下次在访问Linux的时候，直接访问Z盘就可以了。</p>
+<p><img src="https://i.loli.net/2020/09/28/XqMOBfSKRkwHC93.png" alt="image-20200928111036904"></p>
+<p>这时，就可以看到在我的电脑里就有了Z盘</p>
+<p><img src="https://i.loli.net/2020/09/28/V9MFRujrqgl46me.png" alt="image-20200928111104530"></p>
+<blockquote>
+<p><strong>映射网络驱动器</strong>目的就是为了让远程网络中的资源和本地共享，在本地可以对远程网络中的资源进行访问，并且可以创建文件。</p>
+</blockquote>
+<h3 id="工作区快捷键">工作区快捷键</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Win 快捷键</th>
+<th style="text-align: left;">作用</th>
+<th style="text-align: left;">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ctrl + Shift + P</strong>，F1</td>
+<td style="text-align: left;">显示命令面板</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Ctrl + B</strong></td>
+<td style="text-align: left;">显示/隐藏侧边栏</td>
+<td style="text-align: left;">很实用</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Ctrl + \</code></td>
+<td style="text-align: left;"><strong>创建多个编辑器</strong></td>
+<td style="text-align: left;">【重要】抄代码利器</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Ctrl + 1、2</strong></td>
+<td style="text-align: left;">聚焦到第 1、第 2 个编辑器</td>
+<td style="text-align: left;">同上重要</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>ctrl +/-</strong></td>
+<td style="text-align: left;">将工作区放大/缩小（包括代码字体、左侧导航栏）</td>
+<td style="text-align: left;">在投影仪场景经常用到</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ctrl + J</td>
+<td style="text-align: left;">显示/隐藏控制台</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Ctrl + Shift + N</strong></td>
+<td style="text-align: left;">重新开一个软件的窗口</td>
+<td style="text-align: left;">很常用</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ctrl + Shift + W</td>
+<td style="text-align: left;">关闭软件的当前窗口</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ctrl + N</td>
+<td style="text-align: left;">新建文件</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ctrl + W</td>
+<td style="text-align: left;">关闭当前文件</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/19/2020-09-19-%E4%B8%80%E5%91%A8%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB%EF%BC%88%E7%AC%AC2%E6%9C%9F%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -590,10 +804,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-19 10:58:48 / 修改时间：15:01:37" itemprop="dateCreated datePublished" datetime="2020-09-19T10:58:48+08:00">2020-09-19</time>
+              <time title="创建时间：2020-09-19 10:58:48" itemprop="dateCreated datePublished" datetime="2020-09-19T10:58:48+08:00">2020-09-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-27 21:44:24" itemprop="dateModified" datetime="2020-09-27T21:44:24+08:00">2020-09-27</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -630,7 +850,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>898</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -919,7 +1139,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-18 22:46:15" itemprop="dateModified" datetime="2020-09-18T22:46:15+08:00">2020-09-18</time>
+                <time title="修改时间：2020-09-30 16:37:24" itemprop="dateModified" datetime="2020-09-30T16:37:24+08:00">2020-09-30</time>
               </span>
 
           
@@ -948,13 +1168,13 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>7.1k</span>
+              <span>7.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>6 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -1205,113 +1425,6 @@
 
 
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/2020-09-05-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-      <meta itemprop="name" content="李思建">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="思建的NLP之旅">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/05/2020-09-05-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/" class="post-title-link" itemprop="url">2020-09-05-知识点杂</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-09-05 19:56:22" itemprop="dateCreated datePublished" datetime="2020-09-05T19:56:22+08:00">2020-09-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-13 09:04:19" itemprop="dateModified" datetime="2020-09-13T09:04:19+08:00">2020-09-13</time>
-              </span>
-
-          
-            <span id="/2020/09/05/2020-09-05-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/" class="post-meta-item leancloud_visitors" data-flag-title="2020-09-05-知识点杂" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/09/05/2020-09-05-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/05/2020-09-05-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>3.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>记录杂乱的知识点</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/09/05/2020-09-05-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-
 
   
   <nav class="pagination">
@@ -1383,7 +1496,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1466,12 +1579,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">212k</span>
+    <span title="站点总字数">218k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:13</span>
+    <span title="站点阅读时长">3:18</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
