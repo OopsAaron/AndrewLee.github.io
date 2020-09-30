@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-09-29T01:32:53.976Z</updated>
+  <updated>2020-09-30T12:44:47.611Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,19 +21,13 @@
     <link href="http://yoursite.com/2020/09/28/2020-09-28-windows-terminal%E6%8E%A2%E7%B4%A2/"/>
     <id>http://yoursite.com/2020/09/28/2020-09-28-windows-terminal%E6%8E%A2%E7%B4%A2/</id>
     <published>2020-09-28T02:38:58.000Z</published>
-    <updated>2020-09-29T01:32:53.976Z</updated>
+    <updated>2020-09-30T12:44:47.611Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>优化方法终于考完了，最近几天都是在复习。可以放松两天，折腾一下</p><h3 id="windows-terminal">windows terminal</h3><h4 id="安装windows-terminal">安装Windows Terminal</h4><p>在Windows上，可以安装<code>Windows Terminal</code>。有点类似于MacOS上的<code>iTerm</code>，可以说是Windows下最舒适的终端。</p><p>在<code>windows store</code>中安装即可，比较方便，如下图所示</p><p><img src="https://mmbiz.qpic.cn/mmbiz_png/cvQbJDZsKLo08E6fxsGqkb19ibKiamSjYurBJiaY3UKxw8zpTDE74Pibw7PQTw0ib4XeImWRzwlZia6AdXeicq7ACOWow/640?wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="img"></p><h3 id="安装ubuntu子系统">安装Ubuntu子系统</h3><p>此时，我们仅仅安装了一个命令行终端而已，还是需要在<code>Windows</code>上安装<code>Ubuntu</code>。</p><p>只需要两步</p><p>1.在系统中开启子系统功能</p><p>2.在<code>windows store</code>安装linux版本即可。我安装的是<code>ubuntu 18.04 LTS</code>版本的，和实验室服务器一个版本号，利于操作。</p><blockquote><p>关于LTS</p><p>1.LTS= 长期支持版本，你会在较长的时间内获得安全、维护和(有时有)功能的更新。</p><p>2.LTS 版本被认为是最稳定的版本，它经历了广泛的测试，并且大多包含了多年积累的改进。</p><p>3.对于ubuntu，没两年发布一个LST版本，比如ubuntu 16.04 ubuntu 18.04等等，代表的是发布的年份。</p><p>4.最新的 LTS 版本是 Ubuntu 20.04 ，它将被支持到 2025 年 4 月，支持5年的软件更新和修补。换句话说，Ubuntu 20.04 在那之前都会收到软件更新。非 LTS 版本只支持九个月。</p></blockquote><p>如下图，在控制面板，找到程序选项，点击 “启用或关闭Windows功能”。</p><p><img src="https://i.loli.net/2020/09/28/KQ3LocsNrBxiRf5.png" alt="image-20200928105917992"></p><p>从弹出的对话框里，划到最下边，然后给“适用于Linux的Windows子系统“，打勾，完事！</p><p><img src="https://i.loli.net/2020/09/28/HPVhtscoGj8iCRA.png" alt="image-20200928105907117"></p><p>在windows中访问ubuntu系统</p><p>可以认为在windows 文件资源管理器中开辟一个空间用来储存ubuntu系统，但是如何找到位置呢？</p><p>执行如下命令：</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home  </span><br><span class="line">explorer.exe .  <span class="comment">#用文件资源管理器来打开当前home目录所在位置</span></span><br></pre></td></tr></tbody></table></figure><p>可以看到是在<code>网络</code>一栏中， 可以看到ubuntu的文件目录。但是返回到<code>网络</code>根目录，却显示是无文件夹。不知道为什么。</p><p>为了操作方便，我把这个长长的目录，右键映射到了Z盘上。如图，下次在访问Linux的时候，直接访问Z盘就可以了。</p><p><img src="https://i.loli.net/2020/09/28/XqMOBfSKRkwHC93.png" alt="image-20200928111036904"></p><p>这时，就可以看到在我的电脑里就有了Z盘</p><p><img src="https://i.loli.net/2020/09/28/V9MFRujrqgl46me.png" alt="image-20200928111104530"></p><blockquote><p><strong>映射网络驱动器</strong>目的就是为了让远程网络中的资源和本地共享，在本地可以对远程网络中的资源进行访问，并且可以创建文件。</p></blockquote><h3 id="工作区快捷键">工作区快捷键</h3><table><thead><tr class="header"><th style="text-align: left;">Win 快捷键</th><th style="text-align: left;">作用</th><th style="text-align: left;">备注</th></tr></thead><tbody><tr class="odd"><td style="text-align: left;"><strong>Ctrl + Shift + P</strong>，F1</td><td style="text-align: left;">显示命令面板</td><td style="text-align: left;"></td></tr><tr class="even"><td style="text-align: left;"><strong>Ctrl + B</strong></td><td style="text-align: left;">显示/隐藏侧边栏</td><td style="text-align: left;">很实用</td></tr><tr class="odd"><td style="text-align: left;"><code>Ctrl + \</code></td><td style="text-align: left;"><strong>创建多个编辑器</strong></td><td style="text-align: left;">【重要】抄代码利器</td></tr><tr class="even"><td style="text-align: left;"><strong>Ctrl + 1、2</strong></td><td style="text-align: left;">聚焦到第 1、第 2 个编辑器</td><td style="text-align: left;">同上重要</td></tr><tr class="odd"><td style="text-align: left;"><strong>ctrl +/-</strong></td><td style="text-align: left;">将工作区放大/缩小（包括代码字体、左侧导航栏）</td><td style="text-align: left;">在投影仪场景经常用到</td></tr><tr class="even"><td style="text-align: left;">Ctrl + J</td><td style="text-align: left;">显示/隐藏控制台</td><td style="text-align: left;"></td></tr><tr class="odd"><td style="text-align: left;"><strong>Ctrl + Shift + N</strong></td><td style="text-align: left;">重新开一个软件的窗口</td><td style="text-align: left;">很常用</td></tr><tr class="even"><td style="text-align: left;">Ctrl + Shift + W</td><td style="text-align: left;">关闭软件的当前窗口</td><td style="text-align: left;"></td></tr><tr class="odd"><td style="text-align: left;">Ctrl + N</td><td style="text-align: left;">新建文件</td><td style="text-align: left;"></td></tr><tr class="even"><td style="text-align: left;">Ctrl + W</td><td style="text-align: left;">关闭当前文件</td><td style="text-align: left;"></td></tr></tbody></table><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;h3 id=&quot;前言&quot;&gt;前言&lt;/h3&gt;
-&lt;p&gt;优化方法终于考完了，最近几天都是在复习。可以放松两天，折腾一下&lt;/p&gt;
-&lt;h3 id=&quot;windows-terminal&quot;&gt;windows terminal&lt;/h3&gt;
-&lt;h4 id=&quot;安装windows-terminal&quot;&gt;安装Win
-      
+      才考完优化方法，折腾一下微软神器windows terminal
     
     </summary>
     
