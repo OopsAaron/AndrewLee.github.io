@@ -1535,6 +1535,12 @@
 <blockquote>
 <p><a href="https://blog.csdn.net/qq_42079689/article/details/102873766" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/qq_42079689/article/details/102873766</a></p>
 </blockquote>
+<h3 id="pytorch-nn.embedding-词向量">pytorch nn.embedding() 词向量</h3>
+<p>词嵌入在 pytorch 中非常简单，只需要调用 <code>torch.nn.Embedding(m, n)</code> 就可以了，m 表示单词的总数目，n 表示词嵌入的维度，其实词嵌入就相当于是一个大矩阵，矩阵的每一行表示一个单词。</p>
+<p><strong>随机初始化</strong></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/david0611/article/details/81090371" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/david0611/article/details/81090371</a></p>
+</blockquote>
 <h3 id="pytorch中的torch.mean">pytorch中的torch.mean()</h3>
 <p><strong>torch.mean(input, dim, keepdim=False, out=None)</strong></p>
 <p>返回新的张量，其中包含输入张量input指定维度dim中每行的平均值。</p>
@@ -1566,6 +1572,222 @@
 <figure class="highlight py"><table><tbody><tr><td class="code"><pre><span class="line">einops.rearrange(a, <span class="string">'x y z -&gt; y (x z) '</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p>并且我建议根据上下文（例如时间，高度等）为轴指定有意义的名称（而不是xyz）。 这将使您易于理解代码的作用</p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">In : einops.rearrange(a, 'x y z -&gt; y (x z) ')</span><br><span class="line">Out:</span><br><span class="line">array([[0, 1, 2, 3, 4, 5],</span><br><span class="line">       [0, 1, 2, 3, 4, 5],</span><br><span class="line">       [0, 1, 2, 3, 4, 5]])</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="目标检测">🚀 目标检测</h3>
+<blockquote>
+<p><a href="https://bbs.cvmart.net/topics/3056" target="_blank" rel="noopener" class="uri">https://bbs.cvmart.net/topics/3056</a></p>
+</blockquote>
+<h3 id="二分图匹配bipartite-matching">🚀 二分图匹配（bipartite matching ）</h3>
+<blockquote>
+<p><a href="https://liam.page/2016/04/03/Hungarian-algorithm-in-the-maximum-matching-problem-of-bigraph/" target="_blank" rel="noopener" class="uri">https://liam.page/2016/04/03/Hungarian-algorithm-in-the-maximum-matching-problem-of-bigraph/</a></p>
+</blockquote>
+<p><a href="https://blog.csdn.net/COCO56/article/details/100058599" target="_blank" rel="noopener">解决vscode乱码问题，VSCode设置自动推导文件编码</a></p>
+<h3 id="pytorch-中forward的使用以及原理---pytorch使用">pytorch 中forward的使用以及原理 --pytorch使用</h3>
+<p>https://blog.csdn.net/u011501388/article/details/84062483</p>
+<h3 id="pytorch里面的torch.nn.parameter详解">PyTorch里面的torch.nn.Parameter()详解</h3>
+<p>https://cloud.tencent.com/developer/article/1608348</p>
+<p>chrome中github插件</p>
+<p>https://www.bilibili.com/video/BV1Kt4y1X7fw/?spm_id_from=trigger_reload</p>
+<h3 id="论文阅读的思维导图">论文阅读的思维导图</h3>
+<p>conda 安装新版本python之后，会覆盖之前的版本</p>
+<h3 id="linux-杀死暂停继续后台运行进程">LINUX 杀死、暂停、继续、后台运行进程</h3>
+<p>ctrl + z</p>
+<p>可以将一个正在前台执行的命令放到后台，并且暂停</p>
+<p>若想恢复到前台，则</p>
+<ol type="1">
+<li>jobs #查看当前有多少在后台运行的命令 会有序号 job号</li>
+<li>fg 〔<em>job</em>号〕 将后台中的命令调至前台继续运行 如： fg %1</li>
+</ol>
+<p>https://blog.csdn.net/QQ1910084514/article/details/80390671</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title>2020-10-13-小样本学习</title>
+    <url>/2020/10/13/2020-10-13-%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p>小（少）样本学习可以看做每个类别样本数目远远小于类别数目。<strong>在标注数据比较少的情况下，深度学习的应用和效果都受到了限制。</strong></p>
+<p>在人类的快速学习能力的启发下，研究人员希望机器学习模型在学习了一定类别的大量数据后，对于新的类别，只需要少量的样本就能快速学习，这就是 Few-shot Learning 要解决的问题。</p>
+<p>区分概念：</p>
+<p>One-shot Learning 、Zero-shot Learning、Few-shot Learning？</p>
+<p>One/zero-shot learning都是用来进行<strong>学习分类</strong>的算法。</p>
+<p>Zero-shot Learing <strong>就是训练样本里没有这个类别的样本，但是如果我们可以学到一个牛逼的映射，这个映射好到我们即使在训练的时候没看到这个类，但是我们在遇到的时候依然能通过这个映射得到这个新类的特征。</strong></p>
+<p><strong>即：训练集</strong>中<strong>没有出现过</strong>的<strong>类别</strong>，能自动创造出相应的映射。</p>
+<p>One-shot Learing 就是类别下<strong>训练样本只有一个或者很少，我们依然可以进行分类</strong>。</p>
+<p>比如我们<strong>可以在一个更大的数据集上或者利用knowledge graph、domain-knowledge 等方法，学到一个一般化的映射，也就是学习一个映射，然后再到小数据集上进行更新升级映射。</strong></p>
+<p>Few-shot Learning：也即<strong>One-shot Learning</strong>。</p>
+<p><strong>关键就在于如何学到一个好的映射，能应用到没有看到的问题上。</strong></p>
+<ul>
+<li><strong>「Older」指的是基于度量学习的方法</strong>，其目标是<strong>学习一个从图像到嵌入空间的映射，在该空间中，同一类图像彼此间的距离较近，而不同类的图像距离则较远</strong>。我们希望这种性质适用于那些没有见过的类。</li>
+<li><strong>元学习方法：</strong>这类模型建立在当前所面对的任务的基础上，因此<strong>使用不同的分类器作为支持集的函数</strong>。其<strong>思路是寻找模型的超参数和参数，这样一来在不对使用的小样本过拟合的条件下可以很容易地适应新的任务。</strong></li>
+<li><strong>数据增强方法：</strong>其思想是学习数据增强的方式，从而可以<strong>通过少量可用的样本生成更多的样本。</strong></li>
+<li><strong>基于语义的方法：</strong>这类方法受到了零样本学习（zero-shot learning）的启发，其中分类任务的完成仅仅基于类别的名称、文本描述或属性。当视觉信息稀缺时，这些额外的语义信息也可能很有用。</li>
+</ul>
+<p>idea总结：</p>
+<p>（1）、为了避免元学习模型对训练任务过拟合，作者在<strong>输出预测时加入了一个正则化项</strong>。正则化要么会使预测具有更高的熵（即预测的概率不会看起来像一个独热矢量），要么使模型在不同任务之间的差异更小（即在不同任务上表现相同）。显然，对于小样本学习来说，有一个强大的正则化机制是十分重要的。【Task Agnostic Meta-Learning for Few-Shot Learning】</p>
+<p>（2）、对一个预训练的模型调优，其中权值是冻结的，在每一层中只学习放缩和偏置（Scaling and Shifting）</p>
+<p>（3）、one-shot learning 或者zero-shot learning，少样本学习有时候也叫few-shot learning，意思是通过有限的几个样本让模型来学习一个新类别。这是一个很前沿的领域。</p>
+<p>问题的引出：</p>
+<p>（a）、例如典型的 MNIST 分类问题，一共有 10 个类，训练集一共有 6000 个样本，平均下来每个类大约 600 个样本，但是我们想一下我们人类自己，我们区分 0 到 9 的数字图片的时候需要看 6000 张图片才知道怎么区分吗？很显然，不需要！这表明当前的深度学习技术和我们人类智能差距还是很大的，要想弥补这一差距，<strong>小样本学习是一个很关键的问题。</strong></p>
+<p>(b)、如果想要构建新的数据集（以分类数据集为例），我们需要标记大量的数据，但是有的时候标记数据集需要某些领域的专家（例如医学图像的标记），这费时又费力，因此<strong>如果我们可以解决少样本学习问题，只需要每个类标记几张图片就可以高准确率的给剩余大量图片自动标记。</strong></p>
+<p><strong>以上两个原因使得小样本学习的研究成为热点。</strong></p>
+<p>首先区分几个概念：</p>
+<p><strong>小样本学习（Few-Shot Learning，以下简称 FSL ）</strong>用于解决当可用的数据量比较少时，如何提升神经网络的性能。</p>
+<p>【例如】:以 MNIST 的 few-shot 为例，我们只要一个类各一张图片，也就是 10*1 = 10 张图片来训练我们的模型，就可以分类剩余的所有图片，如果可以到这一步，深度学习和人类智能的差距会缩小很大一部分。也即研究人员希望机器学习模型在学习了一定类别的大量数据后，对于新的类别，只需要少量的样本就能快速学习，这就是 Few-shot Learning 要解决的问题。这个问题的难点在于训练样本的数量对于深度学习来说太少了，很容易过拟合。</p>
+<p>Few-Shot Learning【解决方案】：</p>
+<ol type="1">
+<li><strong>数据增强和正则化</strong>（解决过拟合的问题）</li>
+</ol>
+<p>在训练的时候加入一个正则项，但是这个正则项的<strong>构建选择</strong>是关键。</p>
+<ol start="2" type="1">
+<li><strong>Meta-learning（元学习）</strong>：这是<strong>现在主流的方案</strong>，元学习的<strong>目标是利用已经学到的知识来解决新的问题</strong>。这也是基于人类学习的机制，我们学习都是基于已有知识的，而不像深度学习一样都是从 0 开始学习的。（比如如果你会玩英雄联盟，那你学习玩王者荣耀会快很多。）</li>
+</ol>
+<p>Meta-learning 其实还有一个名字叫做“学会学习” (Learning to learn)。在 meta training 阶段将数据集分解为不同的 meta task，<strong>去学习类别变化的情况下模型的泛化能力，</strong>在 meta testing 阶段，面对全新的类别，<strong>不需要变动已有的模型，就可以完成分类</strong>。</p>
+<p><strong>如果我们已有的先验知识来帮助我们解决新的问题，那么我们对于新的问题就可以不需要那么多的样本，从而解决 few-shot 问题</strong>。</p>
+<p>但是<strong>元学习需要用一些别的数据来学习这个先验知识</strong>，例如分类 MiniImagenet，其中有 100 个类，我们用其中 60 个类来学习先验知识，20个做 validation，剩余 20 个做测试。<strong>注意我们测试的 20 个类和前面 80 各类是完全不同的，也就是新的类、新的概念、新的问题，并且这 20 个类每个类只有很少的几张图片 (few-shot 问题)！</strong>然后前面的 80 个类用来用来训练模型和确定超参数，也就是学习帮助我们解决新问题的先验知识。</p>
+<p><strong>Meta-learning 方法的分类标准</strong>有很多，个人可大致分为以下三类：</p>
+<p>1、学习微调 (Learning to Fine-Tune）</p>
+<p>2、基于 RNN 的记忆 (RNN Memory Based）</p>
+<p>3、度量学习 (Metric Learning)</p>
+<p>Metric Based 方法通过度量 batch 集中的样本和 support 集中样本的距离，借助最近邻的思想完成分类。比如<strong><em>Relation Network，</em></strong>该网络不满足单一且固定的距离度量方式，而是训练一个网络来学习（例如 CNN）距离的度量方式，在 loss 方面也有所改变。</p>
+<p>【元学习存在的问题】：元学习的解决方案：可以在另一个数据集上面训练学习先验知识（前面的 MiniImagenet 中的 100 个类都是一个数据集），例如从 Omniglot 中学习先验知识，用于 MNIST 的少样本分类（因为有种说法 Omniglot 可以看做 MNIST 的一种扩展）。当然<strong>这种方法的效果和两个数据集的相似度有关，两个数据集相似度很好，那么学到的先验知识可以很好地解决新数据集的 few-shot 问题，如果差异很大，可能效果会很一般。</strong></p>
+<p>因此 meta-learning 和 few-shot learning 现在的研究基本都是在一起的。</p>
+<p>少样本学习面临两个重要的问题：（1）已知类别和未知类别之间没有交集，导致它们的数据分布差别很大，不能直接通过训练分类器和微调(finetune)的方式得到很好的性能；（2）未知类别只有极少量数据(每个类别1或者5个训练样本)，导致分类器学习不可靠。</p>
+<p>对于第一个问题，Matching Networks提出了episodic training的策略。一个episode就是一个少样本学习的子任务，包含训练集和测试集。这里的episode类似于深度学习中的mini-batch的概念。</p>
+<p>对于第二个问题，目前解决方法较少。论文【ICLR2019：<strong>Learning to Propagate Labels: Transductive Propagation Network for Few-shot Learning：</strong><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1805.10002.pdf">https://arxiv.org/pdf/1805.10002.pdf</a>】提出利用转导(Transductive)的思想，拿到所有无标注数据，建立权重图，得到全部预测结果。</p>
+<p><img src="E:\myBlog\source_posts\v2-34c21e6e6a6b07fa5d327b05d33fbc47_720w.jpg" alt="img"></p>
+<p><img src="E:\myBlog\source\_posts\640.png" alt="img" style="zoom:50%;"></p>
+<p><a href="https://www.cnblogs.com/jiangxinyang/p/12163215.html" target="_blank" rel="noopener" class="uri">https://www.cnblogs.com/jiangxinyang/p/12163215.html</a></p>
+<p><strong>Few-shot Learning 是</strong> <strong>Meta Learning 在监督学习领域的应用。</strong></p>
+<p>Meta Learning，又称为 learning to learn，在 meta training 阶段将数据集分解为不同的 meta task，去学习类别变化的情况下模型的泛化能力，在 meta testing 阶段，面对全新的类别，不需要变动已有的模型，就可以完成分类。</p>
+<p>形式化来说，few-shot 的训练集中包含了很多的类别，每个类别中有多个样本。在训练阶段，会在训练集中随机抽取 C 个类别，每个类别 K 个样本（总共 CK 个数据），构建一个 meta-task，作为模型的支撑集（support set）输入；再从这 C 个类中剩余的数据中抽取一批（batch）样本作为模型的预测对象（batch set）。即要求模型从 C*K 个数据中学会如何区分这 C 个类别，<strong>这样的任务被称为 C-way K-shot 问题。</strong></p>
+<p>训练过程中，每次训练（episode）都会采样得到不同 meta-task，所以总体来看，训练包含了不同的类别组合，这种机制使得模型学会不同 meta-task 中的共性部分，比如如何提取重要特征及比较样本相似等，忘掉 meta-task 中 task 相关部分。通过这种学习机制学到的模型，在面对新的未见过的 meta-task 时，也能较好地进行分类。</p>
+<p>图 1 展示的是一个 2-way 5-shot 的示例，可以看到 meta training 阶段构建了一系列 meta-task 来让模型学习如何根据 support set 预测 batch set 中的样本的标签；meta testing 阶段的输入数据的形式与训练阶段一致（2-way 5-shot），但是会在全新的类别上构建 support set 和 batch。</p>
+<p><img src="E:\myBlog\source_posts\v2-425a4cceb747a125d92b07add5917b09_720w.jpg" alt="img">▲ 图1：Few-shot Learning示例</p>
+<p><a href="https://zhuanlan.zhihu.com/p/61215293" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/61215293</a></p>
+<h3 id="在图像领域的研究现状">在图像领域的研究现状</h3>
+<p>早期的 Few-shot Learning 算法研究多集中在图像领域，如图 2 所示，<strong>Few-shot Learning</strong> <strong>模型大致可分为三类：</strong>Mode Based，Metric Based 和 Optimization Based。</p>
+<p><img src="E:\myBlog\source_posts\v2-91fcdbfabcb3aa5386e436c27fb52615_720w.jpg" alt="img">▲ 图2：Few-shot Learning模型分类</p>
+<p>其中 Model Based 方法旨在通过模型结构的设计快速在少量样本上更新参数，直接建立输入 x 和预测值 P 的映射函数；Metric Based 方法通过度量 batch 集中的样本和 support 集中样本的距离，借助最近邻的思想完成分类；Optimization Based 方法认为普通的梯度下降方法难以在 few-shot 场景下拟合，因此通过调整优化方法来完成小样本分类的任务。</p>
+<p><strong>Model Based方法</strong></p>
+<p><strong>Santoro 等人</strong> [3] 提出使用记忆增强的方法来解决 Few-shot Learning 任务。基于记忆的神经网络方法早在 2001 年被证明可以用于 meta-learning。他们通过权重更新来调节 bias，并且通过学习将表达快速缓存到记忆中来调节输出。</p>
+<p>然而，利用循环神经网络的内部记忆单元无法扩展到需要对大量新信息进行编码的新任务上。因此，需要让存储在记忆中的表达既要稳定又要是元素粒度访问的，前者是说当需要时就能可靠地访问，后者是说可选择性地访问相关的信息；另外，参数数量不能被内存的大小束缚。神经图灵机（NTMs）和记忆网络就符合这种必要条件。</p>
+<p>文章基于神经网络图灵机（NTMs）的思想，因为 NTMs 能通过外部存储（external memory）进行短时记忆，并能通过缓慢权值更新来进行长时记忆，NTMs 可以学习将表达存入记忆的策略，并如何用这些表达来进行预测。由此，文章方法可以快速准确地预测那些只出现过一次的数据。</p>
+<p>文章基于 LSTM 等 RNN 的模型，将数据看成序列来训练，在测试时输入新的类的样本进行分类。</p>
+<p>具体地，在 t 时刻，模型输入 <img src="E:\myBlog\source_posts\equation" alt="[公式]"> ，也就是在当前时刻预测输入样本的类别，并在下一时刻给出真实的 label，并且添加了 external memory 存储上一次的 x 输入，这使得下一次输入后进行反向传播时，可以让 y (label) 和 x 建立联系，使得之后的 x 能够通过外部记忆获取相关图像进行比对来实现更好的预测。</p>
+<p><img src="E:\myBlog\source_posts\v2-abf2cab4e2fd2f20589c219048bffe09_720w.jpg" alt="img">▲ 图3：Memory Augmented Model</p>
+<p><strong><em>Meta Network</em></strong> [12] 的快速泛化能力源自其“快速权重”的机制，在训练过程中产生的梯度被用来作为快速权重的生成。模型包含一个 meta learner 和一个 base learner，meta learner 用于学习 meta task 之间的泛化信息，并使用 memory 机制保存这种信息，base learner 用于快速适应新的 task，并和 meta learner 交互产生预测输出。</p>
+<p><strong>Metric Based方法</strong></p>
+<p>如果在 Few-shot Learning 的任务中去训练普通的基于 cross-entropy 的神经网络分类器，那么几乎肯定是会过拟合，因为神经网络分类器中有数以万计的参数需要优化。</p>
+<p>相反，很多非参数化的方法（最近邻、K-近邻、Kmeans）是不需要优化参数的，因此可以在 meta-learning 的框架下构造一种可以端到端训练的 few-shot 分类器。该方法是对样本间距离分布进行建模，使得同类样本靠近，异类样本远离。下面介绍相关的方法。</p>
+<p>如图 4 所示，<strong>孪生网络（Siamese Network）</strong>[4] 通过有监督的方式训练孪生网络来学习，然后重用网络所提取的特征进行 one/few-shot 学习。</p>
+<p><img src="E:\myBlog\source_posts\v2-2620b9d172e3e28df69b6a999dd8ba03_720w.jpg" alt="img">▲ 图4：Siamese Network</p>
+<p>具体的网络是一个双路的神经网络，训练时，通过组合的方式构造不同的成对样本，输入网络进行训练，在最上层通过样本对的距离判断他们是否属于同一个类，并产生对应的概率分布。在预测阶段，孪生网络处理测试样本和支撑集之间每一个样本对，最终预测结果为支撑集上概率最高的类别。</p>
+<p>相比孪生网络，<strong>匹配网络（Match Network）</strong>[2] 为支撑集和 Batch 集构建不同的编码器，最终分类器的输出是支撑集样本和 query 之间预测值的加权求和。</p>
+<p>如图 5 所示，该文章也是在不改变网络模型的前提下能对未知类别生成标签，其主要创新体现在建模过程和训练过程上。对于建模过程的创新，文章提出了基于 memory 和 attention 的 matching nets，使得可以快速学习。</p>
+<p>对于训练过程的创新，文章基于传统机器学习的一个原则，即训练和测试是要在同样条件下进行的，提出在训练的时候不断地让网络只看每一类的少量样本，这将和测试的过程是一致的。</p>
+<p>具体地，它显式的定义一个基于支撑集 <img src="E:\myBlog\source_posts\equation" alt="[公式]"> 的分类器，对于一个新的数据 <img src="E:\myBlog\source_posts\equation" alt="[公式]"> ，其分类概率由<img src="https://www.zhihu.com/equation?tex=%5Chat%7Bx%7D" alt="[公式]">与支撑集 S 之间的距离度量得出：</p>
+<p><img src="E:\myBlog\source_posts\v2-0eec568b3cb49b448ab40f34c103d253_720w.jpg" alt="img"></p>
+<p>其中 a 是基于距离度量的 attention score：</p>
+<p><img src="E:\myBlog\source_posts\v2-2ab250d61e2545607a0477a4856426e4_720w.jpg" alt="img"></p>
+<p>进一步，支撑集样本 embedding 模型 g 能继续优化，并且支撑集样本应该可以用来修改测试样本的 embedding 模型 f。</p>
+<p>这个可以通过如下两个方面来解决，即：<strong>1）基于双向 LSTM 学习训练集的 embedding</strong>，使得每个支撑样本的 embedding 是其它训练样本的函数；<strong>2）基于 attention-LSTM 来对测试样本 embedding</strong>，使得每个 Query 样本的 embedding 是支撑集 embedding 的函数。文章称其为 FCE (fully-conditional embedding)。</p>
+<p><img src="E:\myBlog\source_posts\v2-d62b26df5f93b0c4489b467978d43057_720w.jpg" alt="img">▲ 图5：Match Network</p>
+<p><strong>原型网络（Prototype Network）</strong>[5] 基于这样的想法：每个类别都存在一个原型表达，该类的原型是 support set 在 embedding 空间中的均值。然后，分类问题变成在 embedding 空间中的最近邻。</p>
+<p>如图 6 所示，c1、c2、c3 分别是三个类别的均值中心（称 Prototype），将测试样本 x 进行 embedding 后，与这 3 个中心进行距离计算，从而获得 x 的类别。</p>
+<p><img src="E:\myBlog\source_posts\v2-b80a95841c319730ddb4fe3e86b9b445_720w.jpg" alt="img">▲ 图6：Prototype Network</p>
+<p>文章采用在 Bregman 散度下的指数族分布的混合密度估计，文章在训练时采用相对测试时更多的类别数，即训练时每个 episodes 采用 20 个类（20 way），而测试对在 5 个类（5 way）中进行，其效果相对训练时也采用 5 way 的提升了 2.5 个百分点。</p>
+<p>前面介绍的几个网络结构在最终的距离度量上都使用了固定的度量方式，如 cosine，欧式距离等，这种模型结构下所有的学习过程都发生在样本的 embedding 阶段。</p>
+<p>而 <strong><em>Relation Network</em></strong> [6] 认为度量方式也是网络中非常重要的一环，需要对其进行建模，所以该网络不满足单一且固定的距离度量方式，而是训练一个网络来学习（例如 CNN）距离的度量方式，在 loss 方面也有所改变，考虑到 relation network 更多的关注 relation score，更像一种回归，而非 0/1 分类，所以使用了 MSE 取代了 cross-entropy。</p>
+<p><img src="E:\myBlog\source_posts\v2-2f8ed3cf76e138a7be12c6645fd33441_720w.jpg" alt="img">▲ 图7：Relation Networks</p>
+<p><strong>Optimization Based方法</strong></p>
+<p><strong>Ravi 等人</strong> [7] 研究了在少量数据下，基于梯度的优化算法失败的原因，即无法直接用于 meta learning。</p>
+<p>首先，这些梯度优化算法包括 momentum, adagrad, adadelta, ADAM 等，无法在几步内完成优化，特别是在非凸的问题上，多种超参的选取无法保证收敛的速度。</p>
+<p>其次，不同任务分别随机初始化会影响任务收敛到好的解上。虽然 finetune 这种迁移学习能缓解这个问题，但当新数据相对原始数据偏差比较大时，迁移学习的性能会大大下降。我们需要一个系统的学习通用初始化，使得训练从一个好的点开始，它和迁移学习不同的是，它能保证该初始化能让 finetune 从一个好的点开始。</p>
+<p>文章学习的是一个模型参数的更新函数或更新规则。它不是在多轮的 episodes 学习一个单模型，而是在每个 episode 学习特定的模型。</p>
+<p>具体地，学习基于梯度下降的参数更新算法，采用 LSTM 表达 meta learner，用其状态表达目标分类器的参数的更新，最终学会如何在新的分类任务上，对分类器网络（learner）进行初始化和参数更新。这个优化算法同时考虑一个任务的短时知识和跨多个任务的长时知识。</p>
+<p>文章设定目标为通过少量的迭代步骤捕获优化算法的泛化能力，由此 meta learner 可以训练让 learner 在每个任务上收敛到一个好的解。另外，通过捕获所有任务之前共享的基础知识，进而更好地初始化 learner。</p>
+<p>以训练 miniImage 数据集为例，训练过程中，从训练集（64 个类，每类 600 个样本）中随机采样 5 个类，每个类 5 个样本，构成支撑集，去学习 learner；然后从训练集的样本（采出的 5 个类，每类剩下的样本）中采样构成 Batch 集，集合中每类有 15 个样本，用来获得 learner 的 loss，去学习 meta leaner。</p>
+<p>测试时的流程一样，从测试集（16 个类，每类 600 个样本）中随机采样 5 个类，每个类 5 个样本，构成支撑集 Support Set，去学习 learner；然后从测试集剩余的样本（采出的 5 个类，每类剩下的样本）中采样构成 Batch 集，集合中每类有 15 个样本，用来获得 learner 的参数，进而得到预测的类别概率。这两个过程分别如图 8 中虚线左侧和右侧。</p>
+<p><img src="E:\myBlog\source_posts\v2-5b123b7cc752acb08a37ca95d51f5e9b_720w.jpg" alt="img">▲ 图8：Optimization as a model</p>
+<p>meta learner 的目标是在各种不同的学习任务上学出一个模型，使得可以仅用少量的样本就能解决一些新的学习任务。这种任务的挑战是模型需要结合之前的经验和当前新任务的少量样本信息，并避免在新数据上过拟合。</p>
+<p><strong><em>Finn</em></strong> [8] 提出的方法使得可以在小量样本上，用少量的迭代步骤就可以获得较好的泛化性能，而且模型是容易 fine-tine 的。而且这个方法无需关心模型的形式，也不需要为 meta learning 增加新的参数，直接用梯度下降来训练 learner。</p>
+<p>文章的核心思想是学习模型的初始化参数使得在一步或几步迭代后在新任务上的精度最大化。它学的不是模型参数的更新函数或是规则，它不局限于参数的规模和模型架构（比如用 RNN 或 siamese）。它本质上也是学习一个好的特征使得可以适合很多任务（包括分类、回归、增强学习），并通过 fine-tune 来获得好的效果。</p>
+<p>文章提出的方法，可以学习任意标准模型的参数，并让该模型能快速适配。他们认为，一些中间表达更加适合迁移，比如神经网络的内部特征。因此面向泛化性的表达是有益的。因为我们会基于梯度下降策略在新的任务上进行 finetune，所以目标是学习这样一个模型，它能对新的任务从之前任务上快速地进行梯度下降，而不会过拟合。事实上，是要找到一些对任务变化敏感的参数，使得当改变梯度方向，小的参数改动也会产生较大的 loss。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title>2020-10-12-DETR论文阅读</title>
+    <url>/2020/10/12/2020-10-12-DETR%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/</url>
+    <content><![CDATA[<p>仔细看论文和代码，才发现它的输出是定长的：100个检测框和类别，这种操作可能跟COCO评测的时候取top 100的框有关，我认为他说的有道理。</p>
+<p>当然定长的输出有利于显存对齐，训练的时候会方便一些。</p>
+<p>DETR的整体结构Transformer类似：Backbone得到的特征铺平，加上Position信息之后送到一坨Encoder里，得到一些candidates的特征。这100个candidates是被Decoder<strong>并行解码的</strong>（想想显存就很大，但实现的时候可写成不并行的），以得到最后的检测框。</p>
+<p><strong>2.1 DETR Encoder</strong></p>
+<p>网络一开始是使用Backbone（比如ResNet）提取一些feature，然后降维到d×HW。</p>
+<p>Feature降维之后与Spatial Positional Encoding相加，然后被送到Encoder里。</p>
+<p>为了体现图像在x和y维度上的信息，作者的代码里<strong>分别计算了两个维度的Positional Encoding，然后Cat到一起。</strong></p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">pos_x = torch.stack((pos_x[:, :, :, <span class="number">0</span>::<span class="number">2</span>].sin(), pos_x[:, :, :, <span class="number">1</span>::<span class="number">2</span>].cos()), dim=<span class="number">4</span>).flatten(<span class="number">3</span>)</span><br><span class="line">pos_y = torch.stack((pos_y[:, :, :, <span class="number">0</span>::<span class="number">2</span>].sin(), pos_y[:, :, :, <span class="number">1</span>::<span class="number">2</span>].cos()), dim=<span class="number">4</span>).flatten(<span class="number">3</span>)</span><br><span class="line">pos = torch.cat((pos_y, pos_x), dim=<span class="number">3</span>).permute(<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>FFN、LN等操作也与Transformer类似。<strong>Encoder最后得到的结果是对N个物体编码后的特征。</strong></p>
+<p><strong>2.2 DETR Decoder</strong></p>
+<p>DETR Decoder的结构也与Transformer类似，<strong>区别在于Decoder并行解码N个object。</strong></p>
+<p>每个Decoder有两个输入：一路是Object Query（或者是上一个Decoder的输出），另一路是Encoder的结果。</p>
+<p>我一开始不明白Object Query是怎样得到的。后来从代码看，<strong>Object Query是一组nn.Embedding的weight（就是一组学到的参数）。</strong></p>
+<p><strong>最后一个Decoder后面接了两个FFN，分别预测检测框及其类别。</strong></p>
+<p><strong>2.3 Bipartite Matching</strong></p>
+<p>由于输出物体的顺序不一定与ground truth的序列相同，作者使用二元匹配将GT框与预测框进行匹配。其匹配策略如下：</p>
+<p><img src="E:\myBlog\source_posts\v2-acce6976666e74713f72176499854306_1440w.jpg" alt="img"></p>
+<p>最后的损失函数：</p>
+<p><img src="E:\myBlog\source_posts\v2-cdc64ccbfaa7b299f9baf32ed09b83ad_1440w.jpg" alt="img"></p>
+<p><img src="E:\myBlog\source_posts\image-20201013000354504.png" alt="image-20201013000354504"></p>
+<p><img src="E:\myBlog\source_posts\image-20201013000531053.png" alt="image-20201013000531053"></p>
+<p>=================</p>
+<p>个人觉得最直白的理解方式就是用positional embedding替代了原本的anchor。</p>
+<p>第一步用CNN提feature，然后展开成一维之后加上位置信息进入encoder加工。之后decoder里的object queries，实际上是另一组可学习的positional embedding，其功能类似于anchor。之后每个query进过decoder后算一个bbox和class prob。</p>
+<p>这篇paper怎么说呢，个人觉得有点华而不实。毕竟把原有的二维feature给flatten成一维再加上位置信息实际上在我看来是一道脱裤子放屁的流程。不过在detection上这样操作能work，实际上说明了transformer果然更适合看成GCN的一个特例而不是LSTM的上位替换。</p>
+<p>网络的结构是非常简单的，先是CNN提取特征，这一个常规得不能再常规得做法，然后将CNN提取的特征送入到transformer中，而由于transformer是位置无关，所以为了保持位置信息，需要送入CNN特征的同时，医药送入位置的编码信息，确保整个链路中位置信息不丢失。在transformer中编码之后，送入到解码器，同时送入到解码器的还包括object queries（即文中说的N个查询对象），N个对象以及编码器的输入在在解码器的综合作用下，获取N个输出，这N个输出在FFN的作用下，产生N个位置以及每个位置对应的类别。至此，网络的便具备物体检测的能力。与原始的transformer不同的地方在于decoder每一层都输出结果，计算loss。这种思想还是相对简单并且work的，EV-FlowNet以及龙明盛迁移学习的某一个版本中均有类似的操作。如果仔细探究的话，我想一定会有一种更合计的叠加方式，而不是这种简单的加在一起，毕竟每一层理论上的物理意义都不同，这种叠加loss的方法，限制了decoder只有第一层完成了大部分任务，更多的层只是一个上采样和细化的过程。</p>
+<p>所谓二分的最大匹配，即保证预测值与真值实现最大的匹配，保证预测的N的实例（包括∅）按照位置与真值对应起来。实现一一对应之后，便能够利用分类Loss以及boundingbox Loss进行优化。这种一一对应的关系，同时也另一个好处是，不会多个预测值对应到同一个真实值上，然后再通过NMS进行后处理。</p>
+<p>概括而言，文章的两大核心思想为：</p>
+<p>1、transformer保证了attention，确保对一个实例的识别，是在整幅图的知识下进行的。</p>
+<p>2、二分最大匹配，确保了一一对应的关系。</p>
+<p><img src="E:\myBlog\source_posts\v2-aadd53804ee33600a1d40ad856f146ad_1440w.jpg" alt="img"></p>
+<h4 id="二分图最大匹配问题与匈牙利算法的核心思想">二分图最大匹配问题与匈牙利算法的核心思想</h4>
+<p><a href="https://liam.page/2016/04/03/Hungarian-algorithm-in-the-maximum-matching-problem-of-bigraph/" target="_blank" rel="noopener" class="uri">https://liam.page/2016/04/03/Hungarian-algorithm-in-the-maximum-matching-problem-of-bigraph/</a></p>
+<p>图上的object queries实际上是N个emebding，更具体得说应该是N个实例query的embedding(我理解是这样)，退一步不准确一点可以简单理解成位置。N是固定值但是emebding完之后N个quries都不太一样。所以差不多的意思就是告诉模型要100个实例，然后decoder根据encoder得到特征的位置和显著性decoder出100个抽象点代表instance，其中部分是前景instance，部分是背景instance，前景的就class+box loss，背景的就当背景。这就是训练过程。推理过程也就很简单了，前景的就直接用，背景的就丢掉。</p>
+<p>Transformer encoder： 注意力机制本质是在跑message passing去对提取的特征进行一种滤波，这里面在很大程度上就是<strong>实现了其他分析中的去提取不同位置不同物体之间的相互关系这个功能，通过发掘这个约束提高了对物体识别的可靠性。</strong></p>
+<p><img src="E:\myBlog\source_posts\image-20201013142352470.png" alt="image-20201013142352470"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -3771,15 +3993,51 @@
   <entry>
     <title>2020-08-11-杂记</title>
     <url>/2020/08/11/2020-08-11-%E6%9D%82%E8%AE%B0/</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">输入密码，查看文章</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="235bcd4b0c754d0d7e2e75b6c0fcf92567c1b4acec097e349e2edf4b1a3be4cd">f77eaac06a1a171a9a0a2cacda0c3461022b551f2761d7c344624c22a1a6fbbb0b1c097faa996c83f09be211999eaee2e77efd90ed3044300794a0fc2a7c6cda31c6812d03b5bb5b38ed6ca125bd6965298b16a3826337bd4782b01a53a3f7cd4d003274cabb22d552b8cfb39fa2ae2292b52437499994df518ee203ef0f7c5250192251e1d55d9a95ab11924bc111be6d64dc3d237ef72bc590189e21e3eddf700cad42d0992bf3ee1d03e5b5b65f5b8abb4e5c2cb1ae6deaa5189de2e09cd566e76c7ebf045d4dee7a3ce1a932093e96500e26214c22e7a0ccac9cc2e88a6e412d05a2c9deb9a51ecc2e2a57fa416717715f1980dcfa48c2d108c1e4ef1ce1dad30587188aff2918098af7b4a61b73c2dec3bd40556d15336d417f1211e2302c37598e1bb33df1710c5da764a3409f9c38955ff03a061585777dac0a5298d3db95e7dc9053d2f2c5851a9360371c9441cd1216bf672c7f39ddd42416625fc2d6e255de7578fa47be94ad13b017a8dcedf36f910a27047e570d84f1d5810ca040c983d0147cfb155f6e4c3afa85557298164904e5a5e2e5dc8f4879fcaab2b5e4205b20e479d99880bebfb1a3ddeade723f2a4b4bd345e9d90b37e13fbb2b16db525493c385ebe957c0ec38f3c4dcb5a2cd3fcb18077aeb729480ef4b9924e1ebdd5aa75838d99543ec13dca2cf4e389529513cfafc948b5e5c767b7fc30b61dadf9fecf1c968ca72a0b929b97c5dc0ea15aafe554a1605bf9bfc752c5be775e3e4abcb72b726162f3f3ae5d30897bf1a3324eeb89ece9933d5f8ff97a58c00b22e3204dc4dece312566078c1dcf129a14e777492c4b9f3eba6f9cdb094b138562ed69768bb4b367bd462fbe5528eba0205a20563ee0ac90d98df13c8ce0b372cf374e8c29df7800bb6247e592f212128018266b64c4587c0ff5e21b5b8df1dfc6770c8ba273da938cc438a23e650739b678cacf488d1aeae2494046a79ceaaa6227a9216beb2d64604dddab39de4092fe20394f0eb6058d88e138bbd0c4b4037d0651b72e6761d8cd3daac5b2147c6ad2e341df91914461c319df3059ead1e5a81f53e2610aa9b179276b650634e21e59c5265f800e9b1c8041e55d3bac530af23ff7939c22359b434d583742d27746230856ef8ca9d934307519842e380062c38d105443c993d37f5e8f0a8ae64a943ee3a85a2d6ebe1dc8c037e290810c85c0786b00241565cef917d144779dc8db32ecebffdbd422813372bee21c23cd2ec2d994a1120a087081c7537a88ff8a176acf6fb06f7512b3518a6c8043e166ba3427979a0a92750c6965d34439db34cde443c937d6d127bc8c44ac60ea708ad4dea86fe4c6b2489c11f7552942559d7399c15a35b84cd70eccceae6627f7c2b4475b74d5e30314a8279e3cb8756289ddfa844dff0962ef7bcfeabbc18b65c4009839268864be4c96a3823412d9edf3e4e199b0c588708cd9c136136f744140b6f6e3534e469bbefc5a83fadb028c0886416d8584e3510fe4f499747f6f0d4bec298dbc7c35263327384091248412f614e73d106feab6774b4f378c2dbd18e4fac4b463aa0718fb21c8a12b16de30e741a9ac29e70caa47a4ae8de3addac8bf8bbea81ea061f0f9665e1d2b23c6eb7ebed8bbd47a2648430c9a1dc2c08cfb274c1ef939198f925ff1cb119e96fc5f569334ab488719bab0c60bf34df47ca1136581eb0c6865a86327a387806e52cbace0d26f63e82b92b02affe0481fa836cdcad82b89159c3e0c5c1389149cc6571d334f29ad5ebb0870d96a2835f423645f208d16452b525bb6e210f96817c5abd5b77f5982fed2fa53591efcbcfa70ab9fce906624b8374047746a6089ecf109b736a9c5a7e49a6fdb6dbc8fa2bb762ed5e70dfd1bb26257c9e17c4bba01ea504ff7dc6563fc07cb7bccbea8e2160886d1f6044f812fc716050a6239f24261d05983519153112e16a48552a73c01702458ec8442e316ae79e3ffa6e2d9f173de2a3f29222bb5e673b9d03388067e783f82cd18a709c2042af6d14461817191c253940c89884b2341470d128524a73a779acdb61d7446fcac54511d475351476bafdc3ad7a7dc69c40ff484c03693181ea773d37d0bf0794984dace774079c14418bbff0685bb5145bcb02ccde44bab8ebbdd97c1814dd017043441f887f4c79fc5e41bb9b3620553802b533807c13e4aa1186150bd9f12029453966dbc95411f1f9114ed95b57e38b12df498361a243cd1e745e1a3e10548e3e038ab357fc2e96803e71e9b3d35e1b8575b4c55c43c3654f519e4602e947f807453173337faedae3fc1b7c9ac45840764140fcc069478e2536351bc17f8a8cdbf803ab0d24458ee54ba6c0dbd3524d0eff6b8a6acb9189e3964e1d6c3e7307d00a0c43136e07bce15607293012c8f6202210c187400bb5b50e7b957613ac57a67cde0eb25ceab232d7c119b05eebd34797e2a60a0a4a5873652b948b2780b87beaa5792034c8e8cf05e78caf7c95dd60ac3a809ca5cc77728d84e4086a003becef13463d38dea413660b1080b12877a5852585eda6eed5adde02ac2d35845e42f251d75124bef6d8ae2518214a563f0a0ef29cca6316983bc5ecde87c8a18aa527e2f3dce1b1c9855a057356c83eb64ce11328ecc2c207c59e708abb28ed9d9d31dbef407dd367de2ad40b16520816e0921b0102f27ce6b795ebca016cca9f087413cdc0320b3b0d0b61a90060ef4970b4552134d56b30bf9f5417c80553db52e25eed4bbd9a03bd5d6b0e165f33a523489de11cc348e5777b36394d76f04c2d9c9343e430d021fc5140d17a6843bba4aa744b3a779449922d043734ddab140bf97fccb8d776e6256ad1d1fdc0d4fe675bc098b3b9b879c9c6048297ccd5798f75f37a70bc44aca840384f6549838df9e9fd05af6eaf7b532b5f028fe58b207c35ab103068a3b50c2780b5a84a0a4357e1327031645b2eba6dc77ead86e4fb8797a96a2049aada169a317e6e0414355c0bca3900bec6afdbc5c18a8ca309ab762111a63b1b70b0a4dd63ff63c7386529f2f0ced9d07c0a9be3a2f4b5016eccc7be169580947fe0fa3074f450bbd5169cbb90fc8d4d9ce56b0616ad510f3acc826bb7dfa207938ea6f2afddfb48a5ab87987572f50f18c76b33b9a7e62e9c5ce72cf6e6d7251cc1fc8aba81580ba5bba9443bd1c18f3ef7062641e416547f70805b08bafe45adab791bc5c0c7e58650a7661d48ffe2bc7d6fffb5f7ca7e864526d93f44796f295530b40b6a05c501a65a5167d34aa31748632fde1f2057afc93871f908bd51f5cddf14c554f10beed2e7ebeebb423e93673bfd71108451ce01196ac6dc81410f715e82c0d9dcd4928e867bcbbcd4c47e3b96d993687b11b2cd0a8859692642e91dc9b156daba31324caabbdcb8cc68cee37149a111a68ae8ad10d2cb78934dfa66427d9262cad209274cbe7de253067243a45505422b112311981eb0c7c0b74f0e3a546fe124cb237fe6bbdc48c3ec7d3ca83c0acf823845fb366d1e650cb21a2ec01e3abb4c6441208a39f6100bc9d0f00f72903c3e96500a51d0c4cdeb740a83a610c12478f590350087a6e70bc69e8108bb072c032a4b82a3479e225dc67ddb4eafc133b1bb8ce6e7fd46c22465ff9538342b1415c77f5a8d524265c29e38262406ced483f7f312e1940b9d824bf8f4b16888e8cb11a3ecfa746692761dfc453c632e08bf924ed1fdab10efb15b3b10b965bfa3e34457652d655e2f34d78962080a5db89190e42efe9431192fe918fb0b1ed2bfdc5d63a2a2c9de75fa54d64d4f4922ad0ab4fc15c090f173db168b04223afd10d78157c647de9ac7e29bb64c69c853ad44c8017824840cd4f2cebe383c04ec385f1584fe346ef78bb9b1bd000b56a86c6cd2e734eac769d2a95249ea8a123f6b7eac68b4fb25db13cf178396b84ae08adb3f3d5ee8a2f64436e22e2433511d4ec3139aa4d439127c523bcda2328b539a40a3b898026c47aaa014f986fc40b4372b22192191b05bc4202b8934c6f6865db1a8e96a32f879b53c73ff882cc9c92d35face2467ef2a351c09c6c2e4c927670380e163777a9118f50eb127f33f4167b07525270ae5cc908fcf059b0be1db3819c57d68fcdd02d1b6385936db0de71710b4c33a12545184ab4319b52d17e3dcfb4c782f1fe86a3fe2c7b0efe31b59b00fb51165dabaec07173b00e69cfef37bfa58715dd740f51eb339daa674d9f465c993b5283d1c134d5b452c79f779bc6aec336c1d6522747a61169a1ab123e10b56bbc94604078f48ea4fb5eab50dd2186476fcf1809d56163c811cbd0d2259c525482e4876564dd4546373933c109f8deb977626e8c831f9e3cfb4a8dd296eba58a2fe0b0dae52a14910c38c2418cdfb23c2d367f0b28daf85b1365e2b738b7312aaa8500679d69cba4c4fda2453e29474cd6f5c8fe19a823421610c6244b9ae17b087312f82ae18c873e3e77d0d9771562a43fef6eb800b5fa6db11f55759816fcd10fb6ffefce30553a1266eefe4695d1f33e82ca1a6e30db65857d94e57671e348fea399855e08de7cb9062e67edafff987bdf669989bb7a5f1202fc4f05924ffce7bc386f8e89847b1ff941d3c32f6d853e2f05514834fd5b2c42f45208b29d8e85aaf7d016d56cd1afb25c114c8f562cca957939764cb6f5a627026fd31de23f16537ebe904a71a614ffcfe9ef5021bb5e56ddc5c9923b3fa9265d7cd60819aea2e33d836113727c67d2dcd5053647b0ce32b989ed29ad14dc2749e5c2e8591664c8fbf00e0c08cc2a5bf66046be544d6c17c5bc2a5ce81a5726a722d7a15b5f404cc24c9e88da5f5d2165daa295e8cd61391288aff1274a0fe3f4a7cf8503f9a81f5777022d4b2cfb4a070e41914fe37d7ec55d817dba311f2ecf206375772bb6b5cb4d20eda7103759c7063a4274bed6cf26c322be512576418eaa410772c383cd26148d65d8b0ff4789b5d4438365fdb6b8c9d2ff74475e4184c168873ca9ea5189898d5ca86bee80c44f30f2bdd52b0db8a62d4bcc5475c785010c5ae7ca695f7a77c7fe7d964f060d072ab6c7e211461458c9dcdefb581a6eb5484be3ffe0e569db5ccc441db263472fecc08d56b877acf895cbfd54736b66213cc64e8518c2931e424a688cfd74d4cd5848daee2c081489c04ef736fc99915de73d748f11c64465b5b35e1ecb19aa689df85e7caaf9e8bd2cba92295289509392982fa3e7ac58246c7cc6cb3f69d0d2c2bad493bc5c97cce459b1963797944f048d502e35df70edeaac52585b433f1a635469a703e5b70860d02af93e71633df371e5d00df814b863fb1d2a9dde67632d18632d93b9dddb27a08ccbf725021c1a5a317471895be4ec3435975ac8304ae619cea561eabcba5555ef54286fc50e7a1ae9b7c255b176856fc44b0152e0a9b342b96376edf2af7f3e1c842287e2308f9db061ecfe27b3e0bec1c66a7390955795ecdbb33fcbef34a014276793e83092f66a7c93bcb4e7697c255b68f22f5897ff9c360625be8de06fa80ce082f8f456fce6f95f086773b2bcbb1af83f14122c718405ce8d231399f8f15f572fb46c7a0b9b2b88fad3a36314f3c334056d0b047f62dfeaeaa4370b0880d7f441a2ac559d1c91ca62e130cd9027cd1b16dd80849e49460719e7af642f5b9bd9d752f53ec2fc0b81507b015a87859de1df32a0c2743a9a93d6a4cbe366478055ab3d77ec1f75d2b44868e6bb474f3d16f5db06356da2861459e690a79fa9bb0e31f7d4b18e42aa0b21d8c6eef5f3d47b2e9993d6cf6ea1a9f0575bbf4ba83e6a021901f286aec2c59873b77597226cb93c6f24b03b73e10803b7d4cd6ccfd1c85d7963045bee30d6c57ca5d0fffec9d49aa745cf212cdd916bcc94fe1efae6e4197859c5841398f3d43c0a5d24a14242e7b846f4fa2c712283f6640336a183207893b2bccc739cba09778b9928107ccb76f624663f37dfcbec435d2f71cb6f0333b15c85903e504df800533b407367ae8123bcdf13ff9568c2291e49af69340cc78b4c8deeb3541012c32f4339ac820275e8f04dabe901caf8030f5c8c39b5976a78b610914e41f9a1ab2ebcdd26469184997f94de19d60880dcd2c514d31946a11c3ece3f483f67fa49770941e4015bb5da4438a8a685da7c1fd01c7269f174b66c6bcbf677b8ced4a2a16117ed7d52b69caa207f47f8fc405ceacf3f6979b8d48d26d00f0a3f4da68ff07cd08460f0ff4b01c53f89c00041efd74e81a1cc4d83cb5f4c8d4327de76532d2cd923177d5660703c00bb7115320db92508b6d5ecb09cf0073291be4adaa2eff36ed78eae62fc62937b9bf44f1700fb5a9ca67809ec285859559495ad85f5e18278443f46cd54035ad224a0d751407603084796e95850d35c4a1b62b08918b808471a45318dc1016db7a2aad8057150f64a96931a8f1e54dca03b8b0216e91469885488cf3067cf85537d7c1374ffa2861287a7106bf388031b73106d43eafbbaf70b4aa40228e1c439f86f4880e0470b9cecb5d481ec6a5a9a4b221b51dc53225ad43f207a308b3ee478a5de56ef51d67c11b5a516c4155c78c1336b88882621aa75ca98521331424a1f895fe2b511361c963e8736fe0dff96202cfa77c3ec6c9f8a6432b8c7ef3c662e70f22d17464395df6539088f66cb7a87c2ffc939009097b728db071e87dc0b4e5124b663e1811476c8c21323caa1feff22190e605f421c25efccd6d027e008d785822ca84a933c1797fe87e9cd4291c8b2e8c592b34b7da499c152f76129e75e6bb51aaec5df5230f36f554c03f2cc099731d999eafbeb6507fbe71af4bd12cf6cc3bcb556d84ab6beed5be704532f55726bb7d2f42a7c26bd0c298c5eb132e4303443421a26dccab94f429b5ce288c7997d9a8a6894c734051c07a373edce3cb90da60c2fd5323bd480d8d7dba76a8ce2d99e404048eb66c3859a18e2eacdb9698213be5ed5f81117d33fc918ebc4ac33c41400048cf7ca4cfc687db80543ff33246d6df50b7d4e1908ef99ebdc9e732d1a8b2a8019086d454773174fc8a44823e6bdb15efd999dbdaecca6fd808b1de8fd476750b00517c119b5ec2afd60226e8f5e75bdb3af5388b86a4b9f0838b8c2509d5ce6bf322492cecb407037d6d297a1cbaabef1da4b3740a8b2447351581e15681d428f0c9bc0f2b189da6a47ebeafe0744a59a52dd9fa084a458ab1fc11fc22c8c2a1c94aca1bdcc79c9a70458564e5a6746937a62fc5e05f16b2b5b2b896d78957c981c0f6a9a2d59d0d04af52a4324662c4f0a7b08addc55f0f5c9587f0b922b06e76e06a0661c734b5ae47b93aa04a07a6e2943c0a5fdac88fd284fa9d149f36fd0e95529226fb50398e7f63793ce24511c1d67a4c4fddbac2a51067bd83541752d95253a7ded092f4944996c50959f772d7a9237f83be3d36315aae6044c06bf32d4a5fcfeff062a8f13a68d60359123c9cbb09e9eb9f464325296d9900f4800fde0c57f1a18aef67a3f19bedb83a29725bb8a936de39c3937bff6a538ac9fdfb778965056563bce5320e6fe6a96c5047828c10ff6c32ab7eede1bab3fd77ab0517436d678969f9f85e1dc09bd5e2912241e8b5ba96c730b227fe0bf580f79b887f3dbac1d9361e8017898545e01ba6b76267797ced1daf2aaf1760b1afbb99403d65ecadfe5de133972a124be7a8736eb1f811b6b3de300d700aa13891378eb42cd0ee454554d2add7b31d333c7940465ad31acc6c0cf7ec09a31c9242839bb93a98e1f8176791cc60a900a69e2f1020bede97b35d55570643d96c3bbcad948fe82fc6efcc4923f45794482aa0d648d7b9d809f5bbaa041f973f9c777001c4134a7c393860f1d8898ab592bb809e72eb972f45ff6ddf9e223c142f203cb3cde4f92fc3afd8bff61e14f251812b51ea89c51bb978ce22433e9ec14bd92633a175f7b53ff8d22fa2bffd3e4215a70318a5efa8a8127318859d230eb389893ae0975035fefc19a39b488ef03f515394d2c3207d596b3367093b0797e0bb454c8551398740295c56a269abdcaed259ec643fde56e4073005d26e8eee9e4b7b2c5ecd21fd88b430d0bd80e17712c5fb1a559c492d8133b0fadea23bec4a1cacf66cdb00130a5c036aa06c2545a4eee48c6d742416dfdc63eab81fbdfb70d3446001c1510bdbd2506c5e8715f31c588d112b0682b006d1ef2fef5d96ce91dcbd1486b30b7425fc248788daa8d19615032757261328876c6f223bf30c3112b9430e1eff674520d64732c446ce6878ca5365021dba034cad19683d6379af80adf9973a534e7d6f75abf84faefa886c80b6e1f1b428d0c1a1958cb192417ad7b571f3818081e52931f87929fc87c9930c9d475ea5987b47e6e3f1e7bdb5be11a4604690f96a5e541770f0727dd689933486f5b250f60ab99c6c9898ed6e0830d5e0902b020b29a5be590144d6e14a7f05cf72f77f4071c549b1cf00bb2dd40e7da3af8fc7db7ecf76ccea9211f4a3d709f55bb873d395febd8015f69a2e29b4be535d2e23ea1a4049718b9112e1a0cf4bdb4c4d66fd67e9ce0313525a68cc4abe68e5d0c19857eacc902f7e0cadc042e7ecb1af864d4bf7afe4d6544dfa7200d56660e30150330efa8b81b067f9f61c6cdb8cd93115fe2a7f55c55ff0f830ca3c973fdebb61d1a35311382ddadc20f99a8391aefe0aad5e207182df9d7954f9cf4503cd2724439360aab03f5931b60f061956d79b76592e115fbb4e77f99675e481b55f3e17777b468b1c5f2bf117d4fd6a72fb65ae3056df5e2ffa9ecff82152dbb08165d3321cfab373b1a12f96aab34d5d8b0a041da65cf97dcd82cff386047508e018317e2015673b281c200c38ad18de871b3a35787de1278dc19ee82dec042660b2f3a7d9ce0281cee89ab8d66cf32d462ceeb470e62f60368332f408eed1e6d33c344bbfdd104b722b77e88810f66adf4b4e7a45fc382df8ce55b3e079f50aef20277730ddecc57bc719fd198fcf9624f0ed40a9f67578d8facb4564dc13233084c4bf6b0eb215f14b9ce0c44d24617cea480c4a3c521c150b01c9db6e69db25a688d848dad13fad60126ab485c237373777f398005bd3b14157395705e4f7ef03cca64ba5b1c29f4aaaf80e2aabac9fe7f4d3e3ad4f5d73a65a6be359202dd6d5d996b785d96b59fe91e877f5287d22055c4f55dae5d9534f93b6a016a34da1fefbd3e6c20e23c4c7f028b2ce395e0659efca25996c1108536f48f2613f9e1efacfa2b83261e20aef988aa9010727faad85f5c8e49cb34ee7e3e0d0be56e200378f72799ebe8c</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+    <content><![CDATA[<h3 id="section">2020-09-09</h3>
+<p>前两天给代码修理bug，总是出错，很玄乎。纠结了很久，看到自己的努力但是还是没有进展，这样很让人暴躁又绝望</p>
+<p>今天一早来到实验室，看似难以解决的问题，很快解决掉了</p>
+<p>一时解决不掉的困难很多的，该干嘛干嘛，保持好饮食和睡眠。第二天一早趁着脑子清醒的时候，直接面对问题，找到问题的根本所在，那些看似要压倒自己的困难，看似无法解决的问题，可能会很快解决</p>
+<h3 id="section-1">2020-09-19</h3>
+<p>我自己也发现，关于师兄分配的任务总是做的很慢，无法按时完成任务。是我平时的习惯和思维方式导致的。总结了一下几点：</p>
+<p>（1）自己基础不好，也没有投入太多的精力去学习。 所以在阅读和调试代码的时候，就相当于在接触新知识，对于别人很熟悉的流程和知识自己却要投入很多的精力和时间去慢慢积累。不过这也是我必经的路程，做好总结，多接触代码，相信我自己会做的更好的。</p>
+<p>（2）对于未知的东西有种恐惧感，会让我不想去做，也不敢去做，没学过的没接触过的，不知道结果的事情会让我恐惧。所以对于结果未知的实验的调试，我更希望去刷结果确定的优化方法数学题目。就像我来到一个陌生的地方，对所有路都很陌生，但是还是让我在天黑之前找到一件东西。前几天在调试的transformer-tensorflow版本的实验，因为调试没接触过的实验，很多流程很陌生，总是一个bug修复，又会遇到另一个bug，即使最终调试通了，结果也不一定好。所以时间和精力成本是无法预估的，这种不确定性很让我头疼。</p>
+<p>其实还是主要是对于代码的不了解，如果足够了解，知道代码逻辑，那么恐惧就会减少很多，甚至还会很享受这种挑战的过程。就比如在调试transformer-ptorch版本的代码时，因为熟悉代码，即使代码出错，即使实验结果不好，但还是充满热情，乐此不疲。最终任务完成也是不错的。</p>
+<p>其实我是很容易找到热情的人，很容易满足，在生活中也是对大多数外在物质条件都是要求不高的。所以哪怕在任务中给我一点点希望，那么我也会保持相当的热情。解决不了，那就明天再来。学会克服恐惧，直面恐惧</p>
+<p>所以最近在跑实验跑的接近绝望的时候，才觉得学数学、做数学题是一件多么让人愉悦的事情。</p>
+<p>（3）拖延症。我会经常拖延事情，直到最后要截止了，才匆匆应付。之前的两周一次的报告，因为在家的原因，自律性很差，往往最后两天才开始想这两周要学点啥，实验需要有啥进展，这样自然只能是匆匆应付，做的不好。</p>
+<p>这是从小到大养成的习惯，总是将事情拖到最后，最后肯定会完成的不好。以后对于重要的事情一定要提前规划 ，提前安排，提前做，最好提前完成。</p>
+<p>（4）容易分心。我发现自己的一个缺点就是无法专注的去做一件事情，去处理一个任务。就比如我在学习transformer并阅读代码的时候，过了一会又开起了小差，觉得不确定性分析很有趣，就开始看相关知识，这样很快半天时间就过去了。好不容易吃完饭回来学了一会transformer，又开始捯饬起来自己的博客了。也不是不想学transformer，至少自己容易去分心干一些自己觉得有趣的事情，但这样会分割学习特定知识一整块的时间。</p>
+<p>以后遇到感兴趣的事情，可以先记录下来，留着以后自己觉得累的时候，或者想放松的时候再去做，也算是奖赏自己的吧</p>
+<p>（5） 会做很多无效操作。比如点击很多鼠标，查看很多微信等等，有时候静不下心来吧。深呼吸，或者出去放松一下，找朋友聊聊天转移一下注意力，再来解决可能思路就出来了。</p>
+<p>（6） 思路没有清晰，没有想到比较好的解决办法的时候，就开始去做。我这样做往往会得到一个不太好的结果。还是知行合一好一些吧</p>
+<h3 id="section-2">2020-09-30</h3>
+<p>这一阵的很难熬，结果出现不了，实验复现不了，每天都在怀疑自己的能力。明明感觉很简单的事情，自己却要折腾很久。一度怀疑自己不适合科研，没这个能力</p>
+<p>想想真的很奇妙，昨晚和奕飞鼎哥撸串还对自己的实验绝望，没啥动力继续下去了，今天竟然灵光一闪，就解决了，看似绝望，实际上可能只是自己被绕在圈里，透透气，散散心，防空一下，再坚持一下说不定转机就出现了。</p>
+<p>对于参考资料和博客，不用图多，有时候我会打开多个博客标签，然而对于每一个标签我都一扫而过，感觉很浮躁，没有去认真阅读。对于优秀的博客，一定要好好阅读</p>
+<p>前一阵很迷茫，觉得我一事无成， 干啥啥不行。都23岁了，不能挣一分钱，还是为应试考试忙碌。爸妈都不容易，。最近也是比之前直觉拼多了。多希望能够有所作为啊，至少在同龄人中做到不错的位置。</p>
+<p>对未来有些迷茫，想继续读博，但是最近感觉做科研有些吃力，我可能不适合科研这条路。</p>
+<p>现在还有些侥幸，在开学前建立了自己的博客，可以随时记录自己的想法以及技术总结。现在在折腾这些的话，一定是没有时间和精力了。</p>
+<p>这次是真的可以放松一下。</p>
+<p>专注着把一件事做好，不要一件事做一半，又去做了另一件事。这样容易分心。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <categories>
         <category>杂记</category>
       </categories>
@@ -3905,8 +4163,8 @@
         <category>技术</category>
       </categories>
       <tags>
-        <tag>技术</tag>
         <tag>chrome</tag>
+        <tag>技术</tag>
       </tags>
   </entry>
   <entry>
@@ -4462,43 +4720,15 @@
   <entry>
     <title>2020-07-30-小问题解决</title>
     <url>/2020/07/30/2020-07-30-%E5%B0%8F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<p><a href="https://blog.csdn.net/COCO56/article/details/100058599" target="_blank" rel="noopener">解决vscode乱码问题，VSCode设置自动推导文件编码</a></p>
-<h3 id="pytorch-中forward的使用以及原理---pytorch使用">pytorch 中forward的使用以及原理 --pytorch使用</h3>
-<p>https://blog.csdn.net/u011501388/article/details/84062483</p>
-<h3 id="pytorch里面的torch.nn.parameter详解">PyTorch里面的torch.nn.Parameter()详解</h3>
-<p>https://cloud.tencent.com/developer/article/1608348</p>
-<p>chrome中github插件</p>
-<p>https://www.bilibili.com/video/BV1Kt4y1X7fw/?spm_id_from=trigger_reload</p>
-<h3 id="论文阅读的思维导图">论文阅读的思维导图</h3>
-<p>conda 安装新版本python之后，会覆盖之前的版本</p>
-<h1 id="linux-杀死暂停继续后台运行进程">LINUX 杀死、暂停、继续、后台运行进程</h1>
-<p>ctrl + z</p>
-<p>可以将一个正在前台执行的命令放到后台，并且暂停</p>
-<p>若想恢复到前台，则</p>
-<ol type="1">
-<li>jobs #查看当前有多少在后台运行的命令 会有序号 job号</li>
-<li>fg 〔<em>job</em>号〕 将后台中的命令调至前台继续运行 如： fg %1</li>
-</ol>
-<p>https://blog.csdn.net/QQ1910084514/article/details/80390671</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
+    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="" />
+    <label for="hbePass">输入密码，查看文章</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="2ed6df1630f2254a3ff91f603e97b1bc7a3826437a6125203239866012ef4f7a">8e0d4e9ae06748fd341bd6390dc985c811b8cd3e02406c4ae9416c6c7cbf910f3c79365679eb4a28b5955d8e077d57695297b9cab03717d86e6a2cd088292005696fe4624409210d9f670a3d8fa15b6068e8640a563d115bac4fa6a1d1f686607b8dc43458ce25441281de6a06907b9006acc4a285a7bcfad777a701e4dcdc079754d4ab355175b3e4a6b97e436185f69aee25f95c9e2b4cfddf760b2d6ad4fbec0bdf3189e231bdbb349991d35c429cc376779a73ce98324c536c8ade382161e02e9f3fb7df43b8c7bb90fde98ceec94f4b064fb4d43ba1639e716d6843c14b1a9b96aef2e08deb07c1f50a33ff5a6eb25c1f159f665042d07c6a06e0cb30b2780cbc4bdcd1baf02c096b15b9f2be94a1416b52406317d63643df9c91009c9049c0b58f32a71ca0a9aa04d4b0e6a6eb2acf81c80c4461c0ff6a7146dc3f67372582f322d3f1f49469ecc036baf64e36e8247bf3718ce2af842764eef00a5e55a95363f163fb14e28982d30a50aeae00dfbfe157df29d316d5e7f188fa0517e35223709d90a934866ceb48e9803bc76e1e5d5f8687b9e512e0bee158e1a7c919266606d06e46463b78f21c2f6ad8c12460e8b1f5b5574117eb4946f3db8200215776e302435374049e7b86a5242ff7970ebb70eebab7c1cef5a0e7d6b7c5bf4cad6a1a76ab6b0e682371f7afcb736acb51044810760d01f8c762bedc1cf34cae024f2430631c830487be515bd17be15be20265f15162bae000b4ea1b7ec30998793d00ed8ef4aa05023c7edd01912f2c8ddc6c4f0b3a9f571d79c815f3458903e23b554b104d2f74afd961974635a3146097d7fcf2d3cd84e8962a245c52d31610f408d7b764644b2cf0dce10b44d787569394a0ef9dcfac7fc8f017934f6befca81d7afe52108942397b7579ac0d6c67eb70a7de1c563f4fa9d8a3f3938a1dc03278a18a45a8ee2af11acb1ed078bea950b359f798999b495e8ce4480f5d10c8edd31b7e0cea9c3b541011f6842a37692a8343b64ba8a20207074404795a6a5ab2d76b067e8a859069f620406104a3ce8d0b6a4f23f176373273022d77fc3fe638a377d28d9844261c38fba79f87a52a06f221ae737a163d901e1743cb0e0106933fa833a78a2dc725a05aba3eb41a57bea0439de49188b3f3a3d41b89096b143554f5e6c93d00c95407b68340874055466755f88626e8969b583cacee15d82027810cb8e4a740e6b1b87d6f85a51fa82fc39ec24e6bdd26926bd59cab9e9fc7c2f694b8693ada3d5eefaa18aa252c2fd54f8d20bc4f3acd375c6a7251b066539024ae70f508fa5506d0f469855b4f0e9033e2ab25e1efd3654e61a28f7a50941f8a569d2b1dcf890aa5f79571483b605ec23d9e28e2bac1a7526deca645921433ed3c4ab86de55cea5da8a3f25dd7d099b84be786af48a2681dcca8917c868a54e6ed5e58d6c71875824343482aa2e2028c5ff5497ac662e490f082406adf2a309f0e58c3a4fb8ce8248c4337764168707cb22834b1f5784ec4c3cf4f7172c30127e81d8e39ce36f9551bc91539f920ab759276023209806560eaf0e289c3d9ef8ea86584a1deecc2ca1e740c435a5573d2f270f70623c6d61baebbb1edc389b8f987d6dcaabb45310473b55fab8f1583aaa3e01e8255170db2546f8a352d595bd610beca46d1a996b799403b93a88d22dd8896f0c640f47043fc09840b574c9ea42189cd4c9e1fb8b5cd246833cea594de70d1f2eaa84e126b68561215fca8e6c43501563589a18ee2e0f682cc811</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
   </entry>
   <entry>
     <title>2020-07-28-pytorch安装</title>
@@ -5425,6 +5655,115 @@
       </script>]]></content>
   </entry>
   <entry>
+    <title>2020-07-20-git使用指南</title>
+    <url>/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h3 id="利用git上传本地项目到github">利用git上传本地项目到github</h3>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">利用git上传本地项目到github</span><br><span class="line"></span><br><span class="line">1.绑定用户</span><br><span class="line"></span><br><span class="line">2.设置ssh key 并为github账号配置ssh key</span><br><span class="line"></span><br><span class="line">3.上传本地项目到github</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="绑定用户">1.绑定用户</h4>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">$ git config --global user.name "OopsAaron" # 注册github时的name</span><br><span class="line">$ git config --global user.email "1574468139@qq.com" # 注册github时的email</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="生成密钥ssh-key">2.生成密钥SSH key</h4>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"1574468139@qq.com"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>此时，在根目录的.ssh文件中会生成公钥和密钥文件</p>
+<p>打开<a href="https://link.zhihu.com/?target=http%3A//github.com/">github</a>，在头像下面点击<code>settings</code>，再点击<code>SSH and GPG keys</code>，新建一个SSH，名字随便。</p>
+<p>git bash中输入</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub <span class="comment"># 复制.ssh里的公钥文件到github中</span></span><br></pre></td></tr></tbody></table></figure>
+<p>将输出的内容复制到框中，点击确定保存。即建立了ssh连接</p>
+<p><img src="https://i.loli.net/2020/07/20/45pTnsvKBbYPDCQ.png" alt="image-20200720163835551"></p>
+<p><img src="https://i.loli.net/2020/08/10/TBqj7pxGadESw1m.png" alt="image-20200810192758491"></p>
+<p>github上新建一个仓库后，在本地进行初始化本地仓库以及上传文件</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git init #初始化仓库</span><br><span class="line"></span><br><span class="line">#复制git clone中的ssh地址</span><br><span class="line"></span><br><span class="line">git remote add origin git@github.com:OopsAaron/myBlog.git #远程连接仓库 （后部分是ssh地址）</span><br><span class="line"></span><br><span class="line">		（若出现fatal: remote origin already exists. 则执行 git remote rm origin，</span><br><span class="line"> 		 再重新执行git remote add origin git@github.com:OopsAaron/myBlog.git）</span><br></pre></td></tr></tbody></table></figure>
+<p>在本地写md文件以及修改，然后进行提交到github， 并更新到网站上。</p>
+<h4 id="提交到github">3.提交到github</h4>
+<blockquote>
+<p>提交到 github 中的myBlog文件夹中</p>
+</blockquote>
+<p>将现有的项目添加并上传 (在所在目录下右键git bash)</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
+<p>刷新github，即可看到上传的文件</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="注">注</h4>
+<p>在<code>git commit -m "first commit"</code>中，若名称<code>first commit</code>不加引号，则不能有空格</p>
+<p>如下则会报错</p>
+<p><img src="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png" alt="image-20200901141302927"></p>
+<p>不知道原因，我用<code>git status</code> 排查了一下，发现已经添加到暂存区了，所以应该是<code>commit</code>的原因</p>
+<p><img src="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png" alt="image-20200901142150766"></p>
+<p>可以看到，<code>changes to be committed</code> ，说明都在暂存区，等待提交<code>commit</code></p>
+<p>将空格去掉，或者加上双引号即可成功</p>
+<p><img src="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png" alt="image-20200901141341959"></p>
+<p>之后就可以push到远程仓库中了</p>
+<h4 id="参考">参考</h4>
+<blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用git命令清单-阮一峰</a> <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html" target="_blank" rel="noopener">读懂diff-阮一峰</a> <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">git教程-廖雪峰</a> <a href="http://www.runoob.com/git/git-install-setup.html" target="_blank" rel="noopener">git教程-菜鸟教程</a> <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">gitbook</a> <a href="http://gitbook.liuhui998.com/index." target="_blank" rel="noopener">Git Community Book</a></p>
+<h6 id="从只会git-add-.的菜鸟到掌握git基本功能"><a href="https://juejin.im/post/6844903586023866375" target="_blank" rel="noopener">从只会git add .的菜鸟到掌握git基本功能</a></h6>
+</blockquote>
+<h3 id="hexo更新到网站">hexo更新到网站</h3>
+<p>提交到github中的<code>OopsAaron</code>文件中托管，并更新到网站</p>
+<p>在本地编写完md文件，所在目录下右键git bash</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new new_article  # 新建md文件</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">e.g.</span><br><span class="line">#打开Typora（已添加到环境变量）</span><br><span class="line">hexo new 2020-07-20-tensorflow笔记</span><br><span class="line">#Typora自动跳出新建笔记界面， 这时笔记会自带已预设好的title、description等(因为用的是hexo new 命令)</span><br><span class="line"></span><br><span class="line">注： 1.预设的标签不能空着，不用的话去掉</span><br><span class="line"> 	2. 在每一个title冒号后面要空格，再添加信息 ，不然会报错，示例如下</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://i.loli.net/2020/07/21/AeMFUSKwfWGkjpr.png" alt="image-20200721232830843"></p>
+<h4 id="一般命令">一般命令</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean # </span><br><span class="line"></span><br><span class="line">hexo g  # ==hexo generate 生成静态网页至public目录 </span><br><span class="line"></span><br><span class="line">hexo s # ==hexo server 可以在本地预览效果 http://localhost:4000/   ctrl+C 退出预览</span><br><span class="line"></span><br><span class="line">hexo d # ==hexo deploy 部署到github上，并可以看到发布的文章</span><br><span class="line"></span><br><span class="line">hexo help # 查看帮助</span><br><span class="line"></span><br><span class="line">hexo version # 查看版本</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="组合命令">组合命令</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo s -g  # 生成静态网页并本地预览</span><br><span class="line"></span><br><span class="line">hexo d -g  # 生成并上传</span><br><span class="line"></span><br><span class="line">hexo clean &amp;&amp; hexo d -g &amp;&amp; hexo s  #一步到位</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="hexo高级操作">hexo高级操作</h3>
+<p>hexo的根目录结构如下所示</p>
+<p><img src="https://i.loli.net/2020/07/22/5EWcOhQ8MBCem4s.png" alt="image-20200722181143933"></p>
+<h4 id="config.yml">_config.yml</h4>
+<p>网站配置信息，也就是本文所称的<strong>站点配置文件</strong>，可以在此配置大部分的参数。</p>
+<h4 id="scaffolds">scaffolds</h4>
+<p>模版文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
+<p>Hexo的模板是指新建的markdown文件中默认填充的内容。例如，在使用<code>hexo new 文章名</code>时，默认生成的md文件会包含如下内容：</p>
+<p><img src="https://i.loli.net/2020/07/22/H6JKBeIwhcTkN5z.png" alt="image-20200722182540918"></p>
+<p>默认内容就在scaffold/post.md中保存</p>
+<p>假如对每篇博客我都需要添加分类<code>categories</code>，每次都手动添加太麻烦，我希望每次默认生成都有<code>categories:</code>，那么就可以在scaffold/post.md中添加categories</p>
+<p>保存后，每次新建一篇文章时都会包含post.md中的内容。</p>
+<p>当然，你也可以在scaffolds文件夹下创建自己的博客模板，我创建一个名为<code>blog</code>的模板：</p>
+<p><img src="https://i.loli.net/2020/07/22/oLMuDQOmg6xaBYU.png" alt="image-20200722182806115"></p>
+<p>通过如下命令调用我创建的blog模板新建文章，在<code>_posts</code>中生成md文件，并且是以blog.md为模板的</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new blog 2020-07-22-测试blog</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="public">public</h4>
+<p>该文件夹中的内容将被最终push到github仓库中。</p>
+<h4 id="source">source</h4>
+<p>资源文件夹是存放用户资源的地方。除<code>_posts</code> 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件（如刚刚生成的about文件夹）会被拷贝到 public 文件夹。</p>
+<h4 id="为github仓库添加readme">为github仓库添加readme</h4>
+<p>既然 source 文件夹中的内容将全部被推送到 public 文件夹，public 文件夹中的内容又将被最终push到github仓库中，那么如果我们想要为github仓库添加readme.md，只要在 source 文件夹中创建就好了：</p>
+<p>部署到github，就有readme了，但我们发现，README.md已经被解析为README.html，显示的全是html代码，并不是我们想要的文档格式的内容</p>
+<p>为了解决这个问题，我们回到source文件夹，将<code>README.md</code>重命名为<code>README.MDOWN</code>，再部署到github即可</p>
+<p>source文件夹中，.md会被解析为html，并放到 public 文件夹被push到github，但.MDWN不会被解析。</p>
+<h4 id="themes">themes</h4>
+<p>主题文件夹，下载的主题都保存在此文件夹下。Hexo 会根据主题来生成静态页面。</p>
+<h4 id="参考-1">参考</h4>
+<blockquote>
+<p>Hexo+Github博客搭建： https://zhuanlan.zhihu.com/p/35668237 git上传文件： https://blog.csdn.net/sinat_20177327/article/details/76062030 git版本管理工具详细教程： https://www.cnblogs.com/cuixiaoying/p/11821797.html</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Transformer原理</title>
     <url>/2020/07/20/2020-07-20-%20Transformer%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<p>本文转自国外一篇讲解transformer的优秀博客<a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">《The Illustrated Transformer》</a>，阅读完之后对于transformer的理解深入了很多，正文如下：</p>
@@ -5600,115 +5939,6 @@
       </categories>
       <tags>
         <tag>Transformer</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>2020-07-20-git使用指南</title>
-    <url>/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<h3 id="利用git上传本地项目到github">利用git上传本地项目到github</h3>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">利用git上传本地项目到github</span><br><span class="line"></span><br><span class="line">1.绑定用户</span><br><span class="line"></span><br><span class="line">2.设置ssh key 并为github账号配置ssh key</span><br><span class="line"></span><br><span class="line">3.上传本地项目到github</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="绑定用户">1.绑定用户</h4>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">$ git config --global user.name "OopsAaron" # 注册github时的name</span><br><span class="line">$ git config --global user.email "1574468139@qq.com" # 注册github时的email</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="生成密钥ssh-key">2.生成密钥SSH key</h4>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"1574468139@qq.com"</span></span><br></pre></td></tr></tbody></table></figure>
-<p>此时，在根目录的.ssh文件中会生成公钥和密钥文件</p>
-<p>打开<a href="https://link.zhihu.com/?target=http%3A//github.com/">github</a>，在头像下面点击<code>settings</code>，再点击<code>SSH and GPG keys</code>，新建一个SSH，名字随便。</p>
-<p>git bash中输入</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub <span class="comment"># 复制.ssh里的公钥文件到github中</span></span><br></pre></td></tr></tbody></table></figure>
-<p>将输出的内容复制到框中，点击确定保存。即建立了ssh连接</p>
-<p><img src="https://i.loli.net/2020/07/20/45pTnsvKBbYPDCQ.png" alt="image-20200720163835551"></p>
-<p><img src="https://i.loli.net/2020/08/10/TBqj7pxGadESw1m.png" alt="image-20200810192758491"></p>
-<p>github上新建一个仓库后，在本地进行初始化本地仓库以及上传文件</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git init #初始化仓库</span><br><span class="line"></span><br><span class="line">#复制git clone中的ssh地址</span><br><span class="line"></span><br><span class="line">git remote add origin git@github.com:OopsAaron/myBlog.git #远程连接仓库 （后部分是ssh地址）</span><br><span class="line"></span><br><span class="line">		（若出现fatal: remote origin already exists. 则执行 git remote rm origin，</span><br><span class="line"> 		 再重新执行git remote add origin git@github.com:OopsAaron/myBlog.git）</span><br></pre></td></tr></tbody></table></figure>
-<p>在本地写md文件以及修改，然后进行提交到github， 并更新到网站上。</p>
-<h4 id="提交到github">3.提交到github</h4>
-<blockquote>
-<p>提交到 github 中的myBlog文件夹中</p>
-</blockquote>
-<p>将现有的项目添加并上传 (在所在目录下右键git bash)</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
-<p>刷新github，即可看到上传的文件</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="注">注</h4>
-<p>在<code>git commit -m "first commit"</code>中，若名称<code>first commit</code>不加引号，则不能有空格</p>
-<p>如下则会报错</p>
-<p><img src="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png" alt="image-20200901141302927"></p>
-<p>不知道原因，我用<code>git status</code> 排查了一下，发现已经添加到暂存区了，所以应该是<code>commit</code>的原因</p>
-<p><img src="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png" alt="image-20200901142150766"></p>
-<p>可以看到，<code>changes to be committed</code> ，说明都在暂存区，等待提交<code>commit</code></p>
-<p>将空格去掉，或者加上双引号即可成功</p>
-<p><img src="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png" alt="image-20200901141341959"></p>
-<p>之后就可以push到远程仓库中了</p>
-<h4 id="参考">参考</h4>
-<blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用git命令清单-阮一峰</a> <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html" target="_blank" rel="noopener">读懂diff-阮一峰</a> <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">git教程-廖雪峰</a> <a href="http://www.runoob.com/git/git-install-setup.html" target="_blank" rel="noopener">git教程-菜鸟教程</a> <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">gitbook</a> <a href="http://gitbook.liuhui998.com/index." target="_blank" rel="noopener">Git Community Book</a></p>
-<h6 id="从只会git-add-.的菜鸟到掌握git基本功能"><a href="https://juejin.im/post/6844903586023866375" target="_blank" rel="noopener">从只会git add .的菜鸟到掌握git基本功能</a></h6>
-</blockquote>
-<h3 id="hexo更新到网站">hexo更新到网站</h3>
-<p>提交到github中的<code>OopsAaron</code>文件中托管，并更新到网站</p>
-<p>在本地编写完md文件，所在目录下右键git bash</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new new_article  # 新建md文件</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">e.g.</span><br><span class="line">#打开Typora（已添加到环境变量）</span><br><span class="line">hexo new 2020-07-20-tensorflow笔记</span><br><span class="line">#Typora自动跳出新建笔记界面， 这时笔记会自带已预设好的title、description等(因为用的是hexo new 命令)</span><br><span class="line"></span><br><span class="line">注： 1.预设的标签不能空着，不用的话去掉</span><br><span class="line"> 	2. 在每一个title冒号后面要空格，再添加信息 ，不然会报错，示例如下</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="https://i.loli.net/2020/07/21/AeMFUSKwfWGkjpr.png" alt="image-20200721232830843"></p>
-<h4 id="一般命令">一般命令</h4>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean # </span><br><span class="line"></span><br><span class="line">hexo g  # ==hexo generate 生成静态网页至public目录 </span><br><span class="line"></span><br><span class="line">hexo s # ==hexo server 可以在本地预览效果 http://localhost:4000/   ctrl+C 退出预览</span><br><span class="line"></span><br><span class="line">hexo d # ==hexo deploy 部署到github上，并可以看到发布的文章</span><br><span class="line"></span><br><span class="line">hexo help # 查看帮助</span><br><span class="line"></span><br><span class="line">hexo version # 查看版本</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="组合命令">组合命令</h4>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo s -g  # 生成静态网页并本地预览</span><br><span class="line"></span><br><span class="line">hexo d -g  # 生成并上传</span><br><span class="line"></span><br><span class="line">hexo clean &amp;&amp; hexo d -g &amp;&amp; hexo s  #一步到位</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="hexo高级操作">hexo高级操作</h3>
-<p>hexo的根目录结构如下所示</p>
-<p><img src="https://i.loli.net/2020/07/22/5EWcOhQ8MBCem4s.png" alt="image-20200722181143933"></p>
-<h4 id="config.yml">_config.yml</h4>
-<p>网站配置信息，也就是本文所称的<strong>站点配置文件</strong>，可以在此配置大部分的参数。</p>
-<h4 id="scaffolds">scaffolds</h4>
-<p>模版文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
-<p>Hexo的模板是指新建的markdown文件中默认填充的内容。例如，在使用<code>hexo new 文章名</code>时，默认生成的md文件会包含如下内容：</p>
-<p><img src="https://i.loli.net/2020/07/22/H6JKBeIwhcTkN5z.png" alt="image-20200722182540918"></p>
-<p>默认内容就在scaffold/post.md中保存</p>
-<p>假如对每篇博客我都需要添加分类<code>categories</code>，每次都手动添加太麻烦，我希望每次默认生成都有<code>categories:</code>，那么就可以在scaffold/post.md中添加categories</p>
-<p>保存后，每次新建一篇文章时都会包含post.md中的内容。</p>
-<p>当然，你也可以在scaffolds文件夹下创建自己的博客模板，我创建一个名为<code>blog</code>的模板：</p>
-<p><img src="https://i.loli.net/2020/07/22/oLMuDQOmg6xaBYU.png" alt="image-20200722182806115"></p>
-<p>通过如下命令调用我创建的blog模板新建文章，在<code>_posts</code>中生成md文件，并且是以blog.md为模板的</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new blog 2020-07-22-测试blog</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="public">public</h4>
-<p>该文件夹中的内容将被最终push到github仓库中。</p>
-<h4 id="source">source</h4>
-<p>资源文件夹是存放用户资源的地方。除<code>_posts</code> 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件（如刚刚生成的about文件夹）会被拷贝到 public 文件夹。</p>
-<h4 id="为github仓库添加readme">为github仓库添加readme</h4>
-<p>既然 source 文件夹中的内容将全部被推送到 public 文件夹，public 文件夹中的内容又将被最终push到github仓库中，那么如果我们想要为github仓库添加readme.md，只要在 source 文件夹中创建就好了：</p>
-<p>部署到github，就有readme了，但我们发现，README.md已经被解析为README.html，显示的全是html代码，并不是我们想要的文档格式的内容</p>
-<p>为了解决这个问题，我们回到source文件夹，将<code>README.md</code>重命名为<code>README.MDOWN</code>，再部署到github即可</p>
-<p>source文件夹中，.md会被解析为html，并放到 public 文件夹被push到github，但.MDWN不会被解析。</p>
-<h4 id="themes">themes</h4>
-<p>主题文件夹，下载的主题都保存在此文件夹下。Hexo 会根据主题来生成静态页面。</p>
-<h4 id="参考-1">参考</h4>
-<blockquote>
-<p>Hexo+Github博客搭建： https://zhuanlan.zhihu.com/p/35668237 git上传文件： https://blog.csdn.net/sinat_20177327/article/details/76062030 git版本管理工具详细教程： https://www.cnblogs.com/cuixiaoying/p/11821797.html</p>
-</blockquote>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
       </tags>
   </entry>
 </search>
