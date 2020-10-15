@@ -1741,12 +1741,20 @@
 <h3 id="论文-edge-labeling-graph-neural-network-for-few-shot-learning">论文-Edge-Labeling Graph Neural Network for Few-shot Learning</h3>
 <p>CVPR 2019</p>
 <p>code url： <a href="https://github.com/khy0809/fewshot-egnn" target="_blank" rel="noopener" class="uri">https://github.com/khy0809/fewshot-egnn</a></p>
+<h5 id="abstract">Abstract</h5>
 <p>在本文中，提出了一种新颖的边标记图神经网络（edge-labeling graph neural network ）（EGNN），该网络将边标记图上的深层神经网络应用于小样本学习。</p>
 <p>以前在小样本学习中使用的图神经网络（GNN）方法是基于节点标记框架（ node-labeling framework）的，该框架对聚类内的相似度和聚类间不相似度进行隐式地建模（implicitly modeling）。 相反，提出的EGNN学会<strong>预测图上的边标签</strong>，而不是节点标签，从而通过直接利用聚类内的相似性和聚类间不相似性来<strong>迭代更新边标签</strong>，从而实现显式聚类的进化。 <strong>它也非常适合在各种类别上执行而无需重新训练，并且可以轻松扩展以执行直推推理（transductive inference）。</strong></p>
 <p>EGNN的参数是通过带有边标记损失（edge-labeling loss）的episodic training来学习的，从而获得了针对未见的低数据问题的可普遍推广的模型。</p>
 <p>在带有两个基准数据集的有监督和半监督的小样本图像分类任务上，提出的EGNN大大提高了现有GNN的性能。</p>
 <p>对GNN的改进，提高了GNN的性能</p>
 <p>预测图上的边标签，而不是节点标签，直接利用聚类内的相似性和聚类间不相似性来<strong>迭代更新边标签</strong>，从而实现显式聚类的进化。</p>
+<h5 id="背景">背景</h5>
+<p>GNN可以很好的处理数据之间丰富的关系结构，是迭代地通过消息传递（message passing）从邻居节点进行特征聚集。而小样本学习算法已显示要求充分利用support集和query集之间的关系，因此使用GNN可以自然地解决小样本学习问题。</p>
+<h5 id="问题">问题：</h5>
+<p>然而以前在小样本学习中使用的图神经网络（GNN）方法是基于节点标记框架（ node-labeling framework）的，该框架对聚类内的相似度和聚类间不相似度进行隐式地建模（implicitly modeling）。</p>
+<h5 id="解决">解决：</h5>
+<p>提出的EGNN学会<strong>预测图上的边标签</strong>，而不是节点标签，从而通过直接利用聚类内的相似性和聚类间不相似性来<strong>迭代更新边标签</strong>，从而实现显式聚类的进化。</p>
+<h5 id="贡献">贡献</h5>
 <h4 id="伪代码">伪代码</h4>
 <p><img src="https://i.loli.net/2020/10/15/vIdrJxt1TLEwNRU.jpg" alt="在这里插入图片描述"></p>
 <p>我们可以看到，这个整体更新的方式像极了EM算法。 第一步是获取特征，<strong>这个embedding的网络在文章的图3。</strong> 第二步是初始化边 <img src="https://i.loli.net/2020/10/15/xACgHdYarn32fpD.jpg" alt="在这里插入图片描述"> 第三步是进入一个更新循环。 第四步是更新节点 <img src="https://i.loli.net/2020/10/15/eV9Zj1zlRCDBXTw.jpg" alt="在这里插入图片描述"> 第五步是更新边 <img src="https://i.loli.net/2020/10/15/kcoI5NE1KxQgACq.jpg" alt="在这里插入图片描述"> 然后不断进行第四五步的循环L次，结束后计算出我们要测试的数据所属于的类的概率。 <img src="https://i.loli.net/2020/10/15/aATWNi4kg7Fxzpy.jpg" alt="在这里插入图片描述"></p>
