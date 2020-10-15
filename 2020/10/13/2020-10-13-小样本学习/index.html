@@ -52,9 +52,10 @@
 <meta property="og:image" content="e:/myBlog/source_posts/image-20201015110816197.png">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20201015103435972.png">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-425a4cceb747a125d92b07add5917b09_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-2d61ff11eb1a5a9e52d6c12eb333eb4b_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-7f17bddd039854a3440554b66501d2c3_720w.jpg">
 <meta property="article:published_time" content="2020-10-13T07:44:01.000Z">
-<meta property="article:modified_time" content="2020-10-15T08:10:24.278Z">
+<meta property="article:modified_time" content="2020-10-15T08:19:08.174Z">
 <meta property="article:author" content="李思建">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="e:/myBlog/source_posts/image-20201015093502514.png">
@@ -276,7 +277,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-15 16:10:24" itemprop="dateModified" datetime="2020-10-15T16:10:24+08:00">2020-10-15</time>
+                <time title="修改时间：2020-10-15 16:19:08" itemprop="dateModified" datetime="2020-10-15T16:19:08+08:00">2020-10-15</time>
               </span>
 
           
@@ -312,13 +313,13 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>4.9k</span>
+              <span>5.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>4 分钟</span>
+              <span>5 分钟</span>
             </span>
             <div class="post-description">小样本学习</div>
 
@@ -406,16 +407,26 @@
 <p>　　接下来的工作都是围绕这几个方向展开来求解FSL问题。</p>
 <p><img src="E:\myBlog\source_posts\image-20201015103435972.png" alt="image-20201015103435972"></p>
 <h3 id="其它">其它</h3>
-<p><strong>Few-shot Learning 是</strong> <strong>Meta Learning 在监督学习领域的应用。</strong></p>
-<p>Meta Learning，又称为 learning to learn，在 meta training 阶段将数据集分解为不同的 meta task，去学习类别变化的情况下模型的泛化能力，在 meta testing 阶段，面对全新的类别，不需要变动已有的模型，就可以完成分类。</p>
-<p>形式化来说，few-shot 的训练集中包含了很多的类别，每个类别中有多个样本。在训练阶段，会在训练集中随机抽取 C 个类别，每个类别 K 个样本（总共 CK 个数据），构建一个 meta-task，作为模型的支撑集（support set）输入；再从这 C 个类中剩余的数据中抽取一批（batch）样本作为模型的预测对象（batch set）。即要求模型从 C*K 个数据中学会如何区分这 C 个类别，<strong>这样的任务被称为 C-way K-shot 问题。</strong></p>
-<p>训练过程中，每次训练（episode）都会采样得到不同 meta-task，所以总体来看，训练包含了不同的类别组合，这种机制使得模型学会不同 meta-task 中的共性部分，比如如何提取重要特征及比较样本相似等，忘掉 meta-task 中 task 相关部分。通过这种学习机制学到的模型，在面对新的未见过的 meta-task 时，也能较好地进行分类。</p>
-<p>图 1 展示的是一个 2-way 5-shot 的示例，可以看到 meta training 阶段构建了一系列 meta-task 来让模型学习如何根据 support set 预测 batch set 中的样本的标签；meta testing 阶段的输入数据的形式与训练阶段一致（2-way 5-shot），但是会在全新的类别上构建 support set 和 batch。</p>
+<p><strong>Few-shot Learning 是</strong> <strong>Meta Learning 在监督学习领域的应用。Meta Learning研究Task！</strong></p>
+<p>Meta Learning，又称为 learning to learn，在 meta training 阶段将数据集分解为不同的 meta task，去学习类别变化的情况下模型的泛化能力，在 meta testing 阶段，面对全新的类别，不需要变动已有的模型，就可以完成分类。<strong>如果我们构建的深度学习系统能够学到先验知识，并且能够利用这些知识，我们就可以在新的问题上学的更快更好</strong>！那么，这个就是Meta Learning要做的事情了</p>
+<p><strong>不是要学一个具体的模型，我们要学的是一个先验知识</strong>。<strong>如果我们已有的先验知识来帮助我们解决新的问题，那么我们对于新的问题就可以不需要那么多的样本，从而解决 few-shot 问题</strong>。</p>
+<p>形式化来说，few-shot 的训练集中包含了很多的类别，每个类别中有多个样本。在训练阶段，会在训练集中<strong>随机抽取</strong> C 个类别，每个类别 K 个样本（总共 CK 个数据），构建一个 meta-task，作为模型的支撑集（support set）输入；再从这 C 个类中剩余的数据中抽取一批（batch）样本作为模型的预测对象（batch set）。即要求模型从 C*K 个数据中学会如何区分这 C 个类别，<strong>这样的任务被称为 C-way K-shot 问题。</strong></p>
+<p><strong>训练过程</strong>中，每次训练<strong>（episode）</strong>（Dtrain | Dtest）都会采样得到不同 meta-task，所以总体来看，训练包含了不同的类别组合，这种机制使得模型学会不同 meta-task 中的共性部分，比如如何提取重要特征及比较样本相似等，忘掉 meta-task 中 task 相关部分。通过这种学习机制学到的模型，在面对新的未见过的 meta-task 时，也能较好地进行分类。</p>
+<p>在 meta training 阶段将数据集分解为不同的 meta task，<strong>去学习类别变化的情况下模型的泛化能力，</strong>在 meta testing 阶段，面对全新的类别，<strong>不需要变动已有的模型，就可以完成分类</strong>。</p>
+<p>图 1 展示的是一个 2-way 5-shot 的示例，可以看到 meta training 阶段构建了一系列 meta-task 来让模型学习如何根据 support set 预测 batch set 中的样本的标签；meta testing 阶段的输入数据的形式与训练阶段一致（2-way 5-shot），但是会在全新的类别上构建 support set 和 batch。每一行都是一个task，包含了task的train set和test set。</p>
+<p>我们可以把<strong>每一个task当做一个meta learning的训练样本</strong>。我们要通过多种task的训练，从而在Meta-test的时候也就是在新的task上取得好效果。</p>
 <p><img src="E:\myBlog\source_posts\v2-425a4cceb747a125d92b07add5917b09_720w.jpg" alt="img">▲ 图1：Few-shot Learning示例</p>
+<h4 id="通常解决办法">通常解决办法</h4>
+<h4 id="hypernetwork-生成参数">HyperNetwork 生成参数</h4>
+<p><img src="E:\myBlog\source_posts\v2-2d61ff11eb1a5a9e52d6c12eb333eb4b_1440w.jpg" alt="img"></p>
+<p>HyperNetwork 简单说就是<strong>用一个网络来生成另外一个网络的参数</strong>。</p>
+<p>那么我们这里非常直接，我们的设想就是<strong>希望用一个hypernetwork输入训练集数据，然后给我输出我的对应模型也就是上图f的参数，我们希望输出的这个参数能够使得在测试图片上取得好的识别效果</strong>。</p>
+<p>有了这样设计，这个hypernetwork其实就是一个meta network。大家可以看到，<strong>本来基本的做法是用训练集直接训练这个模型f，但是现在我们用这个hypernetwork不训练了，直接给你输出参数，这等价于hypernetwork学会了如何学习图像识别，这也是为什么meta learning也同时叫做learning to learn的原因。</strong></p>
+<p>那怎么训练这个神经网络呢？</p>
+<p>这里有个所谓的<strong>episodic training</strong>！一个<strong>episode就是包含了一个task，有训练集有测试集</strong>。我们<strong>使用训练集输入到hypernetwork，得到f的参数，然后使用测试集输入到f 得到预测的标签，最后用测试集的样本标签得到模型的loss，之后就用梯度下降进行训练。</strong>所以我们可以看到，整个模型是端到端的。通过大量的episodic training，也就是大量的task进行训练，我们就可以训练出一个模型出来。</p>
+<blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/61215293" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/61215293</a></p>
-<p><strong>Meta Learning研究Task！</strong></p>
-<p>Meta-learning 其实还有一个名字叫做“学会学习” (Learning to learn)。在 meta training 阶段将数据集分解为不同的 meta task，<strong>去学习类别变化的情况下模型的泛化能力，</strong>在 meta testing 阶段，面对全新的类别，<strong>不需要变动已有的模型，就可以完成分类</strong>。</p>
-<p><strong>如果我们已有的先验知识来帮助我们解决新的问题，那么我们对于新的问题就可以不需要那么多的样本，从而解决 few-shot 问题</strong>。</p>
+</blockquote>
 <h3 id="inductive-learning-与-transductive-learning">inductive learning 与 transductive learning</h3>
 <p>在训练过程中，已知testing data（unlabelled data）是transductive learing</p>
 <p>在训练过程中，并不知道testing data ，训练好模型后去解决未知的testing data 是inductive learing</p>
@@ -553,7 +564,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.2.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inductive-learning-与-transductive-learning"><span class="nav-number">4.</span> <span class="nav-text">inductive learning 与 transductive learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#representation-learning"><span class="nav-number">5.</span> <span class="nav-text">representation learning</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#综述"><span class="nav-number">2.</span> <span class="nav-text">综述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.2.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其它"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#通常解决办法"><span class="nav-number">3.1.</span> <span class="nav-text">通常解决办法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hypernetwork-生成参数"><span class="nav-number">3.2.</span> <span class="nav-text">HyperNetwork 生成参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inductive-learning-与-transductive-learning"><span class="nav-number">4.</span> <span class="nav-text">inductive learning 与 transductive learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#representation-learning"><span class="nav-number">5.</span> <span class="nav-text">representation learning</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -652,12 +663,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">238k</span>
+    <span title="站点总字数">234k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:36</span>
+    <span title="站点阅读时长">3:33</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

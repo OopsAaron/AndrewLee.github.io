@@ -38,15 +38,8 @@
 <meta property="og:image" content="e:/myBlog/source_posts/image-20201013000531053.png">
 <meta property="og:image" content="e:/myBlog/source_posts/v2-aadd53804ee33600a1d40ad856f146ad_1440w.jpg">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20201013142352470.png">
-<meta property="og:image" content="e:/myBlog/source_posts/v2-34c21e6e6a6b07fa5d327b05d33fbc47_720w.jpg">
-<meta property="og:image" content="e:/myBlog/source/_posts/640.png">
-<meta property="og:image" content="e:/myBlog/source_posts/v2-442e5ea79572c497eab18a3c668c36a8_1440w.jpg">
-<meta property="og:image" content="e:/myBlog/source_posts/v2-e963c74a98e90a9d20f962328d328c85_1440w.jpg">
-<meta property="og:image" content="e:/myBlog/source_posts/v2-fdfe974154f8cdb93e0fff7bb34c4018_1440w.jpg">
-<meta property="og:image" content="e:/myBlog/source_posts/v2-2d61ff11eb1a5a9e52d6c12eb333eb4b_1440w.jpg">
-<meta property="og:image" content="e:/myBlog/source_posts/v2-33415d3f350aa30e5a5b7dd1a9379730_1440w.jpg">
 <meta property="article:published_time" content="2020-10-12T14:17:41.000Z">
-<meta property="article:modified_time" content="2020-10-15T08:10:12.015Z">
+<meta property="article:modified_time" content="2020-10-15T08:20:15.373Z">
 <meta property="article:author" content="李思建">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="e:/myBlog/source_posts/v2-acce6976666e74713f72176499854306_1440w.jpg">
@@ -268,7 +261,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-15 16:10:12" itemprop="dateModified" datetime="2020-10-15T16:10:12+08:00">2020-10-15</time>
+                <time title="修改时间：2020-10-15 16:20:15" itemprop="dateModified" datetime="2020-10-15T16:20:15+08:00">2020-10-15</time>
               </span>
 
           
@@ -304,13 +297,13 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>6.8k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>6 分钟</span>
+              <span>2 分钟</span>
             </span>
             <div class="post-description">此文是将transformer应用到目标检测，可以作为我研究方向的拓展</div>
 
@@ -360,66 +353,6 @@
 <p>Transformer encoder： 注意力机制本质是在跑message passing去对提取的特征进行一种滤波，这里面在很大程度上就是<strong>实现了其他分析中的去提取不同位置不同物体之间的相互关系这个功能，通过发掘这个约束提高了对物体识别的可靠性。</strong></p>
 <p><img src="E:\myBlog\source_posts\image-20201013142352470.png" alt="image-20201013142352470"></p>
 <hr>
-<p>【例如】:以 MNIST 的 few-shot 为例，我们只要一个类各一张图片，也就是 10*1 = 10 张图片来训练我们的模型，就可以分类剩余的所有图片，如果可以到这一步，深度学习和人类智能的差距会缩小很大一部分。也即研究人员希望机器学习模型在学习了一定类别的大量数据后，对于新的类别，只需要少量的样本就能快速学习，这就是 Few-shot Learning 要解决的问题。这个问题的难点在于训练样本的数量对于深度学习来说太少了，很容易过拟合。</p>
-<p>Few-Shot Learning【解决方案】：</p>
-<ol type="1">
-<li><strong>数据增强和正则化</strong>（解决过拟合的问题）</li>
-</ol>
-<p>在训练的时候加入一个正则项，但是这个正则项的<strong>构建选择</strong>是关键。</p>
-<ol start="2" type="1">
-<li><strong>Meta-learning（元学习）</strong>：这是<strong>现在主流的方案</strong>，元学习的<strong>目标是利用已经学到的知识来解决新的问题</strong>。这也是基于人类学习的机制，我们学习都是基于已有知识的，而不像深度学习一样都是从 0 开始学习的。（比如如果你会玩英雄联盟，那你学习玩王者荣耀会快很多。）</li>
-</ol>
-<p>Meta-learning 其实还有一个名字叫做“学会学习” (Learning to learn)。在 meta training 阶段将数据集分解为不同的 meta task，<strong>去学习类别变化的情况下模型的泛化能力，</strong>在 meta testing 阶段，面对全新的类别，<strong>不需要变动已有的模型，就可以完成分类</strong>。</p>
-<p><strong>如果我们已有的先验知识来帮助我们解决新的问题，那么我们对于新的问题就可以不需要那么多的样本，从而解决 few-shot 问题</strong>。</p>
-<p>但是<strong>元学习需要用一些别的数据来学习这个先验知识</strong>，例如分类 MiniImagenet，其中有 100 个类，我们用其中 60 个类来学习先验知识，20个做 validation，剩余 20 个做测试。<strong>注意我们测试的 20 个类和前面 80 各类是完全不同的，也就是新的类、新的概念、新的问题，并且这 20 个类每个类只有很少的几张图片 (few-shot 问题)！</strong>然后前面的 80 个类用来用来训练模型和确定超参数，也就是学习帮助我们解决新问题的先验知识。</p>
-<p><strong>Meta-learning 方法的分类标准</strong>有很多，个人可大致分为以下三类：</p>
-<p>1、学习微调 (Learning to Fine-Tune）</p>
-<p>2、基于 RNN 的记忆 (RNN Memory Based）</p>
-<p>3、度量学习 (Metric Learning)</p>
-<p>Metric Based 方法通过度量 batch 集中的样本和 support 集中样本的距离，借助最近邻的思想完成分类。比如<strong><em>Relation Network，</em></strong>该网络不满足单一且固定的距离度量方式，而是训练一个网络来学习（例如 CNN）距离的度量方式，在 loss 方面也有所改变。</p>
-<p>【元学习存在的问题】：元学习的解决方案：可以在另一个数据集上面训练学习先验知识（前面的 MiniImagenet 中的 100 个类都是一个数据集），例如从 Omniglot 中学习先验知识，用于 MNIST 的少样本分类（因为有种说法 Omniglot 可以看做 MNIST 的一种扩展）。当然<strong>这种方法的效果和两个数据集的相似度有关，两个数据集相似度很好，那么学到的先验知识可以很好地解决新数据集的 few-shot 问题，如果差异很大，可能效果会很一般。</strong></p>
-<p>因此 meta-learning 和 few-shot learning 现在的研究基本都是在一起的。</p>
-<p>少样本学习面临两个重要的问题：（1）已知类别和未知类别之间没有交集，导致它们的数据分布差别很大，不能直接通过训练分类器和微调(finetune)的方式得到很好的性能；（2）未知类别只有极少量数据(每个类别1或者5个训练样本)，导致分类器学习不可靠。</p>
-<p>对于第一个问题，Matching Networks提出了episodic training的策略。一个episode就是一个少样本学习的子任务，包含训练集和测试集。这里的episode类似于深度学习中的mini-batch的概念。</p>
-<p>对于第二个问题，目前解决方法较少。论文【ICLR2019：<strong>Learning to Propagate Labels: Transductive Propagation Network for Few-shot Learning：</strong><a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/1805.10002.pdf">https://arxiv.org/pdf/1805.10002.pdf</a>】提出利用转导(Transductive)的思想，拿到所有无标注数据，建立权重图，得到全部预测结果。</p>
-<p><img src="E:\myBlog\source_posts\v2-34c21e6e6a6b07fa5d327b05d33fbc47_720w.jpg" alt="img"></p>
-<p><img src="E:\myBlog\source\_posts\640.png" alt="img"></p>
-<p><a href="https://www.cnblogs.com/jiangxinyang/p/12163215.html" target="_blank" rel="noopener" class="uri">https://www.cnblogs.com/jiangxinyang/p/12163215.html</a></p>
-<p>Meta Learning的目的是希望学习很多很多的task，然后有了这些学习经验之后，在面对新的task的时候可以游刃有余，学的快又学的好！</p>
-<p>为什么叫Meta呢？<strong>Deep Learning是在Task里面研究，现在Meta Learning是在Task外面，更高层级来研究。</strong>也就是在Meta Learning的问题上，<strong>Task是作为样本来输入的</strong>。这里我们将用Few-Shot Learning的问题加以解释。</p>
-<p><img src="E:\myBlog\source_posts\v2-442e5ea79572c497eab18a3c668c36a8_1440w.jpg" alt="img"></p>
-<p><strong>2. 为什么研究Meta Learning？</strong></p>
-<p><strong>如果我们构建的深度学习系统能够学到先验知识，并且能够利用这些知识，我们就可以在新的问题上学的更快更好</strong>！那么，这个就是Meta Learning要做的事情了</p>
-<p>我们<strong>不是要学一个具体的模型，我们要学的是一个先验知识</strong>。</p>
-<p><strong>3. Few-Shot Learning，一个引子</strong></p>
-<p>一个典型的Meta learning问题，也就是Few-Shot Learning少样本学习！</p>
-<p><img src="E:\myBlog\source_posts\v2-e963c74a98e90a9d20f962328d328c85_1440w.jpg" alt="img"></p>
-<p>这里我引用了Google Brain的Hugo Larochelle的一张ppt来加以说明。</p>
-<p>我们知道一般的图像识别比如imagenet，就是给你1000个类的训练集进行训练，每一个类有600张图片，然后训练好神经网络后，我们要用1000个类里面新的图片对这个神经网络进行测试，看能够识别多好。</p>
-<p>那么Few-Shot Learning的要求就是少样本，我们<strong>希望给你5个类的训练集进行训练，每一个类只有1张或者几张图片，总之非常少，然后训练好神经网络之后，我们要用这5个类里面的新的图片进行测试，看识别效果。</strong></p>
-<p>那么我们直接看这个问题，肯定觉得不可能啊，只用几张图片怎么训练？不得分分钟过拟合吗？</p>
-<p>我们有Meta Learning的设定，<strong>训练样本和测试样本都只是一个task，我们可以用很多别的task进行训练，学习一个Prior，然后我们希望在新的task上能够学出效果来。</strong></p>
-<blockquote>
-<p>所以就如上图所示，<strong>在Meta Learning上，我们不再直接叫train和test了，而是叫Meta-train和Meta-test</strong>。在上图中，每一行都是一个task，包含了task的train set和test set，图中展示就是所谓的<strong>5way 1shot</strong> 设定，也就是一个task包含5个类，每一个类一个训练样本，然后给你2个测试样本测试。</p>
-<p>我们可以把<strong>每一个task当做一个meta learning的训练样本</strong>。我们要通过多种task的训练，从而在Meta-test的时候也就是在新的task上取得好效果。</p>
-</blockquote>
-<p>相信通过上面的解释，大家对于Meta Learning这个问题设定是理解的了。下面我们就来看看怎么来学这些task。</p>
-<p><strong>4.Meta Learning的三种解决办法</strong></p>
-<p>我们还是根据Few-Shot Learning的问题设定来说明怎么学。</p>
-<p><img src="E:\myBlog\source_posts\v2-fdfe974154f8cdb93e0fff7bb34c4018_1440w.jpg" alt="img"></p>
-<p>我们看到，现在输入到神经网络的数据变了，实际上就是多了一个D_train 训练集，也就是这个task拥有的东西。这个训练集比如上面说的5way 1shot，也就是5张图片和5个对应的标签。我们希望我们的神经网络能够仅根据这几张图片得到一个针对这几张图片的神经网络，从而能够对新的样本进行识别。所以，这里就产生一个问题：</p>
-<p>怎么使用D_train来影响我们的神经网络呢？</p>
-<p><strong>1）HyperNetwork 生成参数</strong></p>
-<p><img src="E:\myBlog\source_posts\v2-2d61ff11eb1a5a9e52d6c12eb333eb4b_1440w.jpg" alt="img"></p>
-<p>HyperNetwork是一个蛮有名的网络，简单说就是<strong>用一个网络来生成另外一个网络的参数</strong>。</p>
-<p>那么我们这里非常直接，我们的设想就是<strong>希望用一个hypernetwork输入训练集数据，然后给我输出我的对应模型也就是上图f的参数，我们希望输出的这个参数能够使得在测试图片上取得好的识别效果</strong>。那么，有了这样设计，这个hypernetwork其实就是一个meta network。大家可以看到，<strong>本来基本的做法是用训练集直接训练这个模型f，但是现在我们用这个hypernetwork不训练了，直接给你输出参数，这等价于hypernetwork学会了如何学习图像识别，这也是为什么meta learning也同时叫做learning to learn的原因。</strong></p>
-<p>我们通过hypernetwork学会学习。训练好了这个模型，连反向传播梯度下降都不要了，直接给你参数，是不是很酷？</p>
-<p>那怎么训练这个神经网络呢？</p>
-<p>这里有个所谓的<strong>episodic training</strong>！一个<strong>episode就是包含了一个task，有训练集有测试集</strong>。我们<strong>使用训练集输入到hypernetwork，得到f的参数，然后使用测试集输入到f 得到预测的标签，最后用测试集的样本标签得到模型的loss，之后就用梯度下降进行训练。</strong>所以我们可以看到，整个模型是端到端的。通过大量的episodic training，也就是大量的task进行训练，我们就可以训练出一个模型出来。</p>
-<p>需要稍微说明一下这个task哪里来呢？我们采样出来的。比如我们给你100个类的训练样本，每一个类可能有600个图片，也就是imagenet的规模。但是我们这里不是直接batch这些样本进行训练，而是<strong>随机采样出一个task，比如选5个类，每一个类1个图片，然后再每一个类选5个图片作为task的测试集</strong>。这样采样是为了模拟meta-test阶段的task构造。</p>
-<p><img src="E:\myBlog\source_posts\v2-33415d3f350aa30e5a5b7dd1a9379730_1440w.jpg" alt="img"></p>
-<p>那么因为meta-train和train和乱，常常会混掉，所以大家约定俗成的把task里面的训练集称为support set，把task里面的测试集称为query set。而Meta training set和Meta test set分别直接称为training set和test set。</p>
-<p>使用Hypernetwork在我看来是最直接表现meta learning的一种做法。但是现在实际上我们好像没有看到直接用hypernetwork做few shot learning的paper，而都是间接的使用，或者简单使用一下。具体的优缺点我们还是等下再总结。先说第二个方法。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -641,12 +574,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">238k</span>
+    <span title="站点总字数">234k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:36</span>
+    <span title="站点阅读时长">3:33</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
