@@ -1635,16 +1635,17 @@
 <p><strong>小样本学习（Few-Shot Learning，以下简称 FSL ）</strong>用于解决当可用的数据量比较少时，如何提升神经网络的性能。</p>
 <h4 id="定义">定义</h4>
 <p>以下是FSL的一些符号术语</p>
-<p><img src="E:\myBlog\source_posts\image-20201015093502514.png" alt="image-20201015093502514"></p>
+<p><img src="https://i.loli.net/2020/10/15/Wy3Yzfv8OibZsgS.png" alt="image-20201015093502514"></p>
+<p><img src="https://i.loli.net/2020/10/15/3Dy7SHqXgEIPwUB.png" alt="image-20201015164223838"></p>
 <p>FSL是机器学习的一个子领域，所以先来介绍一下机器学习定义</p>
 <p>机器学习：</p>
-<p><img src="E:\myBlog\source_posts\image-20201015093951256.png" alt="image-20201015093951256"></p>
+<p><img src="https://i.loli.net/2020/10/15/kNUTzD2WLYIgpZf.png" alt="image-20201015093951256"></p>
 <p>给定一个任务T，任务的性能P，给定一些经验E，比如通过训练学习得到的标注数据，可以提升任务T的性能P</p>
 <p>以下是简单例子</p>
-<p><img src="E:\myBlog\source_posts\image-20201015094231448.png" alt="image-20201015094231448"></p>
+<p><img src="https://i.loli.net/2020/10/15/4pRq6PcLUYgbKC5.png" alt="image-20201015094231448"></p>
 <p>在传统机器学习中需要很多样本信息，但是在实际中是很困难的，所以FSL就是解决这类问题。在训练集Dtrain中提供的监督信息有限的情况下，包括（输入xi和对应的输出yi），来获得好的学习性能</p>
 <p>FSL 小样本学习</p>
-<p><img src="E:\myBlog\source_posts\image-20201015094815702.png" alt="image-20201015094815702"></p>
+<p><img src="https://i.loli.net/2020/10/15/KT7aSbA6hg3iXVq.png" alt="image-20201015094815702"></p>
 <p>和机器学习定义类似，只是E包含了有限的监督信息的样例（example）。也即，每个类class中包含了很少的有标签样例。</p>
 <p>我关注的小样本分类主要就是 学习一个分类器h，能够预测每一个输入数据xi的标签yi，通常使用的是N-way-K-shot分类方法，N个类，每个类有K个例子。其中 Dtrain包括I=KN个例子</p>
 <p><img src="E:\myBlog\source_posts\image-20201015095811521.png" alt="image-20201015095811521"></p>
@@ -1657,62 +1658,65 @@
 </blockquote>
 <p>主要问题</p>
 <p>在机器学习中寻找最适合的假设时通常都是通过找到一组最优的参数来确定这个假设，并通过给定的训练集，最小化损失函数这一目标来指示最优参数的搜索，<strong>最小化损失函数</strong>如下所示：</p>
-<p>　　　　<img src="E:\myBlog\source_posts\1335117-20200107180341483-79584449.png" alt="img"></p>
+<p>　　　　<img src="https://i.loli.net/2020/10/15/kHsi7YgaSIVQeGr.png" alt="img"></p>
 <p>　　在训练模型中，我们是通过训练集来拟合真实分布，我们训练出来的分布和真实分布往往不一样，这<strong>中间的差值称为期望风险（期望损失）</strong>，表达式如下：</p>
-<p>　　　　<img src="E:\myBlog\source_posts\1335117-20200107181052551-1263293547.png" alt="img"></p>
+<p>　　　　<img src="https://i.loli.net/2020/10/15/sXLuTmn7SzlaFUV.png" alt="img"></p>
 <p>　理论上说，<strong>让期望风险最下化才能逼近真实分布</strong>，但因为你并不知道真实分布，所有最小化期望风险是无法实现的</p>
 <p>在机器学习中通常用经验风险来替换期望风险，经验风险就是在训练集上预测的结果和真实结果的差异，也是我们常说的<strong>损失函数</strong>，表达式如下：</p>
-<p>　　　　<img src="E:\myBlog\source_posts\1335117-20200107181125492-1459588262.png" alt="img"></p>
+<p>　　　　<img src="https://i.loli.net/2020/10/15/UO37Pd9GIqjxBDL.png" alt="img"></p>
 <p>　　我们给出下面一个符号描述：</p>
-<p>　　　　<img src="E:\myBlog\source_posts\1335117-20200107181212432-1587975387.png" alt="img"></p>
+<p>　　　　<img src="https://i.loli.net/2020/10/15/OK6DQwaZ34Bbct2.png" alt="img"></p>
 <p>　h^是真实分布的假设</p>
 <p>h∗是假设空间H中最接近h^的假设</p>
 <p>而hI是通过最小化经验损失得到的假设。根据机器学习中的误差分解可得：</p>
-<p>　　　　<img src="E:\myBlog\source_posts\1335117-20200107181555284-1137027787.png" alt="img"></p>
+<p>　　　　<img src="https://i.loli.net/2020/10/15/h9Loiz4wqbFX2Qj.png" alt="img"></p>
 <p>　　等式右边第一项表示的是<strong>假设空间H中最优的假设和真实假设的误差</strong>，这一项其实由你所选择的模型和参数的初始化分布决定的，这也就是为什么有的时候，模型选择的简单了，你给再多的数据也训练不好，欠拟合。</p>
 <p>第二项就是我们<strong>训练得到的假设和H中最优假设的误差</strong>，我们训练得到的假设也是从假设空间H中选择的，但有时候会陷入局部最优，或者提供的训练数据分布有偏差，导致无法到全局最优。</p>
 <p>　　但理论上对于第二项，当样本数量II足够大时，有：</p>
-<p>　　　　<img src="E:\myBlog\source_posts\1335117-20200107182014950-124597622.png" alt="img"></p>
-<p><img src="E:\myBlog\source_posts\image-20201015102743694.png" alt="image-20201015102743694"></p>
-<p>　<strong>传统的机器学习都是建立在大规模的训练数据上的，因此εest(H,I)是很小的，但是在FSL任务上，训练数据很小，因此εest(H,I)是很大的，</strong>所以此时采用传统的训练模式，如softmax+交叉熵，是极容易陷入过拟合的。具体的图如下：</p>
-<p><img src="E:\myBlog\source_posts\image-20201015103318798.png" alt="image-20201015103318798"></p>
+<p>　　　　<img src="https://i.loli.net/2020/10/15/wnJhz4qAXgjUrQR.png" alt="img"></p>
+<p><img src="https://i.loli.net/2020/10/15/diHcTjyW1hPGMNQ.png" alt="image-20201015102743694"></p>
+<p>　<strong>传统的机器学习都是建立在大规模的训练数据上的，因此εest(H,I)是很小的，但是在FSL任务上，训练数据很小，因此εest(H,I)是很大的，</strong>此时采用传统的训练模式，如softmax+交叉熵，是极容易陷入过拟合的。</p>
+<p>所以需要更多的先验知识</p>
+<p>具体的图如下：</p>
+<p><img src="https://i.loli.net/2020/10/15/mp3Bjruof89JskS.png" alt="image-20201015103318798"></p>
 <p>解决方法-分类：</p>
-<p><img src="E:\myBlog\source_posts\image-20201015103338811.png" alt="image-20201015103338811"></p>
+<p><img src="https://i.loli.net/2020/10/15/XS5ZnfOL8mMHow2.png" alt="image-20201015103338811"></p>
 <p><strong>Data</strong></p>
 <p>　　Data就是通过先验知识来做<strong>数据增强</strong>， 数据量增大可以获得可靠的hI，自然能解决上述问题。</p>
 <p>通常进行手动操作对FSL进行数据预处理。例如在图像上，比如图片的旋转剪切放缩等，句子中的同义词替换等，以及复杂的生成模型生成和真实数据相近的数据。数据增强的方式有很多种，大量的合适的增强一定程度上可以缓解FSL问题，但需要耗费大量的精力，以及很强的域知识，只是针对特定的数据集，很难应用到其它数据集中，因此不能很好的解决FSL问题</p>
 <p>分类</p>
-<p><img src="E:\myBlog\source_posts\image-20201015110602917.png" alt="image-20201015110602917"></p>
-<p><img src="E:\myBlog\source_posts\image-20201015110557216.png" alt="image-20201015110557216"></p>
+<p><img src="https://i.loli.net/2020/10/15/umBnUeEhCTFfrbo.png" alt="image-20201015110602917"></p>
+<p><img src="https://i.loli.net/2020/10/15/VgKI5RENmQXtipo.png" alt="image-20201015110557216"></p>
 <p><strong>Model</strong></p>
 <p>　　通过先验知识来<strong>限制模型复杂度，降低假设空间H的大小</strong>，减小VC维，使得当前的数据集可以满足</p>
 <p>如果我们想使用机器学习模型来解决FSL问题，我们需要使用假设空间H很小的模型，这样样本复杂度也就小了，对于一些简单的任务，这样是可行的，但是对于复杂的任务，小的模型会导致εapp(H)很大，而现实中大多数任务都很复杂，它们的特征很多，且特征维度也很高。因此我们<strong>只能一开始给一个假设空间H很大的模型，然后通过一些先验知识将这个空间中无效的hypothesis去掉，缩小假设空间H</strong>，但实际上和<strong>模型剪枝</strong>中的理念类似，你一开始给一个小的模型，这个模型空间离真实假设太远了，而你给一个大的模型空间，它离真实假设近的概率比较大，然后通过先验知识去掉哪些离真实假设远的假设。</p>
-<p><img src="E:\myBlog\source_posts\image-20201015110729588.png" alt="image-20201015110729588"></p>
+<p><img src="https://i.loli.net/2020/10/15/1R2cuKxSPkaFwUb.png" alt="image-20201015110729588"></p>
 <p><strong>Algorithm</strong></p>
 <p>　　通过先验知识来提供一个好的搜索策略，可以是一个好的搜索起始点，也可以是一个明确的搜索策略，来寻找最优点。</p>
 <p>在机器学习中我们<strong>通常使用SGD以及它的变体，如ADAM，RMSProp等来更新参数，寻找最优的参数</strong>，对应到假设空间H中最优的假设h∗。这种方式在有大量的数据集的情况下可以用来慢慢迭代更新寻找最优参数，但是在FSL任务中，样本数量很少，这种方法就失效了。在这一节，我们不再限制假设空间。</p>
 <p>根据使用不同的先验知识，可以将ALGORITHM分为下面3类：</p>
-<p><img src="E:\myBlog\source_posts\image-20201015110816197.png" alt="image-20201015110816197"></p>
+<p><img src="https://i.loli.net/2020/10/15/lr86fNGOuwLtPZn.png" alt="image-20201015110816197"></p>
 <p>　　接下来的工作都是围绕这几个方向展开来求解FSL问题。</p>
-<p><img src="E:\myBlog\source_posts\image-20201015103435972.png" alt="image-20201015103435972"></p>
-<h3 id="其它">其它</h3>
-<p><strong>Few-shot Learning 是</strong> <strong>Meta Learning 在监督学习领域的应用。Meta Learning研究Task！</strong></p>
+<p><img src="https://i.loli.net/2020/10/15/a5x4EvrUSj3WAl1.png" alt="image-20201015103435972"></p>
+<h3 id="应用">应用</h3>
+<p><strong>Few-shot Learning Meta Learning 在监督学习领域的应用。</strong></p>
+<p><strong>Meta Learning研究Task！</strong></p>
 <p>Meta Learning，又称为 learning to learn，在 meta training 阶段将数据集分解为不同的 meta task，去学习类别变化的情况下模型的泛化能力，在 meta testing 阶段，面对全新的类别，不需要变动已有的模型，就可以完成分类。<strong>如果我们构建的深度学习系统能够学到先验知识，并且能够利用这些知识，我们就可以在新的问题上学的更快更好</strong>！那么，这个就是Meta Learning要做的事情了</p>
 <p><strong>不是要学一个具体的模型，我们要学的是一个先验知识</strong>。<strong>如果我们已有的先验知识来帮助我们解决新的问题，那么我们对于新的问题就可以不需要那么多的样本，从而解决 few-shot 问题</strong>。</p>
 <p>形式化来说，few-shot 的训练集中包含了很多的类别，每个类别中有多个样本。在训练阶段，会在训练集中<strong>随机抽取</strong> C 个类别，每个类别 K 个样本（总共 CK 个数据），构建一个 meta-task，作为模型的支撑集（support set）输入；再从这 C 个类中剩余的数据中抽取一批（batch）样本作为模型的预测对象（batch set）。即要求模型从 C*K 个数据中学会如何区分这 C 个类别，<strong>这样的任务被称为 C-way K-shot 问题。</strong></p>
-<p><strong>训练过程</strong>中，每次训练<strong>（episode）</strong>（Dtrain | Dtest）都会采样得到不同 meta-task，所以总体来看，训练包含了不同的类别组合，这种机制使得模型学会不同 meta-task 中的共性部分，比如如何提取重要特征及比较样本相似等，忘掉 meta-task 中 task 相关部分。通过这种学习机制学到的模型，在面对新的未见过的 meta-task 时，也能较好地进行分类。</p>
-<p>在 meta training 阶段将数据集分解为不同的 meta task，<strong>去学习类别变化的情况下模型的泛化能力，</strong>在 meta testing 阶段，面对全新的类别，<strong>不需要变动已有的模型，就可以完成分类</strong>。</p>
 <p>图 1 展示的是一个 2-way 5-shot 的示例，可以看到 meta training 阶段构建了一系列 meta-task 来让模型学习如何根据 support set 预测 batch set 中的样本的标签；meta testing 阶段的输入数据的形式与训练阶段一致（2-way 5-shot），但是会在全新的类别上构建 support set 和 batch。每一行都是一个task，包含了task的train set和test set。</p>
 <p>我们可以把<strong>每一个task当做一个meta learning的训练样本</strong>。我们要通过多种task的训练，从而在Meta-test的时候也就是在新的task上取得好效果。</p>
-<p><img src="E:\myBlog\source_posts\v2-425a4cceb747a125d92b07add5917b09_720w.jpg" alt="img">▲ 图1：Few-shot Learning示例</p>
+<p><img src="https://i.loli.net/2020/10/15/n9C1hakXsYGuQAf.jpg" alt="img">▲ 图1：Few-shot Learning示例</p>
 <h4 id="通常解决办法">通常解决办法</h4>
 <h4 id="hypernetwork-生成参数">HyperNetwork 生成参数</h4>
-<p><img src="E:\myBlog\source_posts\v2-2d61ff11eb1a5a9e52d6c12eb333eb4b_1440w.jpg" alt="img"></p>
+<p><img src="https://i.loli.net/2020/10/15/oEJPShp9M2k5Nzi.png" alt="image-20201015163737823"></p>
 <p>HyperNetwork 简单说就是<strong>用一个网络来生成另外一个网络的参数</strong>。</p>
 <p>那么我们这里非常直接，我们的设想就是<strong>希望用一个hypernetwork输入训练集数据，然后给我输出我的对应模型也就是上图f的参数，我们希望输出的这个参数能够使得在测试图片上取得好的识别效果</strong>。</p>
 <p>有了这样设计，这个hypernetwork其实就是一个meta network。大家可以看到，<strong>本来基本的做法是用训练集直接训练这个模型f，但是现在我们用这个hypernetwork不训练了，直接给你输出参数，这等价于hypernetwork学会了如何学习图像识别，这也是为什么meta learning也同时叫做learning to learn的原因。</strong></p>
-<p>那怎么训练这个神经网络呢？</p>
+<h4 id="训练">训练</h4>
+<p><strong>训练过程</strong>中，每次训练<strong>（episode）</strong>（Dtrain | Dtest）都会采样得到不同 meta-task，所以总体来看，训练包含了不同的类别组合，这种机制使得模型学会不同 meta-task 中的共性部分，比如如何提取重要特征及比较样本相似等，忘掉 meta-task 中 task 相关部分。通过这种学习机制学到的模型，在面对新的未见过的 meta-task 时，也能较好地进行分类。</p>
 <p>这里有个所谓的<strong>episodic training</strong>！一个<strong>episode就是包含了一个task，有训练集有测试集</strong>。我们<strong>使用训练集输入到hypernetwork，得到f的参数，然后使用测试集输入到f 得到预测的标签，最后用测试集的样本标签得到模型的loss，之后就用梯度下降进行训练。</strong>所以我们可以看到，整个模型是端到端的。通过大量的episodic training，也就是大量的task进行训练，我们就可以训练出一个模型出来。</p>
+<p>在 meta training 阶段将数据集分解为不同的 meta task，<strong>去学习类别变化的情况下模型的泛化能力，</strong>在 meta testing 阶段，面对全新的类别，<strong>不需要变动已有的模型，就可以完成分类</strong>。</p>
 <blockquote>
 <p><a href="https://zhuanlan.zhihu.com/p/61215293" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/61215293</a></p>
 </blockquote>
@@ -1720,7 +1724,7 @@
 <p>在训练过程中，已知testing data（unlabelled data）是transductive learing</p>
 <p>在训练过程中，并不知道testing data ，训练好模型后去解决未知的testing data 是inductive learing</p>
 <p>通俗地来说inductive learning是特殊到一般的学习，测试数据只是用来测试这个通用模型的好坏；transductive learning是特殊到特殊的学习，目的就是解决target domain的问题。</p>
-<p><img src="E:\myBlog\source_posts\v2-7f17bddd039854a3440554b66501d2c3_720w.jpg" alt="img"></p>
+<p><img src="https://i.loli.net/2020/10/15/2HOTN5fb3Lvz7pD.png" alt="img"></p>
 <p>现在有这个问题，已知ABC的类别，求问号的类别，</p>
 <p>inductive learning就是只根据现有的ABC，用比如kNN距离算法来预测，在来一个新的数据的时候，还是只根据5个ABC来预测。</p>
 <p>transductive learning直接以某种算法观察出数据的分布，这里呈现三个cluster，就根据cluster判定，不会建立一个预测的模型，如果一个新的数据加进来 就必须重新算一遍整个算法，新加的数据也会导致旧的已预测问号的结果改变</p>
@@ -1734,6 +1738,19 @@
 <blockquote>
 <p><a href="https://www.jiqizhixin.com/graph/technologies/64d4c374-6061-46cc-8d29-d0a582934876" target="_blank" rel="noopener" class="uri">https://www.jiqizhixin.com/graph/technologies/64d4c374-6061-46cc-8d29-d0a582934876</a></p>
 </blockquote>
+<h3 id="论文-edge-labeling-graph-neural-network-for-few-shot-learning">论文-Edge-Labeling Graph Neural Network for Few-shot Learning</h3>
+<p>CVPR 2019</p>
+<p>code url： <a href="https://github.com/khy0809/fewshot-egnn" target="_blank" rel="noopener" class="uri">https://github.com/khy0809/fewshot-egnn</a></p>
+<p>在本文中，提出了一种新颖的边标记图神经网络（edge-labeling graph neural network ）（EGNN），该网络将边标记图上的深层神经网络应用于小样本学习。</p>
+<p>以前在小样本学习中使用的图神经网络（GNN）方法是基于节点标记框架（ node-labeling framework）的，该框架对聚类内的相似度和聚类间不相似度进行隐式地建模（implicitly modeling）。 相反，提出的EGNN学会<strong>预测图上的边标签</strong>，而不是节点标签，从而通过直接利用聚类内的相似性和聚类间不相似性来<strong>迭代更新边标签</strong>，从而实现显式聚类的进化。 <strong>它也非常适合在各种类别上执行而无需重新训练，并且可以轻松扩展以执行直推推理（transductive inference）。</strong></p>
+<p>EGNN的参数是通过带有边标记损失（edge-labeling loss）的episodic training来学习的，从而获得了针对未见的低数据问题的可普遍推广的模型。</p>
+<p>在带有两个基准数据集的有监督和半监督的小样本图像分类任务上，提出的EGNN大大提高了现有GNN的性能。</p>
+<p>对GNN的改进，提高了GNN的性能</p>
+<p>预测图上的边标签，而不是节点标签，直接利用聚类内的相似性和聚类间不相似性来<strong>迭代更新边标签</strong>，从而实现显式聚类的进化。</p>
+<h4 id="伪代码">伪代码</h4>
+<p><img src="https://i.loli.net/2020/10/15/vIdrJxt1TLEwNRU.jpg" alt="在这里插入图片描述"></p>
+<p>我们可以看到，这个整体更新的方式像极了EM算法。 第一步是获取特征，<strong>这个embedding的网络在文章的图3。</strong> 第二步是初始化边 <img src="https://i.loli.net/2020/10/15/xACgHdYarn32fpD.jpg" alt="在这里插入图片描述"> 第三步是进入一个更新循环。 第四步是更新节点 <img src="https://i.loli.net/2020/10/15/eV9Zj1zlRCDBXTw.jpg" alt="在这里插入图片描述"> 第五步是更新边 <img src="https://i.loli.net/2020/10/15/kcoI5NE1KxQgACq.jpg" alt="在这里插入图片描述"> 然后不断进行第四五步的循环L次，结束后计算出我们要测试的数据所属于的类的概率。 <img src="https://i.loli.net/2020/10/15/aATWNi4kg7Fxzpy.jpg" alt="在这里插入图片描述"></p>
+<p>看论文的实验结果，我们确实发现结果要比之前的图网络好了一点</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
