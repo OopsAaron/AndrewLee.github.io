@@ -45,9 +45,9 @@
 <meta property="og:image" content="https://i.loli.net/2020/10/16/o3VuAQ5IYZtmMej.png">
 <meta property="og:image" content="https://i.loli.net/2020/10/16/8KpGO94DXLlIZCS.png">
 <meta property="og:image" content="https://i.loli.net/2020/10/16/XCLARSYyO3tewTg.png">
-<meta property="og:image" content="e:/myBlog/source_posts/image-20201016150253070.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/16/pRZHo6XKFYltTfg.png">
 <meta property="article:published_time" content="2020-10-12T14:17:41.000Z">
-<meta property="article:modified_time" content="2020-10-16T07:08:21.002Z">
+<meta property="article:modified_time" content="2020-10-17T14:17:35.713Z">
 <meta property="article:author" content="李思建">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/10/16/36UT8nHdBIKNQ4m.png">
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">56</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">57</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -269,7 +269,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 15:08:21" itemprop="dateModified" datetime="2020-10-16T15:08:21+08:00">2020-10-16</time>
+                <time title="修改时间：2020-10-17 22:17:35" itemprop="dateModified" datetime="2020-10-17T22:17:35+08:00">2020-10-17</time>
               </span>
 
           
@@ -305,7 +305,7 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>5k</span>
+              <span>5.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -324,41 +324,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="end-to-end-object-detection-with-transformers">End-to-End Object Detection with Transformers</h3>
+        <h3 id="前言">前言</h3>
+<h3 id="end-to-end-object-detection-with-transformers">End-to-End Object Detection with Transformers</h3>
 <p>CVPR 2020</p>
 <p>code url ： <a href="https://github.com/facebookresearch/detr" target="_blank" rel="noopener" class="uri">https://github.com/facebookresearch/detr</a></p>
 <p>简易 code：</p>
 <p><a href="https://colab.research.google.com/github/facebookresearch/detr/blob/colab/notebooks/detr_demo.ipynb" target="_blank" rel="noopener" class="uri">https://colab.research.google.com/github/facebookresearch/detr/blob/colab/notebooks/detr_demo.ipynb</a></p>
-<h5 id="abstract">Abstract</h5>
+<h4 id="abstract">Abstract</h4>
 <p>我们把目标检测看做是一种set prediction的问题，我们的方法也直接移除了一些人工设计的组件，例如NMS和anchor的生成。</p>
 <p>我们的框架DETR，由两个部分构成，一是set-based的全局loss，使用bipartite matching (二分匹配)生成唯一的预测，二是transformer的encoder-decoder 结构。</p>
 <p>只需提供固定大小学习到的目标查询集合，DETR推理出目标与全局图像上下文，直接并行地预测出结果。新的模型非常简单，不需要特定的库来支持。DETR在coco数据集上有着可以和faster-rcnn媲美的准确率与效率。而且它也能完成全景分割的任务。</p>
-<h5 id="问题">问题</h5>
+<h4 id="问题">问题</h4>
 <p>目标检测的目标是预测一个bbox的集合和各个bbox的标签。目前的检测器不是直接预测一个目标的集合，而是使用替代的回归和分类去处理大量的propoasls、anchors或者window centers。</p>
 <p>模型的效果会受到一系列问题的影响：后处理去消除大量重叠的预测、anchors的设计、怎么把target box与anchor关联起来。为了简化流程，我们提出一种直接set prediction的方式来消除这些替代的方法。</p>
-<h5 id="解决">解决</h5>
+<h4 id="解决">解决</h4>
 <p>将目标检测看做是一种set prediction（序列预测）的问题，我们的方法也直接移除了一些人工设计的组件，例如NMS和anchor的生成。</p>
 <p><img src="https://i.loli.net/2020/10/16/36UT8nHdBIKNQ4m.png" alt="DETR模型的大体结构"></p>
 <p>DETR模型的大体结构</p>
 <p>DETR可一次预测所有对象，并通过设置损失函数进行端到端训练，该函数执行预测对象与真实对象之间的<strong>二分匹配</strong>。</p>
 <p>与大多数现有的检测方法不同，DETR不需要任何自定义层，因此可以在任何包含标准CNN和转换器类的框架中轻松重现。</p>
-<h5 id="两大核心思想">两大核心思想</h5>
+<h4 id="两大核心思想">两大核心思想</h4>
 <p>1、transformer保证了attention，确保对一个实例的识别，是在整幅图的知识下进行的。</p>
 <p>2、二分最大匹配，确保了一一对应的关系。</p>
-<h5 id="局限性">局限性</h5>
+<h4 id="局限性">局限性</h4>
 <p>DETR在大型物体上表现出明显更好的性能，这可能是由于transformer的非局部计算所致。然而在小型物体上就表现出一般的性能</p>
-<h5 id="模型">模型</h5>
+<h4 id="模型">模型</h4>
 <p><img src="https://i.loli.net/2020/10/16/cS3QMqNTJGykKZd.png" alt="image-20201016094016507"></p>
 <p>DETR的整体结构Transformer类似：Backbone得到的特征铺平，加上Position信息之后送到一Encoder里，得到上下文信息。这100个candidates是被Decoder<strong>并行解码的</strong>（显存就很大，但实现的时候可写成不并行的），以得到最后的检测框。</p>
 <p><img src="https://i.loli.net/2020/10/16/ZiGXu5nE3OF8syv.png" alt="image-20201013142352470"></p>
-<p><strong>DETR Encoder</strong></p>
+<h5 id="detr-encoder"><strong>DETR Encoder</strong></h5>
 <p>网络一开始是使用Backbone（比如ResNet）提取一些feature，然后降维到d×HW。</p>
 <p><img src="https://i.loli.net/2020/10/16/3C4qzOXKLsJco5H.png" alt="image-20201016094956398"></p>
 <p>Feature降维之后与<strong>Spatial Positional Encoding相加</strong>，然后被送到Encoder里。</p>
 <p>为了体现图像在x和y维度上的信息，作者的代码里<strong>分别计算了两个维度的Positional Encoding，然后Cat到一起。</strong></p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pos_x = torch.stack((pos_x[:, :, :, <span class="number">0</span>::<span class="number">2</span>].sin(), pos_x[:, :, :, <span class="number">1</span>::<span class="number">2</span>].cos()), dim=<span class="number">4</span>).flatten(<span class="number">3</span>)</span><br><span class="line">pos_y = torch.stack((pos_y[:, :, :, <span class="number">0</span>::<span class="number">2</span>].sin(), pos_y[:, :, :, <span class="number">1</span>::<span class="number">2</span>].cos()), dim=<span class="number">4</span>).flatten(<span class="number">3</span>)</span><br><span class="line">pos = torch.cat((pos_y, pos_x), dim=<span class="number">3</span>).permute(<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p>FFN、LN等操作也与Transformer类似。<strong>Encoder最后得到的结果是对N个物体编码后的特征。</strong></p>
-<p><strong>DETR Decoder</strong></p>
+<h5 id="detr-decoder"><strong>DETR Decoder</strong></h5>
 <p>DETR Decoder的结构也与Transformer类似，<strong>区别在于Decoder并行解码N个object。</strong></p>
 <p>每个Decoder有两个输入：一路是Object Query（或者是上一个Decoder的输出），另一路是Encoder的结果。</p>
 <p>We add prediction FFNs and Hungarian loss after each decoder layer. All predictions FFNs share their parameters。</p>
@@ -366,13 +367,14 @@
 <p>object queries会输入到每一层中，我一开始不明白Object Query是怎样得到的。后来从代码看，<strong>Object Query是一组nn.Embedding的weight（就是一组学到的参数）。</strong></p>
 <p><strong>最后一个Decoder后面接了两个FFN，分别预测检测框及其类别。</strong></p>
 <p>仔细看论文和代码，才发现它的输出是定长的（N）：100个检测框和类别，这种操作可能跟COCO评测的时候取top 100的框有关。100比一个图像中普遍的目标数量都要多。</p>
-<h5 id="损失函数---bipartite-matching">损失函数 - Bipartite Matching</h5>
+<h4 id="损失函数---bipartite-matching">损失函数 - Bipartite Matching</h4>
 <p>一个难点就是如何去评价预测目标和真实目标（class 、边框大小位置）</p>
 <p><strong>由于输出物体的顺序不一定与ground truth的序列相同</strong>，作者使用二元匹配将GT框与预测框进行匹配。其匹配策略如下：</p>
 <p>（y和y^都是N大小，用no object填充）</p>
 <p><img src="https://i.loli.net/2020/10/16/7HnIS2eMsPoRqpO.jpg" alt="img"></p>
 <p>但是Lmatch中yi和y^的最佳分配需要用到<strong>匈牙利算法</strong>（Hungarian algorithm），参考的是前人的做法</p>
-<p><strong>匈牙利算法</strong>： 寻找二分图的最大匹配</p>
+<h5 id="匈牙利算法"><strong>匈牙利算法</strong></h5>
+<p>寻找二分图的最大匹配</p>
 <p>最后的损失函数：</p>
 <p><img src="https://i.loli.net/2020/10/16/wsH8nTdmuaekDl5.jpg" alt="img"></p>
 <p>所谓二分的最大匹配，即保证预测值与真值实现最大的匹配，保证预测的N的实例（包括∅）按照位置与真值对应起来。实现一一对应之后，便能够利用分类Loss以及boundingbox Loss进行优化。这种一一对应的关系，同时也另一个好处是，不会多个预测值对应到同一个真实值上，然后再通过NMS进行后处理。</p>
@@ -394,32 +396,46 @@
 <h3 id="an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale">AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE</h3>
 <p>ICLR 2021 under review</p>
 <p>code url (非官方) : <a href="https://github.com/lucidrains/vit-pytorch" target="_blank" rel="noopener" class="uri">https://github.com/lucidrains/vit-pytorch</a></p>
-<h5 id="abstract-1">Abstract</h5>
+<h4 id="abstract-1">Abstract</h4>
 <p>patch： 图像块</p>
 <p>尽管Transformer体系结构已成为自然语言处理任务的实际标准，但其在计算机视觉中的应用仍然受到限制。 在视觉领域，注意力要么与卷积网络一起应用，要么用于替换卷积网络的某些组件，同时将其整体结构保持在适当的位置。 我们表明，这种对CNN的依赖不是必需的，并且当直接应用于图像块序列时，纯transformer可以很好地执行图像分类任务。 当对大量数据进行预训练并转移到多个识别基准（ImageNet，CIFAR-100，VTAB等）时，与最先进的卷积网络相比，Vision Transformer可获得出色的结果，而在训练中所需更少的计算资源。</p>
-<h5 id="问题-1">问题</h5>
+<h4 id="问题-1">问题</h4>
 <p>在视觉领域中，transformer模型存在着对CNN的依赖，无法做到纯transformer模型。</p>
-<h5 id="解决-1">解决</h5>
+<h4 id="解决-1">解决</h4>
 <p>当直接应用于图像块（patch）序列时，纯transformer可以很好地执行图像分类任务。 对transformer进行尽可能少的修改，这样有利于以后模型的拓展。为此，我们将图像拆分为小块，并提供这些小块的线性嵌入序列作为transformer的输入。图像块与NLP中的token（单词）的处理方式相同，应用在图像分类中。</p>
-<h5 id="性能">性能</h5>
+<h4 id="性能">性能</h4>
 <p><img src="https://i.loli.net/2020/10/16/t9nKLb241IBUXxM.png" alt="image-20201016142258890"></p>
 <p>在一些 mid-sized datasets 数据集（中型数据集）上表现一般，可能是transformer缺少CNN的归纳偏置特性。</p>
 <p>然而在大型数据集中表现超过了CNN的归纳偏置。</p>
-<h5 id="模型-1">模型</h5>
+<h4 id="模型-1">模型</h4>
+<h5 id="整体架构">整体架构</h5>
 <p><img src="https://i.loli.net/2020/10/16/3UnGydo5C8aIOhm.png" alt="image-20201016143430430"></p>
 <p><img src="https://i.loli.net/2020/10/16/o3VuAQ5IYZtmMej.png" alt="image-20201016143922712"></p>
 <p>图像transformer遵循为NLP设计的体系结构。</p>
 <p>标准的Transformer接收一维token嵌入的序列作为输入。 为了处理2D图像，我们将图像x∈R H×W×C reshape为一系列flatten的2D的patch，xp∈R N×（P 2·C）。</p>
 <p>（H，W）是原始图像的分辨率，（P，P）是每个图像块的分辨率。 那么N = HW / P2是transformer的有效序列长度。</p>
 <p>transformer在所有图层上使用恒定的宽度(d_model)，因此可训练的线性投影将每个向量图形块映射到模型尺寸D，我们将其输出称为图像块嵌入（patch embedding）。</p>
-<p>总体流程</p>
+<h5 id="总体流程">总体流程</h5>
 <p><img src="https://i.loli.net/2020/10/16/8KpGO94DXLlIZCS.png" alt="image-20201016145353457"></p>
 <p>位置嵌入： 没有使用行和列的位置嵌入（DETR），和token的位置嵌入一样</p>
+<p>为什么位置向量是随机生成的，并进行优化的呢？ 原transformer是计算得到的？？？</p>
 <p><img src="https://i.loli.net/2020/10/16/XCLARSYyO3tewTg.png" alt="image-20201016150139040"></p>
-<p><img src="E:\myBlog\source_posts\image-20201016150253070.png" alt="image-20201016150253070"></p>
+<p><img src="https://i.loli.net/2020/10/16/pRZHo6XKFYltTfg.png" alt="image-20201016150253070"></p>
 <p>class embeding: 可学习的标签嵌入</p>
+<h5 id="预训练与微调">预训练与微调</h5>
 <p>在实验阶段，在大型数据集上进行预训练，然后在较小的数据集上进行微调，作为tesk。</p>
 <p>在微调时，去掉了pre-trained prediction head （Xclass），并将最后的num_classes改为数据集需要的类数目</p>
+<p>2020.10.16 讨论 ：</p>
+<ol type="1">
+<li><p>transformer和图神经网络/图卷积网络的联系 论文 + 代码</p></li>
+<li><p>传统方法处理小样本学习 论文 + 代码</p></li>
+<li><p>目标检测和小样本学习的联系 论文+ 代码</p></li>
+<li><p>根据读的上述论文，多跑小样本实验，了解基本思路框架逻辑</p></li>
+<li><p>根据已经读过的论文，改进的transformer应用到图像处理中（transformer可以处理目标检测，那么也可以解决小样本学习），验证</p></li>
+<li><p>将图像处理中flatten变换为1*1卷积 ，验证</p></li>
+<li><p>transformer做时间序列聚类 ，验证</p>
+<p>.</p></li>
+</ol>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -542,7 +558,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#end-to-end-object-detection-with-transformers"><span class="nav-number">1.</span> <span class="nav-text">End-to-End Object Detection with Transformers</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#abstract"><span class="nav-number">1.0.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题"><span class="nav-number">1.0.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决"><span class="nav-number">1.0.3.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#两大核心思想"><span class="nav-number">1.0.4.</span> <span class="nav-text">两大核心思想</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#局限性"><span class="nav-number">1.0.5.</span> <span class="nav-text">局限性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型"><span class="nav-number">1.0.6.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#损失函数---bipartite-matching"><span class="nav-number">1.0.7.</span> <span class="nav-text">损失函数 - Bipartite Matching</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二分图最大匹配问题与匈牙利算法的核心思想"><span class="nav-number">1.1.</span> <span class="nav-text">二分图最大匹配问题与匈牙利算法的核心思想</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale"><span class="nav-number">2.</span> <span class="nav-text">AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#abstract-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#解决-1"><span class="nav-number">2.0.3.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#性能"><span class="nav-number">2.0.4.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型-1"><span class="nav-number">2.0.5.</span> <span class="nav-text">模型</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#end-to-end-object-detection-with-transformers"><span class="nav-number">2.</span> <span class="nav-text">End-to-End Object Detection with Transformers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#abstract"><span class="nav-number">2.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-number">2.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决"><span class="nav-number">2.3.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#两大核心思想"><span class="nav-number">2.4.</span> <span class="nav-text">两大核心思想</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#局限性"><span class="nav-number">2.5.</span> <span class="nav-text">局限性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型"><span class="nav-number">2.6.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#detr-encoder"><span class="nav-number">2.6.1.</span> <span class="nav-text">DETR Encoder</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#detr-decoder"><span class="nav-number">2.6.2.</span> <span class="nav-text">DETR Decoder</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#损失函数---bipartite-matching"><span class="nav-number">2.7.</span> <span class="nav-text">损失函数 - Bipartite Matching</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#匈牙利算法"><span class="nav-number">2.7.1.</span> <span class="nav-text">匈牙利算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二分图最大匹配问题与匈牙利算法的核心思想"><span class="nav-number">2.8.</span> <span class="nav-text">二分图最大匹配问题与匈牙利算法的核心思想</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale"><span class="nav-number">3.</span> <span class="nav-text">AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#abstract-1"><span class="nav-number">3.1.</span> <span class="nav-text">Abstract</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题-1"><span class="nav-number">3.2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决-1"><span class="nav-number">3.3.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-number">3.4.</span> <span class="nav-text">性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型-1"><span class="nav-number">3.5.</span> <span class="nav-text">模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#整体架构"><span class="nav-number">3.5.1.</span> <span class="nav-text">整体架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总体流程"><span class="nav-number">3.5.2.</span> <span class="nav-text">总体流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#预训练与微调"><span class="nav-number">3.5.3.</span> <span class="nav-text">预训练与微调</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -558,7 +574,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -641,12 +657,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">239k</span>
+    <span title="站点总字数">240k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3:37</span>
+    <span title="站点阅读时长">3:39</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

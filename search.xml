@@ -1619,6 +1619,72 @@
       </script>]]></content>
   </entry>
   <entry>
+    <title>2020-10-17-论文分享</title>
+    <url>/2020/10/17/2020-10-17-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/</url>
+    <content><![CDATA[<h3 id="前言">前言</h3>
+<p>本次阅读的论文是《Greedy Layerwise Learning Can Scale to ImageNet》，本周日论文分享组会中汇报</p>
+<h3 id="论文">论文</h3>
+<blockquote>
+<p>《Greedy Layerwise Learning Can Scale to ImageNet》</p>
+<p>ICML 2019</p>
+<p>code url （pytorch） ：<a href="https://github.com/eugenium/layerCNN" target="_blank" rel="noopener" class="uri">https://github.com/eugenium/layerCNN</a></p>
+</blockquote>
+<p>两年前的code了 ，最近一次提交也是一年前，更新了readme说明部分。但是为什么在论文中没有说明呢？</p>
+<p>看了代码，发现好像没有什么特别之处，就是这样一个逻辑</p>
+<h4 id="背景">背景</h4>
+<p>浅层监督的1隐藏层（ 1-hidden layer ）神经网络具有许多有利的属性，这些属性使它们比深层次的同类神经网络更易于解释，分析和优化，但缺乏表示能力。</p>
+<p>深度神经网络（CNN）并不一定需要共同学习各个CNN层以获得高性能。</p>
+<h4 id="问题">问题</h4>
+<p>同时多层网络较为复杂，尚不清楚各层如何协同工作以实现高精度的预测。</p>
+<p>就计算和内存资源而言，端到端的反向传播效率可能较低。</p>
+<h4 id="解决">解决</h4>
+<p>本文主要工作就是使用1隐藏层学习问题来逐层顺序构建深度网络，从而可以从浅层网络继承有利属性。</p>
+<p>将上述这种greedy layerwise learning 拓展到了imagenet和CIFAR-10数据集等大型数据集上，应用场景是图像分类任务。</p>
+<p>greedy approach 将更少地依赖于获得完整的梯度。不需要存储大多数中间激活，也不需要计算大多数中间梯度。 这样不需要很多的计算资源。本文就是解决将分层训练策略（ layer-wise training strategies）应用到大规模数据集的问题</p>
+<h4 id="结果">结果</h4>
+<p>使用一组简单的架构和培训构想，我们发现解决顺序出现的1隐藏层辅助问题会导致CNN超过ImageNet上的AlexNet性能。</p>
+<h4 id="背景知识">背景知识</h4>
+<h5 id="深层网络的贪婪逐层预训练方法greedy-layer-wise-train">深层网络的贪婪逐层预训练方法（greedy layer-wise train）</h5>
+<p>每次只训练网络中的一层，即我们首先训练一个只含一个隐藏层的网络，仅当这层网络训练结束之后才开始训练一个有两个隐藏层的网络，以此类推。</p>
+<p>在每一步中，我们把已经训练好的前k-1层固定，然后增加第k层（也就是将我们已经训练好的前k-1的输出作为输入）。每一层的训练可以是有监督的（例如，将每一步的分类误差作为目标函数），但更通常使用无监督方法（例如自动编码器）。</p>
+<p>这些各层单独训练所得到的权重被用来初始化最终（或者说全部）的深度网络的权重，然后对整个网络进行“微调”（即把所有层放在一起来优化有标签训练集上的训练误差）。</p>
+<p>考虑一个神经网络，如下图所示。它的输入是6维向量，输出是3维向量，代表输入样本属于三个类别的概率。</p>
+<p><img src="E:\myBlog\source_posts\1015018-20190416213337446-1247300993.png" alt="img"></p>
+<p>最开始我们通过高斯分布随机初始化网络参数，然后逐层地优化网络参数。首先第一层。如下图，我们只保留输入层Input和第一个隐藏层Features I，其余层去掉。</p>
+<p>之后，加入一个输出层，该<strong>输出层的输出向量维度和输入层一样</strong>，从而构成一个自编码器。我们训练这个自编码器，便可以得到第一层的网络参数，即绿线部分。</p>
+<p><img src="E:\myBlog\source_posts\1015018-20190416213431625-727352414.png" alt="img"></p>
+<p>然后是第二层的网络参数。如下图，我们只保留原始神经网络中的第一个隐藏层和第二个隐藏层，其余层去掉。</p>
+<p>之后添加一个输出层，其输出向量维度和第一个隐藏层维度一样，从而构成一个自编码器，自编码器的输入是第一个隐藏层。</p>
+<p>优化这个自编码器，我们就可以得到第二层网络参数，即红线部分。</p>
+<p><img src="E:\myBlog\source_posts\1015018-20190416213521013-156629912.png" alt="img"></p>
+<p>优化这两个自编码器的过程就是逐层贪婪预训练。由于每个自编码器都只是优化了一层隐藏层，所以每个隐藏层的参数都只是局部最优的。</p>
+<p>优化完这两个自编码器之后，我们把优化后的网络参数作为神经网络的初始值，之后微调（fine tune）整个网络，直到网络收敛。</p>
+<h4 id="模型">模型</h4>
+<p><img src="https://i.loli.net/2020/10/18/3wXjSyEbUKnsP7A.png" alt="image-20201018104055941"></p>
+<p>损失函数如下：</p>
+<p><img src="https://i.loli.net/2020/10/18/8vO62gaeNxE9Bnl.png" alt="image-20201018104427451"></p>
+<p><img src="https://i.loli.net/2020/10/18/2PJMlYuLHEW4XQN.png" alt="image-20201018104104058"></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
     <title>2020-10-13-小样本学习</title>
     <url>/2020/10/13/2020-10-13-%E5%B0%8F%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h3 id="前言">前言</h3>
@@ -1626,10 +1692,10 @@
 <h3 id="综述">综述</h3>
 <p>Generalizing from a Few Examples : A Survey on Few-Shot Learning</p>
 <h4 id="简介">简介</h4>
-<p>问题的引出：</p>
-<p>（a）例如典型的 MNIST 分类问题，一共有 10 个类，训练集一共有 6000 个样本，平均下来每个类大约 600 个样本，但是我们想一下我们人类自己，我们区分 0 到 9 的数字图片的时候需要看 6000 张图片才知道怎么区分吗？很显然，不需要！这表明当前的深度学习技术和我们人类智能差距还是很大的，要想弥补这一差距，<strong>小样本学习是一个很关键的问题。</strong></p>
+<p>问题</p>
+<p>（a）例如典型的 MNIST 分类问题，一共有 10 个类，训练集一共有 6000 个样本，平均下来每个类大约 600 个样本，但是我们想一下我们人类不需要这么多样本，这表明当前的深度学习技术和我们人类智能差距还是很大的，要想弥补这一差距，<strong>小样本学习是一个很关键的问题。</strong></p>
 <ol start="2" type="a">
-<li>如果想要构建新的数据集（以分类数据集为例），我们需要标记大量的数据，但是有的时候标记数据集需要某些领域的专家（例如医学图像的标记），这费时又费力，因此<strong>如果我们可以解决少样本学习问题，只需要每个类标记几张图片就可以高准确率的给剩余大量图片自动标记。</strong></li>
+<li>如果想要构建新的数据集（以分类数据集为例），我们需要<strong>标记大量的数据</strong>，但是有的时候标记数据集需要某些领域的专家（例如医学图像的标记），这费时又费力，因此<strong>如果我们可以解决小样本学习问题，只需要每个类标记几张图片就可以高准确率的给剩余大量图片自动标记。</strong></li>
 </ol>
 <p><strong>以上两个原因使得小样本学习的研究成为热点。</strong></p>
 <p><strong>小样本学习（Few-Shot Learning，以下简称 FSL ）</strong>用于解决当可用的数据量比较少时，如何提升神经网络的性能。</p>
@@ -1647,13 +1713,13 @@
 <p>FSL 小样本学习</p>
 <p><img src="https://i.loli.net/2020/10/15/KT7aSbA6hg3iXVq.png" alt="image-20201015094815702"></p>
 <p>和机器学习定义类似，只是E包含了有限的监督信息的样例（example）。也即，每个类class中包含了很少的有标签样例。</p>
-<p>我关注的小样本分类主要就是 学习一个分类器h，能够预测每一个输入数据xi的标签yi，通常使用的是N-way-K-shot分类方法，N个类，每个类有K个例子。其中 Dtrain包括I=KN个例子</p>
+<p><strong>小样本分类</strong>主要就是学习一个分类器h，能够预测每一个输入数据xi的标签yi，通常使用的是N-way-K-shot分类方法，N个类，每个类有K个例子。其中 Dtrain包括I=KN个例子</p>
 <p><img src="E:\myBlog\source_posts\image-20201015095811521.png" alt="image-20201015095811521"></p>
-<p>只要关注的是image classification .可以看到相比于机器学习，FSL在经验E部分多了一个prior knowledge，也就是如果只是一些少的监督信息的样例不足以去解决tesk T中的问题，如图像分类。所以还是需要结合一些先验知识。</p>
+<p>只要关注的是image classification .可以看到相比于机器学习，FSL在经验E部分多了一个prior knowledge，也就是如果只是一些少的监督信息的样例不足以去解决tesk T中的问题，如图像分类。所以还是<strong>需要结合一些先验知识。</strong></p>
 <blockquote>
 <p>处理目标T（target T）时，在E中的监督信息如果只有一个例子的话，那么就是one-shot learning。</p>
 <p>处理目标T（target T）时，当E中没有任何监督信息例子的话，那么就是zero-shot learning。</p>
-<p>Zero-shot Learing <strong>就是训练样本里没有这个类别的样本，但是如果我们可以学到一个牛逼的映射，这个映射好到我们即使在训练的时候没看到这个类，但是我们在遇到的时候依然能通过这个映射得到这个新类的特征。</strong></p>
+<p>Zero-shot Learing <strong>就是训练样本里没有这个类别的样本，但是如果我们可以学到一个好的映射，这个映射好到我们即使在训练的时候没看到这个类，但是我们在遇到的时候依然能通过这个映射得到这个新类的特征。</strong></p>
 <p><strong>即：训练集</strong>中<strong>没有出现过</strong>的<strong>类别</strong>，能自动创造出相应的映射。</p>
 </blockquote>
 <p>主要问题</p>
@@ -1666,30 +1732,32 @@
 <p>　　　　<img src="https://i.loli.net/2020/10/15/UO37Pd9GIqjxBDL.png" alt="img"></p>
 <p>　　我们给出下面一个符号描述：</p>
 <p>　　　　<img src="https://i.loli.net/2020/10/15/OK6DQwaZ34Bbct2.png" alt="img"></p>
-<p>　h^是真实分布的假设</p>
+<p>h^是真实分布的假设</p>
 <p>h∗是假设空间H中最接近h^的假设</p>
 <p>而hI是通过最小化经验损失得到的假设。根据机器学习中的误差分解可得：</p>
 <p>　　　　<img src="https://i.loli.net/2020/10/15/h9Loiz4wqbFX2Qj.png" alt="img"></p>
-<p>　　等式右边第一项表示的是<strong>假设空间H中最优的假设和真实假设的误差</strong>，这一项其实由你所选择的模型和参数的初始化分布决定的，这也就是为什么有的时候，模型选择的简单了，你给再多的数据也训练不好，欠拟合。</p>
-<p>第二项就是我们<strong>训练得到的假设和H中最优假设的误差</strong>，我们训练得到的假设也是从假设空间H中选择的，但有时候会陷入局部最优，或者提供的训练数据分布有偏差，导致无法到全局最优。</p>
+<p>　　等式右边第一项表示的是<strong>假设空间H中最优的假设和真实假设的误差</strong>，这一项其实<strong>由所选择的模型和参数的初始化分布决定的</strong>，这也就是为什么有的时候，模型选择的简单了，给再多的数据也训练不好，欠拟合。</p>
+<p>第二项就是<strong>训练得到的假设和H中最优假设的误差</strong>，我们训练得到的假设也是从假设空间H中选择的，但有时候会陷入局部最优，或者提供的训练数据分布有偏差，导致无法到全局最优。</p>
 <p>　　但理论上对于第二项，当样本数量II足够大时，有：</p>
 <p>　　　　<img src="https://i.loli.net/2020/10/15/wnJhz4qAXgjUrQR.png" alt="img"></p>
 <p><img src="https://i.loli.net/2020/10/15/diHcTjyW1hPGMNQ.png" alt="image-20201015102743694"></p>
 <p>　<strong>传统的机器学习都是建立在大规模的训练数据上的，因此εest(H,I)是很小的，但是在FSL任务上，训练数据很小，因此εest(H,I)是很大的，</strong>此时采用传统的训练模式，如softmax+交叉熵，是极容易陷入过拟合的。</p>
-<p>所以需要更多的先验知识</p>
+<p><strong>所以需要更多的先验知识</strong></p>
 <p>具体的图如下：</p>
 <p><img src="https://i.loli.net/2020/10/15/mp3Bjruof89JskS.png" alt="image-20201015103318798"></p>
 <p>解决方法-分类：</p>
 <p><img src="https://i.loli.net/2020/10/15/XS5ZnfOL8mMHow2.png" alt="image-20201015103338811"></p>
+<p>假设空间的确定就是模型函数的可行性范围</p>
 <p><strong>Data</strong></p>
 <p>　　Data就是通过先验知识来做<strong>数据增强</strong>， 数据量增大可以获得可靠的hI，自然能解决上述问题。</p>
-<p>通常进行手动操作对FSL进行数据预处理。例如在图像上，比如图片的旋转剪切放缩等，句子中的同义词替换等，以及复杂的生成模型生成和真实数据相近的数据。数据增强的方式有很多种，大量的合适的增强一定程度上可以缓解FSL问题，但需要耗费大量的精力，以及很强的域知识，只是针对特定的数据集，很难应用到其它数据集中，因此不能很好的解决FSL问题</p>
+<p>通常进行手动操作对FSL进行数据预处理。例如在图像上，比如图片的旋转剪切放缩等，句子中的同义词替换等，以及复杂的生成模型生成和真实数据相近的数据。数据增强的方式有很多种，大量的合适的增强一定程度上可以缓解FSL问题，但需要耗费大量的精力，以及很强的域知识，只是针对特定的数据集，很难应用到其它数据集中，因此<strong>不能很好的解决FSL问题</strong></p>
 <p>分类</p>
 <p><img src="https://i.loli.net/2020/10/15/umBnUeEhCTFfrbo.png" alt="image-20201015110602917"></p>
 <p><img src="https://i.loli.net/2020/10/15/VgKI5RENmQXtipo.png" alt="image-20201015110557216"></p>
 <p><strong>Model</strong></p>
-<p>　　通过先验知识来<strong>限制模型复杂度，降低假设空间H的大小</strong>，减小VC维，使得当前的数据集可以满足</p>
-<p>如果我们想使用机器学习模型来解决FSL问题，我们需要使用假设空间H很小的模型，这样样本复杂度也就小了，对于一些简单的任务，这样是可行的，但是对于复杂的任务，小的模型会导致εapp(H)很大，而现实中大多数任务都很复杂，它们的特征很多，且特征维度也很高。因此我们<strong>只能一开始给一个假设空间H很大的模型，然后通过一些先验知识将这个空间中无效的hypothesis去掉，缩小假设空间H</strong>，但实际上和<strong>模型剪枝</strong>中的理念类似，你一开始给一个小的模型，这个模型空间离真实假设太远了，而你给一个大的模型空间，它离真实假设近的概率比较大，然后通过先验知识去掉哪些离真实假设远的假设。</p>
+<p>　　通过先验知识来<strong>限制模型复杂度，降低假设空间H的大小</strong>，使得当前的数据集可以满足</p>
+<p>如果我们想使用机器学习模型来解决FSL问题，我们需要使用假设空间H很小的模型，这样样本复杂度也就小了，对于一些简单的任务，这样是可行的，但是对于复杂的任务，小的模型会导致εapp(H)很大，而现实中大多数任务都很复杂，它们的特征很多，且特征维度也很高。</p>
+<p>因此我们<strong>只能一开始给一个假设空间H很大的模型，然后通过一些先验知识将这个空间中无效的hypothesis去掉，缩小假设空间H</strong>，但实际上和<strong>模型剪枝</strong>中的理念类似，你一开始给一个小的模型，这个模型空间离真实假设太远了，而你给一个大的模型空间，它离真实假设近的概率比较大，然后通过先验知识去掉哪些离真实假设远的假设。</p>
 <p><img src="https://i.loli.net/2020/10/15/1R2cuKxSPkaFwUb.png" alt="image-20201015110729588"></p>
 <p><strong>Algorithm</strong></p>
 <p>　　通过先验知识来提供一个好的搜索策略，可以是一个好的搜索起始点，也可以是一个明确的搜索策略，来寻找最优点。</p>
@@ -1813,41 +1881,42 @@
   <entry>
     <title>2020-10-12-transformer图像处理论文</title>
     <url>/2020/10/12/2020-10-12-transformer%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E8%AE%BA%E6%96%87/</url>
-    <content><![CDATA[<h3 id="end-to-end-object-detection-with-transformers">End-to-End Object Detection with Transformers</h3>
+    <content><![CDATA[<h3 id="前言">前言</h3>
+<h3 id="end-to-end-object-detection-with-transformers">End-to-End Object Detection with Transformers</h3>
 <p>CVPR 2020</p>
 <p>code url ： <a href="https://github.com/facebookresearch/detr" target="_blank" rel="noopener" class="uri">https://github.com/facebookresearch/detr</a></p>
 <p>简易 code：</p>
 <p><a href="https://colab.research.google.com/github/facebookresearch/detr/blob/colab/notebooks/detr_demo.ipynb" target="_blank" rel="noopener" class="uri">https://colab.research.google.com/github/facebookresearch/detr/blob/colab/notebooks/detr_demo.ipynb</a></p>
-<h5 id="abstract">Abstract</h5>
+<h4 id="abstract">Abstract</h4>
 <p>我们把目标检测看做是一种set prediction的问题，我们的方法也直接移除了一些人工设计的组件，例如NMS和anchor的生成。</p>
 <p>我们的框架DETR，由两个部分构成，一是set-based的全局loss，使用bipartite matching (二分匹配)生成唯一的预测，二是transformer的encoder-decoder 结构。</p>
 <p>只需提供固定大小学习到的目标查询集合，DETR推理出目标与全局图像上下文，直接并行地预测出结果。新的模型非常简单，不需要特定的库来支持。DETR在coco数据集上有着可以和faster-rcnn媲美的准确率与效率。而且它也能完成全景分割的任务。</p>
-<h5 id="问题">问题</h5>
+<h4 id="问题">问题</h4>
 <p>目标检测的目标是预测一个bbox的集合和各个bbox的标签。目前的检测器不是直接预测一个目标的集合，而是使用替代的回归和分类去处理大量的propoasls、anchors或者window centers。</p>
 <p>模型的效果会受到一系列问题的影响：后处理去消除大量重叠的预测、anchors的设计、怎么把target box与anchor关联起来。为了简化流程，我们提出一种直接set prediction的方式来消除这些替代的方法。</p>
-<h5 id="解决">解决</h5>
+<h4 id="解决">解决</h4>
 <p>将目标检测看做是一种set prediction（序列预测）的问题，我们的方法也直接移除了一些人工设计的组件，例如NMS和anchor的生成。</p>
 <p><img src="https://i.loli.net/2020/10/16/36UT8nHdBIKNQ4m.png" alt="DETR模型的大体结构"></p>
 <p>DETR模型的大体结构</p>
 <p>DETR可一次预测所有对象，并通过设置损失函数进行端到端训练，该函数执行预测对象与真实对象之间的<strong>二分匹配</strong>。</p>
 <p>与大多数现有的检测方法不同，DETR不需要任何自定义层，因此可以在任何包含标准CNN和转换器类的框架中轻松重现。</p>
-<h5 id="两大核心思想">两大核心思想</h5>
+<h4 id="两大核心思想">两大核心思想</h4>
 <p>1、transformer保证了attention，确保对一个实例的识别，是在整幅图的知识下进行的。</p>
 <p>2、二分最大匹配，确保了一一对应的关系。</p>
-<h5 id="局限性">局限性</h5>
+<h4 id="局限性">局限性</h4>
 <p>DETR在大型物体上表现出明显更好的性能，这可能是由于transformer的非局部计算所致。然而在小型物体上就表现出一般的性能</p>
-<h5 id="模型">模型</h5>
+<h4 id="模型">模型</h4>
 <p><img src="https://i.loli.net/2020/10/16/cS3QMqNTJGykKZd.png" alt="image-20201016094016507"></p>
 <p>DETR的整体结构Transformer类似：Backbone得到的特征铺平，加上Position信息之后送到一Encoder里，得到上下文信息。这100个candidates是被Decoder<strong>并行解码的</strong>（显存就很大，但实现的时候可写成不并行的），以得到最后的检测框。</p>
 <p><img src="https://i.loli.net/2020/10/16/ZiGXu5nE3OF8syv.png" alt="image-20201013142352470"></p>
-<p><strong>DETR Encoder</strong></p>
+<h5 id="detr-encoder"><strong>DETR Encoder</strong></h5>
 <p>网络一开始是使用Backbone（比如ResNet）提取一些feature，然后降维到d×HW。</p>
 <p><img src="https://i.loli.net/2020/10/16/3C4qzOXKLsJco5H.png" alt="image-20201016094956398"></p>
 <p>Feature降维之后与<strong>Spatial Positional Encoding相加</strong>，然后被送到Encoder里。</p>
 <p>为了体现图像在x和y维度上的信息，作者的代码里<strong>分别计算了两个维度的Positional Encoding，然后Cat到一起。</strong></p>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">pos_x = torch.stack((pos_x[:, :, :, <span class="number">0</span>::<span class="number">2</span>].sin(), pos_x[:, :, :, <span class="number">1</span>::<span class="number">2</span>].cos()), dim=<span class="number">4</span>).flatten(<span class="number">3</span>)</span><br><span class="line">pos_y = torch.stack((pos_y[:, :, :, <span class="number">0</span>::<span class="number">2</span>].sin(), pos_y[:, :, :, <span class="number">1</span>::<span class="number">2</span>].cos()), dim=<span class="number">4</span>).flatten(<span class="number">3</span>)</span><br><span class="line">pos = torch.cat((pos_y, pos_x), dim=<span class="number">3</span>).permute(<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></tbody></table></figure>
 <p>FFN、LN等操作也与Transformer类似。<strong>Encoder最后得到的结果是对N个物体编码后的特征。</strong></p>
-<p><strong>DETR Decoder</strong></p>
+<h5 id="detr-decoder"><strong>DETR Decoder</strong></h5>
 <p>DETR Decoder的结构也与Transformer类似，<strong>区别在于Decoder并行解码N个object。</strong></p>
 <p>每个Decoder有两个输入：一路是Object Query（或者是上一个Decoder的输出），另一路是Encoder的结果。</p>
 <p>We add prediction FFNs and Hungarian loss after each decoder layer. All predictions FFNs share their parameters。</p>
@@ -1855,13 +1924,14 @@
 <p>object queries会输入到每一层中，我一开始不明白Object Query是怎样得到的。后来从代码看，<strong>Object Query是一组nn.Embedding的weight（就是一组学到的参数）。</strong></p>
 <p><strong>最后一个Decoder后面接了两个FFN，分别预测检测框及其类别。</strong></p>
 <p>仔细看论文和代码，才发现它的输出是定长的（N）：100个检测框和类别，这种操作可能跟COCO评测的时候取top 100的框有关。100比一个图像中普遍的目标数量都要多。</p>
-<h5 id="损失函数---bipartite-matching">损失函数 - Bipartite Matching</h5>
+<h4 id="损失函数---bipartite-matching">损失函数 - Bipartite Matching</h4>
 <p>一个难点就是如何去评价预测目标和真实目标（class 、边框大小位置）</p>
 <p><strong>由于输出物体的顺序不一定与ground truth的序列相同</strong>，作者使用二元匹配将GT框与预测框进行匹配。其匹配策略如下：</p>
 <p>（y和y^都是N大小，用no object填充）</p>
 <p><img src="https://i.loli.net/2020/10/16/7HnIS2eMsPoRqpO.jpg" alt="img"></p>
 <p>但是Lmatch中yi和y^的最佳分配需要用到<strong>匈牙利算法</strong>（Hungarian algorithm），参考的是前人的做法</p>
-<p><strong>匈牙利算法</strong>： 寻找二分图的最大匹配</p>
+<h5 id="匈牙利算法"><strong>匈牙利算法</strong></h5>
+<p>寻找二分图的最大匹配</p>
 <p>最后的损失函数：</p>
 <p><img src="https://i.loli.net/2020/10/16/wsH8nTdmuaekDl5.jpg" alt="img"></p>
 <p>所谓二分的最大匹配，即保证预测值与真值实现最大的匹配，保证预测的N的实例（包括∅）按照位置与真值对应起来。实现一一对应之后，便能够利用分类Loss以及boundingbox Loss进行优化。这种一一对应的关系，同时也另一个好处是，不会多个预测值对应到同一个真实值上，然后再通过NMS进行后处理。</p>
@@ -1883,32 +1953,46 @@
 <h3 id="an-image-is-worth-16x16-words-transformers-for-image-recognition-at-scale">AN IMAGE IS WORTH 16X16 WORDS: TRANSFORMERS FOR IMAGE RECOGNITION AT SCALE</h3>
 <p>ICLR 2021 under review</p>
 <p>code url (非官方) : <a href="https://github.com/lucidrains/vit-pytorch" target="_blank" rel="noopener" class="uri">https://github.com/lucidrains/vit-pytorch</a></p>
-<h5 id="abstract-1">Abstract</h5>
+<h4 id="abstract-1">Abstract</h4>
 <p>patch： 图像块</p>
 <p>尽管Transformer体系结构已成为自然语言处理任务的实际标准，但其在计算机视觉中的应用仍然受到限制。 在视觉领域，注意力要么与卷积网络一起应用，要么用于替换卷积网络的某些组件，同时将其整体结构保持在适当的位置。 我们表明，这种对CNN的依赖不是必需的，并且当直接应用于图像块序列时，纯transformer可以很好地执行图像分类任务。 当对大量数据进行预训练并转移到多个识别基准（ImageNet，CIFAR-100，VTAB等）时，与最先进的卷积网络相比，Vision Transformer可获得出色的结果，而在训练中所需更少的计算资源。</p>
-<h5 id="问题-1">问题</h5>
+<h4 id="问题-1">问题</h4>
 <p>在视觉领域中，transformer模型存在着对CNN的依赖，无法做到纯transformer模型。</p>
-<h5 id="解决-1">解决</h5>
+<h4 id="解决-1">解决</h4>
 <p>当直接应用于图像块（patch）序列时，纯transformer可以很好地执行图像分类任务。 对transformer进行尽可能少的修改，这样有利于以后模型的拓展。为此，我们将图像拆分为小块，并提供这些小块的线性嵌入序列作为transformer的输入。图像块与NLP中的token（单词）的处理方式相同，应用在图像分类中。</p>
-<h5 id="性能">性能</h5>
+<h4 id="性能">性能</h4>
 <p><img src="https://i.loli.net/2020/10/16/t9nKLb241IBUXxM.png" alt="image-20201016142258890"></p>
 <p>在一些 mid-sized datasets 数据集（中型数据集）上表现一般，可能是transformer缺少CNN的归纳偏置特性。</p>
 <p>然而在大型数据集中表现超过了CNN的归纳偏置。</p>
-<h5 id="模型-1">模型</h5>
+<h4 id="模型-1">模型</h4>
+<h5 id="整体架构">整体架构</h5>
 <p><img src="https://i.loli.net/2020/10/16/3UnGydo5C8aIOhm.png" alt="image-20201016143430430"></p>
 <p><img src="https://i.loli.net/2020/10/16/o3VuAQ5IYZtmMej.png" alt="image-20201016143922712"></p>
 <p>图像transformer遵循为NLP设计的体系结构。</p>
 <p>标准的Transformer接收一维token嵌入的序列作为输入。 为了处理2D图像，我们将图像x∈R H×W×C reshape为一系列flatten的2D的patch，xp∈R N×（P 2·C）。</p>
 <p>（H，W）是原始图像的分辨率，（P，P）是每个图像块的分辨率。 那么N = HW / P2是transformer的有效序列长度。</p>
 <p>transformer在所有图层上使用恒定的宽度(d_model)，因此可训练的线性投影将每个向量图形块映射到模型尺寸D，我们将其输出称为图像块嵌入（patch embedding）。</p>
-<p>总体流程</p>
+<h5 id="总体流程">总体流程</h5>
 <p><img src="https://i.loli.net/2020/10/16/8KpGO94DXLlIZCS.png" alt="image-20201016145353457"></p>
 <p>位置嵌入： 没有使用行和列的位置嵌入（DETR），和token的位置嵌入一样</p>
+<p>为什么位置向量是随机生成的，并进行优化的呢？ 原transformer是计算得到的？？？</p>
 <p><img src="https://i.loli.net/2020/10/16/XCLARSYyO3tewTg.png" alt="image-20201016150139040"></p>
-<p><img src="E:\myBlog\source_posts\image-20201016150253070.png" alt="image-20201016150253070"></p>
+<p><img src="https://i.loli.net/2020/10/16/pRZHo6XKFYltTfg.png" alt="image-20201016150253070"></p>
 <p>class embeding: 可学习的标签嵌入</p>
+<h5 id="预训练与微调">预训练与微调</h5>
 <p>在实验阶段，在大型数据集上进行预训练，然后在较小的数据集上进行微调，作为tesk。</p>
 <p>在微调时，去掉了pre-trained prediction head （Xclass），并将最后的num_classes改为数据集需要的类数目</p>
+<p>2020.10.16 讨论 ：</p>
+<ol type="1">
+<li><p>transformer和图神经网络/图卷积网络的联系 论文 + 代码</p></li>
+<li><p>传统方法处理小样本学习 论文 + 代码</p></li>
+<li><p>目标检测和小样本学习的联系 论文+ 代码</p></li>
+<li><p>根据读的上述论文，多跑小样本实验，了解基本思路框架逻辑</p></li>
+<li><p>根据已经读过的论文，改进的transformer应用到图像处理中（transformer可以处理目标检测，那么也可以解决小样本学习），验证</p></li>
+<li><p>将图像处理中flatten变换为1*1卷积 ，验证</p></li>
+<li><p>transformer做时间序列聚类 ，验证</p>
+<p>.</p></li>
+</ol>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -3178,8 +3262,8 @@
       </categories>
       <tags>
         <tag>论文</tag>
-        <tag>论文分享</tag>
         <tag>transformer</tag>
+        <tag>论文分享</tag>
       </tags>
   </entry>
   <entry>
@@ -5778,115 +5862,6 @@
       </script>]]></content>
   </entry>
   <entry>
-    <title>2020-07-20-git使用指南</title>
-    <url>/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
-    <content><![CDATA[<h3 id="利用git上传本地项目到github">利用git上传本地项目到github</h3>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">利用git上传本地项目到github</span><br><span class="line"></span><br><span class="line">1.绑定用户</span><br><span class="line"></span><br><span class="line">2.设置ssh key 并为github账号配置ssh key</span><br><span class="line"></span><br><span class="line">3.上传本地项目到github</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="绑定用户">1.绑定用户</h4>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">$ git config --global user.name "OopsAaron" # 注册github时的name</span><br><span class="line">$ git config --global user.email "1574468139@qq.com" # 注册github时的email</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="生成密钥ssh-key">2.生成密钥SSH key</h4>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"1574468139@qq.com"</span></span><br></pre></td></tr></tbody></table></figure>
-<p>此时，在根目录的.ssh文件中会生成公钥和密钥文件</p>
-<p>打开<a href="https://link.zhihu.com/?target=http%3A//github.com/">github</a>，在头像下面点击<code>settings</code>，再点击<code>SSH and GPG keys</code>，新建一个SSH，名字随便。</p>
-<p>git bash中输入</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub <span class="comment"># 复制.ssh里的公钥文件到github中</span></span><br></pre></td></tr></tbody></table></figure>
-<p>将输出的内容复制到框中，点击确定保存。即建立了ssh连接</p>
-<p><img src="https://i.loli.net/2020/07/20/45pTnsvKBbYPDCQ.png" alt="image-20200720163835551"></p>
-<p><img src="https://i.loli.net/2020/08/10/TBqj7pxGadESw1m.png" alt="image-20200810192758491"></p>
-<p>github上新建一个仓库后，在本地进行初始化本地仓库以及上传文件</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git init #初始化仓库</span><br><span class="line"></span><br><span class="line">#复制git clone中的ssh地址</span><br><span class="line"></span><br><span class="line">git remote add origin git@github.com:OopsAaron/myBlog.git #远程连接仓库 （后部分是ssh地址）</span><br><span class="line"></span><br><span class="line">		（若出现fatal: remote origin already exists. 则执行 git remote rm origin，</span><br><span class="line"> 		 再重新执行git remote add origin git@github.com:OopsAaron/myBlog.git）</span><br></pre></td></tr></tbody></table></figure>
-<p>在本地写md文件以及修改，然后进行提交到github， 并更新到网站上。</p>
-<h4 id="提交到github">3.提交到github</h4>
-<blockquote>
-<p>提交到 github 中的myBlog文件夹中</p>
-</blockquote>
-<p>将现有的项目添加并上传 (在所在目录下右键git bash)</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
-<p>刷新github，即可看到上传的文件</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="注">注</h4>
-<p>在<code>git commit -m "first commit"</code>中，若名称<code>first commit</code>不加引号，则不能有空格</p>
-<p>如下则会报错</p>
-<p><img src="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png" alt="image-20200901141302927"></p>
-<p>不知道原因，我用<code>git status</code> 排查了一下，发现已经添加到暂存区了，所以应该是<code>commit</code>的原因</p>
-<p><img src="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png" alt="image-20200901142150766"></p>
-<p>可以看到，<code>changes to be committed</code> ，说明都在暂存区，等待提交<code>commit</code></p>
-<p>将空格去掉，或者加上双引号即可成功</p>
-<p><img src="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png" alt="image-20200901141341959"></p>
-<p>之后就可以push到远程仓库中了</p>
-<h4 id="参考">参考</h4>
-<blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用git命令清单-阮一峰</a> <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html" target="_blank" rel="noopener">读懂diff-阮一峰</a> <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">git教程-廖雪峰</a> <a href="http://www.runoob.com/git/git-install-setup.html" target="_blank" rel="noopener">git教程-菜鸟教程</a> <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">gitbook</a> <a href="http://gitbook.liuhui998.com/index." target="_blank" rel="noopener">Git Community Book</a></p>
-<h6 id="从只会git-add-.的菜鸟到掌握git基本功能"><a href="https://juejin.im/post/6844903586023866375" target="_blank" rel="noopener">从只会git add .的菜鸟到掌握git基本功能</a></h6>
-</blockquote>
-<h3 id="hexo更新到网站">hexo更新到网站</h3>
-<p>提交到github中的<code>OopsAaron</code>文件中托管，并更新到网站</p>
-<p>在本地编写完md文件，所在目录下右键git bash</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new new_article  # 新建md文件</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">e.g.</span><br><span class="line">#打开Typora（已添加到环境变量）</span><br><span class="line">hexo new 2020-07-20-tensorflow笔记</span><br><span class="line">#Typora自动跳出新建笔记界面， 这时笔记会自带已预设好的title、description等(因为用的是hexo new 命令)</span><br><span class="line"></span><br><span class="line">注： 1.预设的标签不能空着，不用的话去掉</span><br><span class="line"> 	2. 在每一个title冒号后面要空格，再添加信息 ，不然会报错，示例如下</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="https://i.loli.net/2020/07/21/AeMFUSKwfWGkjpr.png" alt="image-20200721232830843"></p>
-<h4 id="一般命令">一般命令</h4>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean # </span><br><span class="line"></span><br><span class="line">hexo g  # ==hexo generate 生成静态网页至public目录 </span><br><span class="line"></span><br><span class="line">hexo s # ==hexo server 可以在本地预览效果 http://localhost:4000/   ctrl+C 退出预览</span><br><span class="line"></span><br><span class="line">hexo d # ==hexo deploy 部署到github上，并可以看到发布的文章</span><br><span class="line"></span><br><span class="line">hexo help # 查看帮助</span><br><span class="line"></span><br><span class="line">hexo version # 查看版本</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="组合命令">组合命令</h4>
-<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo s -g  # 生成静态网页并本地预览</span><br><span class="line"></span><br><span class="line">hexo d -g  # 生成并上传</span><br><span class="line"></span><br><span class="line">hexo clean &amp;&amp; hexo d -g &amp;&amp; hexo s  #一步到位</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="hexo高级操作">hexo高级操作</h3>
-<p>hexo的根目录结构如下所示</p>
-<p><img src="https://i.loli.net/2020/07/22/5EWcOhQ8MBCem4s.png" alt="image-20200722181143933"></p>
-<h4 id="config.yml">_config.yml</h4>
-<p>网站配置信息，也就是本文所称的<strong>站点配置文件</strong>，可以在此配置大部分的参数。</p>
-<h4 id="scaffolds">scaffolds</h4>
-<p>模版文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
-<p>Hexo的模板是指新建的markdown文件中默认填充的内容。例如，在使用<code>hexo new 文章名</code>时，默认生成的md文件会包含如下内容：</p>
-<p><img src="https://i.loli.net/2020/07/22/H6JKBeIwhcTkN5z.png" alt="image-20200722182540918"></p>
-<p>默认内容就在scaffold/post.md中保存</p>
-<p>假如对每篇博客我都需要添加分类<code>categories</code>，每次都手动添加太麻烦，我希望每次默认生成都有<code>categories:</code>，那么就可以在scaffold/post.md中添加categories</p>
-<p>保存后，每次新建一篇文章时都会包含post.md中的内容。</p>
-<p>当然，你也可以在scaffolds文件夹下创建自己的博客模板，我创建一个名为<code>blog</code>的模板：</p>
-<p><img src="https://i.loli.net/2020/07/22/oLMuDQOmg6xaBYU.png" alt="image-20200722182806115"></p>
-<p>通过如下命令调用我创建的blog模板新建文章，在<code>_posts</code>中生成md文件，并且是以blog.md为模板的</p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new blog 2020-07-22-测试blog</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="public">public</h4>
-<p>该文件夹中的内容将被最终push到github仓库中。</p>
-<h4 id="source">source</h4>
-<p>资源文件夹是存放用户资源的地方。除<code>_posts</code> 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件（如刚刚生成的about文件夹）会被拷贝到 public 文件夹。</p>
-<h4 id="为github仓库添加readme">为github仓库添加readme</h4>
-<p>既然 source 文件夹中的内容将全部被推送到 public 文件夹，public 文件夹中的内容又将被最终push到github仓库中，那么如果我们想要为github仓库添加readme.md，只要在 source 文件夹中创建就好了：</p>
-<p>部署到github，就有readme了，但我们发现，README.md已经被解析为README.html，显示的全是html代码，并不是我们想要的文档格式的内容</p>
-<p>为了解决这个问题，我们回到source文件夹，将<code>README.md</code>重命名为<code>README.MDOWN</code>，再部署到github即可</p>
-<p>source文件夹中，.md会被解析为html，并放到 public 文件夹被push到github，但.MDWN不会被解析。</p>
-<h4 id="themes">themes</h4>
-<p>主题文件夹，下载的主题都保存在此文件夹下。Hexo 会根据主题来生成静态页面。</p>
-<h4 id="参考-1">参考</h4>
-<blockquote>
-<p>Hexo+Github博客搭建： https://zhuanlan.zhihu.com/p/35668237 git上传文件： https://blog.csdn.net/sinat_20177327/article/details/76062030 git版本管理工具详细教程： https://www.cnblogs.com/cuixiaoying/p/11821797.html</p>
-</blockquote>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>git</category>
-      </categories>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Transformer原理</title>
     <url>/2020/07/20/2020-07-20-%20Transformer%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<p>本文转自国外一篇讲解transformer的优秀博客<a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">《The Illustrated Transformer》</a>，阅读完之后对于transformer的理解深入了很多，正文如下：</p>
@@ -6062,6 +6037,115 @@
       </categories>
       <tags>
         <tag>Transformer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>2020-07-20-git使用指南</title>
+    <url>/2020/07/20/2020-07-20-git%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h3 id="利用git上传本地项目到github">利用git上传本地项目到github</h3>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">利用git上传本地项目到github</span><br><span class="line"></span><br><span class="line">1.绑定用户</span><br><span class="line"></span><br><span class="line">2.设置ssh key 并为github账号配置ssh key</span><br><span class="line"></span><br><span class="line">3.上传本地项目到github</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="绑定用户">1.绑定用户</h4>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">$ git config --global user.name "OopsAaron" # 注册github时的name</span><br><span class="line">$ git config --global user.email "1574468139@qq.com" # 注册github时的email</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="生成密钥ssh-key">2.生成密钥SSH key</h4>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"1574468139@qq.com"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>此时，在根目录的.ssh文件中会生成公钥和密钥文件</p>
+<p>打开<a href="https://link.zhihu.com/?target=http%3A//github.com/">github</a>，在头像下面点击<code>settings</code>，再点击<code>SSH and GPG keys</code>，新建一个SSH，名字随便。</p>
+<p>git bash中输入</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub <span class="comment"># 复制.ssh里的公钥文件到github中</span></span><br></pre></td></tr></tbody></table></figure>
+<p>将输出的内容复制到框中，点击确定保存。即建立了ssh连接</p>
+<p><img src="https://i.loli.net/2020/07/20/45pTnsvKBbYPDCQ.png" alt="image-20200720163835551"></p>
+<p><img src="https://i.loli.net/2020/08/10/TBqj7pxGadESw1m.png" alt="image-20200810192758491"></p>
+<p>github上新建一个仓库后，在本地进行初始化本地仓库以及上传文件</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git init #初始化仓库</span><br><span class="line"></span><br><span class="line">#复制git clone中的ssh地址</span><br><span class="line"></span><br><span class="line">git remote add origin git@github.com:OopsAaron/myBlog.git #远程连接仓库 （后部分是ssh地址）</span><br><span class="line"></span><br><span class="line">		（若出现fatal: remote origin already exists. 则执行 git remote rm origin，</span><br><span class="line"> 		 再重新执行git remote add origin git@github.com:OopsAaron/myBlog.git）</span><br></pre></td></tr></tbody></table></figure>
+<p>在本地写md文件以及修改，然后进行提交到github， 并更新到网站上。</p>
+<h4 id="提交到github">3.提交到github</h4>
+<blockquote>
+<p>提交到 github 中的myBlog文件夹中</p>
+</blockquote>
+<p>将现有的项目添加并上传 (在所在目录下右键git bash)</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git add . #添加当前文件夹下的所有文件</span><br><span class="line"></span><br><span class="line">git commit -m "first commit " # 引号内是本次的提交说明 </span><br><span class="line"></span><br><span class="line">git push -u origin master # 提交本地分支到远程分支</span><br><span class="line">		(若出现failed to push som refs to， 则执行git pull origin master，</span><br><span class="line">		将远程服务器github上的master拉下来，再重新push)</span><br></pre></td></tr></tbody></table></figure>
+<p>刷新github，即可看到上传的文件</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">git clone   https://github.com/raymond-zhao/cat-mall.git   ../Github/cat-mall </span><br><span class="line">#将cat-mall代码克隆到  ../Github/cat-mall 中</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="注">注</h4>
+<p>在<code>git commit -m "first commit"</code>中，若名称<code>first commit</code>不加引号，则不能有空格</p>
+<p>如下则会报错</p>
+<p><img src="https://i.loli.net/2020/09/01/KJbWjRr6OsHzu4E.png" alt="image-20200901141302927"></p>
+<p>不知道原因，我用<code>git status</code> 排查了一下，发现已经添加到暂存区了，所以应该是<code>commit</code>的原因</p>
+<p><img src="https://i.loli.net/2020/09/01/smtWaV2eRCpbhJx.png" alt="image-20200901142150766"></p>
+<p>可以看到，<code>changes to be committed</code> ，说明都在暂存区，等待提交<code>commit</code></p>
+<p>将空格去掉，或者加上双引号即可成功</p>
+<p><img src="https://i.loli.net/2020/09/01/1rntRV8cQGlaHfg.png" alt="image-20200901141341959"></p>
+<p>之后就可以push到远程仓库中了</p>
+<h4 id="参考">参考</h4>
+<blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">常用git命令清单-阮一峰</a> <a href="http://www.ruanyifeng.com/blog/2012/08/how_to_read_diff.html" target="_blank" rel="noopener">读懂diff-阮一峰</a> <a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">git教程-廖雪峰</a> <a href="http://www.runoob.com/git/git-install-setup.html" target="_blank" rel="noopener">git教程-菜鸟教程</a> <a href="https://git-scm.com/book/zh/v2" target="_blank" rel="noopener">gitbook</a> <a href="http://gitbook.liuhui998.com/index." target="_blank" rel="noopener">Git Community Book</a></p>
+<h6 id="从只会git-add-.的菜鸟到掌握git基本功能"><a href="https://juejin.im/post/6844903586023866375" target="_blank" rel="noopener">从只会git add .的菜鸟到掌握git基本功能</a></h6>
+</blockquote>
+<h3 id="hexo更新到网站">hexo更新到网站</h3>
+<p>提交到github中的<code>OopsAaron</code>文件中托管，并更新到网站</p>
+<p>在本地编写完md文件，所在目录下右键git bash</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new new_article  # 新建md文件</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">e.g.</span><br><span class="line">#打开Typora（已添加到环境变量）</span><br><span class="line">hexo new 2020-07-20-tensorflow笔记</span><br><span class="line">#Typora自动跳出新建笔记界面， 这时笔记会自带已预设好的title、description等(因为用的是hexo new 命令)</span><br><span class="line"></span><br><span class="line">注： 1.预设的标签不能空着，不用的话去掉</span><br><span class="line"> 	2. 在每一个title冒号后面要空格，再添加信息 ，不然会报错，示例如下</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://i.loli.net/2020/07/21/AeMFUSKwfWGkjpr.png" alt="image-20200721232830843"></p>
+<h4 id="一般命令">一般命令</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo clean # </span><br><span class="line"></span><br><span class="line">hexo g  # ==hexo generate 生成静态网页至public目录 </span><br><span class="line"></span><br><span class="line">hexo s # ==hexo server 可以在本地预览效果 http://localhost:4000/   ctrl+C 退出预览</span><br><span class="line"></span><br><span class="line">hexo d # ==hexo deploy 部署到github上，并可以看到发布的文章</span><br><span class="line"></span><br><span class="line">hexo help # 查看帮助</span><br><span class="line"></span><br><span class="line">hexo version # 查看版本</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="组合命令">组合命令</h4>
+<figure class="highlight shell"><table><tbody><tr><td class="code"><pre><span class="line">hexo s -g  # 生成静态网页并本地预览</span><br><span class="line"></span><br><span class="line">hexo d -g  # 生成并上传</span><br><span class="line"></span><br><span class="line">hexo clean &amp;&amp; hexo d -g &amp;&amp; hexo s  #一步到位</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="hexo高级操作">hexo高级操作</h3>
+<p>hexo的根目录结构如下所示</p>
+<p><img src="https://i.loli.net/2020/07/22/5EWcOhQ8MBCem4s.png" alt="image-20200722181143933"></p>
+<h4 id="config.yml">_config.yml</h4>
+<p>网站配置信息，也就是本文所称的<strong>站点配置文件</strong>，可以在此配置大部分的参数。</p>
+<h4 id="scaffolds">scaffolds</h4>
+<p>模版文件夹。新建文章时，Hexo 会根据 scaffold 来建立文件。</p>
+<p>Hexo的模板是指新建的markdown文件中默认填充的内容。例如，在使用<code>hexo new 文章名</code>时，默认生成的md文件会包含如下内容：</p>
+<p><img src="https://i.loli.net/2020/07/22/H6JKBeIwhcTkN5z.png" alt="image-20200722182540918"></p>
+<p>默认内容就在scaffold/post.md中保存</p>
+<p>假如对每篇博客我都需要添加分类<code>categories</code>，每次都手动添加太麻烦，我希望每次默认生成都有<code>categories:</code>，那么就可以在scaffold/post.md中添加categories</p>
+<p>保存后，每次新建一篇文章时都会包含post.md中的内容。</p>
+<p>当然，你也可以在scaffolds文件夹下创建自己的博客模板，我创建一个名为<code>blog</code>的模板：</p>
+<p><img src="https://i.loli.net/2020/07/22/oLMuDQOmg6xaBYU.png" alt="image-20200722182806115"></p>
+<p>通过如下命令调用我创建的blog模板新建文章，在<code>_posts</code>中生成md文件，并且是以blog.md为模板的</p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">hexo new blog 2020-07-22-测试blog</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="public">public</h4>
+<p>该文件夹中的内容将被最终push到github仓库中。</p>
+<h4 id="source">source</h4>
+<p>资源文件夹是存放用户资源的地方。除<code>_posts</code> 文件夹之外，开头命名为 _ (下划线)的文件 / 文件夹和隐藏的文件将会被忽略。Markdown 和 HTML 文件会被解析并放到 public 文件夹，而其他文件（如刚刚生成的about文件夹）会被拷贝到 public 文件夹。</p>
+<h4 id="为github仓库添加readme">为github仓库添加readme</h4>
+<p>既然 source 文件夹中的内容将全部被推送到 public 文件夹，public 文件夹中的内容又将被最终push到github仓库中，那么如果我们想要为github仓库添加readme.md，只要在 source 文件夹中创建就好了：</p>
+<p>部署到github，就有readme了，但我们发现，README.md已经被解析为README.html，显示的全是html代码，并不是我们想要的文档格式的内容</p>
+<p>为了解决这个问题，我们回到source文件夹，将<code>README.md</code>重命名为<code>README.MDOWN</code>，再部署到github即可</p>
+<p>source文件夹中，.md会被解析为html，并放到 public 文件夹被push到github，但.MDWN不会被解析。</p>
+<h4 id="themes">themes</h4>
+<p>主题文件夹，下载的主题都保存在此文件夹下。Hexo 会根据主题来生成静态页面。</p>
+<h4 id="参考-1">参考</h4>
+<blockquote>
+<p>Hexo+Github博客搭建： https://zhuanlan.zhihu.com/p/35668237 git上传文件： https://blog.csdn.net/sinat_20177327/article/details/76062030 git版本管理工具详细教程： https://www.cnblogs.com/cuixiaoying/p/11821797.html</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
       </tags>
   </entry>
 </search>
