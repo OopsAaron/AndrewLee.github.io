@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/robot-4291692_1280.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/robot-4291692_1280.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-barber-shop.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="记录杂乱的知识点，持续更新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020-09-05-tensorflow和pytorch知识点杂">
+<meta property="og:url" content="http://yoursite.com/2020/09/05/2020-09-05-tensorflow%E5%92%8Cpytorch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/index.html">
+<meta property="og:site_name" content="思建的NLP之旅">
+<meta property="og:description" content="记录杂乱的知识点，持续更新">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/09/29/kRYmSZn8BbwJ4NK.png">
+<meta property="article:published_time" content="2020-09-05T11:56:22.000Z">
+<meta property="article:modified_time" content="2020-10-20T11:12:12.957Z">
+<meta property="article:author" content="李思建">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/09/29/kRYmSZn8BbwJ4NK.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/05/2020-09-05-tensorflow%E5%92%8Cpytorch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2020-09-05-tensorflow和pytorch知识点杂 | 思建的NLP之旅</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+
+<link rel="alternate" href="/atom.xml" title="思建的NLP之旅" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+
+
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">思建的NLP之旅</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">沉淀自己</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">58</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="fas fa-location-arrow fa-fw"></i>利器</a>
+
+  </li>
+        <li class="menu-item menu-item-onesentence">
+
+    <a href="/onesentence" rel="section"><i class="fas fa-bowling-ball fa-fw"></i>一句话</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fas fa-link fa-fw"></i>大佬</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/OopsAaron" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/05/2020-09-05-tensorflow%E5%92%8Cpytorch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="李思建">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="思建的NLP之旅">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020-09-05-tensorflow和pytorch知识点杂
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-05 19:56:22" itemprop="dateCreated datePublished" datetime="2020-09-05T19:56:22+08:00">2020-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-20 19:12:12" itemprop="dateModified" datetime="2020-10-20T19:12:12+08:00">2020-10-20</time>
+              </span>
+
+          
+            <span id="/2020/09/05/2020-09-05-tensorflow%E5%92%8Cpytorch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/" class="post-meta-item leancloud_visitors" data-flag-title="2020-09-05-tensorflow和pytorch知识点杂" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/09/05/2020-09-05-tensorflow%E5%92%8Cpytorch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/09/05/2020-09-05-tensorflow%E5%92%8Cpytorch%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>11 分钟</span>
+            </span>
+            <div class="post-description">记录杂乱的知识点，持续更新</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="others">🚀others</h2>
+<h3 id="python的einops-rearrange函数">python的einops rearrange()函数</h3>
+<p>例子：</p>
+<p>假设我有一个3-D数组：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[[[0,1,2],</span><br><span class="line">  [0,1,2],</span><br><span class="line">  [0,1,2]],</span><br><span class="line"></span><br><span class="line"> [[3,4,5],</span><br><span class="line">  [3,4,5],</span><br><span class="line">  [3,4,5]]]</span><br></pre></td></tr></tbody></table></figure>
+<p>我想按列重新排列：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[[0,1,2,3,4,5],</span><br><span class="line"> [0,1,2,3,4,5],</span><br><span class="line"> [0,1,2,3,4,5]]</span><br></pre></td></tr></tbody></table></figure>
+<p>使用einops：</p>
+<figure class="highlight py"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">einops.rearrange(a, <span class="string">'x y z -&gt; y (x z) '</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>并且我建议根据上下文（例如时间，高度等）为轴指定有意义的名称（而不是xyz）。 这将使您易于理解代码的作用</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In : einops.rearrange(a, 'x y z -&gt; y (x z) ')</span><br><span class="line">Out:</span><br><span class="line">array([[0, 1, 2, 3, 4, 5],</span><br><span class="line">       [0, 1, 2, 3, 4, 5],</span><br><span class="line">       [0, 1, 2, 3, 4, 5]])</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="epochiterationbatch_size">Epoch、Iteration、Batch_size</h3>
+<blockquote>
+<p><a href="https://blog.csdn.net/program_developer/article/details/78597738" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/program_developer/article/details/78597738</a></p>
+</blockquote>
+<h2 id="tensorflow">🚀tensorflow</h2>
+<h3 id="tf.tile用法">tf.tile()用法</h3>
+<blockquote>
+<p><a href="https://blog.csdn.net/tsyccnh/article/details/82459859" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/tsyccnh/article/details/82459859</a></p>
+</blockquote>
+<h3 id="dataset-api-和-iterator">Dataset API 和 Iterator</h3>
+<blockquote>
+<p>Dataset API 和 Iterator</p>
+<p><a href="https://blog.csdn.net/briblue/article/details/80962728" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/briblue/article/details/80962728</a></p>
+<p>TensorFlow中的Dataset API</p>
+<p><a href="https://blog.csdn.net/dqcfkyqdxym3f8rb0/article/details/79342369" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/dqcfkyqdxym3f8rb0/article/details/79342369</a></p>
+<p>TensorFlow data模块详解</p>
+<p><a href="https://www.weaf.top/posts/cd5ba0c4/" target="_blank" rel="noopener" class="uri">https://www.weaf.top/posts/cd5ba0c4/</a></p>
+<p>使用Tensorflow的DataSet和Iterator读取数据</p>
+<p><a href="https://www.jianshu.com/p/bcff8a99b15b" target="_blank" rel="noopener" class="uri">https://www.jianshu.com/p/bcff8a99b15b</a></p>
+<p>tensorflow数据读取机制（附代码）</p>
+<p><a href="https://zhuanlan.zhihu.com/p/27238630" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/27238630</a></p>
+<p>Dataset API入门教程</p>
+<p><a href="https://zhuanlan.zhihu.com/p/30751039" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/30751039</a></p>
+<p>Dataset.from_generator</p>
+<p><a href="https://blog.csdn.net/foreseerwang/article/details/80572182" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/foreseerwang/article/details/80572182</a></p>
+</blockquote>
+<p>看个简单的示例：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#创建一个Dataset对象</span><br><span class="line">dataset = tf.data.Dataset.from_tensor_slices([1,2,3,4,5,6,7,8,9])</span><br><span class="line"></span><br><span class="line">#创建一个迭代器</span><br><span class="line">iterator = dataset.make_one_shot_iterator()</span><br><span class="line"></span><br><span class="line">#get_next()函数可以帮助我们从迭代器中获取元素</span><br><span class="line">element = iterator.get_next()</span><br><span class="line"></span><br><span class="line">#遍历迭代器，获取所有元素</span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">   for i in range(9):</span><br><span class="line">       print(sess.run(element))</span><br></pre></td></tr></tbody></table></figure>
+<p>以上打印结果为：1 2 3 4 5 6 7 8 9</p>
+<p>from_generator</p>
+<p>创建Dataset由其生成元素的元素generator。</p>
+<p>函数形式：from_generator(generator,output_types,output_shapes=None,args=None)</p>
+<p>参数generator:一个可调用对象，它返回支持该iter()协议的对象 。如果args未指定，generator则不得参数; 否则它必须采取与有值一样多的参数args。 参数output_types：tf.DType对应于由元素生成的元素的每个组件的对象的嵌套结构generator。 参数output_shapes:tf.TensorShape 对应于由元素生成的元素的每个组件的对象 的嵌套结构generator 参数args:tf.Tensor将被计算并将generator作为NumPy数组参数传递的对象元组。</p>
+<p>具体例子</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#定义一个生成器</span><br><span class="line">def data_generator():</span><br><span class="line">    dataset = np.array(range(9))</span><br><span class="line">    for i in dataset:</span><br><span class="line">        yield i</span><br><span class="line"></span><br><span class="line">#接收生成器，并生产dataset数据结构</span><br><span class="line">dataset = tf.data.Dataset.from_generator(data_generator, (tf.int32))</span><br><span class="line"></span><br><span class="line">iterator = concat_dataset.make_one_shot_iterator()</span><br><span class="line"></span><br><span class="line">element = iterator.get_next()</span><br><span class="line"></span><br><span class="line">with tf.Session() as sess:</span><br><span class="line">   for i in range(3):</span><br><span class="line">       print(sess.run(element))</span><br></pre></td></tr></tbody></table></figure>
+<p>以上代码运行结果：0 1 2</p>
+<h3 id="tf-strip-和-split">tf strip() 和 split()</h3>
+<blockquote>
+<p><a href="https://blog.csdn.net/hjxu2016/article/details/78676859" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/hjxu2016/article/details/78676859</a></p>
+</blockquote>
+<h3 id="summary用法--tensorborad可视化">Summary用法 -tensorborad可视化</h3>
+<blockquote>
+<p><a href="https://www.cnblogs.com/lyc-seu/p/8647792.html" target="_blank" rel="noopener" class="uri">https://www.cnblogs.com/lyc-seu/p/8647792.html</a></p>
+</blockquote>
+<h3 id="math.ceil">math.ceil()</h3>
+<blockquote>
+<p><a href="https://www.runoob.com/python/func-number-ceil.html" target="_blank" rel="noopener" class="uri">https://www.runoob.com/python/func-number-ceil.html</a></p>
+</blockquote>
+<h3 id="format-格式化函数">.format() 格式化函数</h3>
+<blockquote>
+<p><a href="https://www.runoob.com/python/att-string-format.html" target="_blank" rel="noopener" class="uri">https://www.runoob.com/python/att-string-format.html</a></p>
+</blockquote>
+<h3 id="tf.shapea-和-a.get_shape.as_list-和-tf.split">tf.shape(A) 和 A.get_shape().as_list() 和 tf.split()</h3>
+<blockquote>
+<p><a href="https://www.itread01.com/content/1544436557.html" target="_blank" rel="noopener" class="uri">https://www.itread01.com/content/1544436557.html</a></p>
+<p><a href="https://blog.csdn.net/xc_zhou/article/details/85632109" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/xc_zhou/article/details/85632109</a></p>
+</blockquote>
+<ul>
+<li>tf.shape(A) # 獲取張量A（陣列，list, tensor張量）的大小，返回的是一個list</li>
+<li>x.get_shape()，只有<strong>tensor</strong>才可以使用這種方法，返回的是一個元組</li>
+<li>tf.split(dimension, num_split, input)：dimension的意思就是輸入張量的哪一個維度，如果是0就表示對第0維度進行切割。num_split就是切割的數量，如果是2就表示輸入張量被切成2份，每一份是一個列表。</li>
+</ul>
+<h3 id="tf.range">tf.range()</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w=tf.range(<span class="number">3</span>)</span><br><span class="line"><span class="keyword">print</span> (sess.run(w))<span class="comment">#输出[0 1 2]</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="os.path">os.path（）</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">方法</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">os.path.abspath(path)</td>
+<td style="text-align: left;">返回绝对路径</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">os.path.basename(path)</td>
+<td style="text-align: left;">返回文件名</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">os.path.join(path1[, path2[, ...]])</td>
+<td style="text-align: left;">把目录和文件名合成一个路径</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">os.path.dirname(path)</td>
+<td style="text-align: left;">返回文件路径</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">os.path.exists(path)</td>
+<td style="text-align: left;">如果路径 path 存在，返回 True；如果路径 path 不存在，返回 False。</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">os.path.split(path)</td>
+<td style="text-align: left;">把路径分割成 dirname 和 basename，返回一个元组</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><a href="https://www.runoob.com/python/python-os-path.html" target="_blank" rel="noopener" class="uri">https://www.runoob.com/python/python-os-path.html</a></p>
+</blockquote>
+<h3 id="embedding_lookup">embedding_lookup()</h3>
+<p>tf.nn.embedding_lookup()就是根据input_ids中的id，寻找embeddings中的第id行。比如input_ids=[1,3,5]，则找出embeddings中第1，3，5行，组成一个tensor返回。</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/7bb87873f89e" target="_blank" rel="noopener" class="uri">https://www.jianshu.com/p/7bb87873f89e</a></p>
+<p><a href="https://www.zhihu.com/question/52250059" target="_blank" rel="noopener" class="uri">https://www.zhihu.com/question/52250059</a></p>
+</blockquote>
+<h3 id="模型保存和加载">模型保存和加载</h3>
+<p>Saver的作用是将我们训练好的模型的参数保存下来，以便下一次继续用于训练或测试；Restore的用法是将训练好的参数提取出来。</p>
+<p>1.Saver类训练完后，是以<strong>checkpoints文件形式</strong>保存。提取的时候也是从checkpoints文件中恢复变量。 Checkpoints文件是一个二进制文件，它把变量名映射到对应的tensor值 。</p>
+<p>2.通过for循环，Saver类可以自动的生成checkpoint文件。这样我们就可以<strong>保存多个训练结果</strong>。例如，我们可以保存每一步训练的结果。但是为了避免填满整个磁盘，<strong>Saver可以自动的管理Checkpoints文件</strong>。例如，我们可以指定保存最近的N个Checkpoints文件。</p>
+<h3 id="tensorflow模型保存和读取tf.train.saver">Tensorflow模型保存和读取tf.train.Saver</h3>
+<p>目标：训练网络后想保存训练好的模型，以及在程序中读取以保存的训练好的模型。</p>
+<p>首先，保存和恢复都需要实例化一个 tf.train.Saver。</p>
+<blockquote>
+<p>saver = tf.train.Saver()</p>
+</blockquote>
+<p>然后，在训练循环中，定期调用 saver.save() 方法，向文件夹中写入包含了当前模型中所有可训练变量的 checkpoint 文件。</p>
+<blockquote>
+<p>saver.save(sess, save_path, global_step=step)</p>
+</blockquote>
+<p>之后，就可以使用 saver.restore() 方法，重载模型的参数，继续训练或用于测试数据。</p>
+<blockquote>
+<p>saver.restore(sess, save_path)</p>
+</blockquote>
+<p>模型的恢复用的是restore()函数，它需要两个参数restore(sess, save_path)，save_path指的是保存的模型路径。我们可以使用<code>tf.train.latest_checkpoint（）</code>来自动获取最后一次保存的模型。如：</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model_file=tf.train.latest_checkpoint(<span class="string">'ckpt/'</span>)</span><br><span class="line">saver.restore(sess,model_file)</span><br></pre></td></tr></tbody></table></figure>
+<p>一次 saver.save() 后可以在文件夹中看到新增的四个文件，</p>
+<p><img src="https://i.loli.net/2020/09/29/kRYmSZn8BbwJ4NK.png" alt="image-20200929102459806"></p>
+<p>实际上每调用一次保存操作会创建后3个数据文件并创建一个检查点（checkpoint）文件，简单理解就是权重等参数被保存到 .ckpt.data 文件中，以字典的形式；图和元数据被保存到 .ckpt.meta 文件中，可以被 tf.train.import_meta_graph 加载到当前默认的图。</p>
+<p>saver.restore()时填的文件名，因为在saver.save的时候，每个checkpoint会保存三个文件，如 <code>my-model-10000.meta</code>, <code>my-model-10000.index</code>, <code>my-model-10000.data-00000-of-00001</code></p>
+<p>在<code>import_meta_graph</code>时填的就是<code>meta</code>文件名，我们知道权值都保存在my-model-10000.data-00000-of-00001这个文件中，但是如果在restore方法中填这个文件名，就会报错，应该填的是前缀，这个前缀可以使用<code>tf.train.latest_checkpoint(checkpoint_dir)</code>这个方法获取。</p>
+<p>下面代码是简单的保存和读取模型：（不包括加载图数据）</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"> </span><br><span class="line">#用numpy产生数据</span><br><span class="line">x_data = np.linspace(-1,1,300)[:, np.newaxis] #转置</span><br><span class="line">noise = np.random.normal(<span class="number">0</span>,<span class="number">0.05</span>, x_data.shape)</span><br><span class="line">y_data = np.square(x_data)<span class="number">-0.5</span>+noise</span><br><span class="line"> </span><br><span class="line">#输入层</span><br><span class="line">x_ph = tf.placeholder(tf.float32, [None, <span class="number">1</span>])</span><br><span class="line">y_ph = tf.placeholder(tf.float32, [None, <span class="number">1</span>])</span><br><span class="line"> </span><br><span class="line">#隐藏层</span><br><span class="line">w1 = tf.Variable(tf.random_normal([<span class="number">1</span>,<span class="number">10</span>]))</span><br><span class="line">b1 = tf.Variable(tf.zeros([<span class="number">1</span>,<span class="number">10</span>])+<span class="number">0.1</span>)</span><br><span class="line">wx_plus_b1 = tf.matmul(x_ph, w1) + b1</span><br><span class="line">hidden = tf.nn.relu(wx_plus_b1)</span><br><span class="line"> </span><br><span class="line">#输出层</span><br><span class="line">w2 = tf.Variable(tf.random_normal([<span class="number">10</span>,<span class="number">1</span>]))</span><br><span class="line">b2 = tf.Variable(tf.zeros([<span class="number">1</span>,<span class="number">1</span>])+<span class="number">0.1</span>)</span><br><span class="line">wx_plus_b2 = tf.matmul(hidden, w2) + b2</span><br><span class="line">y = wx_plus_b2</span><br><span class="line"> </span><br><span class="line">#损失</span><br><span class="line">loss = tf.reduce_mean(tf.reduce_sum(tf.square(y_ph-y),reduction_indices=[<span class="number">1</span>]))</span><br><span class="line">train_op = tf.train.GradientDescentOptimizer(<span class="number">0.1</span>).minimize(loss)</span><br><span class="line"> </span><br><span class="line">#保存模型对象saver</span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"> </span><br><span class="line">#判断模型保存路径是否存在，不存在就创建</span><br><span class="line"><span class="keyword">if</span> not os.path.exists(<span class="string">'tmp/'</span>):</span><br><span class="line">    os.mkdir(<span class="string">'tmp/'</span>)</span><br><span class="line"> </span><br><span class="line">#初始化</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    if os.path.exists('tmp/checkpoint'):         #判断模型是否存在</span><br><span class="line">        saver.restore(sess, 'tmp/model.ckpt')    #存在就从模型中恢复变量</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        init = tf.global_variables_initializer() #不存在就初始化变量</span><br><span class="line">        sess.run(init)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</span><br><span class="line">        _,loss_value = sess.run([train_op,loss], feed_dict={<span class="attr">x_ph</span>:x_data, <span class="attr">y_ph</span>:y_data})</span><br><span class="line">        <span class="keyword">if</span>(i%<span class="number">50</span>==<span class="number">0</span>):</span><br><span class="line">            save_path = saver.save(sess, <span class="string">'tmp/model.ckpt'</span>)</span><br><span class="line">            print(<span class="string">"迭代次数：%d , 训练损失：%s"</span>%(i, loss_value))</span><br></pre></td></tr></tbody></table></figure>
+<p>注：</p>
+<ul>
+<li>saver 的操作必须在 sess 建立后进行。</li>
+<li>model.ckpt 必须存在给定文件夹中，‘tmp/model.ckpt’ 这里至少要有一层文件夹，否则无法保存。</li>
+<li>恢复模型时同保存时一样，是 ‘tmp/model.ckpt’，和那3个文件名都不一样。</li>
+</ul>
+<p>如果不用<code>tf.train.latest_checkpoint（）</code>来自动获取最后一次保存的模型，则怎么做呢？</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/7ebee4d10e49" target="_blank" rel="noopener" class="uri">https://www.jianshu.com/p/7ebee4d10e49</a></p>
+<p><a href="https://blog.csdn.net/mylove0414/article/details/55097486" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/mylove0414/article/details/55097486</a></p>
+</blockquote>
+<h3 id="saver中的max_to_keep-参数">Saver中的max_to_keep 参数</h3>
+<h3 id="keras中的timedistributed函数">keras中的TimeDistributed函数</h3>
+<blockquote>
+<p><a href="https://blog.csdn.net/u012193416/article/details/79477220" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/u012193416/article/details/79477220</a></p>
+<p><a href="https://keras.io/zh/layers/wrappers/" target="_blank" rel="noopener" class="uri">https://keras.io/zh/layers/wrappers/</a></p>
+<p><a href="https://blog.csdn.net/zh_JNU/article/details/85160379" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/zh_JNU/article/details/85160379</a></p>
+<p><a href="https://www.cnblogs.com/CheeseZH/p/13408658.html" target="_blank" rel="noopener" class="uri">https://www.cnblogs.com/CheeseZH/p/13408658.html</a></p>
+</blockquote>
+<h3 id="tf.concat详解">tf.concat()详解</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tf.concat([tensor1, tensor2, tensor3,...], axis)</span><br><span class="line"><span class="comment"># axis=0     代表在第0个维度拼接</span></span><br><span class="line"><span class="comment"># axis=1     代表在第1个维度拼接 </span></span><br><span class="line"><span class="comment">#axis=-1	 代表倒数第一个维度</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><a href="https://blog.csdn.net/leviopku/article/details/82380118" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/leviopku/article/details/82380118</a></p>
+</blockquote>
+<h3 id="shape">shape</h3>
+<p>numpy数据的形状：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.shape()</span><br></pre></td></tr></tbody></table></figure>
+<p>list 数据的形状：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">np.shape(x)</span><br></pre></td></tr></tbody></table></figure>
+<p><strong>注：</strong>如果写<code>x.shape()</code> , 则会报错<code>ValueError: invalid literal for int() with base 10</code></p>
+<p>torsor形状：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.get_shape()</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="keras-的-fit函数">keras 的 fit函数</h3>
+<p>fit中以call()方法的形式来run session</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/u012526436/article/details/102488164" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/u012526436/article/details/102488164</a></p>
+</blockquote>
+<h3 id="model-类继承">Model 类继承</h3>
+<p><strong>可以通过继承 <code>Model</code> 类并在 <code>call</code> 方法中实现你自己的前向传播，以创建你自己的完全定制化的模型，</strong>（<code>Model</code> 类继承 API 引入于 Keras 2.2.0）。</p>
+<p>这里是一个用 <code>Model</code> 类继承写的简单的多层感知器的例子：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleMLP</span><span class="params">(keras.Model)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, use_bn=False, use_dp=False, num_classes=<span class="number">10</span>)</span>:</span></span><br><span class="line">        super(SimpleMLP, self).__init__(name=<span class="string">'mlp'</span>)</span><br><span class="line">        self.use_bn = use_bn</span><br><span class="line">        self.use_dp = use_dp</span><br><span class="line">        self.num_classes = num_classes</span><br><span class="line"></span><br><span class="line">        self.dense1 = keras.layers.Dense(<span class="number">32</span>, activation=<span class="string">'relu'</span>)</span><br><span class="line">        self.dense2 = keras.layers.Dense(num_classes, activation=<span class="string">'softmax'</span>)</span><br><span class="line">        <span class="keyword">if</span> self.use_dp:</span><br><span class="line">            self.dp = keras.layers.Dropout(<span class="number">0.5</span>)</span><br><span class="line">        <span class="keyword">if</span> self.use_bn:</span><br><span class="line">            self.bn = keras.layers.BatchNormalization(axis=<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">call</span><span class="params">(self, inputs)</span>:</span></span><br><span class="line">        x = self.dense1(inputs)</span><br><span class="line">        <span class="keyword">if</span> self.use_dp:</span><br><span class="line">            x = self.dp(x)</span><br><span class="line">        <span class="keyword">if</span> self.use_bn:</span><br><span class="line">            x = self.bn(x)</span><br><span class="line">        <span class="keyword">return</span> self.dense2(x)</span><br><span class="line"></span><br><span class="line">model = SimpleMLP()</span><br><span class="line">model.compile(...)</span><br><span class="line">model.fit(...)</span><br></pre></td></tr></tbody></table></figure>
+<p>网络层定义在 <code>__init__(self, ...)</code> 中，前向传播在 <code>call(self, inputs)</code> 中指定。在 <code>call</code> 中，你可以指定自定义的损失函数，通过调用 <code>self.add_loss(loss_tensor)</code> （就像你在自定义层中一样）。</p>
+<p>在类继承模型中，模型的拓扑结构是由 Python 代码定义的（而不是网络层的静态图）。这意味着该模型的拓扑结构不能被检查或序列化。因此，以下方法和属性<strong>不适用于类继承模型</strong>：</p>
+<ul>
+<li><code>model.inputs</code> 和 <code>model.outputs</code>。</li>
+<li><code>model.to_yaml()</code> 和 <code>model.to_json()</code>。</li>
+<li><code>model.get_config()</code> 和 <code>model.save()</code>。</li>
+</ul>
+<p><strong>关键点</strong>：为每个任务使用正确的 API。<code>Model</code> 类继承 API 可以为实现复杂模型提供更大的灵活性，但它需要付出代价（比如缺失的特性）：它更冗长，更复杂，并且有更多的用户错误机会。如果可能的话，尽可能使用函数式 API，这对用户更友好。</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_27825451/article/details/90517036" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/qq_27825451/article/details/90517036</a></p>
+</blockquote>
+<h3 id="关于tensorflow的sessiontensorshape等基础知识整理">关于tensorflow的session、tensor、shape等基础知识（整理）</h3>
+<p>在tensorflow程序中，tensor只是占位符，在会话层没有run出tensor的值之前，我们是无法获知tensor的值的</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/jiongnima/article/details/78524551" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/jiongnima/article/details/78524551</a></p>
+<p><a href="https://www.tensorflow.org/guide/tensor?hl=zh-cn" target="_blank" rel="noopener" class="uri">https://www.tensorflow.org/guide/tensor?hl=zh-cn</a></p>
+<p><a href="https://www.jianshu.com/p/75a903a44cf2" target="_blank" rel="noopener" class="uri">https://www.jianshu.com/p/75a903a44cf2</a></p>
+</blockquote>
+<h3 id="tf.layers.flatten">tf.layers.flatten</h3>
+<p>在保留第0轴的情况下对输入的张量进行Flatten(扁平化)</p>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x=tf.placeholder(shape=(<span class="literal">None</span>,<span class="number">4</span>,<span class="number">4</span>),dtype=<span class="string">'float32'</span>)</span><br><span class="line"></span><br><span class="line">y=tf.layers.flatten(x)</span><br><span class="line"></span><br><span class="line">print(y)</span><br></pre></td></tr></tbody></table></figure>
+<p>输出： 将后两维进行合并</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tensor("flatten/Reshape:0", shape=(?, 16), dtype=float32)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="tf.layers.dense">tf.layers.dense</h3>
+<p>全连接层 ，相当于添加一个层。只<strong>改变输入的最后一维</strong></p>
+<h3 id="python---tensorflow中-none-1和之间的区别">python - Tensorflow中 None，-1和？之间的区别</h3>
+<p><code>None</code>表示未指定的维度。因此，如果您定义了一个占位符，您可以使用<code>None</code>来表示“这个维度可以有任何大小”。 占位符可以有多个<code>None</code>维度这仅仅意味着多个维度可以是不同的大小甚至整个形状都可以<code>None</code>来指定未知的维数。 <code>-1</code>是TensorFlow的一条指令，用于自行推断维度的大小。在<code>tf.reshape(input, [-1, input_size])</code>中，这意味着“重塑它，使第二个维度<code>input_size</code>，第一个维度是匹配元素总数所需的任何内容”。 这并不一定意味着维数是未知的，因为对于<code>None</code>如果输入张量的已知大小为10个元素，并且将其重塑为<code>[-1, 2]</code>，则张量流能够推断出完整的形状<code>[5, 2]</code>。 <code>-1</code>纯粹是为了方便。你可以把形状写下来，而不是让Tensorflow推断出来<code>None</code>另一方面，对于接受可变大小张量是必要的。 一个形状中只能有一个<code>-1</code>。多个是没有意义的，因为不可能推断出形状。例如，如果一个张量中有12个元素，则未定义将其重塑为<code>[-1, -1, 2]</code>——我们是否应该这样做？<code>[3, 2, 2]</code>？<code>[2, 3, 2]</code>？… 最后，问号正是tensorflow在打印张量和/或其形状时用来标记“未知”维度的内容。您发布的示例实际上会产生语法错误——您不能自己使用问号。未知维度的原因当然可以是具有<code>[6, 1, 2]</code>维度的占位符，并且通常根据占位符定义的张量（即应用于它们的某些运算的结果）也将具有未知维度。此外，有些操作可能没有指定（部分）它们的输出形状，这也可能导致未知。 这里可能还有一些我遗漏的技术细节，但根据经验：使用<code>None</code>作为占位符，使用<code>None</code>进行整形。这应该涵盖大多数用例。</p>
+<blockquote>
+<p><code>？</code>== <code>None</code> ，维度是未知的</p>
+<p><code>-1</code>代表根据推断之后的维度</p>
+<p><code>(3,)</code> 表明张量是一个一维数组，这个数组的长度为3</p>
+</blockquote>
+<blockquote>
+<p><a href="https://www.coder.work/article/2032326" target="_blank" rel="noopener" class="uri">https://www.coder.work/article/2032326</a></p>
+</blockquote>
+<h3 id="keras的-call-函数build-函数">keras的 call 函数、build 函数</h3>
+<p>build() 用来初始化定义weights, 这里可以用父类的self.add_weight() 函数来初始化数据, 该函数必须将 self.built 设置为True, 以保证该 Layer 已经成功 build , 通常如上所示, 使用 super(MyLayer, self).build(input_shape) 来完成。</p>
+<p>call() 用来执行 Layer 的职能, x就是该层的输入，x与权重kernel做点积，生成新的节点层，即当前 Layer 所有的计算过程均在该函数中完成。</p>
+<p><code>__init__()</code>和<code>build()</code>函数都在对Layer进行初始化，都初始化了一些成员函数</p>
+<p><code>__init__()</code>：保存成员变量的设置</p>
+<p><code>build()</code>：在<code>call()</code>函数第一次执行时会被调用一次，这时候可以知道输入数据的<code>shape</code>。返回去看一看，果然是<code>__init__()</code>函数中只初始化了输出数据的<code>shape</code>，而输入数据的<code>shape</code>需要在<code>build()</code>函数中动态获取，这也解释了为什么在有<code>__init__()</code>函数时还需要使用<code>build()</code>函数</p>
+<p><code>call()</code>函数则是在该layer被调用时执行。</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_32623363/article/details/104128497" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/qq_32623363/article/details/104128497</a></p>
+<p><a href="https://blog.csdn.net/qq_27825451/article/details/90517036" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/qq_27825451/article/details/90517036</a></p>
+</blockquote>
+<h3 id="tf.expand_dims">tf.expand_dims（）</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.expand_dims(input, dim, name=<span class="literal">None</span>) <span class="comment">#在指定位置增加维度</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><a href="https://blog.csdn.net/jasonzzj/article/details/60811035" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/jasonzzj/article/details/60811035</a></p>
+</blockquote>
+<h3 id="tf.boolean_mask">tf.boolean_mask（）</h3>
+<p>选择张量的特定维度的值</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">tf.boolean_mask(tensor,mask,name=<span class="string">'boolean_mask'</span>,axis=<span class="literal">None</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#1-D example</span></span><br><span class="line">tensor = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">mask = np.array([<span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">True</span>, <span class="literal">False</span>])</span><br><span class="line">boolean_mask(tensor, mask)  <span class="comment"># [0, 2]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2-D example</span></span><br><span class="line">tensor = [[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]]</span><br><span class="line">mask = np.array([<span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">True</span>])</span><br><span class="line">boolean_mask(tensor, mask)  <span class="comment"># [[1, 2], [5, 6]]</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><a href="https://blog.csdn.net/wuguangbin1230/article/details/81334544" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/wuguangbin1230/article/details/81334544</a></p>
+</blockquote>
+<h2 id="pytorch">🚀pytorch</h2>
+<h3 id="pytorch-torch.nn.parameter">PyTorch torch.nn.Parameter()</h3>
+<p><strong>作用</strong>：对于<code>self.v = torch.nn.Parameter(torch.FloatTensor(hidden_size))</code>，也就是将一个不可训练的类型<code>Tensor</code>转换成可以训练的类型<code>parameter</code>并将这个<code>parameter</code>绑定到这个<code>module</code>里面(<code>net.parameter()</code>中就有这个绑定的<code>parameter</code>，所以在参数优化的时候可以进行优化的)，所以经过类型转换这个<code>self.v</code>变成了模型的一部分，成为了模型中根据训练可以改动的参数了。</p>
+<p>使用这个函数的目的也是想让某些变量在学习的过程中不断的修改其值以达到最优化。</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/d8b77cc02410" target="_blank" rel="noopener" class="uri">https://www.jianshu.com/p/d8b77cc02410</a></p>
+</blockquote>
+<h3 id="pytorch-nn.linear">PyTorch nn.Linear（）</h3>
+<p>用于设置网络中的<strong>全连接层的</strong></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_42079689/article/details/102873766" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/qq_42079689/article/details/102873766</a></p>
+</blockquote>
+<h3 id="pytorch-nn.embedding-词向量">pytorch nn.embedding() 词向量</h3>
+<p>词嵌入在 pytorch 中非常简单，只需要调用 <code>torch.nn.Embedding(m, n)</code> 就可以了，m 表示单词的总数目，n 表示词嵌入的维度，其实词嵌入就相当于是一个大矩阵，矩阵的每一行表示一个单词。</p>
+<p><strong>随机初始化</strong></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/david0611/article/details/81090371" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/david0611/article/details/81090371</a></p>
+</blockquote>
+<h3 id="pytorch-torch.mean">pytorch torch.mean()</h3>
+<p><strong>torch.mean(input, dim, keepdim=False, out=None)</strong></p>
+<p>返回新的张量，其中包含输入张量input指定维度dim中每行的平均值。</p>
+<p>若keepdim值为True，则在输出张量中，除了被操作的dim维度值降为1，其它维度与输入张量input相同。否则，dim维度相当于被执行torch.squeeze()维度压缩操作，导致此维度消失，最终输出张量会比输入张量少一个维度。</p>
+<p><strong>参数：</strong></p>
+<ul>
+<li>input (Tensor) - 输入张量</li>
+<li>dim (int) - 指定进行均值计算的维度</li>
+<li>keepdim (bool, optional) - 输出张量是否保持与输入张量有相同数量的维度</li>
+<li>out (Tensor) - 结果张量</li>
+</ul>
+<p><strong>例子：</strong></p>
+<blockquote>
+<p>a = torch.randn(4, 5) a 0.3168 0.4953 -0.6758 -0.5559 -0.6906 0.2241 2.2450 1.5735 -1.3815 -1.5199 0.0033 0.5236 -0.9070 -0.5961 -2.1281 0.9605 1.5314 -0.6555 -1.2584 -0.4160 [torch.FloatTensor of size 4x5] torch.mean(a, 1, True) -0.2220 0.2283 -0.6209 0.0324 [torch.FloatTensor of size 4x1]</p>
+</blockquote>
+<h3 id="np.triu-np.tril">np.triu() &amp; np.tril()</h3>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">triu</span>（<span class="title">m</span>， <span class="title">k</span>）：</span></span><br><span class="line"><span class="function">#取上三角阵  </span></span><br><span class="line"><span class="function">#<span class="title">m</span>：表示一个矩阵</span></span><br><span class="line"><span class="function">#<span class="title">K</span>：表示对角线的起始位置（<span class="title">k</span>取值默认为0）</span></span><br><span class="line"><span class="function"></span></span><br><span class="line">#k=0表示正常的上三角矩阵</span><br><span class="line"><span class="comment">#k=-1表示对角线的位置下移1个对角线</span></span><br><span class="line"><span class="comment">#k=1表示对角线的位置上移1个对角线</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#同理，np.tril取下三角阵</span></span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><a href="https://blog.csdn.net/weixin_37724529/article/details/102881776" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/weixin_37724529/article/details/102881776</a></p>
+</blockquote>
+<h3 id="pytorch-forward的使用以及原理---pytorch使用">pytorch forward的使用以及原理 --pytorch使用</h3>
+<blockquote>
+<p><a href="https://blog.csdn.net/u011501388/article/details/84062483" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/u011501388/article/details/84062483</a></p>
+</blockquote>
+<h3 id="pytorch-torch.nn.parameter详解">PyTorch torch.nn.Parameter()详解</h3>
+<blockquote>
+<p><a href="https://cloud.tencent.com/developer/article/1608348" target="_blank" rel="noopener" class="uri">https://cloud.tencent.com/developer/article/1608348</a></p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    </div>
+
+    
+    
+    
+
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fab fa-gratipay"></i>感谢阅读-------------</div>
+        <div class="reward-container">
+  <div>卑微博主，在线求赏</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="李思建 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+    
+      
+   
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/05/2020-09-05-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%9D%82/" rel="prev" title="2020-09-05-知识点杂">
+      <i class="fa fa-chevron-left"></i> 2020-09-05-知识点杂
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/09/06/2020-09-06-%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E7%A0%94%E7%A9%B6/" rel="next" title="2020-09-06-不确定性研究">
+      2020-09-06-不确定性研究 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#others"><span class="nav-number">1.</span> <span class="nav-text">🚀others</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#python的einops-rearrange函数"><span class="nav-number">1.1.</span> <span class="nav-text">python的einops rearrange()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#epochiterationbatch_size"><span class="nav-number">1.2.</span> <span class="nav-text">Epoch、Iteration、Batch_size</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tensorflow"><span class="nav-number">2.</span> <span class="nav-text">🚀tensorflow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.tile用法"><span class="nav-number">2.1.</span> <span class="nav-text">tf.tile()用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dataset-api-和-iterator"><span class="nav-number">2.2.</span> <span class="nav-text">Dataset API 和 Iterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf-strip-和-split"><span class="nav-number">2.3.</span> <span class="nav-text">tf strip() 和 split()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#summary用法--tensorborad可视化"><span class="nav-number">2.4.</span> <span class="nav-text">Summary用法 -tensorborad可视化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#math.ceil"><span class="nav-number">2.5.</span> <span class="nav-text">math.ceil()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#format-格式化函数"><span class="nav-number">2.6.</span> <span class="nav-text">.format() 格式化函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.shapea-和-a.get_shape.as_list-和-tf.split"><span class="nav-number">2.7.</span> <span class="nav-text">tf.shape(A) 和 A.get_shape().as_list() 和 tf.split()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.range"><span class="nav-number">2.8.</span> <span class="nav-text">tf.range()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#os.path"><span class="nav-number">2.9.</span> <span class="nav-text">os.path（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#embedding_lookup"><span class="nav-number">2.10.</span> <span class="nav-text">embedding_lookup()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型保存和加载"><span class="nav-number">2.11.</span> <span class="nav-text">模型保存和加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tensorflow模型保存和读取tf.train.saver"><span class="nav-number">2.12.</span> <span class="nav-text">Tensorflow模型保存和读取tf.train.Saver</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#saver中的max_to_keep-参数"><span class="nav-number">2.13.</span> <span class="nav-text">Saver中的max_to_keep 参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keras中的timedistributed函数"><span class="nav-number">2.14.</span> <span class="nav-text">keras中的TimeDistributed函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.concat详解"><span class="nav-number">2.15.</span> <span class="nav-text">tf.concat()详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shape"><span class="nav-number">2.16.</span> <span class="nav-text">shape</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keras-的-fit函数"><span class="nav-number">2.17.</span> <span class="nav-text">keras 的 fit函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#model-类继承"><span class="nav-number">2.18.</span> <span class="nav-text">Model 类继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于tensorflow的sessiontensorshape等基础知识整理"><span class="nav-number">2.19.</span> <span class="nav-text">关于tensorflow的session、tensor、shape等基础知识（整理）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.layers.flatten"><span class="nav-number">2.20.</span> <span class="nav-text">tf.layers.flatten</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.layers.dense"><span class="nav-number">2.21.</span> <span class="nav-text">tf.layers.dense</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python---tensorflow中-none-1和之间的区别"><span class="nav-number">2.22.</span> <span class="nav-text">python - Tensorflow中 None，-1和？之间的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#keras的-call-函数build-函数"><span class="nav-number">2.23.</span> <span class="nav-text">keras的 call 函数、build 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.expand_dims"><span class="nav-number">2.24.</span> <span class="nav-text">tf.expand_dims（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tf.boolean_mask"><span class="nav-number">2.25.</span> <span class="nav-text">tf.boolean_mask（）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch"><span class="nav-number">3.</span> <span class="nav-text">🚀pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pytorch-torch.nn.parameter"><span class="nav-number">3.1.</span> <span class="nav-text">PyTorch torch.nn.Parameter()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pytorch-nn.linear"><span class="nav-number">3.2.</span> <span class="nav-text">PyTorch nn.Linear（）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pytorch-nn.embedding-词向量"><span class="nav-number">3.3.</span> <span class="nav-text">pytorch nn.embedding() 词向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pytorch-torch.mean"><span class="nav-number">3.4.</span> <span class="nav-text">pytorch torch.mean()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#np.triu-np.tril"><span class="nav-number">3.5.</span> <span class="nav-text">np.triu() &amp; np.tril()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pytorch-forward的使用以及原理---pytorch使用"><span class="nav-number">3.6.</span> <span class="nav-text">pytorch forward的使用以及原理 --pytorch使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pytorch-torch.nn.parameter详解"><span class="nav-number">3.7.</span> <span class="nav-text">PyTorch torch.nn.Parameter()详解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李思建"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">李思建</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OopsAaron" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OopsAaron" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:li1574468139@outlook.com" title="E-Mail → mailto:li1574468139@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5871697996" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5871697996" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/AaronLe48891280" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;AaronLe48891280" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://wf.uisdc.com/cn/" title="http:&#x2F;&#x2F;wf.uisdc.com&#x2F;cn&#x2F;" rel="noopener" target="_blank">google前端开发基础</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+ 
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李思建</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">249k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:47</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+  
+        
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6hx5cq5nmltu08pt7pfkqy85wvgnhr1r.js"></script>
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'V06xtKF2qonsMYpPA6OqiRH0-gzGzoHsz',
+      appKey     : 'Q8gXivQlmWVnr48ahETG2v5X',
+      placeholder: "Just go go",
+      avatar     : 'monsterid',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div>
+  
+
+
+</body>
+
+
+</html>
