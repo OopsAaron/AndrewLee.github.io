@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/robot-4291692_1280.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/robot-4291692_1280.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-barber-shop.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="transformer综述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020-10-28-transformer综述">
+<meta property="og:url" content="http://yoursite.com/2020/10/28/2020-10-28-transformer%E7%BB%BC%E8%BF%B0/index.html">
+<meta property="og:site_name" content="思建的NLP之旅">
+<meta property="og:description" content="transformer综述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/6z5wSWXlaQnAF2E.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/zPU8Z9scbDNkS5A.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/K4lYeqtN7jUR5fx.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/C8lDMeBadc4yftg.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/ctFMhR8IEdPVSZ1.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/8YW7R4Q5J6zbmD1.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/KmazXviordxyZuw.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/38l7XhVjZnqyuBe.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/IKCVE7riwaQ9Zl1.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/Id9fV3bxSnmHyu2.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/IyoR924J3BQWrOu.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/oKQv3akDcXWOZ7B.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/g2TyZhWtRSEA7pB.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/4EeY78JcQojSuhD.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/KhcS2VIyvNEAwrg.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/hDmpknyqTSIUEW7.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/ZwAy1H3kB7SjIP5.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/ZThJDNXByQp2Lod.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/pMCoW2ZLv6gq3j4.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/IjGfH7Mi1LK2hsC.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/JdZUrh6L3QFBHIn.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/WlOZR3iaJSA2nIU.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/SZIDO7KcoGHqvhF.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/nOstVdScKG68CDz.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/yRVqrjfJPgBKlIk.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/hvoFmDIp1BjgV5f.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/EDsBxfipL4HcOwF.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/IDjAR2ucfELsegw.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/G8AVxR7fuCZdPHn.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/Z1fYDpO6BnLyHj4.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/YyTZDG1Bohkswit.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/gSHlhWRaoqfk9pN.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/ZS5dCT8nVcaiob4.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/L4BDoiwTfaRjInv.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/gKZT1mRFhEj48nU.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/hElWr4uHtUomVYG.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/rpzwVXOSUavEs18.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/5ixhnpvKeQHrBw1.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/8EtHVoBsfYxnmhO.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/9UfkunTVEpL5XBG.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/WQtJvpbP9rUczhs.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/w6b1LlqIpZgt8fX.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/JYzeocGBUr6jy4W.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/Lk3ymRQKZHpwN8e.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/6aOdB5QqIYKSlEb.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/tdJkSqcoZ4FGHNQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/pXaRS5Q7fVDuxyW.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/iT5HIsel3WjDCxA.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/LZTwqn9hjpBiAyr.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/AGKsp9WPLQ2julY.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/yYDIensgFQmv3HG.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/IKjLfbDRNgMd5rE.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/BzXjLlFERMe34x2.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/FnUxJrzqgL6eEks.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/lLPuxzv8IVRTAQO.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/ZmF3yXaiHPME1LQ.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/DeQYroznLq4cCkt.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/LhoxNVG5rF3McDK.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/ZI176zJekFciyGr.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/6cBzpUQ3J7e1Xd2.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/5tdJqBHve3XYuCo.png">
+<meta property="og:image" content="https://i.loli.net/2020/10/28/jTUZBNqcrlm9hR2.png">
+<meta property="og:image" content="e:/myBlog/source_posts/4b90f603738da977017568ad5cb6f01f8418e3c8.jpeg">
+<meta property="og:image" content="e:/myBlog/source_posts/94cad1c8a786c917e9514bed38da78c939c75785.png">
+<meta property="og:image" content="e:/myBlog/source_posts/aa64034f78f0f736db52fe73feb2bb1feac41305.png">
+<meta property="og:image" content="e:/myBlog/source_posts/9213b07eca8065383aaba0c86e3aa942af348291.png">
+<meta property="og:image" content="e:/myBlog/source_posts/aa64034f78f0f736e428df89f4b2bb1fe9c41355.png">
+<meta property="og:image" content="e:/myBlog/source_posts/c995d143ad4bd11326180c4f5847ac0949fb05e7.png">
+<meta property="article:published_time" content="2020-10-28T12:39:37.000Z">
+<meta property="article:modified_time" content="2020-10-29T14:21:04.928Z">
+<meta property="article:author" content="李思建">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/10/28/6z5wSWXlaQnAF2E.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/28/2020-10-28-transformer%E7%BB%BC%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2020-10-28-transformer综述 | 思建的NLP之旅</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+
+<link rel="alternate" href="/atom.xml" title="思建的NLP之旅" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+
+
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">思建的NLP之旅</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">沉淀自己</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">65</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="fas fa-location-arrow fa-fw"></i>利器</a>
+
+  </li>
+        <li class="menu-item menu-item-onesentence">
+
+    <a href="/onesentence" rel="section"><i class="fas fa-bowling-ball fa-fw"></i>一句话</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fas fa-link fa-fw"></i>大佬</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/OopsAaron" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/28/2020-10-28-transformer%E7%BB%BC%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="李思建">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="思建的NLP之旅">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020-10-28-transformer综述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-28 20:39:37" itemprop="dateCreated datePublished" datetime="2020-10-28T20:39:37+08:00">2020-10-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-29 22:21:04" itemprop="dateModified" datetime="2020-10-29T22:21:04+08:00">2020-10-29</time>
+              </span>
+
+          
+            <span id="/2020/10/28/2020-10-28-transformer%E7%BB%BC%E8%BF%B0/" class="post-meta-item leancloud_visitors" data-flag-title="2020-10-28-transformer综述" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/10/28/2020-10-28-transformer%E7%BB%BC%E8%BF%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/10/28/2020-10-28-transformer%E7%BB%BC%E8%BF%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>38k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>35 分钟</span>
+            </span>
+            <div class="post-description">transformer综述</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="transformer家族1----transformer详解和源码分析">🚀Transformer家族1 -- Transformer详解和源码分析</h3>
+<h4 id="transformer总体结构">1 Transformer总体结构</h4>
+<p>近几年NLP领域有了突飞猛进的发展，预训练模型功不可没。当前利用预训练模型（pretrain models）在下游任务中进行fine-tune，已经成为了大部分NLP任务的固定范式。Transformer摒弃了RNN的序列结构，完全采用attention和全连接，严格来说不属于预训练模型。但它却是当前几乎所有pretrain models的基本结构，为pretrain models打下了坚实的基础，并逐步发展出了transformer-XL，reformer等优化架构。本文结合论文和源码，对transformer基本结构，进行详细分析。</p>
+<p>Transformer是谷歌在2017年6月提出，发表在NIPS2017上。论文地址 <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need</a>。 分析的代码为Harvardnlp的代码，基于PyTorch， 地址 <a href="https://github.com/harvardnlp/annotated-transformer" target="_blank" rel="noopener">annotated-transformer</a></p>
+<p>Transformer主体框架是一个<strong>encoder-decoder</strong>结构，去掉了RNN序列结构，完全基于attention和全连接。在WMT2014英语翻译德语任务上，bleu值达到了28.4，达到当时的SOTA。其总体结构如下所示</p>
+<p><img src="https://i.loli.net/2020/10/28/6z5wSWXlaQnAF2E.png" alt="在这里插入图片描述"></p>
+<p>总体为一个典型的encoder-decoder结构。代码如下</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 整个模型入口</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_model</span><span class="params">(src_vocab, tgt_vocab, N=<span class="number">6</span>, </span></span></span><br><span class="line"><span class="function"><span class="params">               d_model=<span class="number">512</span>, d_ff=<span class="number">2048</span>, h=<span class="number">8</span>, dropout=<span class="number">0.1</span>)</span>:</span></span><br><span class="line">    <span class="string">"Helper: Construct a model from hyperparameters."</span></span><br><span class="line">    c = copy.deepcopy</span><br><span class="line"></span><br><span class="line">    <span class="comment"># multiHead attention</span></span><br><span class="line">    attn = MultiHeadedAttention(h, d_model)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># feed-forward</span></span><br><span class="line">    ff = PositionwiseFeedForward(d_model, d_ff, dropout)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># position-encoding</span></span><br><span class="line">    position = PositionalEncoding(d_model, dropout)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 整体为一个encoder-decoder</span></span><br><span class="line">    model = EncoderDecoder(</span><br><span class="line">        <span class="comment"># encoder编码层</span></span><br><span class="line">        Encoder(EncoderLayer(d_model, c(attn), c(ff), dropout), N),</span><br><span class="line"></span><br><span class="line">        <span class="comment"># decoder解码层</span></span><br><span class="line">        Decoder(DecoderLayer(d_model, c(attn), c(attn), c(ff), dropout), N),</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 编码层输入，输入语句进行token embedding和position embedding</span></span><br><span class="line">        nn.Sequential(Embeddings(d_model, src_vocab), c(position)),</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 解码层输入，同样需要做token embedding和position embedding</span></span><br><span class="line">        nn.Sequential(Embeddings(d_model, tgt_vocab), c(position)),</span><br><span class="line"></span><br><span class="line">        <span class="comment"># linear + softmax，查找vocab中概率最大的字</span></span><br><span class="line">        Generator(d_model, tgt_vocab))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># This was important from their code. </span></span><br><span class="line">    <span class="comment"># Initialize parameters with Glorot / fan_avg.</span></span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> model.parameters():</span><br><span class="line">        <span class="keyword">if</span> p.dim() &gt; <span class="number">1</span>:</span><br><span class="line">            nn.init.xavier_uniform(p)</span><br><span class="line">    <span class="keyword">return</span> model</span><br><span class="line"><span class="number">1234567891011121314151617181920212223242526272829303132333435363738</span></span><br></pre></td></tr></tbody></table></figure>
+<p>make_model为Transformer模型定义的入口，它先定义了multi-head attention、feed-forward、position-encoding等一系列子模块，然后定义了一个encoder-decoder结构并返回。下面来看encoder-decoder定义。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EncoderDecoder</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    一个标准的encoder和decoder框架，可以自定义embedding、encoder、decoder等</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, encoder, decoder, src_embed, tgt_embed, generator)</span>:</span></span><br><span class="line">        super(EncoderDecoder, self).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># encoder和decoder通过构造函数传入，可灵活更改</span></span><br><span class="line">        self.encoder = encoder</span><br><span class="line">        self.decoder = decoder</span><br><span class="line"></span><br><span class="line">        <span class="comment"># src和target的embedding，也是通过构造函数传入，方便灵活更改</span></span><br><span class="line">        self.src_embed = src_embed</span><br><span class="line">        self.tgt_embed = tgt_embed</span><br><span class="line"></span><br><span class="line">        <span class="comment"># linear + softmax</span></span><br><span class="line">        self.generator = generator</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, src, tgt, src_mask, tgt_mask)</span>:</span></span><br><span class="line">        <span class="string">"Take in and process masked src and target sequences."</span></span><br><span class="line">        <span class="comment"># 先对输入进行encode，然后再通过decode输出</span></span><br><span class="line">        <span class="keyword">return</span> self.decode(self.encode(src, src_mask), src_mask,</span><br><span class="line">                            tgt, tgt_mask)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(self, src, src_mask)</span>:</span></span><br><span class="line">        <span class="comment"># 先对输入进行embedding，然后再经过encoder</span></span><br><span class="line">        <span class="keyword">return</span> self.encoder(self.src_embed(src), src_mask)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">(self, memory, src_mask, tgt, tgt_mask)</span>:</span></span><br><span class="line">        <span class="comment"># 先对目标进行embedding，然后经过decoder</span></span><br><span class="line">        <span class="keyword">return</span> self.decoder(self.tgt_embed(tgt), memory, src_mask, tgt_mask)</span><br><span class="line"><span class="number">12345678910111213141516171819202122232425262728293031</span></span><br></pre></td></tr></tbody></table></figure>
+<p>encoder-decoder定义了一个标准的编码解码框架，其中编码器、解码器均可以自定义，有很强的泛化能力。模块运行时会调用forward函数，它先对输入进行encode，然后再通过decode输出。我们就不详细展开了。</p>
+<h4 id="encoder">2 encoder</h4>
+<h5 id="encoder定义">2.1 encoder定义</h5>
+<p>encoder分为两部分</p>
+<ol type="1">
+<li><strong>输入层embedding</strong>。输入层对inputs文本做token embedding，并对每个字做position encoding，然后叠加在一起，作为最终的输入。</li>
+<li><strong>编码层encoding</strong>。编码层是多层结构相同的layer堆叠而成。每个layer又包括两部分，multi-head self-attention和feed-forward全连接，并在每部分加入了残差连接和归一化。</li>
+</ol>
+<p>代码实现上也验证了这一点。我们看EncoderDecoder类中的encode函数，它先利用输入embedding层对原始输入进行embedding，然后再通过编码层进行encoding。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EncoderDecoder</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(self, src, src_mask)</span>:</span></span><br><span class="line">        <span class="comment"># 先对输入进行embedding，然后再经过encoder</span></span><br><span class="line">        <span class="keyword">return</span> self.encoder(self.src_embed(src), src_mask)</span><br><span class="line"><span class="number">1234</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="输入层embedding">2.2 输入层embedding</h5>
+<p>原始文本经过embedding层进行向量化，它包括token embedding和position embedding两层。</p>
+<h6 id="token-embedding">2.2.1 token embedding</h6>
+<p>token embedding对文本进行向量化，一般来说有两种方式</p>
+<ol type="1">
+<li>采用<strong>固定词向量</strong>，比如利用Word2vec预先训练好的。这种方式是LSTM时代常用的方式，比较简单省事，无需训练。但由于词向量是固定的，不能解决一词多义的问题，词语本身也不是contextual的，没有结合上下文语境信息，另外对于不在词向量中的词语，比如特定领域词语或者新词，容易出现OOV问题。</li>
+<li>随机初始化，然后<strong>训练</strong>。这种方式比较麻烦，需要大规模训练语料，但能解决固定词向量的一系列问题。Transformer采用了这种方式。</li>
+</ol>
+<p>另外，基于Transformer的BERT模型在中文处理时，直接基于字做embedding，优点有</p>
+<ol type="1">
+<li>无需分词，故不会引入分词误差。事实上，只要训练语料充分，模型自然就可以学到分词信息了。</li>
+<li>中文字个数固定，不会导致OOV问题</li>
+<li>中文字相对词，数量少很多，embedding层参数大大缩小，减小了模型体积，并加快了训练速度。</li>
+</ol>
+<p>事实上，就算在LSTM时代，很多case中，我们也碰到过基于字的embedding的效果比基于词的要好一些。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Embeddings</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="comment"># token embedding，随机初始化训练，然后查表找到每个字的embedding</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, d_model, vocab)</span>:</span></span><br><span class="line">        super(Embeddings, self).__init__()</span><br><span class="line">        <span class="comment"># 构建一个随机初始化的词向量表，[vocab_size, d_model]。 bert中的设置为[21128, 768]</span></span><br><span class="line">        self.lut = nn.Embedding(vocab, d_model)</span><br><span class="line">        self.d_model = d_model</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># 从词向量表中查找字对应的embedding向量</span></span><br><span class="line">        <span class="keyword">return</span> self.lut(x) * math.sqrt(self.d_model)</span><br><span class="line"></span><br><span class="line"><span class="number">123456789101112</span></span><br></pre></td></tr></tbody></table></figure>
+<p>由代码可见，Transformer采用的是随机初始化，然后训练的方式。词向量维度为[vocab_size, d_model]。例如BERT中为[21128, 768]，参数量还是很大的。ALBert针对embedding层进行矩阵分解，大大减小了embedding层体积。</p>
+<h6 id="position-encoding">2.2.2 position encoding</h6>
+<p>首先一个问题，为啥要进行位置编码呢。原因在于self-attention，将任意两个字之间距离缩小为1，丢失了字的位置信息，故我们需要加上这一信息。我们也可以想到两种方法</p>
+<ol type="1">
+<li><strong>固定编码</strong>。Transformer采用了这一方式，通过奇数列cos函数，偶数列sin函数方式，利用三角函数对位置进行固定编码。</li>
+<li><strong>动态训练</strong>。BERT采用了这种方式。先随机初始化一个embedding table，然后训练得到table 参数值。predict时通过embedding_lookup找到每个位置的embedding。这种方式和token embedding类似。</li>
+</ol>
+<p>哪一种方法好呢？个人以为各有利弊</p>
+<ol type="1">
+<li>固定编码方式简洁，不需要训练。且不受embedding table维度影响，理论上可以支持任意长度文本。（但要尽量避免预测文本很长，但训练集文本较短的case）</li>
+<li>动态训练方式，在语料比较大时，准确度比较好。但需要训练，且最致命的是，限制了输入文本长度。当文本长度大于position embedding table维度时，超出的position无法查表得到embedding（可以理解为OOV了）。这也是为什么BERT模型文本长度最大512的原因。</li>
+</ol>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PositionalEncoding</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="comment"># 位置编码。transformer利用编码方式实现，无需训练。bert则采用训练embedding_lookup方式</span></span><br><span class="line">    <span class="comment"># 编码方式文本语句长度不受限，但准确度不高</span></span><br><span class="line">    <span class="comment"># 训练方式文本长度会受position维度限制（这也是为什么bert只能处理最大512个字原因），但训练数据多时，准确率高</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, d_model, dropout, max_len=<span class="number">5000</span>)</span>:</span></span><br><span class="line">        super(PositionalEncoding, self).__init__()</span><br><span class="line">        self.dropout = nn.Dropout(p=dropout)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 采用sin和cos进行position encoding</span></span><br><span class="line">        pe = torch.zeros(max_len, d_model)</span><br><span class="line">        position = torch.arange(<span class="number">0</span>, max_len).unsqueeze(<span class="number">1</span>)</span><br><span class="line">        div_term = torch.exp(torch.arange(<span class="number">0</span>, d_model, <span class="number">2</span>) *</span><br><span class="line">                             -(math.log(<span class="number">10000.0</span>) / d_model))</span><br><span class="line">        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(position * div_term)        <span class="comment"># 偶数列</span></span><br><span class="line">        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(position * div_term)        <span class="comment"># 奇数列</span></span><br><span class="line">        pe = pe.unsqueeze(<span class="number">0</span>)</span><br><span class="line">        self.register_buffer(<span class="string">'pe'</span>, pe)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># token embedding和position encoding加在一起</span></span><br><span class="line">        x = x + Variable(self.pe[:, :x.size(<span class="number">1</span>)], </span><br><span class="line">                         requires_grad=<span class="literal">False</span>)</span><br><span class="line">        <span class="keyword">return</span> self.dropout(x)</span><br><span class="line"></span><br><span class="line"><span class="number">123456789101112131415161718192021222324</span></span><br></pre></td></tr></tbody></table></figure>
+<p>由代码可见，position encoding直接采用了三角函数。对偶数列采用sin，奇数列采用cos。 <img src="https://i.loli.net/2020/10/28/zPU8Z9scbDNkS5A.png" alt="在这里插入图片描述"></p>
+<h5 id="编码层">2.3 编码层</h5>
+<p>Encoder层是Transformer的核心，它由<strong>N层相同结构的layer</strong>（默认6层）堆叠而成。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Encoder</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">"Core encoder is a stack of N layers"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, layer, N)</span>:</span></span><br><span class="line">        super(Encoder, self).__init__()</span><br><span class="line">        <span class="comment"># N层堆叠而成，每一层结构都是相同的，训练参数不同</span></span><br><span class="line">        self.layers = clones(layer, N)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># layer normalization</span></span><br><span class="line">        self.norm = LayerNorm(layer.size)</span><br><span class="line">        <span class="number">45</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x, mask)</span>:</span></span><br><span class="line">        <span class="comment"># 1 经过N层堆叠的multi-head attention + feed-forward</span></span><br><span class="line">        <span class="keyword">for</span> layer <span class="keyword">in</span> self.layers:</span><br><span class="line">            x = layer(x, mask)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2 对encoder最终输出结果进行layer-norm归一化。层间和层内子模块都做过 add + dropout + layer-norm</span></span><br><span class="line">        <span class="keyword">return</span> self.norm(x)</span><br><span class="line"><span class="number">1234567891011121314151617</span></span><br></pre></td></tr></tbody></table></figure>
+<p>encoder的定义很简洁。先经过N层相同结构的layer，然后再进行归一化输出。重点我们来看layer的定义。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EncoderLayer</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">"Encoder is made up of self-attn and feed forward (defined below)"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, self_attn, feed_forward, dropout)</span>:</span></span><br><span class="line">        super(EncoderLayer, self).__init__()</span><br><span class="line">        <span class="comment"># 1 self_attention</span></span><br><span class="line">        self.self_attn = self_attn</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2 feed_forward</span></span><br><span class="line">        self.feed_forward = feed_forward</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3 残差连接。encoder和decoder，每层结构，每个子结构，都有残差连接。</span></span><br><span class="line">        <span class="comment"># add + drop-out + layer-norm</span></span><br><span class="line">        self.sublayer = clones(SublayerConnection(size, dropout), <span class="number">2</span>)</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x, mask)</span>:</span></span><br><span class="line">        <span class="comment"># 经过self_attention, 然后和输入进行add + layer-norm</span></span><br><span class="line">        x = self.sublayer[<span class="number">0</span>](x, <span class="keyword">lambda</span> x: self.self_attn(x, x, x, mask))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 经过feed_forward， 此模块也有add + layer-norm</span></span><br><span class="line">        <span class="keyword">return</span> self.sublayer[<span class="number">1</span>](x, self.feed_forward)</span><br><span class="line"></span><br><span class="line"><span class="number">12345678910111213141516171819202122</span></span><br></pre></td></tr></tbody></table></figure>
+<p>encoder layer分为两个子模块</p>
+<ol type="1">
+<li><strong>self attention</strong>, 并对输入attention前的和经过attention输出的，做残差连接。残差连接先经过layer-norm归一化，然后进行dropout，最后再做add。后面我们详细分析</li>
+<li><strong>feed-forward</strong>全连接，也有残差连接的存在，方式和self attention相同。</li>
+</ol>
+<h6 id="multiheadedattention">2.3.1 MultiHeadedAttention</h6>
+<p>MultiHeaded Attention采用多头self-attention。它先将隐向量切分为h个头，然后每个头内部进行self-attention计算，最后再concat再一起。</p>
+<p><img src="https://i.loli.net/2020/10/28/K4lYeqtN7jUR5fx.png" alt="在这里插入图片描述"> 代码如下</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MultiHeadedAttention</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, h, d_model, dropout=<span class="number">0.1</span>)</span>:</span></span><br><span class="line">        super(MultiHeadedAttention, self).__init__()</span><br><span class="line">        <span class="keyword">assert</span> d_model % h == <span class="number">0</span></span><br><span class="line">        <span class="comment"># d_model为隐层维度，也是embedding的维度，h为多头个数。</span></span><br><span class="line">        <span class="comment"># d_k为每个头的隐层维度，要除以多头个数。也就是加入了多头，总隐层维度不变。</span></span><br><span class="line">        self.d_k = d_model // h</span><br><span class="line">        self.h = h</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 线性连接</span></span><br><span class="line">        self.linears = clones(nn.Linear(d_model, d_model), <span class="number">4</span>)</span><br><span class="line">        self.attn = <span class="literal">None</span></span><br><span class="line">        self.dropout = nn.Dropout(p=dropout)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, query, key, value, mask=None)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="comment"># 输入mask，在decoder的时候有用到。decode时不能看到要生成字之后的字，所以需要mask</span></span><br><span class="line">            mask = mask.unsqueeze(<span class="number">1</span>)</span><br><span class="line">        nbatches = query.size(<span class="number">0</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 1) q, k, v形状变化，加入多头， [batch, L, d_model] =&gt; [batch, h, L, d_model/h]</span></span><br><span class="line">        query, key, value = [l(x).view(nbatches, <span class="number">-1</span>, self.h, self.d_k).transpose(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">             <span class="keyword">for</span> l, x <span class="keyword">in</span> zip(self.linears, (query, key, value))]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 2) attention计算</span></span><br><span class="line">        x, self.attn = attention(query, key, value, mask=mask, </span><br><span class="line">                                 dropout=self.dropout)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 3) 多头结果concat在一起，还原为初始形状</span></span><br><span class="line">        x = x.transpose(<span class="number">1</span>, <span class="number">2</span>).contiguous().view(nbatches, <span class="number">-1</span>, self.h * self.d_k)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 4）最后经过一个线性层</span></span><br><span class="line">        <span class="keyword">return</span> self.linears[<span class="number">-1</span>](x)</span><br><span class="line"><span class="number">123456789101112131415161718192021222324252627282930313233</span></span><br></pre></td></tr></tbody></table></figure>
+<p>下面重点来看单个头的self-attention。也就是论文中的“Scaled Dot-Product Attention”。attention本质上是一个向量的加权求和。它探讨的是每个位置对当前位置的贡献。步骤如下</p>
+<ol type="1">
+<li>q向量和每个位置的k向量计算点积，然后除以向量长度的根号。计算点积可以认为是进行权重计算。除以向量长度原因是向量越长，q*k值理论上会越大，故需要在向量长度上做归一化。</li>
+<li><strong>attention-mask</strong>。mask和输入矩阵shape相同，mask矩阵中值为0位置对应的输入矩阵的值更改为-1e9，一个非常非常小的数，经过softmax后趋近于0。decoder中使用了mask，后面我们详细分析。</li>
+<li>softmax归一化，使得q向量和每个位置的k向量的score分布到（0, 1）之间</li>
+<li>加权系数乘以每个位置v向量，然后加起来。</li>
+</ol>
+<p>公式如下：<img src="https://i.loli.net/2020/10/28/C8lDMeBadc4yftg.png" alt="在这里插入图片描述"> 代码如下</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attention</span><span class="params">(query, key, value, mask=None, dropout=None)</span>:</span></span><br><span class="line">    <span class="comment"># attention计算，self_attention和soft-attention都是使用这个函数</span></span><br><span class="line">    <span class="comment"># self-attention, q k v 均来自同一文本。要么是encoder，要么是decoder</span></span><br><span class="line">    <span class="comment"># soft-attention, q来自decoder，k和v来自encoder，从而按照decoder和encoder相关性，将encoder信息融合进来</span></span><br><span class="line">    d_k = query.size(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 利用q * k计算两向量间相关度，相关度高则权重大。</span></span><br><span class="line">    <span class="comment"># 除以根号dk的原因是，对向量长度进行归一化。q和k的向量长度越长，q*k的值越大</span></span><br><span class="line">    scores = torch.matmul(query, key.transpose(<span class="number">-2</span>, <span class="number">-1</span>)) / math.sqrt(d_k)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># attention-mask，将 mask中为1的 元素所在的索引，在a中相同的的索引处替换为 value</span></span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        scores = scores.masked_fill(mask == <span class="number">0</span>, <span class="number">-1e9</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># softmax归一化</span></span><br><span class="line">    p_attn = F.softmax(scores, dim = <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># dropout</span></span><br><span class="line">    <span class="keyword">if</span> dropout <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        p_attn = dropout(p_attn)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 最后利用归一化后的加权系数，乘以每一个v向量，再加和在一起，作为attention后的向量。每个字对应一个向量</span></span><br><span class="line">    <span class="keyword">return</span> torch.matmul(p_attn, value), p_attn</span><br><span class="line"><span class="number">1234567891011121314151617181920212223</span></span><br></pre></td></tr></tbody></table></figure>
+<p>self-attention和soft-attention共用了这个函数，他们之间的唯一区别是<strong>q k v向量的来源不同</strong>。self-attention中q k v 均来自同一文本。而decoder的soft-attention，q来自于decoder，k和v来自于encoder。它体现的是encoder对decoder的加权贡献。</p>
+<h6 id="positionwisefeedforward">2.3.2 PositionwiseFeedForward</h6>
+<p>feed-forward本质是一个两层的全连接，全连接之间加入了relu非线性和dropout。比较简单，代码如下</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PositionwiseFeedForward</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="comment"># 全连接层</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, d_model, d_ff, dropout=<span class="number">0.1</span>)</span>:</span></span><br><span class="line">        super(PositionwiseFeedForward, self).__init__()</span><br><span class="line">        <span class="comment"># 第一层全连接  [d_model, d_ff]</span></span><br><span class="line">        self.w_1 = nn.Linear(d_model, d_ff)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 第二层全连接 [d_ff, d_model]</span></span><br><span class="line">        self.w_2 = nn.Linear(d_ff, d_model)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># dropout</span></span><br><span class="line">        self.dropout = nn.Dropout(dropout)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># 全连接1 -&gt; relu -&gt; dropout -&gt; 全连接2</span></span><br><span class="line">        <span class="keyword">return</span> self.w_2(self.dropout(F.relu(self.w_1(x))))</span><br><span class="line"><span class="number">12345678910111213141516</span></span><br></pre></td></tr></tbody></table></figure>
+<p>总体过程是：<strong>全连接1 -&gt; relu -&gt; dropout -&gt; 全连接2</strong>。两层全连接内部没有shortcut，这儿不要搞混了。</p>
+<h6 id="sublayerconnection">2.3.3 SublayerConnection</h6>
+<p>在每层的self-attention和feed-forward模块中，均应用了残差连接。残差连接先对输入进行layerNorm归一化，然后送入attention或feed-forward模块，然后经过dropout，最后再和原始输入相加。这样做的好处是，让每一层attention和feed-forward模块的输入值，均是经过归一化的，保持在一个量级上，从而可以加快收敛速度。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SublayerConnection</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    A residual connection followed by a layer norm.</span></span><br><span class="line"><span class="string">    Note for code simplicity the norm is first as opposed to last.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, dropout)</span>:</span></span><br><span class="line">        super(SublayerConnection, self).__init__()</span><br><span class="line">        <span class="comment"># layer-norm 归一化</span></span><br><span class="line">        self.norm = LayerNorm(size)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># dropout</span></span><br><span class="line">        self.dropout = nn.Dropout(dropout)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x, sublayer)</span>:</span></span><br><span class="line">        <span class="comment"># 先对输入进行layer-norm, 然后经过attention等相关模块，再经过dropout，最后再和输入相加</span></span><br><span class="line">        <span class="keyword">return</span> x + self.dropout(sublayer(self.norm(x)))</span><br><span class="line"><span class="number">12345678910111213141516</span></span><br></pre></td></tr></tbody></table></figure>
+<p>从forward函数可见，先对输入进行layer-norm, 然后经过attention等相关模块，再经过dropout，最后再和输入相加。残差连接的作用就不说了，参考ResNet。</p>
+<h4 id="decoder">3 decoder</h4>
+<p>decoder结构和encoder大体相同，也是堆叠了N层相同结构的layer（默认6层）。不同的是，decoder的每个子层包括三层。</p>
+<ol type="1">
+<li><strong>masked multi-head self-attention</strong>。这一部分和encoder基本相同，区别在于decoder为了保证模型不能看见要预测字的后面位置的字，加入了mask，从而避免未来信息的穿越问题。mask为一个上三角矩阵，上三角全为1，下三角和对角线全为0</li>
+<li><strong>multi-head soft-attention</strong>。soft-attention和self-attention结构基本相同，甚至实现函数都是同一个。唯一的区别在于，self-attention的q k v矩阵来自同一个，所以叫self-attention。而soft-attention的q来自decoder，k和v来自encoder。表征的是encoder的整体输出对于decoder的贡献。</li>
+<li><strong>feed-forward</strong>。这一块基本相同。</li>
+</ol>
+<p>另外三个模块均使用了残差连接，步骤仍然为 layerNorm -&gt; attention等模块 -&gt; dropout -&gt; 和输入进行add</p>
+<p>decoder每个layer代码如下</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DecoderLayer</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">"Decoder is made of self-attn, src-attn, and feed forward (defined below)"</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, size, self_attn, src_attn, feed_forward, dropout)</span>:</span></span><br><span class="line">        super(DecoderLayer, self).__init__()</span><br><span class="line">        self.size = size</span><br><span class="line"></span><br><span class="line">        <span class="comment"># self-attention 自注意力</span></span><br><span class="line">        self.self_attn = self_attn</span><br><span class="line"></span><br><span class="line">        <span class="comment"># soft-attenton, encoder的输出对decoder的作用</span></span><br><span class="line">        self.src_attn = src_attn</span><br><span class="line"></span><br><span class="line">        <span class="comment"># feed-forward 全连接</span></span><br><span class="line">        self.feed_forward = feed_forward</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 残差连接</span></span><br><span class="line">        self.sublayer = clones(SublayerConnection(size, dropout), <span class="number">3</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x, memory, src_mask, tgt_mask)</span>:</span></span><br><span class="line">        <span class="comment"># memory为encoder最终输出</span></span><br><span class="line">        m = memory</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1 对decoder输入做self-attention, 再和输入做残差连接</span></span><br><span class="line">        x = self.sublayer[<span class="number">0</span>](x, <span class="keyword">lambda</span> x: self.self_attn(x, x, x, tgt_mask))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2 对encoder输出和decoder当前进行soft-attention，此处也有残差连接</span></span><br><span class="line">        x = self.sublayer[<span class="number">1</span>](x, <span class="keyword">lambda</span> x: self.src_attn(x, m, m, src_mask))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3 feed-forward全连接，也有残差连接</span></span><br><span class="line">        <span class="keyword">return</span> self.sublayer[<span class="number">2</span>](x, self.feed_forward)</span><br><span class="line"><span class="number">123456789101112131415161718192021222324252627282930</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="输出层">4 输出层</h4>
+<p>decoder的输出作为最终输出层的输入，经过两步</p>
+<ol type="1">
+<li>linear线性连接，也即是w * x + b</li>
+<li>softmax归一化，向量长度等于vocabulary的长度，得到vocabulary中每个字的概率。利用beam-search等方法，即可得到生成结果。</li>
+</ol>
+<p>这一层比较简单，代码如下</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Generator</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="string">"Define standard linear + softmax generation step."</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, d_model, vocab)</span>:</span></span><br><span class="line">        super(Generator, self).__init__()</span><br><span class="line">        self.proj = nn.Linear(d_model, vocab)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        <span class="comment"># 先经过linear线性层，然后经过softmax得到归一化概率分布</span></span><br><span class="line">        <span class="comment"># 输出向量长度等于vocabulary的维度</span></span><br><span class="line">        <span class="keyword">return</span> F.log_softmax(self.proj(x), dim=<span class="number">-1</span>)</span><br><span class="line"><span class="number">12345678910</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="总结">5 总结</h4>
+<p>Transformer相比LSTM的优点</p>
+<ol type="1">
+<li><strong>完全的并行计算</strong>，Transformer的attention和feed-forward，均可以并行计算。而LSTM则依赖上一时刻，必须串行</li>
+<li><strong>减少长程依赖</strong>，利用self-attention将每个字之间距离缩短为1，大大缓解了长距离依赖问题</li>
+<li><strong>提高网络深度</strong>。由于大大缓解了长程依赖梯度衰减问题，Transformer网络可以很深，基于Transformer的BERT甚至可以做到24层。而LSTM一般只有2层或者4层。网络越深，高阶特征捕获能力越好，模型performance也可以越高。</li>
+<li><strong>真正的双向网络</strong>。Transformer可以同时融合前后位置的信息，而双向LSTM只是简单的将两个方向的结果相加，严格来说仍然是单向的。</li>
+<li><strong>可解释性强</strong>。完全基于attention的Transformer，可以表达字与字之间的相关关系，可解释性更强。</li>
+</ol>
+<p>Transformer也不是一定就比LSTM好，它的缺点如下</p>
+<ol type="1">
+<li>文本长度很长时，比如篇章级别，<strong>计算量爆炸</strong>。self-attention的计算量为O(n^2), n为文本长度。Transformer-xl利用层级方式，将计算速度提升了1800倍</li>
+<li>Transformer位置信息只靠<strong>position encoding</strong>，效果比较一般。当语句较短时，比如小于10个字，Transformer效果不一定比LSTM好</li>
+<li>Transformer参数量较大，在大规模数据集上，效果远好于LSTM。但在<strong>小规模数据集</strong>上，如果不是利用pretrain models，效果不一定有LSTM好。</li>
+</ol>
+<h3 id="transformer家族2----编码长度优化transformer-xllongformer">🚀Transformer家族2 -- 编码长度优化（Transformer-XL、Longformer）</h3>
+<h4 id="背景">1 背景</h4>
+<p>NLP中经常出现长程依赖问题，比如一个词语可能和它距离上千位置的另一个词语有关系。长程关系的建立十分困难。常见序列结构模型都有一些难点，如下。</p>
+<ol type="1">
+<li>在RNN中，由于反向传播梯度衰减和梯度爆炸问题，使得模型只能捕获较短距离。</li>
+<li>LSTM利用门限机制，将连乘转变了为连加，提升了模型长程捕获能力，但梯度弥散问题没有从根本上得到解决，故其最大程度只能在400左右。</li>
+<li>Transformer利用self-attention机制进行建模，使得任何两个位置token距离都为1。如果没有内存和算力的限制，Transformer理论上可以编码无限长的文本。但由于attention计算量十分大，而且计算复杂度和序列长度为O(n^2)关系，导致序列长度增加，内存和计算量消耗飞快增加。实际中由于内存和算力有限，一般只能编码一定长度，例如512。</li>
+</ol>
+<p>为了提升模型的长程编码能力，从而提升模型在长文本，特别是document-level语料上的效果，我们必须对Transformer编码长度进行优化。本文带来了Transformer-XL、Longformer，详细分析他们如何实现编码长度优化。</p>
+<p>LongFormer通过降低attention计算所需内存和算力，来实现长文本编码。我们也可以把它归入到算力优化中。但鉴于其名字就重点体现了它的长距离能力，故还是放在了编码长度优化中，和Transformer-XL一起来分析</p>
+<h4 id="transformer-xl">2 Transformer-XL</h4>
+<p><img src="https://i.loli.net/2020/10/28/ctFMhR8IEdPVSZ1.png" alt="在这里插入图片描述"> 论文信息：2019年01月，谷歌 &amp; CMU，ACL 2019 论文地址 https://arxiv.org/abs/1901.02860 代码和模型地址 https://github.com/kimiyoung/transformer-xl</p>
+<h5 id="为什么需要transformer-xl">2.1 为什么需要Transformer-XL</h5>
+<p>为了解决长文本编码问题，原版Transformer采用了固定编码长度的方案，例如512个token。将长文本按照固定长度，切分为多个segment。每个segment内部单独编码，segment之间不产生交互信息。这种方式的问题如下</p>
+<ol type="1">
+<li>模型无法建模超过固定编码长度的文本</li>
+<li>segment之间没有交互信息，导致了文本碎片化。长语句的编码效果有待提升。</li>
+<li>predict阶段，decoder每生成一个字，就往后挪一个，没有重复利用之前信息，导致计算量爆炸</li>
+</ol>
+<p>train和evaluate过程如下<img src="https://i.loli.net/2020/10/28/8YW7R4Q5J6zbmD1.png" alt="在这里插入图片描述"></p>
+<h5 id="实现方法">2.2 实现方法</h5>
+<h6 id="segment-level-recurrence-with-state-reuse-片段级递归和信息复用">2.2.1 Segment-Level Recurrence with State Reuse 片段级递归和信息复用</h6>
+<p>Transformer-XL在编码后一个segment时，将前一个segment的隐层缓存下来。后一个segment的self-attention计算，会使用到前一个segment的隐层。后一个segment的第n+1层，对前一个segment的第n层隐层进行融合。故最大编码长度理论上为O(N × L)。在预测阶段，由于对segment隐层使用了缓存，故每预测一个词，不需要重新对之前的文本进行计算。大大提升了预测速度，最大可达到原始Transformer的1800倍。如下图所示 <img src="https://i.loli.net/2020/10/28/KmazXviordxyZuw.png" alt="在这里插入图片描述"></p>
+<h6 id="relative-positional-encodings-相对位置编码">2.2.2 Relative Positional Encodings 相对位置编码</h6>
+<p>segment递归中有个比较大的问题，就是如何区分不同segment中的相同位置。如果采用原版Transformer中的绝对编码方案，两者是无法区分的。如下 <img src="https://i.loli.net/2020/10/28/38l7XhVjZnqyuBe.png" alt="gh">不同segment中的相同位置，其position encoding会相同。这显然是有问题的。Transformer-XL将绝对位置编码改为了q和k之间的相对位置编码，代表了两个token之间的相对位置。从语义上讲，是make sense的。我们来看看具体实现方式。</p>
+<p>绝对位置编码的attention计算如下 <img src="https://i.loli.net/2020/10/28/IKCVE7riwaQ9Zl1.png" alt="在这里插入图片描述">分为四部分</p>
+<ol type="1">
+<li>query的token encoding和 key的token encoding，之间的关联信息</li>
+<li>query的token encoding和 key的position encoding，之间的关联信息。Uj为绝对位置j的编码向量</li>
+<li>query的position encoding和 key的token encoding，之间的关联信息。Ui为绝对位置i的编码向量</li>
+<li>query的position encoding和 key的position encoding，之间的关联信息</li>
+</ol>
+<p>而采用相对位置编码后，attention计算如下 <img src="https://i.loli.net/2020/10/28/Id9fV3bxSnmHyu2.png" alt="在这里插入图片描述">同样包含四部分，仍然为二者token encoding和position encoding之间的关联关系。区别在于</p>
+<ol type="1">
+<li>Ri-j为i和j之间相对位置编码，其中R为相对位置编码矩阵</li>
+<li>u和v为query的位置编码，采用一个固定向量。因为采用相对位置编码后，无法对单个绝对位置进行编码了。文中称为global content bias，和global positional bias</li>
+</ol>
+<p>也有其他文章，采用了不同的相对位置编码方案。比如"Peter Shaw, Jakob Uszkoreit, and Ashish Vaswani.2018. Self-attention with relative position representations. arXiv preprint arXiv:1803.02155." 中只有a和b两部分，丢掉了c和d。Transformer-XL对两种方案进行了对比实验，证明前一种好。</p>
+<h5 id="实验结果">2.3 实验结果</h5>
+<h6 id="长文本编码效果">长文本编码效果</h6>
+<p><img src="https://i.loli.net/2020/10/28/IyoR924J3BQWrOu.png" alt="在这里插入图片描述"> 在WikiText-103上的实验结果。WikiText-103包含词级别的超长文本，平均每篇文章长度为3.6K token。利用它可以验证模型的长文本编码能力。实验结果表明Transformer-XL large的PPL最低，效果最好。同时作者在One Billion Word、enwik8、text8上均进行了实验，都表明Transformer-XL效果最好。</p>
+<h6 id="有效编码长度">有效编码长度</h6>
+<p><img src="https://i.loli.net/2020/10/28/oKQv3akDcXWOZ7B.png" alt="在这里插入图片描述"> 模型可编码的有效长度如上，r为top-r难度样本上的表现。Transformer-XL比RNN长80%，比Transformer长450%。证明Transformer-XL可编码长度最长，长程捕获能力最强。</p>
+<h6 id="预测速度">预测速度</h6>
+<p><img src="https://i.loli.net/2020/10/28/g2TyZhWtRSEA7pB.png" alt="在这里插入图片描述"> 在不同segment长度下，模型预测速度的对比。和原始Transformer相比，预测速度最大可以提升1874倍。</p>
+<h6 id="消融分析">消融分析</h6>
+<p>文章对片段级递归和相对位置编码两个Method进行了消融分析，如下 <img src="https://i.loli.net/2020/10/28/4EeY78JcQojSuhD.png" alt="在这里插入图片描述"> 两个改进点均有作用，其中片段级递归作用更大。</p>
+<h4 id="longformer">3 Longformer</h4>
+<p><img src="https://i.loli.net/2020/10/28/KhcS2VIyvNEAwrg.png" alt="在这里插入图片描述"> 论文信息：2020年04月，allenai 论文地址 https://arxiv.org/abs/2004.05150 代码和模型地址 https://github.com/allenai/longformer</p>
+<h5 id="改进方法">3.1 改进方法</h5>
+<h6 id="attention稀疏化">3.1.1 attention稀疏化</h6>
+<p>Transformer不能捕获长距离信息，本质原因还是因为计算量过大导致的。那我们通过降低attention计算量，是不是就可以提升长距离编码能力呢。答案是肯定的，LongFormer提出了三种attention稀疏化的方法，来降低计算量。 <img src="https://i.loli.net/2020/10/28/hDmpknyqTSIUEW7.png" alt="在这里插入图片描述"> a是原始的全连接方式的attention。后面三种为文章使用的稀疏attention。</p>
+<ol type="1">
+<li>Sliding Window attention。滑窗方式的attention。假设序列长度为n，滑窗大小w，则每个位置的attention只和滑窗范围内的token进行计算，复杂度从O(n^2)变为了O(n * w)。当w &lt;&lt; n时，可以大大降低计算量。</li>
+<li>Dilated Sliding Window attention。受到空洞卷积的启发，提出了空洞滑窗attention。看下面这张图就明白了。</li>
+</ol>
+<p><img src="https://i.loli.net/2020/10/28/ZwAy1H3kB7SjIP5.png" alt="在这里插入图片描述"></p>
+<ol type="1">
+<li>Global Attention + sliding window。某些关键位置采用全局attention，这些位置的attention和所有token进行计算。而其他相对不关键的位置则采用滑窗attention。那什么叫关键位置呢？作者举例，分类问题中[CLS]为关键位置，需要计算全局attention。QA中question每个位置均为关键位置，同样计算全局attention。</li>
+</ol>
+<h6 id="tensor-virtual-machine-tvm">3.1.2 Tensor Virtual Machine (TVM)</h6>
+<p>作者使用了TVM构建CUDA kernel，加快了longformer的速度，并降低了显存需求。这个又是另一个模型加速方面的话题，我们就先不展开了。</p>
+<h5 id="实验结果-1">3.2 实验结果</h5>
+<h6 id="大小模型效果">大小模型效果</h6>
+<p><img src="https://i.loli.net/2020/10/28/ZThJDNXByQp2Lod.png" alt="在这里插入图片描述">作者在大小模型上均实验了LongFormer的效果。小模型为12 layers，512 hidden。大模型为30 layers，512 hidden。在text8和enwik8数据集上。小模型达到了SOTA。大模型比18层的Transformer-XL好，虽然不如Adaptive-span-Transformer和Compressive，但胜在可以pretrain-finetune</p>
+<h6 id="消融分析-1">消融分析</h6>
+<p><img src="https://i.loli.net/2020/10/28/pMCoW2ZLv6gq3j4.png" alt="在这里插入图片描述">消融分析中，可以发现</p>
+<ol type="1">
+<li>Dilation空洞，有一定的收益</li>
+<li>top layer滑窗大小比bottom layer大时，效果好一些。这个也是make sense的。因为top layer捕获高维语义，关联信息距离相对较远，窗口应该尽量大一些。</li>
+</ol>
+<h6 id="语料长度">语料长度</h6>
+<p><img src="https://i.loli.net/2020/10/28/IjGfH7Mi1LK2hsC.png" alt="在这里插入图片描述"> 从上表中我们发现，语料都是特别长的长文本。LongFormer真的是document级别的Transformer。</p>
+<h6 id="下游任务finetune效果">下游任务finetune效果</h6>
+<p><img src="https://i.loli.net/2020/10/28/JdZUrh6L3QFBHIn.png" alt="在这里插入图片描述"> <img src="https://i.loli.net/2020/10/28/WlOZR3iaJSA2nIU.png" alt="在这里插入图片描述"> 第一个table为RoBERTa和LongFormer在问答、指代消解、分类任务中的对比。第二个table为这几个任务数据集平均文本长度。每项任务都是超出RoBERTa，当文本长度大于512时，performance提升特别明显。更加说明了长程捕获能力在NLP中的重要性。</p>
+<h3 id="transformer家族3----计算效率优化adaptive-spanreformerlite-transformer">🚀Transformer家族3 -- 计算效率优化（Adaptive-Span、Reformer、Lite-Transformer）</h3>
+<h4 id="背景-1">1 背景</h4>
+<p>上文我们从编码长度优化的角度，分析了如何对Transformer进行优化。Transformer-XL、LongFormer等模型，通过片段递归和attention稀疏化等方法，将长文本编码能力提升到了很高的高度。基本已经克服了Transformer长文本捕获能力偏弱的问题，使得下游任务模型performance得到了较大提升，特别是文本较长（大于512）的任务上。</p>
+<p>但Transformer计算量和内存消耗过大的问题，还亟待解决。事实上，Transformer-XL、LongFormer已经大大降低了内存和算力消耗。毕竟Transformer之所以长距离编码能力偏弱，就是因为其计算量是序列长度的平方关系，对算力需求过大，导致当前GPU/TPU不能满足需求。编码长度优化和计算量优化，二者是相辅相成的。但着眼于论文的出发点，我们还是分为两个不同的章节进行分析。毕竟总不能所有模型都放在一个章节吧（_）。</p>
+<p>本文我们带来Adaptive-Span Transformer、Reformer、Lite-Transformer等几篇文章</p>
+<h4 id="adaptive-span-transformer">2 Adaptive-Span Transformer</h4>
+<p><img src="https://i.loli.net/2020/10/28/SZIDO7KcoGHqvhF.png" alt="在这里插入图片描述"> 论文信息：2019年5月，FaceBook，ACL2019 论文地址 https://arxiv.org/pdf/1905.07799.pdf 代码和模型地址 https://github.com/facebookresearch/adaptive-span</p>
+<h5 id="为什么需要adaptive-span">2.1 为什么需要Adaptive-Span</h5>
+<p>之前Transformer-XL将长文本编码能力提升到了较高高度，但是否每个layer的每个head，都需要这么长的attention呢？尽管使用了多种优化手段，长距离attention毕竟还是需要较大的内存和算力。研究发现，大部分head只需要50左右的attention长度，只有少部分head需要较长的attention。这个是make sense的，大部分token只和它附近的token有关联。如下图 <img src="https://i.loli.net/2020/10/28/nOstVdScKG68CDz.png" alt="在这里插入图片描述">我们是否可以实现attention span长度的自适应呢？让不同的layer的不同的head，自己去学习自己的attention span长度呢？Adaptive-Span Transformer给出了肯定答案。</p>
+<h5 id="实现方案">2.2 实现方案</h5>
+<p>文章设定每个attention head内的token计算，都使用同一个span长度。我们就可以利用attention mask来实现自适应span。对每个head都添加一个attention mask，mask为0的位置不进行attention计算。文章设计的mask函数如下 <img src="https://i.loli.net/2020/10/28/yRVqrjfJPgBKlIk.png" alt="在这里插入图片描述"> R为超参，控制曲线平滑度。其为单调递减函数，如下图。 <img src="https://i.loli.net/2020/10/28/hvoFmDIp1BjgV5f.png" alt="在这里插入图片描述"></p>
+<h5 id="实验结果-2">2.3 实验结果</h5>
+<p><img src="https://i.loli.net/2020/10/28/EDsBxfipL4HcOwF.png" alt="在这里插入图片描述"> 和Transformer家族其他很多模型一样，Adaptive-span也在字符级别的语言模型上进行了验证，数据集为text8。如上，Transformer注意力长度固定为512，结论如下</p>
+<ol type="1">
+<li>Transformer-XL长程编码能力确实很强，平均span可达3800。</li>
+<li>注意力长度确实不需要总那么长，Adaptive-Span大模型上，平均长度只有245</li>
+<li>Adaptive-Span在算力需求很小（只有XL的1/3）的情况下，效果可以达到SOTA。</li>
+</ol>
+<p><img src="https://i.loli.net/2020/10/28/IDjAR2ucfELsegw.png" alt="在这里插入图片描述">上面是在enwik8上的结果。Adaptive-Span又一次在算力很小的情况下，达到了最优效果。值得注意的是，64层的Transformer居然需要120G的计算量，又一次证明了原版Transformer是多么的吃计算资源。另外Transformer-XL在节省计算资源上，其实也算可圈可点。</p>
+<h4 id="reformer">3 Reformer</h4>
+<p><img src="https://i.loli.net/2020/10/28/G8AVxR7fuCZdPHn.png" alt="在这里插入图片描述"> 论文信息：2020年1月，谷歌，ICLR2020 论文地址 https://arxiv.org/abs/2001.04451 代码和模型地址 https://github.com/google/trax/tree/master/trax/models/reformer</p>
+<h5 id="为什么需要reformer">3.1 为什么需要Reformer</h5>
+<p>Transformer内存和计算量消耗大的问题，一直以来广为诟病，并导致其一直不能在长文本上进行应用。（BERT、RoBERTa均设置最大长度为512）。Reformer认为Transformer有三大问题</p>
+<ol type="1">
+<li>attention层计算量和序列长度为平方关系，导致无法进行长距离编码</li>
+<li>内存占用和模型层数呈N倍关系，导致加深Transformer层数，消耗的内存特别大</li>
+<li>feed-forward的dff比隐层dmodel一般大很多，导致FF层占用的内存特别大</li>
+</ol>
+<p>针对这几个问题，Reformer创新性的提出了三点改进方案</p>
+<ol type="1">
+<li>LOCALITY-SENSITIVE HASHING 局部敏感hash，使得计算量从 O(L^2)降低为O(L log L) ,L为序列长度</li>
+<li>Reversible Transformer 可逆Transformer，使得N层layers内存消耗变为只需要一层，从而使得模型加深不会受内存限制。</li>
+<li>Feed-forward Chunking 分块全连接，大大降低了feed-forward层的内存消耗。</li>
+</ol>
+<p>Reformer是Transformer家族中最为关键的几个模型之一（去掉之一貌似都可以，顶多Transformer-XL不答应），其创新新也特别新颖，很多思想值得我们深入思考和借鉴。其效果也是特别明显，大大提高了内存和计算资源效率，编码长度可达64k。下面针对它的三点改进方案进行分析，有点难懂哦。</p>
+<h5 id="实现方案-1">3.2 实现方案</h5>
+<h6 id="locality-sensitive-hashing-局部敏感hash">3.2.1 LOCALITY-SENSITIVE HASHING 局部敏感hash</h6>
+<p>局部敏感hash有点难懂，Reformer针对Transformer结构进行了深度灵魂拷问</p>
+<h6 id="query和key必须用两套吗">Query和Key必须用两套吗</h6>
+<p>Transformer主体结构为attention，原版attention计算方法如下 <img src="https://i.loli.net/2020/10/28/Z1fYDpO6BnLyHj4.png" alt="在这里插入图片描述"> 每个token，利用其query向量，和其他token的key向量进行点乘，从而代表两个token之间的相关性。归一化后，利用得到的相关性权重，对每个token的value向量进行加权求和。首先一个问题就是，query和key向量可以是同一套吗？我们可否利用key向量去和其他token的key计算相关性呢？</p>
+<p>为此文章进行实验分析，证明是可行的。个人认为这一点也是make sense的。 <img src="https://i.loli.net/2020/10/28/YyTZDG1Bohkswit.png" alt="在这里插入图片描述">在文本和图像上，Q=K的attention，和普通attention，效果差别不大。</p>
+<h6 id="必须和每个token计算相关性吗">必须和每个token计算相关性吗</h6>
+<p>原版attention中，一个token必须和序列中其他所有token计算相关性，导致计算量随序列长度呈平方关系增长，大大制约了可编码最大长度。那必须和每个token计算相关性吗？其实之前Adaptive-Span Transformer也深度拷问过这个话题。它得出的结论是，对于大部分layer的multi-head，长度50范围内进行attention就已经足够了。不过Adaptive-Span采取的方法还是简单粗暴了一点，它约定每个head的attention span长度是固定的，并且attention span为当前token附近的其他token。</p>
+<p>Adaptive-Span Transformer的这种方法显然还是没有抓住Attention计算冗余的痛点。Attention本质是加权求和，权重为两个token间的相关性。最终结果取决于较大的topk权重，其他权值较小的基本就是炮灰。并且softmax归一化更是加剧了这一点。小者更小，大者更大。为了减少计算冗余，我们可以只对相关性大的其他token的key向量计算Attention。</p>
+<h6 id="怎么找到相关性大的向量呢">怎么找到相关性大的向量呢</h6>
+<p>我们现在要从序列中找到与本token相关性最大的token，也就是当前key向量与哪些key向量相关性大。极端例子，如果两个向量完全相同，他们的相关性是最高的。确定两个高维向量的相关性确实比较困难，好在我们可以利用向量Hash来计算。</p>
+<p>Reformer采用了局部敏感hash。我们让两个key向量在随机向量上投影，将它们划分到投影区间内。 <img src="https://i.loli.net/2020/10/28/gSHlhWRaoqfk9pN.png" alt="在这里插入图片描述"> 如图所示，划分了四个区间（4个桶bucket），进行了三次Hash。第一次Hash，使得上面两个向量分别归入bucket0和bucket3中，下面两个向量都归入bucket0。第二次Hash，上面两个向量和下面两个，均归入到bucket2中了。我们可以发现</p>
+<ol type="1">
+<li>相似的向量，也就是相关性大的，容易归入到一个bucket中</li>
+<li>局部敏感Hash还是有一定的错误率的，我们可以利用多轮Hash来缓解。这也是Reformer的做法，它采取了4轮和8轮的Hash。</li>
+</ol>
+<h6 id="整个流程">整个流程</h6>
+<p>经过局部敏感Hash后，我们可以将相关性大的key归入同一个bucket中。这样只用在bucket内进行普通Attention即可，大大降低了计算冗余度。为了实现并行计算，考虑到每个bucket包含的向量数目可能不同，实际处理中需要多看一个bucket。整个流程如下 <img src="https://i.loli.net/2020/10/28/ZS5dCT8nVcaiob4.png" alt="在这里插入图片描述"></p>
+<ol type="1">
+<li>让query等于key</li>
+<li>局部敏感Hash（LSH）分桶。上图同一颜色的为同一个桶，共4个桶</li>
+<li>桶排序，将相同的桶放在一起</li>
+<li>为了实现并行计算，将所有桶分块（chunk），每个chunk大小相同</li>
+<li>桶内计算Attention，由于之前做了分块操作，所以需要多看一个块。</li>
+</ol>
+<h6 id="多轮lsh">多轮LSH</h6>
+<p>为了减少分桶错误率，文章采用了多次分桶，计算LSH Attention，Multi-round LSH attention。可以提升整体准确率。如下表。<img src="https://i.loli.net/2020/10/28/L4BDoiwTfaRjInv.png" alt="在这里插入图片描述"></p>
+<h6 id="reversible-transformer-可逆transformer">3.2.2 REVERSIBLE TRANSFORMER 可逆Transformer</h6>
+<p>LSH局部敏感Hash确实比较难理解，可逆Transformer相对好懂一些。这个方案是为了解决Transformer内存占用量，随layers层数线性增长的问题。为什么会线性增长呢？原因是反向传播中，梯度会从top layer向bottom layer传播，所以必须保存住每一层的Q K V向量，也就导致N层就需要N套Q K V。</p>
+<p>那有没有办法不保存每一层的Q K V呢？可逆Transformer正是这个思路。它利用时间换空间的思想，只保留一层的向量，反向传播时，实时计算出之前层的向量。所以叫做Reversible。Reformer每一层分为两部分，x1和x2。输出也两部分，y1和y2。计算如下</p>
+<p><img src="https://i.loli.net/2020/10/28/gKZT1mRFhEj48nU.png" alt="image-20201028214552153"></p>
+<p>采用可逆残差连接后，模型效果基本没有下降。这也是make sense的，毕竟可逆是从计算角度来解决问题的，对模型本身没有改变。 <img src="https://i.loli.net/2020/10/28/hElWr4uHtUomVYG.png" alt="在这里插入图片描述"></p>
+<h6 id="feed-forward-chunking-ff层分块">3.2.3 Feed-Forward chunking FF层分块</h6>
+<p>针对fead-forward层内存消耗过大的问题，Reformer也给出了解决方案，就是FF层分块。如下 <img src="https://i.loli.net/2020/10/28/rpzwVXOSUavEs18.png" alt="在这里插入图片描述"></p>
+<h5 id="实验结果-3">3.3 实验结果</h5>
+<h6 id="内存和时间复杂度">内存和时间复杂度</h6>
+<p>Reformer三个创新点，大大降低了内存和时间复杂度，消融分析如下 <img src="https://i.loli.net/2020/10/28/5ixhnpvKeQHrBw1.png" alt="在这里插入图片描述"></p>
+<h6 id="模型效果">模型效果</h6>
+<p>如下为在机器翻译上的效果。Reformer减少了算力消耗，同时也大大增加了长文本编码能力，故模型效果也得到了提升。如下。 <img src="https://i.loli.net/2020/10/28/8EtHVoBsfYxnmhO.png" alt="在这里插入图片描述"></p>
+<h4 id="lite-transformer">4 Lite Transformer</h4>
+<p><img src="https://i.loli.net/2020/10/28/9UfkunTVEpL5XBG.png" alt="在这里插入图片描述"> 论文信息：2020年4月，MIT &amp; 上海交大，ICLR2020 论文地址 https://arxiv.org/abs/2004.11886 代码和模型地址 https://github.com/mit-han-lab/lite-transformer</p>
+<h5 id="为什么要做lite-transformer">4.1 为什么要做Lite Transformer</h5>
+<p>主要出发点仍然是Transformer计算量太大，计算冗余过多的问题。跟Adaptive-Span Transformer和Reformer想法一样，Lite Transformer也觉得没必要做Full Attention，很多Attention连接是冗余的。不一样的是，它通过压缩Attention通道的方式实现，将多头减少了一半。与Base Transformer相比，计算量减少了2.5倍。并且文章使用了量化和剪枝技术，使得模型体积减小了18.2倍。</p>
+<h5 id="实现方案-2">4.2 实现方案</h5>
+<p>实现方案很简单，仍然采用了原版Transformer的seq2seq结构，创新点为</p>
+<ol type="1">
+<li>multiHead self-attention变为了两路并行，分别为一半的通道数（多头）。如下图a所示。其中左半部分为正常的fully attention，它用来捕获全局信息。右半部分为CNN卷积，用来捕获布局信息。最终二者通过FFN层融合。这个架构称为LONG-SHORT RANGE ATTENTION (LSRA)，长短期Attention。</li>
+<li>为了进一步降低计算量，作者将CNN转变为了一个depth wise卷积和一个线性全连接。dw卷积在mobileNet中有讲过，不清楚可自行谷歌。</li>
+</ol>
+<p><img src="https://i.loli.net/2020/10/28/WQtJvpbP9rUczhs.png" alt="在这里插入图片描述"></p>
+<h5 id="实验结果-4">4.3 实验结果</h5>
+<h6 id="计算复杂度">计算复杂度</h6>
+<p><img src="https://i.loli.net/2020/10/28/w6b1LlqIpZgt8fX.png" alt="在这里插入图片描述"> 如上图，在文本摘要任务上，Lite Transformer计算量相比Base Transformer，减少了2.5倍。同时Rouge指标基本没变。</p>
+<h6 id="模型体积">模型体积</h6>
+<p><img src="https://i.loli.net/2020/10/28/JYzeocGBUr6jy4W.png" alt="在这里插入图片描述"> Lite Transformer模型体积只有Transformer的2.5分之一，通过8bit量化和剪枝，最终模型体积下降了18.2倍。</p>
+<h4 id="其他">5 其他</h4>
+<p>其他几篇文章，也建议拜读下</p>
+<ol type="1">
+<li><a href="https://arxiv.org/abs/1904.10509" target="_blank" rel="noopener">Generating Long Sequences with Sparse Transformers</a> (OpenAI, 2019.04)</li>
+<li><a href="https://arxiv.org/abs/1909.00015" target="_blank" rel="noopener">Adaptively Sparse Transformers</a> (EMNLP2019, 2019.09)</li>
+<li><a href="https://arxiv.org/abs/1911.05507" target="_blank" rel="noopener">Compressive Transformers for Long-Range Sequence Modelling</a> (2019.11)</li>
+<li><a href="https://arxiv.org/abs/2002.06170" target="_blank" rel="noopener">Transformer on a Diet</a> (2020.02)</li>
+</ol>
+<h3 id="transformer家族4----通用性优化universal-transformer">🚀Transformer家族4 -- 通用性优化（Universal-Transformer）</h3>
+<h4 id="背景-2">1 背景</h4>
+<p>之前讲Transformer的时候，也提到过它的通用性的缺点。相比于RNN，Transformer不是图灵完备的，虽然大多数任务都是吊打RNN，但在某些看起来极为简单的任务上，却表现很差，比如字符串拷贝等。这个问题其实也不算大，但谷歌还是给出了他的解决方案，也就是Universal Transformer。这篇看看就好了，个人感觉实际应用中作用有限。</p>
+<h4 id="universal-transformer">2 Universal-Transformer</h4>
+<p><img src="https://i.loli.net/2020/10/28/Lk3ymRQKZHpwN8e.png" alt="在这里插入图片描述">论文信息：2018年7月，谷歌，ICLR2019 论文地址 https://arxiv.org/abs/1807.03819 代码和模型地址 https://github.com/tensorflow/tensor2tensor</p>
+<h5 id="为什么需要universal-transformer">2.1 为什么需要Universal-Transformer</h5>
+<p>主要的出发点是原版Transformer不是图灵完备的，有些很简单的任务表现很差，比如字符串拷贝。序列任务还是比较偏好于迭代和递归变换，RNN正好满足了这一点，而Transformer不满足。这一点文章称作归纳偏置（Inductive Bias）。<a href="https://www.zhihu.com/question/41404496/answer/627673667" target="_blank" rel="noopener">深度学习的归纳偏置是什么？</a></p>
+<h5 id="实现方案-3">2.2 实现方案</h5>
+<h6 id="模型结构">模型结构</h6>
+<p><img src="https://i.loli.net/2020/10/28/6aOdB5QqIYKSlEb.png" alt="在这里插入图片描述"> 如上所示为Universal-Transformer的结构，仍然为一个基于multiHead self-attention的seq2seq，几点不同</p>
+<ol type="1">
+<li>引入了时间步step，从而实现了循环递归。除了第一次是原始信息作为输入，之后都是由前一个step的输出作为后一个的输入。</li>
+<li>Feed-forward换成了Transition函数。根据task不同，可选择separable convolution分解卷积和fully-connected neural network全连接神经网络。</li>
+<li>时间和位置编码，TimeStep embedding和Position embedding，新引入了TimeStep embedding，二者的编码公式和Transformer中的位置编码很像，如下</li>
+</ol>
+<p><img src="https://i.loli.net/2020/10/28/tdJkSqcoZ4FGHNQ.png" alt="在这里插入图片描述"></p>
+<h6 id="adaptive-computation-timeact-自适应计算时间">Adaptive Computation Time（ACT） 自适应计算时间</h6>
+<p>前人已经提到过ACT了，作者在模型中引用了。序列问题中，有些词语比其他的更模糊。他们需要进行更多次的计算。Universal-Transformer利用了ACT机制，可以对每个token设置自适应计算时间。模型会动态调整每个位置所需的计算steps。当某个位置停止计算后，直接copy它的隐状态到下一step。当所有位置都停止计算后，整个过程才停止。<img src="https://i.loli.net/2020/10/28/pXaRS5Q7fVDuxyW.png" alt="在这里插入图片描述"> 如上，不同位置token所需的计算steps是不同的。</p>
+<h5 id="实验结果-5">2.3 实验结果</h5>
+<h6 id="字符串任务">字符串任务</h6>
+<p><img src="https://i.loli.net/2020/10/28/iT5HIsel3WjDCxA.png" alt="在这里插入图片描述">字符串复制、翻转、添加操作的效果。可以发现</p>
+<ol type="1">
+<li>Transformer效果确实比较差，比LSTM差很多。这也验证了Transformer通用性确实有些问题，也就是本文的出发点</li>
+<li>Universal-Transformer效果很好，超过LSTM很多，成功解决了原版Transformer的问题</li>
+</ol>
+<h6 id="机器翻译">机器翻译</h6>
+<p><img src="https://i.loli.net/2020/10/28/LZTwqn9hjpBiAyr.png" alt="在这里插入图片描述">机器翻译上的结果，Universal-Transformer的BLEU比原版Transformer提高了0.9%</p>
+<h3 id="transformer家族5----推理加速faster-transformer-turbotransformers">🚀Transformer家族5 -- 推理加速（Faster-Transformer 、TurboTransformers）</h3>
+<h4 id="背景-3">1 背景</h4>
+<p>之前介绍了从编码长度、计算效率、通用性等角度对Transformer进行优化，并介绍了几个重要模型。本文介绍如何进行Transformer推理加速。相比于离线训练，在线推理加速更加关键。一方面由于在线流量大，加速可带来硬件成本的节省。另一方面在线推理加速，可大大提升AI应用的用户体验。</p>
+<p>事实上，之前的多种方法，特别是计算效率优化，对推理加速很有帮助。这些模型从算法的角度，进行了推理速度优化。本文主要从框架层的角度，讲解如何对推理进行加速。主要带来NVIDIA的Faster-Transformer框架和腾讯的Turbo-Transformer框架。</p>
+<h4 id="faster-transformer">2 Faster-Transformer</h4>
+<p>PPT资料：https://on-demand.gputechconf.com/gtc-cn/2019/pdf/CN9468/presentation.pdf 代码地址：https://github.com/NVIDIA/DeepLearningExamples/tree/master/FasterTransformer</p>
+<h5 id="实现方案-4">实现方案</h5>
+<p>Faster-Transformer算法结构和原版Transformer基本一致，主要是从框架层角度来实现计算加速。主要方法有</p>
+<ol type="1">
+<li>算子融合。对除矩阵乘法外的所有算子，进行了合并。比如Add、Sub。从而减少了GPU kernel调度和显存读写。</li>
+<li>半精度F16优化。</li>
+<li>GELU激活函数、层正则化、softmax等调用频次很高的操作的优化</li>
+</ol>
+<h5 id="效果">效果</h5>
+<p><img src="https://i.loli.net/2020/10/28/AGKsp9WPLQ2julY.png" alt="在这里插入图片描述"> Encoder效果对比如上。Faster-Transformer基本吊打TF XLA，提升速度一倍多。<img src="https://i.loli.net/2020/10/28/yYDIensgFQmv3HG.png" alt="在这里插入图片描述"> Decoder效果对比如上。对比了32bit和16bit的结果。Decoding FP32和Decoding FP16为Faster-Transformer 的结果，也是吊打原始TensorFlow。</p>
+<h4 id="turbotransformers">3 <strong>TurboTransformers</strong></h4>
+<p><img src="https://i.loli.net/2020/10/28/IKjLfbDRNgMd5rE.png" alt="在这里插入图片描述">代码地址 https://github.com/Tencent/TurboTransformers</p>
+<h5 id="实现方案-5">实现方案</h5>
+<ol type="1">
+<li>和Faster-Transformer一样，进行了算子融合。从而减少GPU kernel调用和显存占用</li>
+<li>对于LayerNorm和softmax，由于不适合并行计算，重新开发并实现了并行计算版本。</li>
+<li>内存缓存，避免频繁释放和分配内存。</li>
+</ol>
+<h5 id="和其他方案的对比">和其他方案的对比</h5>
+<p><img src="https://i.loli.net/2020/10/28/BzXjLlFERMe34x2.png" alt="在这里插入图片描述"></p>
+<h5 id="效果-1">效果</h5>
+<p><img src="https://i.loli.net/2020/10/28/FnUxJrzqgL6eEks.png" alt="在这里插入图片描述">V100上的QPS，越高代表框架性能越好。对比了PyTorch、TensorFlow、Faster-Transformer、turboTransformers的效果，其中turboTransformers效果最好</p>
+<h3 id="邱锡鹏教授nlp预训练模型综述">🚀邱锡鹏教授：NLP预训练模型综述</h3>
+<h4 id="引言"><strong>1.引言</strong></h4>
+<p>随深度学习的发展，多种神经网络都被应用在 NLP 任务中，比如 CNN、RNN、GNN 和 attention 机制等，但由于现有的数据集对于大部分有监督 NLP 任务来说都很小，因此，早期的模型对 NLP 任务来说都很“浅”，往往只包含 1-3 层。</p>
+<p>而预训练模型（Pre-trained Models, PTMs）的出现将NLP带入一个新的时代，更“深”的模型和训练技巧的增强也使得 PTMs 由“浅”变“深”，在多项任务都达到了 SOTA 性能。</p>
+<p>近日，复旦大学的邱锡鹏老师等人发布了预训练模型综述 *<strong>Pre-trained Models for Natural Language Processing: A Survey*</strong>，从背景、分类到应用与前景对 PTMs 做了详细而全面的调研。</p>
+<p><img src="https://i.loli.net/2020/10/28/lLPuxzv8IVRTAQO.png" alt="img"></p>
+<p><strong>论文标题：</strong>Pre-trained Models for Natural Language Processing: A Survey</p>
+<p><strong>论文链接：</strong> https://arxiv.org/abs/2003.08271</p>
+<h4 id="背景-4"><strong>2.背景</strong></h4>
+<h5 id="语言表示学习"><strong>2.1 语言表示学习</strong></h5>
+<p>对于语言来说，一个好的表示应当描绘语言的内在规则比如词语含义、句法结构、语义角色甚至语用。</p>
+<p><img src="https://i.loli.net/2020/10/28/ZmF3yXaiHPME1LQ.png" alt="img"></p>
+<p>而分布式表示的核心思想就是通过低维实值向量来描述一段文本的意义，而向量的每一个维度都没有对于意义，整体则代表一个具体的概念。图 1 是 NLP 的通用神经体系架构。</p>
+<p>有两种 embedding（词嵌入）方式：上下文嵌入和非上下文嵌入，两者的区别在于词的 embedding 是否根据词出现的上下文动态地改变。</p>
+<p><strong>非上下文嵌入：</strong>表示语言的第一步就是将分离的语言符号映射到分布式嵌入空间中。也就是对于词汇表中的每个单词（词根），通过 lookup table 映射到一个向量。</p>
+<p>这种嵌入方式有两个局限：一是一个词通过这种方法获得的词嵌入总是静态且与上下文无关的，无法处理多义词；二是难以解决不在词汇表中的词（针对这个问题，很多 NLP 任务提出了字符级或词根级的词表示，如 CharCNN、FastText、Byte-Pair Encoding (BPE)）。</p>
+<p><strong>上下文嵌入：</strong>为解决多义性和上下文相关的问题，将词在不同上下文的语义做区分。通过对词（词根）的 token 加一层 Neural Contextual Encoder（神经上下文编码器）得到词的上下文嵌入。</p>
+<h3 id="section"></h3>
+<h5 id="神经上下文编码器"><strong>2.2 神经上下文编码器</strong></h5>
+<p><img src="https://i.loli.net/2020/10/28/DeQYroznLq4cCkt.png" alt="img"></p>
+<p>如图 2 中所示，大部分的神经上下文编码器都可以被分为三类：卷积模型、序列模型、基于图的模型。</p>
+<p><strong>卷积模型 ：</strong>卷积模型通过卷积操作将输入句子中的 embeddings 与其相邻的局部信息集成。</p>
+<p><strong>序列模型 ：</strong>序列模型通常使用 RNN（如 LSTM 和 GRU）来描述词的上下文表示。实践中，双向 RNN 常用于收集词的两边信息，但表现往往会受到长程依赖问题的影响。</p>
+<p><strong>基于图的模型 ：</strong>基于图的模型将词视做节点，通过预先定义的语言结构（如句法结构和语义联系）来学习上下文表示。但如何构造一个好的图结构往往严重依赖于专家知识和外部 NLP 工具，如依存分析器。</p>
+<p>实际操作中往往直接通过一个全连接图来建模并让模型自己学习结构（一般通过自注意力机制）。一个典型的成功运用就是 Transformer。</p>
+<p><strong>分析：</strong>卷积模型和序列模型都很难解决词之间的长程依赖问题，而 Transformer 虽然能更好地描述词之间的深层联系，却往往需要非常大的语料来训练，且容易在中等规模的数据集上过拟合。</p>
+<h5 id="为什么要预训练"><strong>2.3 为什么要预训练？</strong></h5>
+<p>正如上文提到的，模型参数的数量增长迅速，而为了训练这些参数，就需要更大的数据集来避免过拟合，而大规模的标注数据集成本又非常高。而相比之下，大规模未标注的语料却很容易构建。</p>
+<p>为了利用大量的未标注文本数据，我们可以先从其中学习一个好的表示，再将这些表示用在别的任务中。这一通过 PTMs 从未标注大规模数据集中提取表示的预训练过程在很多 NLP 任务中都取得了很好的表现。</p>
+<p>预训练的优点可以总结为以下三点：1 在大规模语料上通过预训练学习通用语言表示对下游任务很有帮助；2) 预训练提供了更好的模型初始化参数，使得在目标任务上有更好的泛化性能和更快的收敛速度；3) 预训练是一种有效的正则化方法，能够避免在小数据集上过拟合。</p>
+<h4 id="ptms概述"><strong>3.PTMs概述</strong></h4>
+<p>PTMs 的主要区别在于上下文编码器的使用、预训练任务和目标。上下文编码器已在 2.2 中做了叙述，接下来对预训练任务进行分析，并提出一种 PTMs 分类方法。</p>
+<p><img src="https://i.loli.net/2020/10/28/LhoxNVG5rF3McDK.png" alt="img"></p>
+<p>如图 3，这一部分内容作者在文中有一张非常详细的分类图可供参考。</p>
+<p>表 1 从多个角度区分了文中提到的一些 PTMs。</p>
+<p><img src="https://i.loli.net/2020/10/28/ZI176zJekFciyGr.png" alt="img"></p>
+<h5 id="预训练任务"><strong>3.1 预训练任务</strong></h5>
+<p>PTMs 按照预训练任务类型可以被分为两类：有监督学习、无监督学习/自监督学习。</p>
+<p>有监督学习的预训练任务主要有机器翻译 (MT)，典型的模型是 CoVe。而下文进一步根据实现思路将自监督/无监督任务分为两类，一是基于上下文的 (LM, DAE, PLM)，二是基于对比的 (CTL)。</p>
+<h4 id="section-1"></h4>
+<h6 id="语言模型-lm"><strong>3.1.1 语言模型 (LM)</strong></h6>
+<p>作为 NLP 中最常见的无监督任务，LM 一般指自回归 LM (auto-regressive LM) 或者单向 LM (unidirectional LM)。具体训练过程是基于一个大的语料，通过最大似然估计 (MLE) 训练计算一个句子出现的概率。</p>
+<p>然而单向 LM 的缺点则是只能编码一个词左侧的文本和其自身，而更好的上下文应该编码左右两侧的文本。针对这一缺点，解决方案是双向 LM (BiLM)，即一个从左到右和一个从右到左的模型的组合。</p>
+<h6 id="去噪声自编码器-denoising-autoencoder-dae"><strong>3.1.2 去噪声自编码器 (Denoising Autoencoder, DAE)</strong></h6>
+<blockquote>
+<p>这里将原文中 Masked Language Modeling (MLM) 与 DAE 合并为一个部分，因为一般将 BERT 中提出的 MLM 看作是基于 DAE 的思路实现的。</p>
+</blockquote>
+<p>DAE 的目的是通过向输入文本中添加噪声，利用含噪声的样本去重构不含噪声的输入。主要有五个实现方式：挡住 (MASK) token、删除 token、填充 token、句子排列、文本轮换。</p>
+<p>MLM 随机选出一些词用 [MASK] 标记，然后去预测被 MASK 的词。但由于被 MASK 的词并不出现在 fine-tuning 的过程中，会导致预训练和微调的过程出现不一致性。针对这种情况，BERT 通过 80% [MASK]，10% 随机 token,10% 原 token 的方式来进行 mask。</p>
+<p>而 MLM 的一种变体，<strong>Seq2SeqMLM</strong>，则是通过将 encoder-decoder (Seq2Seq) 应用到 MLM 上，这种变体有利于 Seq2Seq 类型的下游任务，比如 QA，总结和机器翻译。这一结构主要用在 MASS 和 T5 中。</p>
+<p>而在 BERT 之后的很多论文都对 MLM 做了一些改进以增强性能，作者将其总结为 E-MLM (Enhanced Masked Language Modeling)。</p>
+<p>其中 RoBERTa 使用动态 masking，UniLM 将对 mask 的预测扩展到三种任务：单向、双向和 Seq2Seq。XLM 通过一种串联并行双语句对叫做 TLM (translation language modeling) 的模型实现 MLM。</p>
+<p>而 SpanBERT 和 StructBERT 则是引入了结构化信息。而 ERINE (Baidu) 则是选择 MASK 实体和短语，E-BERT 和 ERINE (THU) 则是利用了实体 embedding 方法，这三者都是借助了外部知识来丰富 MLM。</p>
+<h6 id="排列语言模型plm"><strong>3.1.3 排列语言模型（PLM）</strong></h6>
+<p>针对 MLM 中使用 MASK 导致的预训练与微调过程的不一致，Permuted Language Modeling (PLM) 对于一个给定序列，生成其所有可能排列进行采样作为训练的目标。值得注意的是，PLM 并不改变原始文本的位置，而是重新定义 token 预测的顺序。</p>
+<h6 id="对比学习ctl"><strong>3.1.4 对比学习（CTL）</strong></h6>
+<p>CTL (Contrastive Learning) 基于一种“learning by comparison”的思路，假设某些观测文本对比随机采样文本在语义上更相似，通过构建正样本和负样本并度量距离来实现学习。CTL 通常比 LM 具有更少的计算复杂度，也因此成为一个值得选择的 PTMs 训练标准。</p>
+<h6 id="deep-infomax-dim"><strong>3.1.5 Deep InfoMax (DIM)</strong></h6>
+<p>DIM 最初是在 CV 领域提出的用于最大化图像全局特征与局部特征之间的互信息（Mutual Information）的方法。</p>
+<p>InfoWord 将 DIM 引入到语义表达学习中，提出用 DIM objective 以最大化句子的全局表示和一个 N-gram 的具备表示之间的互信息。</p>
+<p>噪声对比估计（Noise-Contrastive Estimation，NCE）通过训练一个二元分类器来区分真实样本和假样本，训练词嵌入。NCE 的思想也被用在 word2vec 中。</p>
+<h6 id="replaced-token-detection-rtd"><strong>3.1.6 Replaced Token Detection (RTD)</strong></h6>
+<p>RTD 和 NCE 大体相同，根据上下文来预测 token 是否替换。</p>
+<p>CBOW 的 negetive sampling 就可以看作是一个 RTD 的简单版本，其中采样是根据词汇表中的分布进行采样。</p>
+<p>ELECTRA 基于 RTD 提出了一种新的 generator-discriminator 框架。首先用 MLM 任务训练 generator，再用 generator 的权重初始化 discriminator，再用判别任务（判别哪些 token 被 generator 替换过）训练 discriminator。</p>
+<p>最终在下游任务只需要对 discriminator 进行 fine-tuning。TRD 也是一种很好的解决 MLM 导致的不一致问题的方法。</p>
+<p>WKLM 则是通过在实体层面（entity-level）进行词替换，替换为同一个实体类型的实体名。</p>
+<h5 id="section-2"></h5>
+<h6 id="next-sentence-prediction-nsp"><strong>3.1.7 Next Sentence Prediction (NSP)</strong></h6>
+<p>NSP 训练模型区分两个输入语句是否为训练语料中连续的片段，在选择预训练句对时，第二个句子 50% 是第一个句子实际的连续片段，50% 是语料中的随机段落。NSP 能够教会模型理解两个输入句子之间的联系，从而使得如 QA 和 NLI 这种对此类信息敏感的下游任务受益。</p>
+<p>然而，近来 NSP 的必要性也遭到了质疑，XLNet 的作者发现不用 NSP loss 的单句训练优于使用 NSP 的句对训练。RoBERTa 的作者进一步分析表明：在对单个文本中的文本块训练时，去除 NSP 会在下游任务稍微提高性能。</p>
+<h6 id="sentence-order-prediction-sop"><strong>3.1.8 Sentence Order Prediction (SOP)</strong></h6>
+<p>NSP 结合了主题预测相关性预测，而因为主题预测更容易，模型将更依赖于主题预测。为更好建模句子之间的相关性，ALBERT 提出使用 SOP loss 替换 NSP loss，SOP 使用一个文档中的两个连续片段作为正样本，将这两个片段交换顺序作为负样本。</p>
+<p>采用了 SOP 的 ALBERT 在多项下游任务中结果都优于 BERT。StructBERT 和 BERTje 也使用 SOP 作为自监督学习任务。</p>
+<h3 id="section-3"></h3>
+<h5 id="ptms的拓展"><strong>3.2 PTMs的拓展</strong></h5>
+<h6 id="引入知识的ptms"><strong>3.2.1 引入知识的PTMs</strong></h6>
+<p>通常 PTMs 都是用大量语料训练通用的语言表示，而将外部的领域知识引入到 PTMs 被证明式有效的。自 BERT 以来，就有很多预训练任务用以将外部知识纳入 PTMs，如：</p>
+<p><strong>LIBERT：</strong>linguistically-informed BERT ，通过附加语言约束任务纳入了语言知识。</p>
+<p><strong>SentiLR：</strong>通过对每个单词添加情感极性，将 MLM 拓展至 Label-Aware MLM (LA-MLM)，在多个情感分类任务达到 SOTA。</p>
+<p><strong>SenseBERT：</strong>不仅能预测被 mask 的 token，还能预测 WordNet 中的 supersense。</p>
+<p><strong>ERINE (THU)：</strong>将知识图谱中预训练的实体嵌入与文本中相应的实体提及相结合，以增强文本表示。</p>
+<p><strong>KnowBERT：</strong>端到端将带实体连接模型与实体表示集成。</p>
+<p><strong>KEPLER：</strong>将知识嵌入和语言模型对象联合。</p>
+<p><strong>K-BERT：</strong>不同于以上几个模型通过实体嵌入引入知识图谱中的结构化信息，K-BERT 通过直接将知识图谱中相关三元组引入句子，获得一个 BERT 的拓展的树形输入。</p>
+<p><strong>K-Adapter：</strong>针对不同预训练任务独立训练不同的适配器以引入多种知识，以解决上述模型在注入多种知识出现的遗忘问题。</p>
+<h6 id="多模态ptms"><strong>3.2.2 多模态PTMs</strong></h6>
+<p>随 PTMs 在 NLP 领域的广泛应用，一些多模态 PTMs 也被设计出来，在一些语音、视频、图像数据集上进行了预训练，比如：</p>
+<ul>
+<li><strong>视频-语言：</strong>VideoBERT、CBT</li>
+<li><strong>图像-语言：</strong>用于 visual question answering (VQA) and visual commonsense reasoning (VCR)，如 ViLBERT、LXMERT、VisualBERT、B2T2、VLBERT、 Unicoder-VL、UNITER</li>
+<li><strong>音频-文本：</strong>用于端到端 Speech Question Answering (SQA) 任务，如 SpeechBERT</li>
+</ul>
+<h4 id="section-4"></h4>
+<h6 id="领域预训练ptms"><strong>3.2.3 领域预训练PTMs </strong></h6>
+<p>大多数 PTMs 都是在 Wikipedia 这样的通用领域语料库上训练的，这就限制了他们在特定领域内的表现。</p>
+<p>近期有一些用专业领域语料训练的 PTMs，比如：生物医学领域的 BioBERT，科学领域的 SciBERT，临床医学领域的 ClinicalBERT。还有一些工作尝试将预训练模型更好地使用目标应用，比如生物医学实体归一化、专利分类等。</p>
+<h6 id="多语言与特定语言ptms"><strong>3.2.4 多语言与特定语言PTMs </strong></h6>
+<p>学习多语言文本表示对于跨语言 NLP 任务是很重要的。早期工作着力于学习来自同一语义环境下的多语言词嵌入，这一方法往往缺乏语言间的校准。近期有如下几个多语言 PTMs：</p>
+<p><strong>Multilingual-BERT：</strong>M-BERT，在 Wikipedia 上 104 种种语言的文本上进行 MLM 训练，每个训练样本都是单语言的，也没有专门设计跨语言目标，但即便如此，M-BERT 在跨语言任务上表现还是非常好。</p>
+<p><strong>XLM：</strong>通过结合跨语言任务 TLM (translation language modeling)，提升了 M-BERT 的性能。</p>
+<p><strong>Unicoder：</strong>提出三个跨语言预训练任务：1) cross-lingual word recovery; 2) cross-lingual paraphrase classification; 3) cross-lingual masked language model。</p>
+<p>除此之外还有一些单语言的 PTMs：BERT-wwm，ZEN，NEZHA，ERNIE (Baidu)，BERTje，CamemBERT， FlauBERT ，RobBERT 。</p>
+<h5 id="如何压缩ptms"><strong>3.3 如何压缩PTMs</strong></h5>
+<p>预训练模型往往包含至少几千万个参数，这也使得模型难以部署到生活中的线上服务以及资源有限的设备上，这就使得模型压缩成为一条可能能够压缩模型尺寸并提高计算效率的方法。表 2 展示了一些压缩的 PTMs 的对比。</p>
+<p><img src="https://i.loli.net/2020/10/28/6cBzpUQ3J7e1Xd2.png" alt="img"></p>
+<p>压缩 PTMs 一般有四个方法：</p>
+<ul>
+<li><strong>剪枝（pruning）：</strong>去除不那么重要的参数（e.g. 权重、层数、通道数、attention heads）</li>
+<li><strong>量化（weight quantization）：</strong>使用占位更少（低精度）的参数</li>
+<li><strong>参数共享（parameter sharing）：</strong>相似模型单元间共享参数</li>
+<li><strong>知识蒸馏（knowledge diistillation）：</strong>用一些优化目标从大型 teacher 模型学习一个小的 student 模型，一些利用知识蒸馏的 PTMs 见表 3。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/10/28/5tdJqBHve3XYuCo.png" alt="img"></p>
+<h4 id="如何将ptms应用至下游任务"><strong>4.如何将PTMs应用至下游任务</strong></h4>
+<h5 id="迁移学习"><strong>4.1 迁移学习</strong></h5>
+<p>迁移学习就是将源任务中的知识适应到目标任务，将 PTMs 适应到下游任务是一种顺序迁移学习任务。那么，如何迁移呢？我们需要考虑以下几个问题：</p>
+<ul>
+<li><strong>选择合适的预训练任务</strong>：近期，LM 是最流行的预训练任务，也有效解决了很多 NLP 问题。但不同的预训练任务在不同的下游任务上有不同的效果，比如 NSP 任务能帮助 PTM 理解句子之间的关系，因此 PTM 对于 QA 和 NLI 这样的下游任务很有帮助。</li>
+<li><strong>选择合适的模型架构</strong>：比如 BERT 使用的 MLM 和 Transformer 结构使其擅长 NLU 任务，却很难生成语言。</li>
+<li><strong>选择合适的语料</strong>：下游任务的数据应该接近 PTMs 的预训练任务。</li>
+<li><strong>选择合适的layers</strong>：在“深”的预训练模型中，不同的 layer 往往描绘不同种类的信息。有三种选择 layers 的方式：1) 只用 Embedding，如 word2vec 和 Glove；2) Top Layer，如 BERT；3) All Layers，如 ELMo。</li>
+<li><strong>是否进行fine-tune</strong>：模型迁移一般有两种方法：特征提取和 fine-tuning。特征提取的参数是冻结的，且往往需要特定任务的体系结构。fine-tunig 的参数是非冻结的，比特征提取方法更为通用且方便。</li>
+</ul>
+<h5 id="fine-tuning的策略"><strong>4.2 fine-tuning的策略</strong></h5>
+<p>自 ULMFit 和 BERT 起，fine-tuning 已经成为 PTMs 主要的适配方法。这里有一些实用的 fine-tunig 策略：</p>
+<ul>
+<li>两阶段 fine-tuning：两阶段迁移的方法在预训练和 fine-tuning 阶段引入了一个中间阶段。在第一阶段，通过中间任务或语料来微调模型。在第二阶段，通过目标任务微调模型。</li>
+<li>多任务 fine-tuning：liu等人在多任务学习框架下对 BERT 进行了微调，结果显示多任务学习和预训练是互补的方法。</li>
+<li>采用额外的适配器 fine-tuning：fine-tuning 的主要缺点是参数效率低，在每一个下游任务上都有各自的 dine-tuning 参数。对此的解决方案是在固定原始参数时引入一些可以 fine-tuning 的适配器。</li>
+<li>其他：逐层解冻而非连续 fine-tune 所有层；self-ensemble 和 self-distillation</li>
+</ul>
+<h4 id="一些ptms的资源"><strong>5.一些PTMs的资源</strong></h4>
+<h5 id="一些开源的应用"><strong>一些开源的应用：</strong></h5>
+<p><img src="https://i.loli.net/2020/10/28/jTUZBNqcrlm9hR2.png" alt="img"></p>
+<p><strong>word2vec:</strong></p>
+<p>https://github.com/tmikolov/word2vec</p>
+<p><strong>GloVe:</strong></p>
+<p>https://nlp.stanford.edu/projects/glove</p>
+<p><strong>FastText:</strong></p>
+<p>https://github.com/facebookresearch/fastText</p>
+<p><strong>Transformers:</strong></p>
+<p>https://github.com/huggingface/transformers</p>
+<p><strong>Fairseq:</strong></p>
+<p>https://github.com/pytorch/fairseq</p>
+<p><strong>Flair:</strong></p>
+<p>https://github.com/flairNLP/flair</p>
+<p><strong>AllenNLP:</strong></p>
+<p>https://github.com/allenai/allennlp</p>
+<p><strong>FastNLP:</strong></p>
+<p>https://github.com/fastnlp/fastNLP</p>
+<p><strong>Chinese-BERT:</strong></p>
+<p>https://github.com/ymcui/Chinese-BERT-wwm</p>
+<p><strong>BERT:</strong></p>
+<p>https://github.com/google-research/bert</p>
+<p><strong>RoBERTa:</strong></p>
+<p>https://github.com/pytorch/fairseq/tree/master/examples/roberta</p>
+<p><strong>XLNet:</strong></p>
+<p>https://github.com/zihangdai/xlnet/</p>
+<p><strong>ALBERT:</strong></p>
+<p>https://github.com/google-research/ALBERT</p>
+<p><strong>T5:</strong></p>
+<p>https://github.com/google-research/text-to-text-transfer-transformer</p>
+<p><strong>ERNIE (Baidu):</strong></p>
+<p>https://github.com/PaddlePaddle/ERNIE</p>
+<p><strong>相关资源：</strong></p>
+<p><strong>论文列表：</strong></p>
+<p>https://github.com/thunlp/PLMpapers</p>
+<p>https://github.com/tomohideshibata/BERT-related-papers</p>
+<p>https://github.com/cedrickchee/awesome-bert-nlp</p>
+<p><strong>BERT Lang Street（收集 BERT 在不同数据集和任务上的表现）：</strong></p>
+<p>https://bertlang.unibocconi.it/</p>
+<p><strong>BERTViz（应用 transformer 的模型的注意力可视化）：</strong></p>
+<p>https://github.com/jessevig/bertviz</p>
+<h4 id="应用"><strong>6.应用</strong></h4>
+<h5 id="通用评估标准"><strong>6.1 通用评估标准</strong></h5>
+<p>GLUE (The General Language Understanding Evaluation) 标准是一个集合了 9 个自然语言理解任务的标准。</p>
+<p>其中包括：单个句子分类任务（CoLA和SST-2）、文本对分类任务（MNLI, RTE, WNLI, QQP, MRPC）、文本相似度任务（STSB）、相关性排行任务（QNLI）。GLUE 标准能够能够很好地评估模型的鲁棒性和通用性。</p>
+<p>而近期 NLP 的快速发展促使了新的标准 SuperGLUE 的提出，相比 GLUE，SuperGLUE 有更多富有挑战性且多种多样的任务，如指代消解和 QA。</p>
+<h3 id="section-5"></h3>
+<h5 id="机器翻译-1"><strong>6.2 机器翻译</strong></h5>
+<p>机器翻译（Machine Translation, MT）也是 NLP 的一项重要任务。几乎所有 MT 模型都使用了 encoder-decoder 框架。而近期随预训练模型的发展，也有不少尝试将 BERT 之类的预训练模型用于初始化 encoder，取得了一定成效。</p>
+<h3 id="section-6"></h3>
+<h5 id="问答系统"><strong>6.3 问答系统</strong></h5>
+<p>问答系统（Question answering, QA）或是狭义概念的机器阅读理解（machine reading comprehension, MRC）也是 NLP 的重要任务。</p>
+<p>从易到难，有三种类型的 QA 任务：单回合提取 QA (single-round extractive QA, SQuAD)、多回合生成QA (multi-round generative QA, CoQA)、多跳问答 (multi-hop QA, HotpotQA)。</p>
+<p>针对提取 QA，有通过 PTM 初始化 encoder 的回溯阅读架构（retrospective reader architecture）；针对多回合生成 QA，有“PTM+Adversarial Training+Rationale Tagging+Knowledge Distillation”架构；针对多跳 QA，有“Select, Answer, and Explain” (SAE) 系统。</p>
+<h5 id="情感分析"><strong>6.4 情感分析</strong></h5>
+<p>BERT 通过在广泛使用的情感分析数据集 SST-2 上进行微调后，表现超过了先前的 SOTA 模型。而后又有很多将 BERT 进行调整以应用在 aspect 级的情感分析（ABSA）任务上。</p>
+<h5 id="总结-1"><strong>6.5 总结</strong></h5>
+<p>从长文本中总结出短文本也是近期 NLP 的热点。也有很多尝试将 PTM 应用在总结文本任务上，如将 BERT 通过插入 [CLS] token 来学习句子表示的模型 BERTSUM。</p>
+<h5 id="命名实体识别"><strong>6.6 命名实体识别</strong></h5>
+<p>命名实体识别（Named Entity Recognition, NER）也是知识提取的一个基础任务，在很多 NLP 任务上都有重要作用。TagLM 和 ELMo 利用预训练语言模型的最后一层的输入和各层的加权总和作为词嵌入的一部分。</p>
+<h4 id="未来方向"><strong>7.未来方向</strong></h4>
+<h5 id="ptms的上界"><strong>7.1 PTMs的上界</strong></h5>
+<p>随 BERT 的出现，我们可以发现，很多模型都可以通过更长的训练步长不在和更大的语料来提升性能，比如去年的 T5 使用的 C4 数据集。而我们也可以通过加深模型来提升性能，比如 Turing-NLG 使用了 72 个 transformer 层。</p>
+<p>PTMs 的共同目标都是学习语言的本质通用知识(或者说是世界的知识)，然而，随着模型的不断加深，语料的不断增大，训练模型的花销也越来越大。一种更可行的解决方案是设计更有效的模型架构、自监督预训练任务、优化器和软硬件方面的技巧等。ELECTRA 就是这个方向上一个很好的尝试。</p>
+<h5 id="面向任务的预训练与模型压缩"><strong>7.2 面向任务的预训练与模型压缩</strong></h5>
+<p>在实践中，不同的下游任务要求 PTMs 拥有不同的功能。而 PTMs 与下游目标任务间的差异通常表现在两方面：模型架构与数据分布。较大的 PTMs 通常情况下会有更好的性能，但实际问题是如何在低容量设备和低时延应用上使用如此庞大的 PTM。</p>
+<p>除此之外，我们可以通过模型压缩来将通用 PTMs 教给面向对象的 PTM。尽管 CV 中对 CNNs 的压缩已经非常成熟，但 Tansformer 的全连接结构使得模型压缩非常具有挑战性。</p>
+<h5 id="ptms架构"><strong>7.3 PTMs架构</strong></h5>
+<p>Transformer 是 PTMs 的一个高效的框架，但 Transformer 的局限在于计算复杂度。由于 GPU 显存大小的限制，目前大多数 PTM 无法处理序列长度超过 512 个 token 的序列。搭配这一限制需要改进 Transformer 的结构，如 Transformer-XL。因此，寻求更有效的模型架构对于解决长程文本信息也是很重要的。</p>
+<h5 id="fine-tunig中的知识迁移"><strong>7.4 Fine-tunig中的知识迁移 </strong></h5>
+<p>Fine-tuning 是目前将 PTM 的知识迁移至下游任务的主要方法，但参数效率却很低，每个下游任务都有特定的 fine-tuned 参数。</p>
+<p>一个可以改进的解决方案是固定 PTMs 的原始参数，并为特定任务添加小型的可微调的适配器，这样就可以在不同的下游任务使用共享的 PTMs。从 PTM‘s 中挖掘知识也可以更灵活，比如：知识提取、知识蒸馏、数据增加、将 PTMs 作为外部知识等等。</p>
+<h5 id="ptms的可解释性与可靠性"><strong>7.5 PTMs的可解释性与可靠性 </strong></h5>
+<p>PTMs 的深且非线性的架构使得决策制定的过程非常不透明。近期，可解释人工智能（explainable artificial intelligence, XAI）成为热点。通过对模型词嵌入的研究我们可以分析 PTMs 中的语言和世界知识，但更多有关注意力机制的可解释性的问题还值得探讨。</p>
+<p>PTMs 这种深模型很容易受到对抗样本的扰动而产生错误的预测。在 CV 领域，对抗攻击与防御已经被广泛学习，而由于语言的特性，文本的对抗还非常具有挑战性。PTMs 的对抗防御也对于提升 PTMs 的鲁棒性很重要。</p>
+<h4 id="总结-2"><strong>8.总结</strong></h4>
+<p>邱锡鹏老师的这篇综述很全面地概括了预训练模型，也非常适合初学者当作一个 roadmap 来阅读。我们可以看到 NLP 的发展过程是非常令人感动的，从最开始的“要表示语言”的目标，使用词袋模型和 N-gram。</p>
+<p>再想到“词语具有多义性”，所以需要有上下文，使用 LSTM。LSTM 只有单向，那就使用双向 LSTM。“想要更大范围的上下文”，就产生了 transformer。</p>
+<p>“再大一些”，有了 transformer-XL。还是不够好，怎么办？“更多知识”，于是不断加大语料库，不断堆 GPU，直到 T5 探索了“Limits of Transfer Learning with a Uniﬁed Text-to-Text Transformer”。</p>
+<p>模型太大，成本太高，那就压缩模型，改进框架，于是有了 ELECTRA。预训练模型缺乏尝试推理能力，那就知识提取，于是有了 COMET。每一步尝试都是在靠近语言的本质与世界的知识。</p>
+<p><em>“The whole of science is nothing more than a refinement of everyday thinking.”</em></p>
+<h3 id="xlnet">🚀XLNet</h3>
+<h4 id="permutation-language-modeling">Permutation Language Modeling</h4>
+<p>由于<code>[mask]</code> token会导致pre-training和fine-tuning数据分布的不一致，因此XLNet去掉了mask策略，转而使用permutation来获得双向连接。具体做法是，采用顺序的transformer模型（每个token只与之前的token做attention），但调整序列中token的permutation，使得permute之后的token可以与本来在句子中位于permute之后的token做attention. 个人理解，就是在pre-training的过程中打乱句子里token的顺序（相当于mock出来很多各种语序的句子），但是仍然用顺序transformer，这样对于fine-tuning就没有影响。</p>
+<hr>
+<p><strong>2.Permutation Language Model</strong></p>
+<p>PLM (Permutation Language Model) 是 XLNet 的核心思想，首先将句子的 token 随机排列，然后采用 AR 的方式预测句子末尾的单词，这样 XLNet 即可同时拥有 AE 和 AR 的优势。</p>
+<p><strong>2.1 PLM 介绍</strong></p>
+<p><strong>XLNet 中通过 Attention Mask 实现 PLM，而无需真正修改句子 token 的顺序。</strong>例如原来的句子是 [1,2,3,4]，如果随机生成的序列时 [3,2,4,1]，则输入到 XLNet 的句子仍然是 [1,2,3,4]，但是掩码需要修改成下图。</p>
+<p><img src="E:\myBlog\source_posts\4b90f603738da977017568ad5cb6f01f8418e3c8.jpeg" alt="img">PLM mask 矩阵</p>
+<p>图中的掩码矩阵，红色表示不遮掩，白色表示遮掩。第 1 行表示 token 1 的掩码，可以看到，1 是句子的最后一个 token，因此可以看到之前的所有 token (3,2,4)。3 是句子的第一个 token，看不到句子的任何信息，因此第 3 行都是白色的 (表示遮掩)。</p>
+<p><strong>2.2 Two-Stream Self-Attention</strong></p>
+<p><strong>Two-Stream 概念</strong></p>
+<p>XLNet 打乱了句子的顺序，这时在预测的时候 token 的位置信息会非常重要，同时在预测的时候也必须将 token 的内容信息遮掩起来 (否则输入包含了要预测的内容信息，模型就无法学到知识)。<strong>也就是说 XLNet 需要看到 token 的位置信息，但是又不能看到 token 的内容信息</strong>，因此 XLNet 采用了两个 Stream 实现这一目的：</p>
+<p><strong>Query Stream</strong>，对于每一个 token，其对应的 Query Stream 只包含了该 token 的位置信息，注意是 token 在原始句子的位置信息，不是重新排列的位置信息。<strong>Content Stream</strong>，对于每一个 token，其对应的 Content Stream 包含了该 token 的内容信息。<strong>Query Stream 计算</strong></p>
+<p>Query Stream 用 <strong>g</strong>表示，Content Stream 用 <strong>h</strong> 表示，使用 Query Stream 对要预测的位置进行预测的时候，Q (Query) 向量是用 <strong>g</strong> 计算得到的，包含该位置的位置信息，而 K (Key) 和 V (Value) 是用 <strong>h</strong> 计算的，包含其他 token 的内容信息。下图展示了如何通过当前层的 <strong>g</strong> 计算下一层 <strong>g</strong> 的过程，图中的排列是 [3,2,4,1]，计算的 token 是 1。</p>
+<p><img src="E:\myBlog\source_posts\94cad1c8a786c917e9514bed38da78c939c75785.png" alt="img">Query Stream 计算过程</p>
+<p>可以看到在计算 token 1 的 Q 向量时，只使用了 token 1 的 Query Stream <strong>g</strong>，即模型只得到 token 1 的位置信息。而向量 K，V 使用 token 3, 2, 4 进行计算，所以模型可以得到 token 3, 2, 4 的内容信息。因为 token 1 是排列 [3,2,4,1] 的最后一位。这一个过程的掩码矩阵和上一节的是一样的 ，对角线上都为白色，即遮掩当前预测位置的内容信息 <strong>h</strong>。</p>
+<p><img src="E:\myBlog\source_posts\aa64034f78f0f736db52fe73feb2bb1feac41305.png" alt="img">Query Stream Mask 矩阵</p>
+<p><strong>Content Stream 计算</strong></p>
+<p>Content Stream 包含了 token 的内容信息，因为 XLNet 的层数很多，需要将 token 的内容传递到下一层。这一层的 Q, K, V 都是利用 <strong>h</strong> 计算的。Content Stream 的计算如下图所示。</p>
+<p><img src="E:\myBlog\source_posts\9213b07eca8065383aaba0c86e3aa942af348291.png" alt="img">Content Stream 计算过程</p>
+<p>可以看到，在计算下一层的 <strong>h1</strong>时，也会利用 token 1 当前的内容信息，这样就可以将 token 的内容传递到下一层，但是注意 XLNet 在预测时只是用 <strong>g</strong> (Query Stream)。计算 Content Stream 时候的掩码矩阵如下图所示。</p>
+<p><img src="E:\myBlog\source_posts\aa64034f78f0f736e428df89f4b2bb1fe9c41355.png" alt="img">Content Stream Mask 矩阵</p>
+<p>和 Query Stream 的掩码矩阵区别在于对角线，Content Stream 不遮掩对角线，使得当前 token 的信息可以传递到下一层。</p>
+<p><strong>Query Stream 和 Content Stream 组合</strong></p>
+<p>XLNet 将 Query Stream 和 Content Stream 组合在一起，如下图所示。</p>
+<p><img src="E:\myBlog\source_posts\c995d143ad4bd11326180c4f5847ac0949fb05e7.png" alt="img">XLNet 整体结构</p>
+<p>图中最下面的一层是输入层，其中 e(x) 是单词的词向量，表示输入的 Content Stream，而 w 表示输入的位置信息，即 Query Stream。</p>
+<p><strong>2.3 Partial Prediction</strong></p>
+<p>XLNet 将句子重新排列，然后根据排列后的顺序使用 AR 方式预测，但是由于句子是随机排列的，会导致优化比较困难且收敛速度慢。因此 XLNet 采用了 Partial Prediction (部分预测) 的方式进行训练，对于排列后的句子，只预测句子末尾的 1/K 个 token。</p>
+<p>例如 K=4，就是只预测最后 1/4 的 token。给定句子 [1,2,3,4,5,6,7,8] 和一种随机排列 [2,8,3,4,5,1,7,6]，则只预测 7 和 6。论文中训练 XLNet-Large 时使用的 K 为 6，大约是预测末尾 <strong>14.3%</strong>的 token。</p>
+<blockquote>
+<p><a href="http://aiblog.top/2019/07/12/XLNET%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E5%8F%8A%E7%90%86%E8%A7%A3/" target="_blank" rel="noopener">http://aiblog.top/2019/07/12/XLNET%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E5%8F%8A%E7%90%86%E8%A7%A3/</a></p>
+<p><a href="https://my.oschina.net/u/4373067/blog/4476706" target="_blank" rel="noopener" class="uri">https://my.oschina.net/u/4373067/blog/4476706</a></p>
+<p><a href="https://baijiahao.baidu.com/s?id=1654814515140351919&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener" class="uri">https://baijiahao.baidu.com/s?id=1654814515140351919&amp;wfr=spider&amp;for=pc</a></p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    </div>
+
+    
+    
+    
+
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fab fa-gratipay"></i>感谢阅读-------------</div>
+        <div class="reward-container">
+  <div>卑微博主，在线求赏</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="李思建 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+    
+      
+   
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/26/2020-10-26-BERT%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E5%8F%8A%E8%AF%A6%E8%A7%A3/" rel="prev" title="2020-10-26-BERT论文阅读及详解">
+      <i class="fa fa-chevron-left"></i> 2020-10-26-BERT论文阅读及详解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/29/2020-10-29-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%B0%83%E5%8F%82%E6%8A%80%E5%B7%A7%E6%B1%87%E6%80%BB/" rel="next" title="2020-10-29-深度学习调参技巧汇总">
+      2020-10-29-深度学习调参技巧汇总 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer家族1----transformer详解和源码分析"><span class="nav-number">1.</span> <span class="nav-text">🚀Transformer家族1 -- Transformer详解和源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#transformer总体结构"><span class="nav-number">1.1.</span> <span class="nav-text">1 Transformer总体结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#encoder"><span class="nav-number">1.2.</span> <span class="nav-text">2 encoder</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#encoder定义"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 encoder定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入层embedding"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 输入层embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#token-embedding"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">2.2.1 token embedding</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#position-encoding"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2.2.2 position encoding</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编码层"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 编码层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#multiheadedattention"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">2.3.1 MultiHeadedAttention</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#positionwisefeedforward"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2.3.2 PositionwiseFeedForward</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#sublayerconnection"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">2.3.3 SublayerConnection</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#decoder"><span class="nav-number">1.3.</span> <span class="nav-text">3 decoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出层"><span class="nav-number">1.4.</span> <span class="nav-text">4 输出层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">5 总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer家族2----编码长度优化transformer-xllongformer"><span class="nav-number">2.</span> <span class="nav-text">🚀Transformer家族2 -- 编码长度优化（Transformer-XL、Longformer）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">2.1.</span> <span class="nav-text">1 背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#transformer-xl"><span class="nav-number">2.2.</span> <span class="nav-text">2 Transformer-XL</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么需要transformer-xl"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 为什么需要Transformer-XL</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现方法"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#segment-level-recurrence-with-state-reuse-片段级递归和信息复用"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">2.2.1 Segment-Level Recurrence with State Reuse 片段级递归和信息复用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#relative-positional-encodings-相对位置编码"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">2.2.2 Relative Positional Encodings 相对位置编码</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实验结果"><span class="nav-number">2.2.3.</span> <span class="nav-text">2.3 实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#长文本编码效果"><span class="nav-number">2.2.3.1.</span> <span class="nav-text">长文本编码效果</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#有效编码长度"><span class="nav-number">2.2.3.2.</span> <span class="nav-text">有效编码长度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#预测速度"><span class="nav-number">2.2.3.3.</span> <span class="nav-text">预测速度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#消融分析"><span class="nav-number">2.2.3.4.</span> <span class="nav-text">消融分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#longformer"><span class="nav-number">2.3.</span> <span class="nav-text">3 Longformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#改进方法"><span class="nav-number">2.3.1.</span> <span class="nav-text">3.1 改进方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#attention稀疏化"><span class="nav-number">2.3.1.1.</span> <span class="nav-text">3.1.1 attention稀疏化</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#tensor-virtual-machine-tvm"><span class="nav-number">2.3.1.2.</span> <span class="nav-text">3.1.2 Tensor Virtual Machine (TVM)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实验结果-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">3.2 实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#大小模型效果"><span class="nav-number">2.3.2.1.</span> <span class="nav-text">大小模型效果</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#消融分析-1"><span class="nav-number">2.3.2.2.</span> <span class="nav-text">消融分析</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#语料长度"><span class="nav-number">2.3.2.3.</span> <span class="nav-text">语料长度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#下游任务finetune效果"><span class="nav-number">2.3.2.4.</span> <span class="nav-text">下游任务finetune效果</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer家族3----计算效率优化adaptive-spanreformerlite-transformer"><span class="nav-number">3.</span> <span class="nav-text">🚀Transformer家族3 -- 计算效率优化（Adaptive-Span、Reformer、Lite-Transformer）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景-1"><span class="nav-number">3.1.</span> <span class="nav-text">1 背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adaptive-span-transformer"><span class="nav-number">3.2.</span> <span class="nav-text">2 Adaptive-Span Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么需要adaptive-span"><span class="nav-number">3.2.1.</span> <span class="nav-text">2.1 为什么需要Adaptive-Span</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现方案"><span class="nav-number">3.2.2.</span> <span class="nav-text">2.2 实现方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实验结果-2"><span class="nav-number">3.2.3.</span> <span class="nav-text">2.3 实验结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reformer"><span class="nav-number">3.3.</span> <span class="nav-text">3 Reformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么需要reformer"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.1 为什么需要Reformer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现方案-1"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.2 实现方案</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#locality-sensitive-hashing-局部敏感hash"><span class="nav-number">3.3.2.1.</span> <span class="nav-text">3.2.1 LOCALITY-SENSITIVE HASHING 局部敏感hash</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#query和key必须用两套吗"><span class="nav-number">3.3.2.2.</span> <span class="nav-text">Query和Key必须用两套吗</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#必须和每个token计算相关性吗"><span class="nav-number">3.3.2.3.</span> <span class="nav-text">必须和每个token计算相关性吗</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#怎么找到相关性大的向量呢"><span class="nav-number">3.3.2.4.</span> <span class="nav-text">怎么找到相关性大的向量呢</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#整个流程"><span class="nav-number">3.3.2.5.</span> <span class="nav-text">整个流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多轮lsh"><span class="nav-number">3.3.2.6.</span> <span class="nav-text">多轮LSH</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#reversible-transformer-可逆transformer"><span class="nav-number">3.3.2.7.</span> <span class="nav-text">3.2.2 REVERSIBLE TRANSFORMER 可逆Transformer</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#feed-forward-chunking-ff层分块"><span class="nav-number">3.3.2.8.</span> <span class="nav-text">3.2.3 Feed-Forward chunking FF层分块</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实验结果-3"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3 实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#内存和时间复杂度"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">内存和时间复杂度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#模型效果"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">模型效果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lite-transformer"><span class="nav-number">3.4.</span> <span class="nav-text">4 Lite Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要做lite-transformer"><span class="nav-number">3.4.1.</span> <span class="nav-text">4.1 为什么要做Lite Transformer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现方案-2"><span class="nav-number">3.4.2.</span> <span class="nav-text">4.2 实现方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实验结果-4"><span class="nav-number">3.4.3.</span> <span class="nav-text">4.3 实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#计算复杂度"><span class="nav-number">3.4.3.1.</span> <span class="nav-text">计算复杂度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#模型体积"><span class="nav-number">3.4.3.2.</span> <span class="nav-text">模型体积</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">3.5.</span> <span class="nav-text">5 其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer家族4----通用性优化universal-transformer"><span class="nav-number">4.</span> <span class="nav-text">🚀Transformer家族4 -- 通用性优化（Universal-Transformer）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景-2"><span class="nav-number">4.1.</span> <span class="nav-text">1 背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#universal-transformer"><span class="nav-number">4.2.</span> <span class="nav-text">2 Universal-Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么需要universal-transformer"><span class="nav-number">4.2.1.</span> <span class="nav-text">2.1 为什么需要Universal-Transformer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现方案-3"><span class="nav-number">4.2.2.</span> <span class="nav-text">2.2 实现方案</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#模型结构"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">模型结构</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#adaptive-computation-timeact-自适应计算时间"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">Adaptive Computation Time（ACT） 自适应计算时间</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实验结果-5"><span class="nav-number">4.2.3.</span> <span class="nav-text">2.3 实验结果</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#字符串任务"><span class="nav-number">4.2.3.1.</span> <span class="nav-text">字符串任务</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#机器翻译"><span class="nav-number">4.2.3.2.</span> <span class="nav-text">机器翻译</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transformer家族5----推理加速faster-transformer-turbotransformers"><span class="nav-number">5.</span> <span class="nav-text">🚀Transformer家族5 -- 推理加速（Faster-Transformer 、TurboTransformers）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#背景-3"><span class="nav-number">5.1.</span> <span class="nav-text">1 背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#faster-transformer"><span class="nav-number">5.2.</span> <span class="nav-text">2 Faster-Transformer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#实现方案-4"><span class="nav-number">5.2.1.</span> <span class="nav-text">实现方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#效果"><span class="nav-number">5.2.2.</span> <span class="nav-text">效果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#turbotransformers"><span class="nav-number">5.3.</span> <span class="nav-text">3 TurboTransformers</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#实现方案-5"><span class="nav-number">5.3.1.</span> <span class="nav-text">实现方案</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#和其他方案的对比"><span class="nav-number">5.3.2.</span> <span class="nav-text">和其他方案的对比</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#效果-1"><span class="nav-number">5.3.3.</span> <span class="nav-text">效果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#邱锡鹏教授nlp预训练模型综述"><span class="nav-number">6.</span> <span class="nav-text">🚀邱锡鹏教授：NLP预训练模型综述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引言"><span class="nav-number">6.1.</span> <span class="nav-text">1.引言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景-4"><span class="nav-number">6.2.</span> <span class="nav-text">2.背景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语言表示学习"><span class="nav-number">6.2.1.</span> <span class="nav-text">2.1 语言表示学习</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section"><span class="nav-number">7.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#神经上下文编码器"><span class="nav-number">7.0.1.</span> <span class="nav-text">2.2 神经上下文编码器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么要预训练"><span class="nav-number">7.0.2.</span> <span class="nav-text">2.3 为什么要预训练？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ptms概述"><span class="nav-number">7.1.</span> <span class="nav-text">3.PTMs概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#预训练任务"><span class="nav-number">7.1.1.</span> <span class="nav-text">3.1 预训练任务</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-1"><span class="nav-number">7.2.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#语言模型-lm"><span class="nav-number">7.2.0.1.</span> <span class="nav-text">3.1.1 语言模型 (LM)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#去噪声自编码器-denoising-autoencoder-dae"><span class="nav-number">7.2.0.2.</span> <span class="nav-text">3.1.2 去噪声自编码器 (Denoising Autoencoder, DAE)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#排列语言模型plm"><span class="nav-number">7.2.0.3.</span> <span class="nav-text">3.1.3 排列语言模型（PLM）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#对比学习ctl"><span class="nav-number">7.2.0.4.</span> <span class="nav-text">3.1.4 对比学习（CTL）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#deep-infomax-dim"><span class="nav-number">7.2.0.5.</span> <span class="nav-text">3.1.5 Deep InfoMax (DIM)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#replaced-token-detection-rtd"><span class="nav-number">7.2.0.6.</span> <span class="nav-text">3.1.6 Replaced Token Detection (RTD)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#section-2"><span class="nav-number">7.2.1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#next-sentence-prediction-nsp"><span class="nav-number">7.2.1.1.</span> <span class="nav-text">3.1.7 Next Sentence Prediction (NSP)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#sentence-order-prediction-sop"><span class="nav-number">7.2.1.2.</span> <span class="nav-text">3.1.8 Sentence Order Prediction (SOP)</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section-3"><span class="nav-number">8.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ptms的拓展"><span class="nav-number">8.0.1.</span> <span class="nav-text">3.2 PTMs的拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#引入知识的ptms"><span class="nav-number">8.0.1.1.</span> <span class="nav-text">3.2.1 引入知识的PTMs</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多模态ptms"><span class="nav-number">8.0.1.2.</span> <span class="nav-text">3.2.2 多模态PTMs</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#section-4"><span class="nav-number">8.1.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#领域预训练ptms"><span class="nav-number">8.1.0.1.</span> <span class="nav-text">3.2.3 领域预训练PTMs </span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#多语言与特定语言ptms"><span class="nav-number">8.1.0.2.</span> <span class="nav-text">3.2.4 多语言与特定语言PTMs </span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何压缩ptms"><span class="nav-number">8.1.1.</span> <span class="nav-text">3.3 如何压缩PTMs</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何将ptms应用至下游任务"><span class="nav-number">8.2.</span> <span class="nav-text">4.如何将PTMs应用至下游任务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#迁移学习"><span class="nav-number">8.2.1.</span> <span class="nav-text">4.1 迁移学习</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fine-tuning的策略"><span class="nav-number">8.2.2.</span> <span class="nav-text">4.2 fine-tuning的策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些ptms的资源"><span class="nav-number">8.3.</span> <span class="nav-text">5.一些PTMs的资源</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一些开源的应用"><span class="nav-number">8.3.1.</span> <span class="nav-text">一些开源的应用：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用"><span class="nav-number">8.4.</span> <span class="nav-text">6.应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#通用评估标准"><span class="nav-number">8.4.1.</span> <span class="nav-text">6.1 通用评估标准</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section-5"><span class="nav-number">9.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#机器翻译-1"><span class="nav-number">9.0.1.</span> <span class="nav-text">6.2 机器翻译</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#section-6"><span class="nav-number">10.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问答系统"><span class="nav-number">10.0.1.</span> <span class="nav-text">6.3 问答系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#情感分析"><span class="nav-number">10.0.2.</span> <span class="nav-text">6.4 情感分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#总结-1"><span class="nav-number">10.0.3.</span> <span class="nav-text">6.5 总结</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命名实体识别"><span class="nav-number">10.0.4.</span> <span class="nav-text">6.6 命名实体识别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#未来方向"><span class="nav-number">10.1.</span> <span class="nav-text">7.未来方向</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ptms的上界"><span class="nav-number">10.1.1.</span> <span class="nav-text">7.1 PTMs的上界</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#面向任务的预训练与模型压缩"><span class="nav-number">10.1.2.</span> <span class="nav-text">7.2 面向任务的预训练与模型压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ptms架构"><span class="nav-number">10.1.3.</span> <span class="nav-text">7.3 PTMs架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fine-tunig中的知识迁移"><span class="nav-number">10.1.4.</span> <span class="nav-text">7.4 Fine-tunig中的知识迁移 </span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ptms的可解释性与可靠性"><span class="nav-number">10.1.5.</span> <span class="nav-text">7.5 PTMs的可解释性与可靠性 </span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结-2"><span class="nav-number">10.2.</span> <span class="nav-text">8.总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xlnet"><span class="nav-number">11.</span> <span class="nav-text">🚀XLNet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#permutation-language-modeling"><span class="nav-number">11.1.</span> <span class="nav-text">Permutation Language Modeling</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李思建"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">李思建</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OopsAaron" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OopsAaron" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:li1574468139@outlook.com" title="E-Mail → mailto:li1574468139@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5871697996" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5871697996" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/AaronLe48891280" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;AaronLe48891280" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://wf.uisdc.com/cn/" title="http:&#x2F;&#x2F;wf.uisdc.com&#x2F;cn&#x2F;" rel="noopener" target="_blank">google前端开发基础</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+ 
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李思建</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">347k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:16</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+  
+        
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6hx5cq5nmltu08pt7pfkqy85wvgnhr1r.js"></script>
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'V06xtKF2qonsMYpPA6OqiRH0-gzGzoHsz',
+      appKey     : 'Q8gXivQlmWVnr48ahETG2v5X',
+      placeholder: "Just go go",
+      avatar     : 'monsterid',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div>
+  
+
+
+</body>
+
+
+</html>
