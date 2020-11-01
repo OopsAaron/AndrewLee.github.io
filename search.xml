@@ -1906,20 +1906,20 @@
 </blockquote>
 <p>论文名字的含义：一般的AR模型更适合处理自然语言生成的任务，比如transformer、transformer-XL； 而AE更适合处理自然语言理解的任务。本文通过XLNet模型，能够是AR预训练（结合了transformer-XL的思想）能够泛化到处理多个自然语言理解的问题上（与BERT功能类似）</p>
 <h4 id="背景">背景</h4>
-<p><img src="E:\myBlog\source_posts\image-20201031210916531.png" alt="image-20201031210916531"></p>
+<p><img src="https://i.loli.net/2020/11/01/MmsCokbayGLrXdW.png" alt="image-20201031210916531"></p>
 <p>AR语言模型（transformer-XL）只是训练编码一个单向的上下文，然而这限制了其在更多应用场景的效果，比如阅读理解这种任务，在做任务的时候是可以允许同时看到上文和下文一起做决策的。 所以AR语言模型适合自然语言生成的任务 （机器翻译等）</p>
-<p><img src="E:\myBlog\source_posts\image-20201031211538083.png" alt="image-20201031211538083"></p>
+<p><img src="https://i.loli.net/2020/11/01/8WRguEihUAc1P6G.png" alt="image-20201031211538083"></p>
 <p>因为没有将密度估计作为目标函数的一部分，所以AE语言模型（BERT）就可以获取双向信息，利用上下文信息进行重建masked token。适合自然语言理解任务（阅读理解，问答等）</p>
 <p>借助对双向上下文进行建模的功能，像BERT这种的基于denoising autoencoding （AE）比基于autoregressive language modeling（AR）的方法具有更好的性能。</p>
 <h4 id="问题">问题</h4>
-<p><img src="file://E:/myBlog/source/_posts/v2-ee790ee9c9843cf405c5a86f874095d0_720w.jpg?lastModify=1604148619" alt="img"></p>
+<p><img src="https://i.loli.net/2020/11/01/LzoWnBEO7GcY5IZ.png" alt="image-20201101103324693"></p>
 <p>BERT的MLM策略的缺点</p>
 <ol type="1">
 <li><p>mask掉的词之间的联系忽略了，即BERT假设被mask掉的词之间是独立无依赖的</p></li>
 <li><p>pretrain （有mask）和fine-tune（无mask）直接有区别 （pretrain-ﬁnetune discrepancy）</p></li>
 </ol>
 <h4 id="解决">解决</h4>
-<p><img src="E:\myBlog\source_posts\image-20201031212429943.png" alt="image-20201031212429943"></p>
+<p><img src="https://i.loli.net/2020/11/01/XfrVJ79nZQezpKw.png" alt="image-20201031212429943"></p>
 <p>本文结合AR LM和AE LM，在Transformer-XL的基础上提出generalized autoregressive method，也就是XLNet。</p>
 <p>（1）没有使用BERT的MLM，而是用的是PLM策略。即通过最大化因式分解的所有排列的预期似然性来实现双向上下文学习，克服MLM的缺点。</p>
 <p>所有的分解序列作为一个集合，对所有采样序列，XLNet按照AR LM的计算方式求对数似然期望的极大值。</p>
@@ -1928,10 +1928,10 @@
 <h4 id="模型">模型</h4>
 <h5 id="背景知识">背景知识</h5>
 <p>给定文本序列x=[x1,…,xT]，语言模型(AR)的目标是调整参数使得训练数据上的似然函数最大：</p>
-<p><img src="E:\myBlog\source_posts\image-20201031221410608.png" alt="image-20201031221410608"></p>
+<p><img src="https://i.loli.net/2020/11/01/Zcnh7PNyGksS2JV.png" alt="image-20201031221410608"></p>
 <p>记号x&lt;t表示t时刻之前的所有x，也就是x1:xt−1。hθ(x1:t−1)是RNN或者Transformer。e(x)是词x的embedding。</p>
 <p>BERT是去噪(denoising)自编码的方法。对于序列x，BERT会随机挑选15%的Token变成[MASK]得到带噪声版本的x^。假设被Mask部分的原始值为x¯，那么BERT希望尽量根据上下文恢复(猜测)出原始值了：</p>
-<p><img src="E:\myBlog\source_posts\image-20201031221357201.png" alt="image-20201031221357201"></p>
+<p><img src="https://i.loli.net/2020/11/01/OXGfrqR6PZKTiEC.png" alt="image-20201031221357201"></p>
 <p>上面的公式中，mt=1表示xt被Mask掉，Hθ是一个Transformer，它把长度为T的序列x映射为隐状态的向量序列。</p>
 <p>不同点：</p>
 <ol type="1">
@@ -1942,52 +1942,54 @@
 <h5 id="permutation-language-modeling-plm">Permutation Language Modeling （ PLM ）</h5>
 <h6 id="思想">思想</h6>
 <p>提出了一种序列语言建模目标，它不仅可以保留 AR 模型的优点，同时也允许模型捕获双向语境。</p>
-<p>具体来说，一个长度为 T 的序列 x 拥有 T! 种不同的排序方式，可以执行有效的自回归因式分解。</p>
+<p>具体来说，一个长度为 T 的序列 x 拥有 T! 种不同的排序方式，可以执行有效的自回归因式分解。在本文中选择了T种</p>
 <p>如果模型参数在所有因式分解顺序中共享，那么预计模型将学习从两边的所有位置上收集信息。</p>
-<p><img src="E:\myBlog\source_posts\image-20201031223904029.png" alt="image-20201031223904029"></p>
+<p>以下图为例，对于序列[1,2,3,4]有24种排列方式，那么下图中四种排列方式的，该序列的期望函数分别是：</p>
+<p><img src="https://i.loli.net/2020/11/01/zNDVbehHL9SRtYf.png" alt="image-20201101004521295"></p>
+<p><img src="https://i.loli.net/2020/11/01/Hnt4SWwmQPdbloB.png" alt="image-20201031223904029"></p>
 <p>在给定相同输入序列 x（但因式分解顺序不同）时预测 token x3的示例</p>
 <p>相比于普通的语言模型只能学习一种方向的依赖关系，排列语言模型会学习各种顺序的预测方法</p>
 <p>问题：遍历T!种路径，然后学习语言模型的参数。计算量非常大</p>
 <p>解决：随机采样T！中的部分排列</p>
 <p>PLM的目标是调整模型参数使得下面的似然概率最大：</p>
-<p><img src="E:\myBlog\source_posts\image-20201031224727513.png" alt="image-20201031224727513"></p>
+<p><img src="https://i.loli.net/2020/11/01/cBRaNlDnrYuoF37.png" alt="image-20201031224727513"></p>
 <p>其中ZT表示长度为T的序列的所有排列组成的集合，则z∈ZT是一种排列方法。</p>
-<p>用zt表示排列的第t个元素，而z&lt;t表示z的第1到第t-1个元素。</p>
+<p>用Xzt表示排列的第t个元素，zt表示第t个位置，而z&lt;t表示z的第1到第t-1个元素。</p>
 <p>这样pretrain和finetune阶段就一样了，输入都是原始序列，通过attention mask实现随机产生的排列。例如排列是2-4-3-1，那么在预测X3的时候就只有2、4作为先验，并且2、4的位置信息是通过Zt来体现的，这样也保留了排列的时序信息。</p>
 <p>注意：上面的模型只会遍历概率的分解顺序，并不会改变原始词的顺序。</p>
-<p>实现是通过Attention的<strong>Mask</strong>来对应不同的分解方法。比如p(x1|x3)p(x2|x1x3)p(x3)，我们可以在用Transformer编码x1时候让它可以Attend to x3，而把x2Mask掉；编码x3的时候把x1,x2都Mask掉。</p>
-<p><img src="E:\myBlog\source_posts\image-20201031222953550.png" alt="image-20201031222953550"></p>
-<h3 id="xlnet">🚀XLNet</h3>
-<h4 id="permutation-language-modeling">Permutation Language Modeling</h4>
-<p>由于<code>[mask]</code> token会导致pre-training和fine-tuning数据分布的不一致，因此XLNet去掉了mask策略，转而使用permutation来获得双向连接。具体做法是，采用顺序的transformer模型（每个token只与之前的token做attention），但调整序列中token的permutation，使得permute之后的token可以与本来在句子中位于permute之后的token做attention. 个人理解，就是在pre-training的过程中打乱句子里token的顺序（相当于mock出来很多各种语序的句子），但是仍然用顺序transformer，这样对于fine-tuning就没有影响。</p>
-<hr>
-<p><strong>2.Permutation Language Model</strong></p>
-<p>PLM (Permutation Language Model) 是 XLNet 的核心思想，首先将句子的 token 随机排列，然后采用 AR 的方式预测句子末尾的单词，这样 XLNet 即可同时拥有 AE 和 AR 的优势。</p>
-<p><strong>2.1 PLM 介绍</strong></p>
-<p><strong>XLNet 中通过 Attention Mask 实现 PLM，而无需真正修改句子 token 的顺序。</strong>例如原来的句子是 [1,2,3,4]，如果随机生成的序列时 [3,2,4,1]，则输入到 XLNet 的句子仍然是 [1,2,3,4]，但是掩码需要修改成下图。</p>
-<p><img src="E:\myBlog\source_posts\4b90f603738da977017568ad5cb6f01f8418e3c8.jpeg" alt="img">PLM mask 矩阵</p>
-<p>图中的掩码矩阵，红色表示不遮掩，白色表示遮掩。第 1 行表示 token 1 的掩码，可以看到，1 是句子的最后一个 token，因此可以看到之前的所有 token (3,2,4)。3 是句子的第一个 token，看不到句子的任何信息，因此第 3 行都是白色的 (表示遮掩)。</p>
-<p><strong>2.2 Two-Stream Self-Attention</strong></p>
-<p><strong>Two-Stream 概念</strong></p>
-<p>XLNet 打乱了句子的顺序，这时在预测的时候 token 的位置信息会非常重要，同时在预测的时候也必须将 token 的内容信息遮掩起来 (否则输入包含了要预测的内容信息，模型就无法学到知识)。<strong>也就是说 XLNet 需要看到 token 的位置信息，但是又不能看到 token 的内容信息</strong>，因此 XLNet 采用了两个 Stream 实现这一目的：</p>
-<p><strong>Query Stream</strong>，对于每一个 token，其对应的 Query Stream 只包含了该 token 的位置信息，注意是 token 在原始句子的位置信息，不是重新排列的位置信息。<strong>Content Stream</strong>，对于每一个 token，其对应的 Content Stream 包含了该 token 的内容信息。<strong>Query Stream 计算</strong></p>
-<p>Query Stream 用 <strong>g</strong>表示，Content Stream 用 <strong>h</strong> 表示，使用 Query Stream 对要预测的位置进行预测的时候，Q (Query) 向量是用 <strong>g</strong> 计算得到的，包含该位置的位置信息，而 K (Key) 和 V (Value) 是用 <strong>h</strong> 计算的，包含其他 token 的内容信息。下图展示了如何通过当前层的 <strong>g</strong> 计算下一层 <strong>g</strong> 的过程，图中的排列是 [3,2,4,1]，计算的 token 是 1。</p>
-<p><img src="E:\myBlog\source_posts\94cad1c8a786c917e9514bed38da78c939c75785.png" alt="img">Query Stream 计算过程</p>
-<p>可以看到在计算 token 1 的 Q 向量时，只使用了 token 1 的 Query Stream <strong>g</strong>，即模型只得到 token 1 的位置信息。而向量 K，V 使用 token 3, 2, 4 进行计算，所以模型可以得到 token 3, 2, 4 的内容信息。因为 token 1 是排列 [3,2,4,1] 的最后一位。这一个过程的掩码矩阵和上一节的是一样的 ，对角线上都为白色，即遮掩当前预测位置的内容信息 <strong>h</strong>。</p>
-<p><img src="E:\myBlog\source_posts\aa64034f78f0f736db52fe73feb2bb1feac41305.png" alt="img">Query Stream Mask 矩阵</p>
-<p><strong>Content Stream 计算</strong></p>
-<p>Content Stream 包含了 token 的内容信息，因为 XLNet 的层数很多，需要将 token 的内容传递到下一层。这一层的 Q, K, V 都是利用 <strong>h</strong> 计算的。Content Stream 的计算如下图所示。</p>
-<p><img src="E:\myBlog\source_posts\9213b07eca8065383aaba0c86e3aa942af348291.png" alt="img">Content Stream 计算过程</p>
-<p>可以看到，在计算下一层的 <strong>h1</strong>时，也会利用 token 1 当前的内容信息，这样就可以将 token 的内容传递到下一层，但是注意 XLNet 在预测时只是用 <strong>g</strong> (Query Stream)。计算 Content Stream 时候的掩码矩阵如下图所示。</p>
-<p><img src="E:\myBlog\source_posts\aa64034f78f0f736e428df89f4b2bb1fe9c41355.png" alt="img">Content Stream Mask 矩阵</p>
-<p>和 Query Stream 的掩码矩阵区别在于对角线，Content Stream 不遮掩对角线，使得当前 token 的信息可以传递到下一层。</p>
+<p>实现：</p>
+<p>通过Attention Mask来对应不同的分解方法。比如p(x1|x3)p(x2|x1x3)p(x3)，我们可以在用Transformer编码x1时候让它可以Attend to x3，而把x2Mask掉；编码x3的时候把x1,x2都Mask掉。</p>
+<p><img src="https://i.loli.net/2020/11/01/qzQkLmKdMcPrUy7.png" alt="image-20201031235156078"></p>
+<p>将上述的策略结合AR语言模型，那么就可以避免BERT的问题</p>
+<h5 id="基于目标感知的双流注意力模型">基于目标感知的双流注意力模型</h5>
+<p>问题：</p>
+<p><img src="https://i.loli.net/2020/11/01/SUGq9x5MBKeTpsZ.png" alt="image-20201101005004082"></p>
+<p><img src="https://i.loli.net/2020/11/01/UothZ8Lk6S5AWqG.png" alt="image-20201101005315581"></p>
+<p>这两个概率不应该相等的，但是对比这两个公式会发现，这两个公式的概率是相等的。为什么会出现这样的情况呢？上面问题的关键是<strong>模型无法知道当前mask掉的文本在原始序列中的位置。在Transformer中输入的embedding会加入position embedding，输入已经带入了位置信息，但是我们重新排列之后模型无法预测当前位置在原始序列中的位置，因此我们需要让模型来预测当前文本的位置。</strong> 那么在模型中当前位置的文本的概率计算方式则如下所示，其中g（θ）不仅需要输入当前位置之前的文本，还需要输入他们在原始文本中的位置。</p>
+<p><img src="https://i.loli.net/2020/11/01/RWPnZ5dwYAIbU2c.png" alt="image-20201101005459040"></p>
+<p>XLNet 打乱了句子的顺序，这时在预测的时候 token 的位置信息会非常重要，同时在预测的时候也必须将 token 的内容信息遮掩起来 (否则输入包含了要预测的内容信息，模型就无法学到知识)。<strong>也就是说 XLNet 需要看到 token 的位置信息，但是又不能看到 token 的内容信息</strong></p>
+<h6 id="双流self-attention">双流self-attention</h6>
+<p><strong>1.Query Stream</strong>，对于每一个 token，其对应的 Query Stream 只包含了该 token 的位置信息，注意是 token 在原始句子的位置信息，不是重新排列的位置信息。</p>
+<p><strong>2.Content Stream</strong>，对于每一个 token，其对应的 Content Stream 包含了该 token 的内容信息。</p>
+<p>查询表征单元(Query Representation)：查询表征单元和我们上述需要注意的点相同，<strong>可以看到上下文的信息和当前位置，不可以看到当前的Token</strong>，例如[1,2,3,4]在第4个位置只能看到[1,2,3]。查询表征单元中矩阵Q由于计算了各个位置的信息，保留了当前位置，但是KV矩阵分别表示各个context的重要性，没有计算当前位置。</p>
+<p><img src="https://i.loli.net/2020/11/01/CU1PnWlaArwDN8E.png" alt="img"></p>
+<p>内容表征单元(Context Representation):内容表征单元和我们上文中说的Transformer一致，<strong>可以看到上下文的信息和当前的Token</strong>，例如文本序列[1,2,3,4]，在第4个位置，内容表征单元可以看到[1,2,3,4]，在第3个位置内容表征单元可以看到[1,2,3]。如下图所示QKV矩阵的计算都包含了当前位置。</p>
+<p><img src="https://i.loli.net/2020/11/01/xD53wJVQsdIoC7i.png" alt="img"></p>
 <p><strong>Query Stream 和 Content Stream 组合</strong></p>
-<p>XLNet 将 Query Stream 和 Content Stream 组合在一起，如下图所示。</p>
-<p><img src="E:\myBlog\source_posts\c995d143ad4bd11326180c4f5847ac0949fb05e7.png" alt="img">XLNet 整体结构</p>
+<p>XLNet 将 Query Stream 和 Content Stream 组合在一起，整体架构如下图所示。</p>
+<p><img src="https://i.loli.net/2020/11/01/wyni1NAtfYsGrV4.png" alt="image-20201101011712221"></p>
 <p>图中最下面的一层是输入层，其中 e(x) 是单词的词向量，表示输入的 Content Stream，而 w 表示输入的位置信息，即 Query Stream。</p>
-<p><strong>2.3 Partial Prediction</strong></p>
+<p>图中的掩码矩阵，红色表示不遮掩，白色表示遮掩。第 1 行表示 token 1 的掩码，可以看到，1 是句子的最后一个 token，因此可以看到之前的所有 token (3,2,4)。3 是句子的第一个 token，看不到句子的任何信息，因此第 3 行都是白色的 (表示遮掩)。</p>
+<h6 id="partial-prediction">Partial Prediction</h6>
 <p>XLNet 将句子重新排列，然后根据排列后的顺序使用 AR 方式预测，但是由于句子是随机排列的，会导致优化比较困难且收敛速度慢。因此 XLNet 采用了 Partial Prediction (部分预测) 的方式进行训练，对于排列后的句子，只预测句子末尾的 1/K 个 token。</p>
 <p>例如 K=4，就是只预测最后 1/4 的 token。给定句子 [1,2,3,4,5,6,7,8] 和一种随机排列 [2,8,3,4,5,1,7,6]，则只预测 7 和 6。论文中训练 XLNet-Large 时使用的 K 为 6，大约是预测末尾 <strong>14.3%</strong>的 token。</p>
+<h4 id="实验">实验</h4>
+<p><img src="https://i.loli.net/2020/11/01/i7qlvJjTtxAgw4a.png" alt="image-20201101012324865"></p>
+<p><img src="https://i.loli.net/2020/11/01/pIOMyiU9V2Y6wSz.png" alt="image-20201101012421507"></p>
+<p>消融实验</p>
+<p>排列语言模型和transfomer-xl对效果的影响很大。而且NSP任务对效果的影响倒是几乎没有，这也是上文中我们没有用NSP任务的原因。</p>
+<h4 id="总结">总结</h4>
+<p>XLNet 的核心思想是 PLM，排列原来的句子，然后预测末尾的单词。这样可以学习到单词之间的依赖关系，而且可以利用 token 前后向的信息。</p>
 <blockquote>
 <p><a href="http://aiblog.top/2019/07/12/XLNET%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E5%8F%8A%E7%90%86%E8%A7%A3/" target="_blank" rel="noopener">http://aiblog.top/2019/07/12/XLNET%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E5%8F%8A%E7%90%86%E8%A7%A3/</a></p>
 <p><a href="https://my.oschina.net/u/4373067/blog/4476706" target="_blank" rel="noopener" class="uri">https://my.oschina.net/u/4373067/blog/4476706</a></p>
