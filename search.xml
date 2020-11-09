@@ -682,6 +682,9 @@
 <p>再经过generator层之后，x：（30,9,11）</p>
 <p>在预测的时候是（1，1,512），不是（1,9,512），在预测完generator之后，（1,11），选一个最大的。</p>
 <p>因为是一个数字一个数字预测输出的，所以是1，不是9</p>
+<h4 id="具体流程">具体流程</h4>
+<p>transformer的encoder部分，是并行计算各个token之间的关系，然后输出给decoder一个memory，decoder再产生预测值，计算loss之后，再反向传播。因为是一个计算图，所以encoder和decoder的参数都会更新。</p>
+<p>参数更新完之后，下一个batch的数据再输进来，再计算loss，再更新，以此循环</p>
 <h3 id="第一个例子">第一个例子</h3>
 <blockquote>
 <p>We can begin by trying out a simple copy-task. Given a random set of input symbols from a small vocabulary, the goal is to generate back those same symbols.</p>
