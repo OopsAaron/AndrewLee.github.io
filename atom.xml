@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-11-13T11:53:09.397Z</updated>
+  <updated>2020-11-13T11:54:54.933Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,13 +21,13 @@
     <link href="http://yoursite.com/2020/11/12/2020-11-12-%E4%BB%8Eattention%E5%88%B0BERT-family/"/>
     <id>http://yoursite.com/2020/11/12/2020-11-12-%E4%BB%8Eattention%E5%88%B0BERT-family/</id>
     <published>2020-11-12T04:54:33.000Z</published>
-    <updated>2020-11-13T11:53:09.397Z</updated>
+    <updated>2020-11-13T11:54:54.933Z</updated>
     
     <content type="html"><![CDATA[<h3 id="前言">前言</h3><p>做NLP领域的应该没人不知道BERT，之前开组会的时候讲到过BERT的一篇改进论文，导师建议对transformer以及预训练模型做个总结综述，作为下次汇报的内容。于是这几天在网上参考了一些博客，还有大佬邱锡鹏老师和刘群老师关于预训练模型的报告，以及结合自己读的一些相关论文，对整个模型的发展演变梳理了一下，汇总如下</p><p>attention以及self-attention</p><p>transformer</p><p>transformer的改进模型</p><p>预训练模型</p><p>BERT</p><p>BERT的改进模型</p><p>总结</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
     
     <summary type="html">
     
-      本文旨在介绍
+      对最近一段时间读的论文以及自己的对NLP领域transformer系列模型的了解做一个总结
     
     </summary>
     
