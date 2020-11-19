@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/robot-4291692_1280.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/robot-4291692_1280.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-barber-shop.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="在NLP领域越来越依赖预训练模型，那么如何高效使用已经预训练好的模型到自己的模型中呢？本文参考其它博客，做个总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020-11-16-使用预训练模型">
+<meta property="og:url" content="http://yoursite.com/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/index.html">
+<meta property="og:site_name" content="思建的NLP之旅">
+<meta property="og:description" content="在NLP领域越来越依赖预训练模型，那么如何高效使用已经预训练好的模型到自己的模型中呢？本文参考其它博客，做个总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-43d31689c936d9f721eed2a2ccd51d7a_720w.png">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-e26fa3a9005015c5cd6fa9ddedc6b2bd_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-3f94e3668496b5fe2275407e5cbbd440_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-b06d68ff284848b750e38eb5a450e661_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-550ec0db9dbec7dd23afd33c925c019f_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-a9751b1feebbfabc5615ce594dad816f_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-6c04926b05ec59131e7bc3e018d1255a_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-46b282a4b5ff9a9fe445e95d403f2c07_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-09353001fd2ab6a1ffbb210f675381dc_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-b6a23972b45d1b9cc88701a55bcc159a_720w.jpg">
+<meta property="article:published_time" content="2020-11-16T11:02:19.000Z">
+<meta property="article:modified_time" content="2020-11-19T08:42:42.803Z">
+<meta property="article:author" content="李思建">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:/myBlog/source_posts/v2-43d31689c936d9f721eed2a2ccd51d7a_720w.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2020-11-16-使用预训练模型 | 思建的NLP之旅</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+
+
+<link rel="alternate" href="/atom.xml" title="思建的NLP之旅" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+
+
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">思建的NLP之旅</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">沉淀自己</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">76</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tools">
+
+    <a href="/tools/" rel="section"><i class="fas fa-location-arrow fa-fw"></i>利器</a>
+
+  </li>
+        <li class="menu-item menu-item-onesentence">
+
+    <a href="/onesentence" rel="section"><i class="fas fa-bowling-ball fa-fw"></i>一句话</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links" rel="section"><i class="fas fa-link fa-fw"></i>大佬</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/OopsAaron" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="李思建">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="思建的NLP之旅">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020-11-16-使用预训练模型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-16 19:02:19" itemprop="dateCreated datePublished" datetime="2020-11-16T19:02:19+08:00">2020-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-19 16:42:42" itemprop="dateModified" datetime="2020-11-19T16:42:42+08:00">2020-11-19</time>
+              </span>
+
+          
+            <span id="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="2020-11-16-使用预训练模型" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">在NLP领域越来越依赖预训练模型，那么如何高效使用已经预训练好的模型到自己的模型中呢？本文参考其它博客，做个总结</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="预训练模型">预训练模型</h4>
+<blockquote>
+<p><strong>Hugging face 简介</strong></p>
+</blockquote>
+<p>Hugging face 是一家总部位于纽约的聊天机器人初创服务商，开发的应用在青少年中颇受欢迎，相比于其他公司，Hugging Face更加注重产品带来的情感以及环境因素。官网链接在此 <a href="https://link.zhihu.com/?target=https%3A//huggingface.co/">https://huggingface.co/</a> 。</p>
+<p>但更令它广为人知的是Hugging Face专注于NLP技术，拥有大型的开源社区。尤其是在github上开源的自然语言处理，预训练模型库 Transformers，已被下载超过一百万次，github上超过<strong>24000</strong>个star。Transformers 提供了NLP领域大量state-of-art的 预训练语言模型结构的模型和调用框架。以下是repo的链接（<a href="https://link.zhihu.com/?target=https%3A//github.com/huggingface/transformers">https://github.com/huggingface/transformers</a>）</p>
+<p>这个库最初的名称是<strong>pytorch-pretrained-bert</strong>，它随着BERT一起应运而生。Google2018年10月底在 <a href="https://link.zhihu.com/?target=https%3A//github.com/google-research/bert">https://github.com/google-research/bert</a> 开源了BERT的tensorflow实现。当时，BERT以其强劲的性能，引起NLPer的广泛关注。几乎与此同时，pytorch-pretrained-bert也开始了它的第一次提交。pytorch-pretrained-bert 用当时已有大量支持者的pytorch框架复现了BERT的性能，并提供预训练模型的下载，使没有足够算力的开发者们也能够在几分钟内就实现 state-of-art-fine-tuning。</p>
+<p><img src="E:\myBlog\source_posts\v2-43d31689c936d9f721eed2a2ccd51d7a_720w.png" alt="img"></p>
+<p>因为pytorch框架的友好，BERT的强大，以及pytorch-pretrained-bert的简单易用，使这个repo也是受到大家的喜爱，不到10天就突破了1000个star。在2018年11月17日，repo就实现了BERT的基本功能，发布了版本0.1.2。接下来他们也没闲着，又开始将GPT等模型也往repo上搬。在2019年2月11日release的 0.5.0版本中，已经添加上了OpenAI GPT模型，以及Google的TransformerXL。</p>
+<p>直到2019年7月16日，在repo上已经有了包括BERT，GPT，GPT-2，Transformer-XL，XLNET，XLM在内六个预训练语言模型，这时候名字再叫pytorch-pretrained-bert就不合适了，于是改成了pytorch-transformers，势力范围扩大了不少。这还没完！2019年6月Tensorflow2的beta版发布，Huggingface也闻风而动。为了立于不败之地，又实现了TensorFlow 2.0和PyTorch模型之间的深层互操作性，可以在TF2.0/PyTorch框架之间随意迁移模型。在2019年9月也发布了2.0.0版本，同时正式更名为 transformers 。到目前为止，transformers 提供了超过100种语言的，32种预训练语言模型，简单，强大，高性能，是新手入门的不二选择。</p>
+<blockquote>
+<p><strong>Transfromers中BERT简单运用</strong></p>
+</blockquote>
+<p>前几期里，一直在分享论文的阅读心得，虽然不是第一次看，但不知道大家是不是和我一样又有所收获。本期我们一起来看看如何使用Transformers包实现简单的BERT模型调用。</p>
+<p>安装过程不再赘述，比如安装2.2.0版本 pip install transformers==2.2.0 即可，让我们看看如何调用BERT。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> BertModel, BertTokenizer</span><br><span class="line"><span class="comment"># 这里我们调用bert-base模型，同时模型的词典经过小写处理</span></span><br><span class="line">model_name = <span class="string">'bert-base-uncased'</span></span><br><span class="line"><span class="comment"># 读取模型对应的tokenizer</span></span><br><span class="line">tokenizer = BertTokenizer.from_pretrained(model_name)</span><br><span class="line"><span class="comment"># 载入模型</span></span><br><span class="line">model = BertModel.from_pretrained(model_name)</span><br><span class="line"><span class="comment"># 输入文本</span></span><br><span class="line">input_text = <span class="string">"Here is some text to encode"</span></span><br><span class="line"><span class="comment"># 通过tokenizer把文本变成 token_id</span></span><br><span class="line">input_ids = tokenizer.encode(input_text, add_special_tokens=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># input_ids: [101, 2182, 2003, 2070, 3793, 2000, 4372, 16044, 102]</span></span><br><span class="line">input_ids = torch.tensor([input_ids])</span><br><span class="line"><span class="comment"># 获得BERT模型最后一个隐层结果</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    last_hidden_states = model(input_ids)[<span class="number">0</span>]  <span class="comment"># Models outputs are now tuples</span></span><br><span class="line"></span><br><span class="line"><span class="string">""" tensor([[[-0.0549,  0.1053, -0.1065,  ..., -0.3550,  0.0686,  0.6506],</span></span><br><span class="line"><span class="string">         [-0.5759, -0.3650, -0.1383,  ..., -0.6782,  0.2092, -0.1639],</span></span><br><span class="line"><span class="string">         [-0.1641, -0.5597,  0.0150,  ..., -0.1603, -0.1346,  0.6216],</span></span><br><span class="line"><span class="string">         ...,</span></span><br><span class="line"><span class="string">         [ 0.2448,  0.1254,  0.1587,  ..., -0.2749, -0.1163,  0.8809],</span></span><br><span class="line"><span class="string">         [ 0.0481,  0.4950, -0.2827,  ..., -0.6097, -0.1212,  0.2527],</span></span><br><span class="line"><span class="string">         [ 0.9046,  0.2137, -0.5897,  ...,  0.3040, -0.6172, -0.1950]]]) </span></span><br><span class="line"><span class="string">	shape: (1, 9, 768)     </span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></tbody></table></figure>
+<p>可以看到，包括import在内的不到十行代码，我们就实现了读取一个预训练过的BERT模型，来encode我们指定的一个文本，对文本的每一个token生成768维的向量。如果是二分类任务，我们接下来就可以把第一个token也就是[CLS]的768维向量，接一个linear层，预测出分类的logits，或者根据标签进行训练。</p>
+<p>如果你想在一些NLP常用数据集上复现BERT的效果，Transformers上也有现成的代码和方法，只要把数据配置好，运行命令即可，而且finetune的任务可以根据你的需要切换，非常方便。</p>
+<p><img src="E:\myBlog\source_posts\v2-e26fa3a9005015c5cd6fa9ddedc6b2bd_720w.jpg" alt="img"></p>
+<blockquote>
+<p><strong>BERT configuration</strong></p>
+</blockquote>
+<p>接下来，我们进一步看下Transformers的源码，我们首先进入代码的路径src/transformers 下，其中有很多的python代码文件。</p>
+<p><img src="E:\myBlog\source_posts\v2-3f94e3668496b5fe2275407e5cbbd440_720w.jpg" alt="img"></p>
+<p>以 <strong>configuration</strong> 开头的都是各个模型的配置代码，比如 configuration_bert.py。在这个文件里我们能够看到，主要是一个继承自 PretrainedConfig 的类 BertConfig的定义，以及不同BERT模型的config文件的下载路径，下方显示前三个。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BERT_PRETRAINED_CONFIG_ARCHIVE_MAP = {</span><br><span class="line">    <span class="string">"bert-base-uncased"</span>: <span class="string">"https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-config.json"</span>,</span><br><span class="line">    <span class="string">"bert-large-uncased"</span>: <span class="string">"https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-uncased-config.json"</span>,</span><br><span class="line">    <span class="string">"bert-base-cased"</span>: <span class="string">"https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-cased-config.json"</span>,</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>我们打开第一个的链接，就能下载到bert-base-uncased的模型的配置，其中包括dropout, hidden_size, num_hidden_layers, vocab_size 等等。比如bert-base-uncased的配置它是12层的，词典大小30522等等，甚至可以在config里利用output_hidden_states配置是否输出所有hidden_state。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="string">"architectures"</span>: [</span><br><span class="line">    <span class="string">"BertForMaskedLM"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"attention_probs_dropout_prob"</span>: <span class="number">0.1</span>,</span><br><span class="line">  <span class="string">"hidden_act"</span>: <span class="string">"gelu"</span>,</span><br><span class="line">  <span class="string">"hidden_dropout_prob"</span>: <span class="number">0.1</span>,</span><br><span class="line">  <span class="string">"hidden_size"</span>: <span class="number">768</span>,</span><br><span class="line">  <span class="string">"initializer_range"</span>: <span class="number">0.02</span>,</span><br><span class="line">  <span class="string">"intermediate_size"</span>: <span class="number">3072</span>,</span><br><span class="line">  <span class="string">"max_position_embeddings"</span>: <span class="number">512</span>,</span><br><span class="line">  <span class="string">"num_attention_heads"</span>: <span class="number">12</span>,</span><br><span class="line">  <span class="string">"num_hidden_layers"</span>: <span class="number">12</span>,</span><br><span class="line">  <span class="string">"type_vocab_size"</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="string">"vocab_size"</span>: <span class="number">30522</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><strong>BERT tokenization</strong></p>
+</blockquote>
+<p>以<strong>tokenization</strong>开头的都是跟vocab有关的代码，比如在 tokenization_bert.py 中有函数如whitespace_tokenize，还有不同的tokenizer的类。同时也有各个模型对应的vocab.txt。从第一个链接进去就是bert-base-uncased的词典，这里面有30522个词，对应着config里面的vocab_size。</p>
+<p>其中，第0个token是[pad]，第101个token是[CLS]，第102个token是[SEP]，所以之前我们encode得到的 [101, 2182, 2003, 2070, 3793, 2000, 4372, 16044, 102] ，其实tokenize后convert前的token就是 ['[CLS]', 'here', 'is', 'some', 'text', 'to', 'en', '##code', '[SEP]']，经过之前BERT论文的介绍，大家应该都比较熟悉了。</p>
+<blockquote>
+<p>其中值得一提的是，BERT的vocab预留了不少unused token，如果我们会在文本中使用特殊字符，在vocab中没有，这时候就可以通过替换vacab中的unused token，实现对新的token的embedding进行训练。</p>
+</blockquote>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRETRAINED_VOCAB_FILES_MAP = {</span><br><span class="line">    <span class="string">"vocab_file"</span>: {</span><br><span class="line">        <span class="string">"bert-base-uncased"</span>: <span class="string">"https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-uncased-vocab.txt"</span>,</span><br><span class="line">        <span class="string">"bert-large-uncased"</span>: <span class="string">"https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-uncased-vocab.txt"</span>,</span><br><span class="line">        <span class="string">"bert-base-cased"</span>: <span class="string">"https://s3.amazonaws.com/models.huggingface.co/bert/bert-base-cased-vocab.txt"</span>,</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><strong>BERT modeling</strong></p>
+</blockquote>
+<p>以modeling开头的就是我们最关心的模型代码，比如 modeling_bert.py。同样的，文件中有<strong>许多不同的预训练模型</strong>以供下载，我们可以按需获取。</p>
+<p>代码中我们可以重点关注BertModel类，它就是BERT模型的基本代码。我们可以看到它的类定义中，由embedding，encoder，pooler组成，forward时顺序经过三个模块，输出output。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BertModel</span><span class="params">(BertPreTrainedModel)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span><br><span class="line">        super().__init__(config)</span><br><span class="line">        self.config = config</span><br><span class="line"></span><br><span class="line">        self.embeddings = BertEmbeddings(config)</span><br><span class="line">        self.encoder = BertEncoder(config)</span><br><span class="line">        self.pooler = BertPooler(config)</span><br><span class="line"></span><br><span class="line">        self.init_weights()</span><br><span class="line">        </span><br><span class="line"> <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        self, input_ids=None, attention_mask=None, token_type_ids=None,</span></span></span><br><span class="line"><span class="function"><span class="params">        position_ids=None, head_mask=None, inputs_embeds=None,</span></span></span><br><span class="line"><span class="function"><span class="params">        encoder_hidden_states=None, encoder_attention_mask=None,</span></span></span><br><span class="line"><span class="function"><span class="params">    )</span>:</span></span><br><span class="line">    <span class="string">""" 省略部分代码 """</span></span><br><span class="line">    </span><br><span class="line">        embedding_output = self.embeddings(</span><br><span class="line">            input_ids=input_ids, position_ids=position_ids, token_type_ids=token_type_ids, inputs_embeds=inputs_embeds</span><br><span class="line">        )</span><br><span class="line">        encoder_outputs = self.encoder(</span><br><span class="line">            embedding_output,</span><br><span class="line">            attention_mask=extended_attention_mask,</span><br><span class="line">            head_mask=head_mask,</span><br><span class="line">            encoder_hidden_states=encoder_hidden_states,</span><br><span class="line">            encoder_attention_mask=encoder_extended_attention_mask,</span><br><span class="line">        )</span><br><span class="line">        sequence_output = encoder_outputs[<span class="number">0</span>]</span><br><span class="line">        pooled_output = self.pooler(sequence_output)</span><br><span class="line"></span><br><span class="line">        outputs = (sequence_output, pooled_output,) + encoder_outputs[</span><br><span class="line">            <span class="number">1</span>:</span><br><span class="line">        ]  <span class="comment"># add hidden_states and attentions if they are here</span></span><br><span class="line">        <span class="keyword">return</span> outputs  <span class="comment"># sequence_output, pooled_output, (hidden_states), (attentions)</span></span><br></pre></td></tr></tbody></table></figure>
+<p>BertEmbeddings这个类中可以清楚的看到，embedding由三种embedding相加得到，经过layernorm 和 dropout后输出。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.word_embeddings = nn.Embedding(config.vocab_size, config.hidden_size, padding_idx=<span class="number">0</span>)</span><br><span class="line">        self.position_embeddings = nn.Embedding(config.max_position_embeddings, config.hidden_size)</span><br><span class="line">        self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size)</span><br><span class="line">        <span class="comment"># self.LayerNorm is not snake-cased to stick with TensorFlow model variable name and be able to load</span></span><br><span class="line">        <span class="comment"># any TensorFlow checkpoint file</span></span><br><span class="line">        self.LayerNorm = BertLayerNorm(config.hidden_size, eps=config.layer_norm_eps)</span><br><span class="line">        self.dropout = nn.Dropout(config.hidden_dropout_prob)</span><br><span class="line">        </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, input_ids=None, token_type_ids=None, position_ids=None, inputs_embeds=None)</span>:</span></span><br><span class="line">        <span class="string">""" 省略 embedding生成过程 """</span></span><br><span class="line">          </span><br><span class="line">        embeddings = inputs_embeds + position_embeddings + token_type_embeddings</span><br><span class="line">        embeddings = self.LayerNorm(embeddings)</span><br><span class="line">        embeddings = self.dropout(embeddings)</span><br><span class="line">        <span class="keyword">return</span> embeddings</span><br></pre></td></tr></tbody></table></figure>
+<p>BertEncoder主要将embedding的输出，逐个经过每一层Bertlayer的处理，得到各层hidden_state，再根据config的参数，来决定最后是否所有的hidden_state都要输出，BertLayer的内容展开的话，篇幅过长，读者感兴趣可以自己一探究竟。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BertEncoder</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.output_attentions = config.output_attentions</span><br><span class="line">        self.output_hidden_states = config.output_hidden_states</span><br><span class="line">        self.layer = nn.ModuleList([BertLayer(config) <span class="keyword">for</span> _ <span class="keyword">in</span> range(config.num_hidden_layers)])</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        self,</span></span></span><br><span class="line"><span class="function"><span class="params">        hidden_states,</span></span></span><br><span class="line"><span class="function"><span class="params">        attention_mask=None,</span></span></span><br><span class="line"><span class="function"><span class="params">        head_mask=None,</span></span></span><br><span class="line"><span class="function"><span class="params">        encoder_hidden_states=None,</span></span></span><br><span class="line"><span class="function"><span class="params">        encoder_attention_mask=None,</span></span></span><br><span class="line"><span class="function"><span class="params">    )</span>:</span></span><br><span class="line">        all_hidden_states = ()</span><br><span class="line">        all_attentions = ()</span><br><span class="line">        <span class="keyword">for</span> i, layer_module <span class="keyword">in</span> enumerate(self.layer):</span><br><span class="line">            <span class="keyword">if</span> self.output_hidden_states:</span><br><span class="line">                all_hidden_states = all_hidden_states + (hidden_states,)</span><br><span class="line"></span><br><span class="line">            layer_outputs = layer_module(</span><br><span class="line">                hidden_states, attention_mask, head_mask[i], encoder_hidden_states, encoder_attention_mask</span><br><span class="line">            )</span><br><span class="line">            hidden_states = layer_outputs[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> self.output_attentions:</span><br><span class="line">                all_attentions = all_attentions + (layer_outputs[<span class="number">1</span>],)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add last layer</span></span><br><span class="line">        <span class="keyword">if</span> self.output_hidden_states:</span><br><span class="line">            all_hidden_states = all_hidden_states + (hidden_states,)</span><br><span class="line"></span><br><span class="line">        outputs = (hidden_states,)</span><br><span class="line">        <span class="keyword">if</span> self.output_hidden_states:</span><br><span class="line">            outputs = outputs + (all_hidden_states,)</span><br><span class="line">        <span class="keyword">if</span> self.output_attentions:</span><br><span class="line">            outputs = outputs + (all_attentions,)</span><br><span class="line">        <span class="keyword">return</span> outputs  <span class="comment"># last-layer hidden state, (all hidden states), (all attentions)</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Bertpooler 其实就是将BERT的[CLS]的hidden_state 取出，经过一层DNN和Tanh计算后输出。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BertPooler</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, config)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        self.dense = nn.Linear(config.hidden_size, config.hidden_size)</span><br><span class="line">        self.activation = nn.Tanh()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, hidden_states)</span>:</span></span><br><span class="line">        <span class="comment"># We "pool" the model by simply taking the hidden state corresponding</span></span><br><span class="line">        <span class="comment"># to the first token.</span></span><br><span class="line">        first_token_tensor = hidden_states[:, <span class="number">0</span>]</span><br><span class="line">        pooled_output = self.dense(first_token_tensor)</span><br><span class="line">        pooled_output = self.activation(pooled_output)</span><br><span class="line">        <span class="keyword">return</span> pooled_output</span><br></pre></td></tr></tbody></table></figure>
+<p>在这个文件中还有上述基础的BertModel的进一步的变化，比如BertForMaskedLM，BertForNextSentencePrediction这些是Bert加了预训练头的模型，还有BertForSequenceClassification， BertForQuestionAnswering 这些加上了特定任务头的模型。</p>
+<ol type="1">
+<li>"Here is some text to encode"加上CLS和SEP也才八个,因为Bert的tokenizer使用了wordpiece 算法，</li>
+</ol>
+<p>这句话在tokenize了以后是下面这样的['here', 'is', 'some', 'text', 'to', 'en', '##code'],加上[CLS]和[SEP]就变成了9个token。</p>
+<ol start="2" type="1">
+<li><p>with torch.no_grad(): last_hidden_states = model(input_ids)[0]</p>
+<p>这里的[0]， 原因是模型输出是 seq_output, pooled_output，这里取的是seq_output。</p>
+<p>sequence_output = encoder_outputs[0]</p>
+<p>这边的[0]是因为 取得是模型最后一层的state（因为在元组里，最后一层的state放在最上面了）</p>
+<p>first_token_tensor = hidden_states[:, 0]</p>
+<p>pooler里面这边的0是因为 想要取的是 整个序列第一个token也就是[CLS] token的state</p></li>
+</ol>
+<h4 id="基本原理">基本原理</h4>
+<p>使用的基本原理也非常简单，from_pretrained的参数pretrained_model_name_or_path，可以接受的参数有几种，short-cut name（缩写名称，类似于gpt2这种）、identifier name（类似于microsoft/DialoGPT-small这种）、文件夹、文件。</p>
+<p><strong>对于short-cut name或identifier name，这种情况下，本地有文件，可以使用本地的，本地没有文件，则下载。</strong>(上面的例子就是没有下载文件，直接用的是short-cut name)。一些常用的short-cut name，可以从这个链接查看：<a href="https://link.zhihu.com/?target=https%3A//huggingface.co/transformers/pretrained_models.html">https://huggingface.co/transformers/pretrained_models.html</a>。</p>
+<p>对于文件夹，则会从文件夹中找vocab.json、pytorch_model.bin、tf_model.h5、merges.txt、special_tokens_map.json、added_tokens.json、tokenizer_config.json、sentencepiece.bpe.model等进行加载。所以这也是为什么下载的时候，一定要保证这些名称是这几个，不能变。</p>
+<p>对于文件，则会直接加载文件。</p>
+<p>官方给的样例，通常都是short-cut name，这里操作就是替换成下载好文件的文件夹。至此，我们完成了模型、词典等各种文件的本地加载。</p>
+<p>具体操作如下：</p>
+<blockquote>
+<p>模型库</p>
+</blockquote>
+<p>官网的模型库的地址如下：<a href="https://link.zhihu.com/?target=https%3A//huggingface.co/models">https://huggingface.co/models</a></p>
+<p><img src="E:\myBlog\source_posts\v2-b06d68ff284848b750e38eb5a450e661_720w.jpg" alt="img"></p>
+<blockquote>
+<p>使用模型</p>
+</blockquote>
+<p>首先需要安装<code>transformers</code>库，使用以下命令安装：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install transformers</span><br></pre></td></tr></tbody></table></figure>
+<p>接下来在代码中调用<code>AutoTokenizer.from_pretrained</code>和<code>AutoModel.from_pretrained</code>即可例如：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> *</span><br><span class="line">model_name = <span class="string">'hfl/chinese-xlnet-base'</span></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(model_name)</span><br><span class="line">model = AutoModel.from_pretrained(model_name)</span><br></pre></td></tr></tbody></table></figure>
+<p>运行后系统会自动下载相关的模型文件并存放在电脑中：</p>
+<p><img src="E:\myBlog\source_posts\v2-550ec0db9dbec7dd23afd33c925c019f_720w.jpg" alt="img"></p>
+<p>使用Windows模型保存的路径在<code>C:\Users\[用户名]\.cache\torch\transformers\</code>目录下，根据模型的不同下载的东西也不相同</p>
+<p>使用Linux模型保存的路径在<code>~/.cache/torch/transformers/</code>目录下</p>
+<p><img src="E:\myBlog\source_posts\v2-a9751b1feebbfabc5615ce594dad816f_720w.jpg" alt="img"></p>
+<blockquote>
+<p>存在的问题</p>
+</blockquote>
+<blockquote>
+<p><code>这些前提是你的电脑有网络可以直接使用代码下载相应的模型文件，但是问题是有些机器是没有外网连接权限或者下载速度非常慢。</code></p>
+<p><code>这时候就需要把模型文件下载后在导入代码中，还是以刚才的hfl/chinese-xlnet-base模型为例，直接在官网搜索模型，点击进入模型的详情界面</code></p>
+</blockquote>
+<p><img src="E:\myBlog\source_posts\v2-6c04926b05ec59131e7bc3e018d1255a_720w.jpg" alt="img"></p>
+<p>在界面中找到<code>List all files in model</code></p>
+<p><img src="E:\myBlog\source_posts\v2-46b282a4b5ff9a9fe445e95d403f2c07_720w.jpg" alt="img"></p>
+<p>把弹窗内的文件全部下载下来</p>
+<p><img src="E:\myBlog\source_posts\v2-09353001fd2ab6a1ffbb210f675381dc_720w.jpg" alt="img"></p>
+<p>我们假设文件保存在<code>E:\models\hfl\chinese-xlnet-base\</code>目录下</p>
+<p><img src="E:\myBlog\source_posts\v2-b6a23972b45d1b9cc88701a55bcc159a_720w.jpg" alt="img"></p>
+<p>我们只需要把<code>model_name</code>修改为下载的文件夹即可</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> *</span><br><span class="line">model_name = <span class="string">'E:/models/hfl/chinese-xlnet-base/'</span></span><br><span class="line">tokenizer = AutoTokenizer.from_pretrained(model_name)</span><br><span class="line">model = AutoModel.from_pretrained(model_name)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="参考">参考</h3>
+<blockquote>
+<p>使用transformers预训练模型</p>
+<p><span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8">⭐</span> <a href="https://zhuanlan.zhihu.com/p/120315111" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/120315111</a></p>
+<p><span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8">⭐</span><a href="https://zhuanlan.zhihu.com/p/147144376" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/147144376</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/274509234" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/274509234</a></p>
+<p>关于hugging face/transformers的介绍</p>
+<p><a href="https://zhuanlan.zhihu.com/p/141527015" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/141527015</a></p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+    </div>
+
+    
+    
+    
+
+      <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fab fa-gratipay"></i>感谢阅读-------------</div>
+        <div class="reward-container">
+  <div>卑微博主，在线求赏</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="李思建 微信支付">
+        <p>微信支付</p>
+      </div>
+
+  </div>
+</div>
+
+    
+      
+   
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/12/2020-11-12-%E4%BB%8Eattention%E5%88%B0BERT-family/" rel="prev" title="2020-11-12-从attention到BERT-family">
+      <i class="fa fa-chevron-left"></i> 2020-11-12-从attention到BERT-family
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/19/2020-11-19-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" rel="next" title="2020-11-19-论文分享">
+      2020-11-19-论文分享 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#预训练模型"><span class="nav-number">1.</span> <span class="nav-text">预训练模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本原理"><span class="nav-number">2.</span> <span class="nav-text">基本原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number"></span> <span class="nav-text">参考</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李思建"
+      src="/images/touxiang.jpg">
+  <p class="site-author-name" itemprop="name">李思建</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="tidioChatApi.open();"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/OopsAaron" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;OopsAaron" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:li1574468139@outlook.com" title="E-Mail → mailto:li1574468139@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5871697996" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5871697996" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/AaronLe48891280" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;AaronLe48891280" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://ife.baidu.com/" title="http:&#x2F;&#x2F;ife.baidu.com&#x2F;" rel="noopener" target="_blank">百度前端技术学院</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="http://wf.uisdc.com/cn/" title="http:&#x2F;&#x2F;wf.uisdc.com&#x2F;cn&#x2F;" rel="noopener" target="_blank">google前端开发基础</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+ 
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李思建</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">408k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">6:10</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+  
+        
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  <script src="//code.tidio.co/6hx5cq5nmltu08pt7pfkqy85wvgnhr1r.js"></script>
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'V06xtKF2qonsMYpPA6OqiRH0-gzGzoHsz',
+      appKey     : 'Q8gXivQlmWVnr48ahETG2v5X',
+      placeholder: "Just go go",
+      avatar     : 'monsterid',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+    </div>
+  
+
+
+</body>
+
+
+</html>

@@ -33,8 +33,17 @@
 <meta property="og:description" content="记录值得分享的论文; 《ALBERT》: 一个轻量级的BERT">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="e:/myBlog/source_posts/image-20201111153229465.png">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-6bc976426f0f0c68f43f26abe7500836_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-733efa2ccadc511ca629f3e72c7d84aa_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-36bfb8693fd72033970bd83762575b3e_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-131935e1ce0b0a5fb4fd1a0c6e2bc6f6_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-e01a97ee8d354814ddf45830642aa026_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-d2a50f3dd7c0edebc63b98ed17329fde_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-4503e75224c3c3d47e6af8c4452b07e2_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-88300c475bac1e929f60c17cfb66b99b_720w.jpg">
+<meta property="og:image" content="e:/myBlog/source_posts/v2-8c549a83a85d004d34937b39755de8db_720w.jpg">
 <meta property="article:published_time" content="2020-11-11T07:04:42.000Z">
-<meta property="article:modified_time" content="2020-11-13T07:34:55.324Z">
+<meta property="article:modified_time" content="2020-11-17T13:36:56.337Z">
 <meta property="article:author" content="李思建">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="e:/myBlog/source_posts/image-20201111153229465.png">
@@ -149,7 +158,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">74</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">76</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -256,7 +265,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-13 15:34:55" itemprop="dateModified" datetime="2020-11-13T15:34:55+08:00">2020-11-13</time>
+                <time title="修改时间：2020-11-17 21:36:56" itemprop="dateModified" datetime="2020-11-17T21:36:56+08:00">2020-11-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -301,13 +310,13 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>821</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
             <div class="post-description">记录值得分享的论文;
 《ALBERT》: 一个轻量级的BERT
@@ -337,28 +346,48 @@
 <h3 id="实验">实验</h3>
 <h3 id="总结">总结</h3>
 <hr>
-<h4 id="三roberta">三、RoBERTa</h4>
-<h3 id="动机">3.1 动机</h3>
-<ul>
-<li>Bert 序列模型的问题</li>
-</ul>
-<blockquote>
-<p>确定方法的哪些方面贡献最大可能是具有挑战性的;</p>
-<p>训练在计算上是昂贵的的，限制了可能完成的调整量</p>
-</blockquote>
-<h3 id="工作">3.2 工作</h3>
-<ul>
-<li>更大的模型参数量（论文提供的训练时间来看，模型使用 1024 块 V100 GPU 训练了 1 天的时间）</li>
-<li>更大bacth size。RoBERTa 在训练过程中使用了更大的bacth size。尝试过从 256 到 8000 不等的bacth size。</li>
-<li>更多的训练数据（包括：CC-NEWS 等在内的 160GB 纯文本。而最初的BERT使用16GB BookCorpus数据集和英语维基百科进行训练） 另外，RoBERTa在训练方法上有以下改进：</li>
-</ul>
-<h3 id="预训练">3.3 预训练</h3>
-<h4 id="动态掩码">3.3.1 动态掩码</h4>
-<ul>
-<li>动机：NSP 作用不大。 去掉下一句预测(NSP)任务</li>
-<li>动态掩码。BERT 依赖随机掩码和预测 token。原版的 BERT 实现在数据预处理期间执行一次掩码，得到一个静态掩码。 而 RoBERTa 使用了动态掩码：每次向模型输入一个序列时都会生成新的掩码模式。这样，在大量数据不断输入的过程中，模型会逐渐适应不同的掩码策略，学习不同的语言表征。</li>
-<li>文本编码。Byte-Pair Encoding（BPE）是字符级和词级别表征的混合，支持处理自然语言语料库中的众多常见词汇。原版的 BERT 实现使用字符级别的 BPE 词汇，大小为 30K，是在利用启发式分词规则对输入进行预处理之后学得的。Facebook 研究者没有采用这种方式，而是考虑用更大的 byte 级别 BPE 词汇表来训练 BERT，这一词汇表包含 50K 的 subword 单元，且没有对输入作任何额外的预处理或分词。</li>
-</ul>
+<p>自面世以来，Transformer 模型已经在多个领域取得了 SOTA 结果，包括自然语言处理、图像处理甚至是音乐处理。众所周知，Transformer 架构的核心是注意力模块，它计算输入序列中所有位置对的相似度得分。然而，随着输入序列长度的增加，注意力机制本身的问题也越来越突出，因为它需要二次方的计算时间来产生所有的相似度得分，用来存储这些得分的内存大小也是如此。</p>
+<p>针对那些需要长距离注意力的应用，部分研究者已经提出了一些速度快、空间利用率高的方法，其中比较普遍的方法是稀疏注意力。</p>
+<p><img src="E:\myBlog\source_posts\v2-6bc976426f0f0c68f43f26abe7500836_720w.jpg" alt="img">标准的稀疏化技术。</p>
+<p>然而，稀疏注意力方法也有一些局限。首先，它们需要高效的稀疏矩阵乘法运算，但这并不是所有加速器都能做到的；其次，它们通常不能为自己的表示能力提供严格的理论保证；再者，它们主要针对 Transformer 模型和生成预训练进行优化；最后，它们通常会堆更多的注意力层来补偿稀疏表示，这使其很难与其他预训练好的模型一起使用，需要重新训练，消耗大量能源。</p>
+<p>此外，稀疏注意力机制通常不足以解决常规注意力方法应用时所面临的所有问题，如指针网络。还有一些运算是无法稀疏化的，比如常用的 softmax 运算。</p>
+<p>为了解决这些问题，来自谷歌、剑桥大学、DeepMind、阿兰 · 图灵研究所的研究者提出了一种新的 Transformer 架构——Performer。它的<strong>注意力机制能够线性扩展，因此能够在处理长序列的同时缩短训练时间</strong>。这点在 ImageNet64 等图像数据集和 PG-19 文本数据集等序列的处理过程中都非常有用。</p>
+<p><img src="E:\myBlog\source_posts\v2-733efa2ccadc511ca629f3e72c7d84aa_720w.jpg" alt="img"></p>
+<p>论文链接：<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2009.14794.pdf">https://arxiv.org/pdf/2009.14794.pdf</a></p>
+<p>Performer 使用一个高效的（线性）广义注意力框架（generalized attention framework），允许基于不同相似性度量（核）的一类广泛的注意力机制。该框架通过谷歌的新算法 FAVOR+（ Fast Attention Via Positive Orthogonal Random Features）来实现，后者能够提供注意力机制的可扩展低方差、无偏估计，这可以通过随机特征图分解（常规 softmax-attention）来表达。该方法在保持线性空间和时间复杂度的同时准确率也很有保证，也可以应用到独立的 softmax 运算。此外，该方法还可以和可逆层等其他技术进行互操作。</p>
+<p>研究者表示，他们相信该研究为注意力、Transformer 架构和核方法提供了一种新的思维方式。</p>
+<p>代码地址：<a href="https://link.zhihu.com/?target=https%3A//github.com/google-research/google-research/tree/master/performer">https://github.com/google-research/google-research/tree/master/performer</a></p>
+<p>论文公布之后，Youtube 知名深度学习频道 Yannic Kilcher 对该文章进行了解读。</p>
+<p><strong>广义的注意力机制</strong></p>
+<p>在以往的注意力机制中，分别对应矩阵行与列的 query 和 key 输入相乘，通过 softmax 计算形成一个注意力矩阵，以存储相似度系数。值得注意的是，这种方法不能将 query-key 生成结果传递给非线性 softmax 计算之后再将其分解为原始的 query 和 key。然而，将注意力矩阵分解为原始 query 和 key 的随机非线性函数的乘积是可以的，即所谓的随机特征（random feature），这样就可以更加高效地对相似度信息进行编码。</p>
+<p><img src="E:\myBlog\source_posts\v2-36bfb8693fd72033970bd83762575b3e_720w.jpg" alt="img"></p>
+<p><em>标准注意力矩阵包括每一对 entry 的相似度系数，由 query 和 key 上的 softmax 计算组成，表示为 q 和 k。</em></p>
+<p>常规的 softmax 注意力可以看作是由指数函数和高斯投影定义的非线性函数的一个特例。在这里我们也可以反向推理，首先实现一些更广义的非线性函数，隐式定义 query-key 结果中其他类型的相似性度量或核函数。研究者基于早期的核方法（kernel method），将其定义为广义注意力（generalized attention）。尽管对于大多核函数来说，闭式解并不存在，但这一机制仍然可以应用，因为它并不依赖于闭式解。</p>
+<p>该研究首次证明了，任意注意力矩阵都可以通过随机特征在下游 Transformer 应用中实现有效地近似。实现这一点的的新机制是使用正随机特征，即原始 query 和 key 的正直非线性函数，这对于避免训练过程中的不稳定性至关重要，并实现了对常规 softmax 注意力的更准确近似。</p>
+<p><strong>新算法 FAVOR+：通过矩阵相关性实现快速注意力</strong></p>
+<p>上文描述的分解允许我们以线性而非二次内存复杂度的方式存储隐式注意力矩阵。我们还可以通过分解获得一个线性时间注意力机制。虽然在分解注意力矩阵之后，原始注意力机制与具有值输入的存储注意力矩阵相乘以获得最终结果，我们可以重新排列矩阵乘法以近似常规注意力机制的结果，并且不需要显式地构建二次方大小的注意力矩阵。最终生成了新算法 FAVOR+。</p>
+<p><img src="E:\myBlog\source_posts\v2-131935e1ce0b0a5fb4fd1a0c6e2bc6f6_720w.jpg" alt="img"></p>
+<p><em>左：标准注意力模块计算，其中通过执行带有矩阵 A 和值张量 V 的矩阵乘法来计算最终的预期结果；右：通过解耦低秩分解 A 中使用的矩阵 Q′和 K′以及按照虚线框中指示的顺序执行矩阵乘法，研究者获得了一个线性注意力矩阵，同时不用显式地构建 A 或其近似。</em></p>
+<p>上述分析与双向注意力（即非因果注意力）相关，其中没有 past 和 future 的概念。对于输入序列中没有注意前后 token 的单向（即因果）注意力而言，研究者稍微修改方法以使用前缀和计算（prefix-sum computation），它们只存储矩阵计算的运行总数，而不存储显式的下三角常规注意力矩阵。</p>
+<p><embed src="E:\myBlog\source_posts\v2-7698eb01869e11a5042e8f1742497f44_b.webp"></p>
+<p><em>左：标准单向注意力需要 mask 注意力矩阵以获得其下三角部分；右：LHS 上的无偏近似可以通过前缀和获得，其中用于 key 和值向量的随机特征图的外积（outer-product）前缀和实现动态构建，并通过 query 随机特征向量进行左乘计算，以在最终矩阵中获得新行（new row）。</em></p>
+<p><strong>性能</strong></p>
+<p>研究者首先对 Performer 的空间和时间复杂度进行基准测试，结果表明，注意力的加速比和内存减少在实证的角度上近乎最优，也就是说，这非常接近在模型中根本不使用注意力机制的情况。</p>
+<p><img src="E:\myBlog\source_posts\v2-e01a97ee8d354814ddf45830642aa026_720w.jpg" alt="img"></p>
+<p><em>在以时间（T）和长度（L）为度量的双对数坐标轴中，常规 Transformer 模型的双向 timing。</em></p>
+<p>研究者进一步证明，使用无偏 softmax 近似，该 Performer 模型在稍微进行微调之后可以向后兼容预训练 Transformer 模型，从而在提升推理速度的同时降低能耗，并且不需要从头训练预先存在的模型。</p>
+<p><img src="E:\myBlog\source_posts\v2-d2a50f3dd7c0edebc63b98ed17329fde_720w.jpg" alt="img"></p>
+<p><em>在 One Billion Word Benchmark (LM1B) 数据集上，研究者将原始预训练 Transformer 的权重迁移至 Performer 模型，使得初始非零准确度为 0.07（橙色虚线）。但在微调之后，Performer 的准确度在很少的梯度步数之后迅速恢复。</em></p>
+<p><strong>应用示例：蛋白质建模</strong></p>
+<p>蛋白质具有复杂的 3D 结构，是生命必不可少的拥有特定功能的大分子。和单词一样，蛋白质可以被看做线性序列，每个字符代表一种氨基酸。将 Transformers 应用于大型未标记的蛋白质序列语料库，生成的模型可用于精确预测折叠功能大分子。正如该研究理论结果所预测的那样，Performer-ReLU 在蛋白质序列数据建模方面表现良好，而 Performer-Softmax 与 Transformer 性能相媲美。</p>
+<p><img src="E:\myBlog\source_posts\v2-4503e75224c3c3d47e6af8c4452b07e2_720w.jpg" alt="img"></p>
+<p><em>Performer 在蛋白质序列建模时的性能。</em></p>
+<p>下面可视化一个蛋白质 Performer 模型，该模型使用基于 ReLU 的近似注意力机制进行训练。研究者发现，Performer 的密集注意力近似有可能捕捉到跨多个蛋白质序列的全局相互作用。作为概念的证明，研究者在串联蛋白长序列上训练模型，这使得常规的 Transformer 模型内存过载。但由于具有良好的空间利用效率，Performer 不会出现这一问题。</p>
+<p><img src="E:\myBlog\source_posts\v2-88300c475bac1e929f60c17cfb66b99b_720w.jpg" alt="img"></p>
+<p><em>左：从注意力权重估计氨基酸相似性矩阵。该模型可以识别高度相似的氨基酸对，例如 (D,E) 和 (F,Y)。</em></p>
+<p><img src="E:\myBlog\source_posts\v2-8c549a83a85d004d34937b39755de8db_720w.jpg" alt="img"></p>
+<p><em>Performer 和 Transformer 在长度为 8192 的蛋白质序列上的性能。</em></p>
+<p>随着 Transformer 的频繁跨界，越来越多的研究者开始关注其内存占用和计算效率的问题，比如机器之心前段时间介绍的《<a href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s%3F__biz%3DMzA3MzI4MjgzMw%3D%3D%26mid%3D2650800087%26idx%3D2%26sn%3Dc0c347ae188499fffa0db62c75a0ba2a%26scene%3D21%23wechat_redirect">抛弃注意力，比 EfficientNet 快 3.5 倍，类 Transformer 新模型跨界视觉任务实现新 SOTA</a>》。在那篇文章中，研究者提出了一种名为「lambda」的层，这些层提供了一种捕获输入和一组结构化上下文元素之间长程交互的通用框架。类似的改进还在不断涌现，我们也将持续关注。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -417,8 +446,8 @@
       <i class="fa fa-chevron-left"></i> 2020-11-09-pytorch反向传播以及参数更新理解
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/11/11/2020-11-12-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" rel="next" title="2020-11-12-论文分享">
-      2020-11-12-论文分享 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/11/11/2020-11-12-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" rel="next" title="2020-11-12-ConvBERT">
+      2020-11-12-ConvBERT <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -481,7 +510,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贡献"><span class="nav-number">4.</span> <span class="nav-text">贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">5.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验"><span class="nav-number">6.</span> <span class="nav-text">实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#三roberta"><span class="nav-number">7.1.</span> <span class="nav-text">三、RoBERTa</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动机"><span class="nav-number">8.</span> <span class="nav-text">3.1 动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作"><span class="nav-number">9.</span> <span class="nav-text">3.2 工作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预训练"><span class="nav-number">10.</span> <span class="nav-text">3.3 预训练</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态掩码"><span class="nav-number">10.1.</span> <span class="nav-text">3.3.1 动态掩码</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">2.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贡献"><span class="nav-number">4.</span> <span class="nav-text">贡献</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">5.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实验"><span class="nav-number">6.</span> <span class="nav-text">实验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -497,7 +526,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -580,12 +609,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">401k</span>
+    <span title="站点总字数">408k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:04</span>
+    <span title="站点阅读时长">6:10</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
