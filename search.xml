@@ -1624,6 +1624,61 @@
       </script>]]></content>
   </entry>
   <entry>
+    <title>2020-11-24-transformer优化-temp</title>
+    <url>/2020/11/24/2020-11-24-transformer%E4%BC%98%E5%8C%96-temp/</url>
+    <content><![CDATA[<p>想法：</p>
+<p>总体来说，基于原始的transformer模型，在这个基础上综合增加其它论文的创新点，以及最好能够有自己的创新点</p>
+<p>思路有两个：</p>
+<ol type="1">
+<li>通过现有的模型，去解决没有解决过的任务。比如NLP的模型去解决CV的任务</li>
+<li>在现有的模型中去添加自己的想法，使得有更好的性能 ，如transformer-XL对transformer的改进</li>
+</ol>
+<p>一些想法：</p>
+<ol type="1">
+<li><p>一些在bert上进行优化的模型是否可以运用到修改transformer的attention结构中。例如ConvBERT</p></li>
+<li><p>降低transformer模型的计算量，已经存在的模型，模型剪枝、量化、蒸馏等精简技术，又或者修改 Attention 结构</p></li>
+<li><p>解决自回归的问题，之前读过teacher-forcing 模型来进行改进</p></li>
+<li><p>之前改进的模型如果用在图像领域，可以用在文本领域，如果这样做的话，是否有创新性呢？？参考paperweekly 苏剑林</p></li>
+<li><p>将transformer中的部分结构换成LSTM是否会效果好一些呢 ？ 结合attention和LSTM</p></li>
+<li><p>重点基于transformer-XL和Reformer这些关注点高的论文</p></li>
+<li><p>从经典论文引用的论文中去找到新方法去结合自己的模型</p></li>
+<li><p>BERT以及其它的模型，可以不用这么多层数，不用这么多的数据集，去设计不同的自监督任务去改进模型。</p>
+<p>可以像用word2vec一样使用这些pretrain模型，然后去专注task相关的研究（在你能接受的数据和计算资源范围内。这样是否可以呢 ？？</p>
+<p>比如只有6层的BERT-base中，MLM策略是采用的自己设计的，或者融合其它模型的MLM策略，与BERT-base进行比较，发现效果有所提升，是否就可以发表论文？？</p>
+<p>因为设计的自监督任务必须要与下游任务尽量相关的，这样才能在预训练阶段学到更多东西</p></li>
+<li>对于一些优化器或者激活函数或者norm函数进行优化，（使用最新模型使用的优化器）可能会对模型效果有所提升</li>
+<li>有空读读word2vec的内容，从之前的模型中去结合形成创新点</li>
+<li></li>
+</ol>
+<p>感觉要读好多论文 <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f622.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f622.png?v8">😢</span></p>
+<p>读涉及的模型，周日汇报</p>
+<p>疑问：</p>
+<p>如果用bert去做图像的任务，会有以下问题</p>
+<ol type="1">
+<li><p>BERT训练需要的资源多，可能会训练的周期长</p></li>
+<li><p>bert 主要是进行自监督，也就是处理的是没有标签的数据。这样的数据在nlp很多，但是在图像上很多是有标签的</p></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
     <title>2020-11-20-论文分享</title>
     <url>/2020/11/20/2020-11-20-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/</url>
     <content><![CDATA[<p><img src="https://i.loli.net/2020/11/20/ict1zGoAVsCSgbJ.png"></p>
@@ -1725,6 +1780,49 @@
 <p><a href="https://zhuanlan.zhihu.com/p/60482693" target="_blank" rel="noopener" class="uri">https://zhuanlan.zhihu.com/p/60482693</a></p>
 <p><a href="https://www.jiqizhixin.com/articles/2020-11-12-5" target="_blank" rel="noopener" class="uri">https://www.jiqizhixin.com/articles/2020-11-12-5</a></p>
 </blockquote>
+<hr>
+<p>自面世以来，Transformer 模型已经在多个领域取得了 SOTA 结果，包括自然语言处理、图像处理甚至是音乐处理。众所周知，Transformer 架构的核心是注意力模块，它计算输入序列中所有位置对的相似度得分。然而，随着输入序列长度的增加，注意力机制本身的问题也越来越突出，因为它需要二次方的计算时间来产生所有的相似度得分，用来存储这些得分的内存大小也是如此。</p>
+<p>针对那些需要长距离注意力的应用，部分研究者已经提出了一些速度快、空间利用率高的方法，其中比较普遍的方法是稀疏注意力。</p>
+<p><img src="E:\myBlog\source_posts\v2-6bc976426f0f0c68f43f26abe7500836_720w.jpg" alt="img">标准的稀疏化技术。</p>
+<p>然而，稀疏注意力方法也有一些局限。首先，它们需要高效的稀疏矩阵乘法运算，但这并不是所有加速器都能做到的；其次，它们通常不能为自己的表示能力提供严格的理论保证；再者，它们主要针对 Transformer 模型和生成预训练进行优化；最后，它们通常会堆更多的注意力层来补偿稀疏表示，这使其很难与其他预训练好的模型一起使用，需要重新训练，消耗大量能源。</p>
+<p>此外，稀疏注意力机制通常不足以解决常规注意力方法应用时所面临的所有问题，如指针网络。还有一些运算是无法稀疏化的，比如常用的 softmax 运算。</p>
+<p>为了解决这些问题，来自谷歌、剑桥大学、DeepMind、阿兰 · 图灵研究所的研究者提出了一种新的 Transformer 架构——Performer。它的<strong>注意力机制能够线性扩展，因此能够在处理长序列的同时缩短训练时间</strong>。这点在 ImageNet64 等图像数据集和 PG-19 文本数据集等序列的处理过程中都非常有用。</p>
+<p><img src="E:\myBlog\source_posts\v2-733efa2ccadc511ca629f3e72c7d84aa_720w.jpg" alt="img"></p>
+<p>论文链接：<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2009.14794.pdf">https://arxiv.org/pdf/2009.14794.pdf</a></p>
+<p>Performer 使用一个高效的（线性）广义注意力框架（generalized attention framework），允许基于不同相似性度量（核）的一类广泛的注意力机制。该框架通过谷歌的新算法 FAVOR+（ Fast Attention Via Positive Orthogonal Random Features）来实现，后者能够提供注意力机制的可扩展低方差、无偏估计，这可以通过随机特征图分解（常规 softmax-attention）来表达。该方法在保持线性空间和时间复杂度的同时准确率也很有保证，也可以应用到独立的 softmax 运算。此外，该方法还可以和可逆层等其他技术进行互操作。</p>
+<p>研究者表示，他们相信该研究为注意力、Transformer 架构和核方法提供了一种新的思维方式。</p>
+<p>代码地址：<a href="https://link.zhihu.com/?target=https%3A//github.com/google-research/google-research/tree/master/performer">https://github.com/google-research/google-research/tree/master/performer</a></p>
+<p>论文公布之后，Youtube 知名深度学习频道 Yannic Kilcher 对该文章进行了解读。</p>
+<p><strong>广义的注意力机制</strong></p>
+<p>在以往的注意力机制中，分别对应矩阵行与列的 query 和 key 输入相乘，通过 softmax 计算形成一个注意力矩阵，以存储相似度系数。值得注意的是，这种方法不能将 query-key 生成结果传递给非线性 softmax 计算之后再将其分解为原始的 query 和 key。然而，将注意力矩阵分解为原始 query 和 key 的随机非线性函数的乘积是可以的，即所谓的随机特征（random feature），这样就可以更加高效地对相似度信息进行编码。</p>
+<p><img src="E:\myBlog\source_posts\v2-36bfb8693fd72033970bd83762575b3e_720w.jpg" alt="img"></p>
+<p><em>标准注意力矩阵包括每一对 entry 的相似度系数，由 query 和 key 上的 softmax 计算组成，表示为 q 和 k。</em></p>
+<p>常规的 softmax 注意力可以看作是由指数函数和高斯投影定义的非线性函数的一个特例。在这里我们也可以反向推理，首先实现一些更广义的非线性函数，隐式定义 query-key 结果中其他类型的相似性度量或核函数。研究者基于早期的核方法（kernel method），将其定义为广义注意力（generalized attention）。尽管对于大多核函数来说，闭式解并不存在，但这一机制仍然可以应用，因为它并不依赖于闭式解。</p>
+<p>该研究首次证明了，任意注意力矩阵都可以通过随机特征在下游 Transformer 应用中实现有效地近似。实现这一点的的新机制是使用正随机特征，即原始 query 和 key 的正直非线性函数，这对于避免训练过程中的不稳定性至关重要，并实现了对常规 softmax 注意力的更准确近似。</p>
+<p><strong>新算法 FAVOR+：通过矩阵相关性实现快速注意力</strong></p>
+<p>上文描述的分解允许我们以线性而非二次内存复杂度的方式存储隐式注意力矩阵。我们还可以通过分解获得一个线性时间注意力机制。虽然在分解注意力矩阵之后，原始注意力机制与具有值输入的存储注意力矩阵相乘以获得最终结果，我们可以重新排列矩阵乘法以近似常规注意力机制的结果，并且不需要显式地构建二次方大小的注意力矩阵。最终生成了新算法 FAVOR+。</p>
+<p><img src="E:\myBlog\source_posts\v2-131935e1ce0b0a5fb4fd1a0c6e2bc6f6_720w.jpg" alt="img"></p>
+<p><em>左：标准注意力模块计算，其中通过执行带有矩阵 A 和值张量 V 的矩阵乘法来计算最终的预期结果；右：通过解耦低秩分解 A 中使用的矩阵 Q′和 K′以及按照虚线框中指示的顺序执行矩阵乘法，研究者获得了一个线性注意力矩阵，同时不用显式地构建 A 或其近似。</em></p>
+<p>上述分析与双向注意力（即非因果注意力）相关，其中没有 past 和 future 的概念。对于输入序列中没有注意前后 token 的单向（即因果）注意力而言，研究者稍微修改方法以使用前缀和计算（prefix-sum computation），它们只存储矩阵计算的运行总数，而不存储显式的下三角常规注意力矩阵。</p>
+<p><embed src="E:\myBlog\source_posts\v2-7698eb01869e11a5042e8f1742497f44_b.webp"></p>
+<p><em>左：标准单向注意力需要 mask 注意力矩阵以获得其下三角部分；右：LHS 上的无偏近似可以通过前缀和获得，其中用于 key 和值向量的随机特征图的外积（outer-product）前缀和实现动态构建，并通过 query 随机特征向量进行左乘计算，以在最终矩阵中获得新行（new row）。</em></p>
+<p><strong>性能</strong></p>
+<p>研究者首先对 Performer 的空间和时间复杂度进行基准测试，结果表明，注意力的加速比和内存减少在实证的角度上近乎最优，也就是说，这非常接近在模型中根本不使用注意力机制的情况。</p>
+<p><img src="E:\myBlog\source_posts\v2-e01a97ee8d354814ddf45830642aa026_720w.jpg" alt="img"></p>
+<p><em>在以时间（T）和长度（L）为度量的双对数坐标轴中，常规 Transformer 模型的双向 timing。</em></p>
+<p>研究者进一步证明，使用无偏 softmax 近似，该 Performer 模型在稍微进行微调之后可以向后兼容预训练 Transformer 模型，从而在提升推理速度的同时降低能耗，并且不需要从头训练预先存在的模型。</p>
+<p><img src="E:\myBlog\source_posts\v2-d2a50f3dd7c0edebc63b98ed17329fde_720w.jpg" alt="img"></p>
+<p><em>在 One Billion Word Benchmark (LM1B) 数据集上，研究者将原始预训练 Transformer 的权重迁移至 Performer 模型，使得初始非零准确度为 0.07（橙色虚线）。但在微调之后，Performer 的准确度在很少的梯度步数之后迅速恢复。</em></p>
+<p><strong>应用示例：蛋白质建模</strong></p>
+<p>蛋白质具有复杂的 3D 结构，是生命必不可少的拥有特定功能的大分子。和单词一样，蛋白质可以被看做线性序列，每个字符代表一种氨基酸。将 Transformers 应用于大型未标记的蛋白质序列语料库，生成的模型可用于精确预测折叠功能大分子。正如该研究理论结果所预测的那样，Performer-ReLU 在蛋白质序列数据建模方面表现良好，而 Performer-Softmax 与 Transformer 性能相媲美。</p>
+<p><img src="E:\myBlog\source_posts\v2-4503e75224c3c3d47e6af8c4452b07e2_720w.jpg" alt="img"></p>
+<p><em>Performer 在蛋白质序列建模时的性能。</em></p>
+<p>下面可视化一个蛋白质 Performer 模型，该模型使用基于 ReLU 的近似注意力机制进行训练。研究者发现，Performer 的密集注意力近似有可能捕捉到跨多个蛋白质序列的全局相互作用。作为概念的证明，研究者在串联蛋白长序列上训练模型，这使得常规的 Transformer 模型内存过载。但由于具有良好的空间利用效率，Performer 不会出现这一问题。</p>
+<p><img src="E:\myBlog\source_posts\v2-88300c475bac1e929f60c17cfb66b99b_720w.jpg" alt="img"></p>
+<p><em>左：从注意力权重估计氨基酸相似性矩阵。该模型可以识别高度相似的氨基酸对，例如 (D,E) 和 (F,Y)。</em></p>
+<p><img src="E:\myBlog\source_posts\v2-8c549a83a85d004d34937b39755de8db_720w.jpg" alt="img"></p>
+<p><em>Performer 和 Transformer 在长度为 8192 的蛋白质序列上的性能。</em></p>
+<p>随着 Transformer 的频繁跨界，越来越多的研究者开始关注其内存占用和计算效率的问题，比如机器之心前段时间介绍的《<a href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s%3F__biz%3DMzA3MzI4MjgzMw%3D%3D%26mid%3D2650800087%26idx%3D2%26sn%3Dc0c347ae188499fffa0db62c75a0ba2a%26scene%3D21%23wechat_redirect">抛弃注意力，比 EfficientNet 快 3.5 倍，类 Transformer 新模型跨界视觉任务实现新 SOTA</a>》。在那篇文章中，研究者提出了一种名为「lambda」的层，这些层提供了一种捕获输入和一组结构化上下文元素之间长程交互的通用框架。类似的改进还在不断涌现，我们也将持续关注。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2387,56 +2485,32 @@
 <p>code url (unofficial torch): <a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener" class="uri">https://github.com/huggingface/transformers</a></p>
 <p>cited ：646</p>
 </blockquote>
-<h3 id="背景">背景</h3>
 <h3 id="问题">问题</h3>
+<p>BERT参数量有点多，消耗算力较大，能否去压缩BERT模型，构建一个轻量级的BERT？</p>
 <h3 id="解决">解决</h3>
-<h3 id="贡献">贡献</h3>
+<p>提出两个降低参数的策略 + 自监督损失（SOP）</p>
+<h4 id="降低参数">降低参数</h4>
+<p>降低参数1：factorized embedding parameterization ，将大型的token 嵌入矩阵分解为两个小矩阵。使得</p>
+<p>降低参数2：cross-layer parameter sharing ， 以防随着层数加深参数增加 。 之前的参数共享策略只是关注于transformer这种的encoder-decoder模型中而不是BERT这种预训练-微调模型中。</p>
+<p>这两个策略在减少大量参数且提高参数效率的同时，对BERT的性能影响不大</p>
+<p>具体参考如下：</p>
+<p><img src="E:\myBlog\source_posts\image-20201121140455423.png" alt="image-20201121140455423"></p>
+<h4 id="自损失监督sop">自损失监督(SOP)</h4>
+<p>代替BERT中的NSP策略，使得模型更加关注句子内的一致性</p>
+<h4 id="结果">结果</h4>
+<p>模型ALBERT：提高训练速度，减少内存消耗</p>
+<p>在语言理解任务上达到SOTA水平，具体参考如下：</p>
+<p><img src="E:\myBlog\source_posts\image-20201121142012520.png" alt="image-20201121142012520"></p>
 <h3 id="模型">模型</h3>
+<h4 id="config-设置">config 设置</h4>
+<p>ALBERT模型的config设置和BERT基本一致</p>
+<p><img src="E:\myBlog\source_posts\image-20201121143009555.png"></p>
+<h4 id="factorized-embedding-parameterization">factorized embedding parameterization</h4>
+<p>之前的BERT模型都是Embedding size = hiden size ， （是次优的）</p>
+<p><img src="E:\myBlog\source_posts\image-20201122094115198.png" alt="image-20201122094115198"></p>
+<p><img src="E:\myBlog\source_posts\image-20201122094556848.png" alt="image-20201122094556848"></p>
 <h3 id="实验">实验</h3>
 <h3 id="总结">总结</h3>
-<hr>
-<p>自面世以来，Transformer 模型已经在多个领域取得了 SOTA 结果，包括自然语言处理、图像处理甚至是音乐处理。众所周知，Transformer 架构的核心是注意力模块，它计算输入序列中所有位置对的相似度得分。然而，随着输入序列长度的增加，注意力机制本身的问题也越来越突出，因为它需要二次方的计算时间来产生所有的相似度得分，用来存储这些得分的内存大小也是如此。</p>
-<p>针对那些需要长距离注意力的应用，部分研究者已经提出了一些速度快、空间利用率高的方法，其中比较普遍的方法是稀疏注意力。</p>
-<p><img src="E:\myBlog\source_posts\v2-6bc976426f0f0c68f43f26abe7500836_720w.jpg" alt="img">标准的稀疏化技术。</p>
-<p>然而，稀疏注意力方法也有一些局限。首先，它们需要高效的稀疏矩阵乘法运算，但这并不是所有加速器都能做到的；其次，它们通常不能为自己的表示能力提供严格的理论保证；再者，它们主要针对 Transformer 模型和生成预训练进行优化；最后，它们通常会堆更多的注意力层来补偿稀疏表示，这使其很难与其他预训练好的模型一起使用，需要重新训练，消耗大量能源。</p>
-<p>此外，稀疏注意力机制通常不足以解决常规注意力方法应用时所面临的所有问题，如指针网络。还有一些运算是无法稀疏化的，比如常用的 softmax 运算。</p>
-<p>为了解决这些问题，来自谷歌、剑桥大学、DeepMind、阿兰 · 图灵研究所的研究者提出了一种新的 Transformer 架构——Performer。它的<strong>注意力机制能够线性扩展，因此能够在处理长序列的同时缩短训练时间</strong>。这点在 ImageNet64 等图像数据集和 PG-19 文本数据集等序列的处理过程中都非常有用。</p>
-<p><img src="E:\myBlog\source_posts\v2-733efa2ccadc511ca629f3e72c7d84aa_720w.jpg" alt="img"></p>
-<p>论文链接：<a href="https://link.zhihu.com/?target=https%3A//arxiv.org/pdf/2009.14794.pdf">https://arxiv.org/pdf/2009.14794.pdf</a></p>
-<p>Performer 使用一个高效的（线性）广义注意力框架（generalized attention framework），允许基于不同相似性度量（核）的一类广泛的注意力机制。该框架通过谷歌的新算法 FAVOR+（ Fast Attention Via Positive Orthogonal Random Features）来实现，后者能够提供注意力机制的可扩展低方差、无偏估计，这可以通过随机特征图分解（常规 softmax-attention）来表达。该方法在保持线性空间和时间复杂度的同时准确率也很有保证，也可以应用到独立的 softmax 运算。此外，该方法还可以和可逆层等其他技术进行互操作。</p>
-<p>研究者表示，他们相信该研究为注意力、Transformer 架构和核方法提供了一种新的思维方式。</p>
-<p>代码地址：<a href="https://link.zhihu.com/?target=https%3A//github.com/google-research/google-research/tree/master/performer">https://github.com/google-research/google-research/tree/master/performer</a></p>
-<p>论文公布之后，Youtube 知名深度学习频道 Yannic Kilcher 对该文章进行了解读。</p>
-<p><strong>广义的注意力机制</strong></p>
-<p>在以往的注意力机制中，分别对应矩阵行与列的 query 和 key 输入相乘，通过 softmax 计算形成一个注意力矩阵，以存储相似度系数。值得注意的是，这种方法不能将 query-key 生成结果传递给非线性 softmax 计算之后再将其分解为原始的 query 和 key。然而，将注意力矩阵分解为原始 query 和 key 的随机非线性函数的乘积是可以的，即所谓的随机特征（random feature），这样就可以更加高效地对相似度信息进行编码。</p>
-<p><img src="E:\myBlog\source_posts\v2-36bfb8693fd72033970bd83762575b3e_720w.jpg" alt="img"></p>
-<p><em>标准注意力矩阵包括每一对 entry 的相似度系数，由 query 和 key 上的 softmax 计算组成，表示为 q 和 k。</em></p>
-<p>常规的 softmax 注意力可以看作是由指数函数和高斯投影定义的非线性函数的一个特例。在这里我们也可以反向推理，首先实现一些更广义的非线性函数，隐式定义 query-key 结果中其他类型的相似性度量或核函数。研究者基于早期的核方法（kernel method），将其定义为广义注意力（generalized attention）。尽管对于大多核函数来说，闭式解并不存在，但这一机制仍然可以应用，因为它并不依赖于闭式解。</p>
-<p>该研究首次证明了，任意注意力矩阵都可以通过随机特征在下游 Transformer 应用中实现有效地近似。实现这一点的的新机制是使用正随机特征，即原始 query 和 key 的正直非线性函数，这对于避免训练过程中的不稳定性至关重要，并实现了对常规 softmax 注意力的更准确近似。</p>
-<p><strong>新算法 FAVOR+：通过矩阵相关性实现快速注意力</strong></p>
-<p>上文描述的分解允许我们以线性而非二次内存复杂度的方式存储隐式注意力矩阵。我们还可以通过分解获得一个线性时间注意力机制。虽然在分解注意力矩阵之后，原始注意力机制与具有值输入的存储注意力矩阵相乘以获得最终结果，我们可以重新排列矩阵乘法以近似常规注意力机制的结果，并且不需要显式地构建二次方大小的注意力矩阵。最终生成了新算法 FAVOR+。</p>
-<p><img src="E:\myBlog\source_posts\v2-131935e1ce0b0a5fb4fd1a0c6e2bc6f6_720w.jpg" alt="img"></p>
-<p><em>左：标准注意力模块计算，其中通过执行带有矩阵 A 和值张量 V 的矩阵乘法来计算最终的预期结果；右：通过解耦低秩分解 A 中使用的矩阵 Q′和 K′以及按照虚线框中指示的顺序执行矩阵乘法，研究者获得了一个线性注意力矩阵，同时不用显式地构建 A 或其近似。</em></p>
-<p>上述分析与双向注意力（即非因果注意力）相关，其中没有 past 和 future 的概念。对于输入序列中没有注意前后 token 的单向（即因果）注意力而言，研究者稍微修改方法以使用前缀和计算（prefix-sum computation），它们只存储矩阵计算的运行总数，而不存储显式的下三角常规注意力矩阵。</p>
-<p><embed src="E:\myBlog\source_posts\v2-7698eb01869e11a5042e8f1742497f44_b.webp"></p>
-<p><em>左：标准单向注意力需要 mask 注意力矩阵以获得其下三角部分；右：LHS 上的无偏近似可以通过前缀和获得，其中用于 key 和值向量的随机特征图的外积（outer-product）前缀和实现动态构建，并通过 query 随机特征向量进行左乘计算，以在最终矩阵中获得新行（new row）。</em></p>
-<p><strong>性能</strong></p>
-<p>研究者首先对 Performer 的空间和时间复杂度进行基准测试，结果表明，注意力的加速比和内存减少在实证的角度上近乎最优，也就是说，这非常接近在模型中根本不使用注意力机制的情况。</p>
-<p><img src="E:\myBlog\source_posts\v2-e01a97ee8d354814ddf45830642aa026_720w.jpg" alt="img"></p>
-<p><em>在以时间（T）和长度（L）为度量的双对数坐标轴中，常规 Transformer 模型的双向 timing。</em></p>
-<p>研究者进一步证明，使用无偏 softmax 近似，该 Performer 模型在稍微进行微调之后可以向后兼容预训练 Transformer 模型，从而在提升推理速度的同时降低能耗，并且不需要从头训练预先存在的模型。</p>
-<p><img src="E:\myBlog\source_posts\v2-d2a50f3dd7c0edebc63b98ed17329fde_720w.jpg" alt="img"></p>
-<p><em>在 One Billion Word Benchmark (LM1B) 数据集上，研究者将原始预训练 Transformer 的权重迁移至 Performer 模型，使得初始非零准确度为 0.07（橙色虚线）。但在微调之后，Performer 的准确度在很少的梯度步数之后迅速恢复。</em></p>
-<p><strong>应用示例：蛋白质建模</strong></p>
-<p>蛋白质具有复杂的 3D 结构，是生命必不可少的拥有特定功能的大分子。和单词一样，蛋白质可以被看做线性序列，每个字符代表一种氨基酸。将 Transformers 应用于大型未标记的蛋白质序列语料库，生成的模型可用于精确预测折叠功能大分子。正如该研究理论结果所预测的那样，Performer-ReLU 在蛋白质序列数据建模方面表现良好，而 Performer-Softmax 与 Transformer 性能相媲美。</p>
-<p><img src="E:\myBlog\source_posts\v2-4503e75224c3c3d47e6af8c4452b07e2_720w.jpg" alt="img"></p>
-<p><em>Performer 在蛋白质序列建模时的性能。</em></p>
-<p>下面可视化一个蛋白质 Performer 模型，该模型使用基于 ReLU 的近似注意力机制进行训练。研究者发现，Performer 的密集注意力近似有可能捕捉到跨多个蛋白质序列的全局相互作用。作为概念的证明，研究者在串联蛋白长序列上训练模型，这使得常规的 Transformer 模型内存过载。但由于具有良好的空间利用效率，Performer 不会出现这一问题。</p>
-<p><img src="E:\myBlog\source_posts\v2-88300c475bac1e929f60c17cfb66b99b_720w.jpg" alt="img"></p>
-<p><em>左：从注意力权重估计氨基酸相似性矩阵。该模型可以识别高度相似的氨基酸对，例如 (D,E) 和 (F,Y)。</em></p>
-<p><img src="E:\myBlog\source_posts\v2-8c549a83a85d004d34937b39755de8db_720w.jpg" alt="img"></p>
-<p><em>Performer 和 Transformer 在长度为 8192 的蛋白质序列上的性能。</em></p>
-<p>随着 Transformer 的频繁跨界，越来越多的研究者开始关注其内存占用和计算效率的问题，比如机器之心前段时间介绍的《<a href="https://link.zhihu.com/?target=https%3A//mp.weixin.qq.com/s%3F__biz%3DMzA3MzI4MjgzMw%3D%3D%26mid%3D2650800087%26idx%3D2%26sn%3Dc0c347ae188499fffa0db62c75a0ba2a%26scene%3D21%23wechat_redirect">抛弃注意力，比 EfficientNet 快 3.5 倍，类 Transformer 新模型跨界视觉任务实现新 SOTA</a>》。在那篇文章中，研究者提出了一种名为「lambda」的层，这些层提供了一种捕获输入和一组结构化上下文元素之间长程交互的通用框架。类似的改进还在不断涌现，我们也将持续关注。</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -4822,7 +4896,7 @@
 <p><img src="https://i.loli.net/2020/10/16/36UT8nHdBIKNQ4m.png" alt="DETR模型的大体结构"></p>
 <p>DETR模型的大体结构</p>
 <p>DETR可一次预测所有对象，并通过设置损失函数进行端到端训练，该函数执行预测对象与真实对象之间的<strong>二分匹配</strong>。</p>
-<p>与大多数现有的检测方法不同，DETR不需要任何自定义层，因此可以在任何包含标准CNN和转换器类的框架中轻松重现。</p>
+<p>与大多数现有的检测方法不同，DETR不需要任何自定义层，因此可以在任何包含标准CNN和transformer类的框架中轻松重现。</p>
 <h4 id="两大核心思想">两大核心思想</h4>
 <p>1、transformer保证了attention，确保对一个实例的识别，是在整幅图的知识下进行的。</p>
 <p>2、二分最大匹配，确保了一一对应的关系。</p>
@@ -4859,7 +4933,7 @@
 <p><img src="https://i.loli.net/2020/10/16/wsH8nTdmuaekDl5.jpg" alt="img"></p>
 <p>所谓二分的最大匹配，即保证预测值与真值实现最大的匹配，保证预测的N的实例（包括∅）按照位置与真值对应起来。实现一一对应之后，便能够利用分类Loss以及boundingbox Loss进行优化。这种一一对应的关系，同时也另一个好处是，不会多个预测值对应到同一个真实值上，然后再通过NMS进行后处理。</p>
 <hr>
-<p><img src="https://i.loli.net/2020/10/16/VaPDHrkwgthvSTb.png" alt="image-20201013000531053"></p>
+<p><img src="https://i.loli.net/2020/10/16/VaPDHrkwgthvSTb.png"></p>
 <p>个人觉得最直白的理解方式就是用positional embedding替代了原本的anchor。</p>
 <p>第一步用CNN提feature，然后展开成一维之后加上位置信息进入encoder加工。之后decoder里的object queries，实际上是另一组可学习的positional embedding，其功能类似于anchor。之后每个query进过decoder后算一个bbox和class prob。</p>
 <p>网络的结构是非常简单的，先是CNN提取特征，然后将CNN提取的特征送入到transformer中，而由于transformer是位置无关，所以为了保持位置信息，需要送入CNN特征的同时，送入位置的编码信息，确保整个链路中位置信息不丢失。在transformer中编码之后，送入到解码器，同时送入到解码器的还包括object queries（即文中说的N个查询对象），N个对象以及编码器的输入在解码器的综合作用下，获取N个输出，这N个输出在FFN的作用下，产生N个位置以及每个位置对应的类别。</p>
@@ -5948,7 +6022,7 @@
 <blockquote>
 <p><a href="https://blog.csdn.net/tina_ttl/article/details/51915618" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/tina_ttl/article/details/51915618</a></p>
 </blockquote>
-<h3 id="lass-agnostic和class-specific的区别">lass-agnostic和class-specific的区别</h3>
+<h3 id="class-agnostic和class-specific的区别">class-agnostic和class-specific的区别</h3>
 <p>For a class-aware(class-specific) detector, if you feed it an image, <strong>it will return a set of bounding boxes, each box associated with the class of the object inside (i.e. dog, cat, car).</strong> It means that by the time the detector finished detecting, it knows what type of object was detected.</p>
 <p>For class-agnostic detector, <strong>it detects a bunch of objects without knowing what class they belong to</strong>. To put it simply, they only detect “foreground” objects. Foreground is a broad term, but usually it is a set that contains all specific classes we want to find in an image, i.e. foreground = {cat, dog, car, airplane, …}. Since it doesn’t know the class of the object it detected, we call it class-agnostic.</p>
 <h3 id="对抗攻击adversarial-attack">对抗攻击（adversarial attack）</h3>
@@ -6356,8 +6430,8 @@
       </categories>
       <tags>
         <tag>论文</tag>
-        <tag>论文分享</tag>
         <tag>transformer</tag>
+        <tag>论文分享</tag>
       </tags>
   </entry>
   <entry>

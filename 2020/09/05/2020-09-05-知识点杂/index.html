@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/11/02/XSyR7obILvfi9z4.jpg">
 <meta property="og:image" content="https://i.loli.net/2020/11/02/xJGn6CgaQdUkWPe.jpg">
 <meta property="article:published_time" content="2020-09-05T07:33:34.000Z">
-<meta property="article:modified_time" content="2020-11-02T08:56:43.037Z">
+<meta property="article:modified_time" content="2020-11-23T06:07:19.720Z">
 <meta property="article:author" content="李思建">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.loli.net/2020/09/12/UFihCbxJk9gBfuz.png">
@@ -159,7 +159,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">76</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">77</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -266,7 +266,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-11-02 16:56:43" itemprop="dateModified" datetime="2020-11-02T16:56:43+08:00">2020-11-02</time>
+                <time title="修改时间：2020-11-23 14:07:19" itemprop="dateModified" datetime="2020-11-23T14:07:19+08:00">2020-11-23</time>
               </span>
 
           
@@ -422,7 +422,7 @@
 <blockquote>
 <p><a href="https://blog.csdn.net/tina_ttl/article/details/51915618" target="_blank" rel="noopener" class="uri">https://blog.csdn.net/tina_ttl/article/details/51915618</a></p>
 </blockquote>
-<h3 id="lass-agnostic和class-specific的区别">lass-agnostic和class-specific的区别</h3>
+<h3 id="class-agnostic和class-specific的区别">class-agnostic和class-specific的区别</h3>
 <p>For a class-aware(class-specific) detector, if you feed it an image, <strong>it will return a set of bounding boxes, each box associated with the class of the object inside (i.e. dog, cat, car).</strong> It means that by the time the detector finished detecting, it knows what type of object was detected.</p>
 <p>For class-agnostic detector, <strong>it detects a bunch of objects without knowing what class they belong to</strong>. To put it simply, they only detect “foreground” objects. Foreground is a broad term, but usually it is a set that contains all specific classes we want to find in an image, i.e. foreground = {cat, dog, car, airplane, …}. Since it doesn’t know the class of the object it detected, we call it class-agnostic.</p>
 <h3 id="对抗攻击adversarial-attack">对抗攻击（adversarial attack）</h3>
@@ -562,7 +562,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对数似然"><span class="nav-number">1.</span> <span class="nav-text">对数似然</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高斯分布中考虑对数似然而不是似然"><span class="nav-number">2.</span> <span class="nav-text">高斯分布中考虑对数似然而不是似然</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负对数似然和似然估计"><span class="nav-number">3.</span> <span class="nav-text">负对数似然和似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最大似然估计"><span class="nav-number">4.</span> <span class="nav-text">最大似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归纳偏置inductive-bias"><span class="nav-number">5.</span> <span class="nav-text">归纳偏置(Inductive Bias)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图灵完备turing-complete"><span class="nav-number">6.</span> <span class="nav-text">图灵完备（turing complete）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标检测"><span class="nav-number">7.</span> <span class="nav-text">🚀 目标检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二分图匹配bipartite-matching"><span class="nav-number">8.</span> <span class="nav-text">🚀 二分图匹配（bipartite matching ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决vscode乱码问题vscode设置自动推导文件编码"><span class="nav-number">9.</span> <span class="nav-text">解决vscode乱码问题，VSCode设置自动推导文件编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-杀死暂停继续后台运行进程"><span class="nav-number">10.</span> <span class="nav-text">LINUX 杀死、暂停、继续、后台运行进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#benchmark-和-baseline"><span class="nav-number">11.</span> <span class="nav-text">Benchmark 和 baseline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object-detection与object-recognition区别"><span class="nav-number">12.</span> <span class="nav-text">object detection与object recognition区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#object-recognition目标识别"><span class="nav-number">12.1.</span> <span class="nav-text">object recognition（目标识别）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#object-detection目标检测"><span class="nav-number">12.2.</span> <span class="nav-text">object detection（目标检测）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lass-agnostic和class-specific的区别"><span class="nav-number">13.</span> <span class="nav-text">lass-agnostic和class-specific的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对抗攻击adversarial-attack"><span class="nav-number">14.</span> <span class="nav-text">对抗攻击（adversarial attack）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念"><span class="nav-number">14.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">14.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对数似然"><span class="nav-number">1.</span> <span class="nav-text">对数似然</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高斯分布中考虑对数似然而不是似然"><span class="nav-number">2.</span> <span class="nav-text">高斯分布中考虑对数似然而不是似然</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负对数似然和似然估计"><span class="nav-number">3.</span> <span class="nav-text">负对数似然和似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最大似然估计"><span class="nav-number">4.</span> <span class="nav-text">最大似然估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归纳偏置inductive-bias"><span class="nav-number">5.</span> <span class="nav-text">归纳偏置(Inductive Bias)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图灵完备turing-complete"><span class="nav-number">6.</span> <span class="nav-text">图灵完备（turing complete）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标检测"><span class="nav-number">7.</span> <span class="nav-text">🚀 目标检测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二分图匹配bipartite-matching"><span class="nav-number">8.</span> <span class="nav-text">🚀 二分图匹配（bipartite matching ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决vscode乱码问题vscode设置自动推导文件编码"><span class="nav-number">9.</span> <span class="nav-text">解决vscode乱码问题，VSCode设置自动推导文件编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-杀死暂停继续后台运行进程"><span class="nav-number">10.</span> <span class="nav-text">LINUX 杀死、暂停、继续、后台运行进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#benchmark-和-baseline"><span class="nav-number">11.</span> <span class="nav-text">Benchmark 和 baseline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#object-detection与object-recognition区别"><span class="nav-number">12.</span> <span class="nav-text">object detection与object recognition区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#object-recognition目标识别"><span class="nav-number">12.1.</span> <span class="nav-text">object recognition（目标识别）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#object-detection目标检测"><span class="nav-number">12.2.</span> <span class="nav-text">object detection（目标检测）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class-agnostic和class-specific的区别"><span class="nav-number">13.</span> <span class="nav-text">class-agnostic和class-specific的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对抗攻击adversarial-attack"><span class="nav-number">14.</span> <span class="nav-text">对抗攻击（adversarial attack）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概念"><span class="nav-number">14.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">14.2.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -578,7 +578,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-count">77</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -661,12 +661,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">409k</span>
+    <span title="站点总字数">411k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:12</span>
+    <span title="站点阅读时长">6:13</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
