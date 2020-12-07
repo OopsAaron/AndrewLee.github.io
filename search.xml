@@ -1982,7 +1982,7 @@
 <p>感觉论文写的很不容易阅读，也算看过不少transformer的论文了，但是没有见过这篇论文这样的拗口的表达方式。明明很简单的概念，按照transformer类似表达就可以了，非要整出来一套奇怪的符号。作者是一个匿名作者，但是我估计可能是别的专业转行过来深度学习的</p>
 <p>总体来说，这篇论文的写作和表达方式上对于后来的研究者来说很不友好！不过既然模型效果不错，那么在用attention处理图像问题的时候，可以考虑借鉴本文的思路</p>
 <h3 id="pdf">PDF</h3>
-<div class="pdfobject-container" data-target="\about\LAMBDANETWORKS.pdf" data-height="500px"></div>
+<div class="pdfobject-container" data-target="/LAMBDANETWORKS.pdf" data-height="500px"></div>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
