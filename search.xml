@@ -1628,6 +1628,7 @@
     <url>/2020/12/07/2020-12-07-hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B9%B6%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/</url>
     <content><![CDATA[<h3 id="前言">前言</h3>
 <p>想要在博客中分享论文，但是一般都是直接在论文上做了笔记，所以就想着上传做好笔记的论文，并且提供下载会更方便一些</p>
+<p>下载了hexo-pdf插件，可以预览，但是好像并不好用。于是就用一下办法</p>
 <h3 id="步骤">步骤</h3>
 <ol type="1">
 <li><p>首先修改程序配置文件 <code>_config.yml</code> 中的 <strong>post_asset_folder:</strong>，这个选项设置为 <code>True</code>。</p></li>
@@ -1638,9 +1639,9 @@
 </ol>
 <p>效果如下：</p>
 <p><img src="E:\myBlog\source_posts\image-20201207221916631.png" alt="image-20201207221916631"></p>
-<p>点击<code>点击下载文件</code>，可以跳转到pdf的预览</p>
+<p>点击<code>点击下载文件</code>，可以跳转到浏览器自带的pdf预览，并提供下载（chrome浏览器情况下）</p>
 <h4 id="注">注</h4>
-<p>不光可以上传pdf ，一般的文件（压缩包等）都是可以上传的，并提供下载链接</p>
+<p>不光可以上传pdf ，一般的文件（压缩包等）都是可以上传的，并提供下载链接。但是没办法直接提供预览效果</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2021,6 +2022,7 @@
 <p>总体来说，这篇论文的写作和表达方式上对于后来的研究者来说很不友好！不过既然模型效果不错，那么在用attention处理图像问题的时候，可以考虑借鉴本文的思路</p>
 <h3 id="pdf">PDF</h3>
 <p><a href="/download/LAMBDANETWORKS.pdf">点击下载文件</a></p>
+<div class="pdfobject-container" data-target="/LAMBDANETWORKS.pdf" data-height="500px"></div>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
