@@ -1731,16 +1731,40 @@
   <entry>
     <title>2020-11-26-ipad做网页笔记方法</title>
     <url>/2020/11/26/2020-11-26-ipad%E5%81%9A%E7%BD%91%E9%A1%B5%E7%AC%94%E8%AE%B0%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h4 id="问题">问题</h4>
+    <content><![CDATA[<h3 id="问题">问题</h3>
 <p>想将网页内容导出pdf，用ipad做笔记。但是在用chrome或者dge进行打印成pdf时因为网页本身的顶部的tab总会掩盖掉一部分网页内容</p>
-<h4 id="解决">解决</h4>
+<h3 id="解决">解决</h3>
 <p>最终找到一个好方法</p>
 <p>用Safari打开网页，然后在网页右上角点击分享按钮，会出现标记样式。点击就可以在网页端做笔记。</p>
 <p><img src="https://i.loli.net/2020/11/26/HpRy5toOr1fcUPe.png"></p>
 <p>不过毕竟在goodnotes做笔记习惯了，所以可以用goodnotes打开，然后就自动导入pdf到goodnotes中，就可以愉快做笔记了</p>
 <p>虽然导入的pdf字体有点小，不过好在不会遮挡住任何网页内容。这是我想到的最合适我的方法了</p>
-<h4 id="缺点">缺点</h4>
+<h3 id="缺点">缺点</h3>
 <p>如果网页过长，利用safari自带的产生pdf功能会对网页截不全 <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/1f622.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/1f622.png?v8">😢</span></p>
+<p>为什么会截不全呢？</p>
+<h3 id="其它">其它</h3>
+<p>chrome里有很多的截藏插件可以方便获取网页内容。</p>
+<p>印象笔记截藏插件，很好用，是我见过的获取网页内容最完美的工具，还可以只是截藏网页中自己想要的内容，但是我最主要还是想要获取pdf，然后导入ipad方便做笔记。但是在印象笔记网页端无法提供网页端功能，客户端又很卡，不知道什么原因。总之使用起来很不方便，于是电脑端放弃！ 在ipad下载了印象笔记，绑定账号后，可以同步阅读收藏的笔记，但是在导出pdf一项时，同样丢失些内容，就很神奇！放弃</p>
+<p>有道笔记截藏插件似乎并不是对所有网站适用。有的网站无法启用此插件，放弃</p>
+<p>其它的截藏插件也试过，无法达到想要的结果</p>
+<h4 id="fireshot">fireshot</h4>
+<p>最接近我想要的结果的插件就是fireshot了，插件挺不错在截图的时候不会覆盖掉网页端内容，可以保存为图片或者导出为pdf！ 这很接近我的目标。</p>
+<p><img src="https://i.loli.net/2020/12/11/8JKrY9qFigIwdUu.png" alt="image-20201211162253078"></p>
+<h5 id="缺点-1">缺点</h5>
+<p>在导出的pdf中，会丢失一些像素，如果网页中有一些小图的话，可能就看不清其内容，不过总体是在可以接受的范围。</p>
+<h4 id="pdfcrowd">Pdfcrowd</h4>
+<p>这个网站不错，可以将要保存的网页链接复制到转换框内，就可以下载pdf了。同时还支持生成图片、gif！</p>
+<p>生成效果不错，不会有覆盖的情况</p>
+<p><img src="E:\myBlog\source_posts\image-20201213211110932.png" alt="image-20201213211110932"></p>
+<p>缺点：</p>
+<p>在生成的pdf中，每一页都会有一个底边栏，不过无伤大雅。比较满意了</p>
+<p>网站链接如下：<a href="https://pdfcrowd.com/" target="_blank" rel="noopener" class="uri">https://pdfcrowd.com/</a></p>
+<h3 id="总结">总结</h3>
+<ol type="1">
+<li><p>一般都会使用Pdfcrowd，生成质量高，推荐！</p></li>
+<li><p>对于网页中没有顶部或者底部状态栏的情况下（比如微信的公众号内容），那么就可以用chrome自带的虚拟打印功能可直接导出pdf （ctrl+P），这是最理想的情况</p></li>
+<li><p>如果有状态栏情况，并且无需要仔细看的小图，那么就可以用fireshot插件导出pdf</p></li>
+</ol>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -5805,7 +5829,8 @@
 </blockquote>
 <h6 id="运行镜像">运行镜像</h6>
 <p>下载完之后， 就可以运行了。一般直接 <code>docker run image-name</code>即可，但是本github上给出了一个脚本，切到目标文件夹，按照脚本来运行就可以了</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">su <span class="comment">#提高权限，提示符由$变成#</span></span><br><span class="line">sh scripts/scripts_docker/run_docker.sh</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">su <span class="comment">#提高权限，提示符由$变成#</span></span><br><span class="line">sh scripts/scripts_docker/run_docker.sh <span class="comment">#在本代码中这样使用， scrip文件会执行docker run ***</span></span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://i.loli.net/2020/12/11/iSI1D5OMGBCQRt3.png" alt="image-20201211165934314"></p>
 <p>具体操作如下：</p>
 <p><img src="E:\myBlog\source_posts\image-20201120173932235.png" alt="image-20201120173932235"></p>
 <p>接下来就可以进行数据预处理了，按照github上的操作即可（需在docker镜像下运行，不然会报错）</p>
@@ -5832,6 +5857,7 @@
 <p><strong>以后相关文档要好好认真看，避免出错！</strong></p>
 <p>是否可以暂时不用在这么大的数据集上跑模型，而是在一个小数据集上检验模型，这样在融合的时候也容易调试？</p>
 </blockquote>
+<p><img src="E:\myBlog\source_posts\image-20201211170055752.png" alt="image-20201211170055752"></p>
 <h3 id="讨论">🚀讨论</h3>
 <h4 id="section-10">2020.10.16</h4>
 <p>1.transformer和图神经网络/图卷积网络的联系 2.传统方法处理小样本学习 论文 + 代码 3.目标检测和小样本学习的联系 论文+ 代码 4.根据读的上述论文，多跑小样本实验，了解基本思路框架逻辑 5.根据已经读过的论文，改进的transformer应用到图像处理中（transformer可以处理目标检测，那么也可以解决小样本学习），验证 6.将图像处理中flatten变换为1*1卷积 ，验证 7.transformer做时间序列聚类 ，验证</p>
@@ -5862,6 +5888,16 @@
 <p>任务： 1.将BERT小样本论文看完 ，之后讲 2.查找一些GAN处理文本生成任务的论文（对抗文本生成），参考思路，尝试融合BERT和GPT 3.将T-CVAE代码由tf改为torch版本，用于融合模型 ★ 4.继续看最新的论文，了解研究近况</p>
 <p>方向： 1.将T-CVAE模型的思想融入到OPTIMUS模型中，在小样本框架下处理NLP任务 ★ 2.在GAN框架下，将BERT作为判别器，将GPT作为生成器来处理文本生成任务 3. 参考Litte transformer， 模型 Lite BERT 在小样本框架下处理图像检测问题</p>
 <p>其它： 将transformer论文以及笔记发给周俊阳 下周暂停一周讨论</p>
+<h4 id="section-15">2020.12.1</h4>
+<p>任务： 多读论文！</p>
+<p>1.查找目标检测在小样本框架下应用的论文发到群里。需要有pytorch代码，不在意方法，只是去参考如何将模型融入到小样本中 2.检索对抗目标检测关键词，查找筛选相关论文发到群里</p>
+<p>3.T-CVAE论文发群里</p>
+<p>4.将Efficient transformer综述发到群里 5.OPTIMUS代码阅读，周五讨论 6.查找GAN做语言处理的论文并阅读 7.多看自然语言处理的综述，大面积阅读transformer和BERT的论文2020年的论文，定期并向师兄汇报！！！</p>
+<p>方向： 1.参考T-CVAE ，将VAE融入到DETR模型中， 再放到元学习框架中进行训练 2.OPTIMUS代码阅读后，融入到对抗框架中 3.对transformer-XL模型进行改进，但是不是简单的a+b形式。通过大量阅读论文来找到改进思路和方法 （备选） 4.将BERT作为GAN的判别器，将GPT-2作为GAN的生成器，构建模型 （备选）</p>
+<h5 id="section-16">2020.12.11</h5>
+<p>任务以及探索方向： 1.将scheduled sampling 策略应用到transformer中，解决自回归的问题（参考之前读过的论文） 2.秋哥的分布式强化学习的论文结合seqGAN，应用到文本处理中 3.DETR中的decoder建模成RL问题，生成长序列标注 4.GAN结合BERT和GPT模型 5.SENet的思想应用到transformer的multihead中 6.强化学习结合RNN如下图</p>
+<h4 id="section-17">2020.12.13</h4>
+<p>将论文《Fast Transformers with Clustered Attention》的聚类思想应用到lite transformer的CNN中</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
