@@ -143,7 +143,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">84</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">79</span></a>
 
   </li>
         <li class="menu-item menu-item-tools">
@@ -674,286 +674,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-      <meta itemprop="name" content="李思建">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="思建的NLP之旅">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">2021-03-22-动态规划</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-22 15:43:46 / 修改时间：16:10:36" itemprop="dateCreated datePublished" datetime="2021-03-22T15:43:46+08:00">2021-03-22</time>
-            </span>
-
-          
-            <span id="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" class="post-meta-item leancloud_visitors" data-flag-title="2021-03-22-动态规划" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>参考</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/39948290/answer/883302989" target="_blank" rel="noopener">如何理解动态规划？ - zhen tan的回答</a></p>
-<p><a href="https://www.zhihu.com/question/39948290/answer/1309260344" target="_blank" rel="noopener">如何理解动态规划？ - 力扣（LeetCode）的回答</a></p>
-</blockquote>
-<h5 id="int-转string">int 转string</h5>
-<ol type="1">
-<li><p>直接在int后面加一个空的字符串，java中默认<code>int类型和字符串类型相加，为字符串类型</code>。速度较慢</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = i+<span class="string">""</span>;</span><br></pre></td></tr></tbody></table></figure></li>
-<li><p>使用String的valueOf方法。 速度中间 .char也可以</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = String.valueOf(i);</span><br></pre></td></tr></tbody></table></figure></li>
-<li><p>使用int的封装类Integer，在Integer里面用他的toString方法。char也可以。速度较快 <span class="github-emoji" style="display:inline;vertical-align:middle;color: transparent;background:no-repeat url(https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8) center/contain" data-src="https://github.githubassets.com/images/icons/emoji/unicode/2b50.png?v8">⭐</span></p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = Integer.toString(i);</span><br></pre></td></tr></tbody></table></figure></li>
-</ol>
-<p>注：</p>
-<p>string.substring(int start, int end) :</p>
-<p>从指定位置开始到指定位置结束截取字符串，不包括下标为end的字符。获取子字符串</p>
-<h5 id="string-转-int">string 转 int</h5>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = Integer.parseInt(s);</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="char-转-string">char 转 string</h5>
-<ol type="1">
-<li>高效方法，c可以是字符或者字符数组</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s1 = String.valueOf(c);</span><br></pre></td></tr></tbody></table></figure>
-<ol start="2" type="1">
-<li>使用Character里的toString()方法。Character.toString(char)方法实际上直接返回String.valueOf(char)</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = Character.toString(c);</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="string-转-char">string 转 char</h5>
-<ol type="1">
-<li>使用String里的toCharArray()方法（返回值为char[]）可以得到将包含整个String的char数组。这样就能够使用数组下标来访问string中的任意位置的元素。</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> [] chars = s.toCharArray();</span><br></pre></td></tr></tbody></table></figure>
-<ol start="2" type="1">
-<li>使用方法 charAt (int index) 获取指定索引位置的字符,返回值为char类型。</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> c = s.charAt(<span class="number">0</span>);</span><br></pre></td></tr></tbody></table></figure>
-<h5 id="int-转char">int 转char</h5>
-<p>int转string，再转char</p>
-<h5 id="char-转int">char 转int</h5>
-<ol type="1">
-<li>简单高效</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> intNum = numChar - <span class="string">'0'</span>;</span><br></pre></td></tr></tbody></table></figure>
-<ol start="2" type="1">
-<li>先转为String再转为int</li>
-</ol>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String string = String.valueOf(<span class="keyword">char</span>);</span><br><span class="line"><span class="keyword">int</span> num = Integer.ParseInt(string);</span><br></pre></td></tr></tbody></table></figure>
-<blockquote>
-<p>注： Integer.ParseInt(string) ，参数只能是string</p>
-</blockquote>
-<p>char之间的比较</p>
-<p>直接用”==“</p>
-<p>实际上java的基础类型比较都是用”==“，基础类型如下：</p>
-<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>：<span class="number">8</span>位，最大存储数据量是<span class="number">255</span>，存放的数据范围是-<span class="number">128</span>~<span class="number">127</span>之间。</span><br><span class="line"><span class="keyword">short</span>：<span class="number">16</span>位，最大数据存储量是<span class="number">65536</span>，数据范围是-<span class="number">32768</span>~<span class="number">32767</span>之间。</span><br><span class="line"><span class="keyword">int</span>：<span class="number">32</span>位，最大数据存储容量是<span class="number">2</span>的<span class="number">32</span>次方减<span class="number">1</span>，数据范围是负的<span class="number">2</span>的<span class="number">31</span>次方到正的<span class="number">2</span>的<span class="number">31</span>次方减<span class="number">1</span>。</span><br><span class="line"><span class="keyword">long</span>：<span class="number">64</span>位，最大数据存储容量是<span class="number">2</span>的<span class="number">64</span>次方减<span class="number">1</span>，数据范围为负的<span class="number">2</span>的<span class="number">63</span>次方到正的<span class="number">2</span>的<span class="number">63</span>次方减<span class="number">1</span>。</span><br><span class="line"><span class="keyword">float</span>：<span class="number">32</span>位，数据范围在<span class="number">3.4e-45</span>~<span class="number">1.4e38</span>，直接赋值时必须在数字后加上f或F。</span><br><span class="line"><span class="keyword">double</span>：<span class="number">64</span>位，数据范围在<span class="number">4.9e-324</span>~<span class="number">1.8e308</span>，赋值时可以加d或D也可以不加。</span><br><span class="line"><span class="keyword">boolean</span>：只有<span class="keyword">true</span>和<span class="keyword">false</span>两个取值。</span><br><span class="line"><span class="keyword">char</span>：<span class="number">16</span>位，存储Unicode码，用单引号赋值。</span><br></pre></td></tr></tbody></table></figure>
-<p>string之间的比较</p>
-<p>由于字符串是<code>对象类型</code>，所以不能 简单的用“==” 判断两个字符串是否相等，而使用 equals()方法比较两个对象的内容。 <code>a.equals(b）</code>。 相等则为 true；否则为 false。</p>
-<p>注意： equals()方法比较的是<code>对象的内容</code>（区分字母的大小写格式） ，但是如果使用“==”操作符比较两个对象时， 比较的是<code>两个对象的内存地址</code>， 所以它们不相等 （即使内容相同， 不同对象的内存地址也是不相同的）</p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%90%86%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/touxiang.jpg">
-      <meta itemprop="name" content="李思建">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="思建的NLP之旅">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">2021-03-22-动态规划理解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-03-22 10:08:30 / 修改时间：15:41:29" itemprop="dateCreated datePublished" datetime="2021-03-22T10:08:30+08:00">2021-03-22</time>
-            </span>
-
-          
-            <span id="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%90%86%E8%A7%A3/" class="post-meta-item leancloud_visitors" data-flag-title="2021-03-22-动态规划理解" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%90%86%E8%A7%A3/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/03/22/2021-03-22-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%90%86%E8%A7%A3/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/03/19/2021-03-19-%E5%9B%9E%E6%BA%AF%E6%B3%95%E6%80%BB%E7%BB%93/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1165,7 +885,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/12/07/2020-12-07-hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B9%B6%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/24/2020-11-24-transformer%E4%BC%98%E5%8C%96-temp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxiang.jpg">
@@ -1179,7 +899,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/12/07/2020-12-07-hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B9%B6%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" class="post-title-link" itemprop="url">2020-12-07-hexo上传文件并提供下载链接</a>
+            <a href="/2020/11/24/2020-11-24-transformer%E4%BC%98%E5%8C%96-temp/" class="post-title-link" itemprop="url">2020-11-24-transformer优化-temp</a>
         </h2>
 
         <div class="post-meta">
@@ -1189,18 +909,18 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-12-07 22:15:44" itemprop="dateCreated datePublished" datetime="2020-12-07T22:15:44+08:00">2020-12-07</time>
+              <time title="创建时间：2020-11-24 19:48:40" itemprop="dateCreated datePublished" datetime="2020-11-24T19:48:40+08:00">2020-11-24</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-08 19:19:38" itemprop="dateModified" datetime="2020-12-08T19:19:38+08:00">2020-12-08</time>
+                <time title="修改时间：2020-12-01 19:50:50" itemprop="dateModified" datetime="2020-12-01T19:50:50+08:00">2020-12-01</time>
               </span>
 
           
-            <span id="/2020/12/07/2020-12-07-hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B9%B6%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" class="post-meta-item leancloud_visitors" data-flag-title="2020-12-07-hexo上传文件并提供下载链接" title="阅读次数">
+            <span id="/2020/11/24/2020-11-24-transformer%E4%BC%98%E5%8C%96-temp/" class="post-meta-item leancloud_visitors" data-flag-title="2020-11-24-transformer优化-temp" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1215,8 +935,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/12/07/2020-12-07-hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B9%B6%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/12/07/2020-12-07-hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B9%B6%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/24/2020-11-24-transformer%E4%BC%98%E5%8C%96-temp/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/24/2020-11-24-transformer%E4%BC%98%E5%8C%96-temp/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1225,13 +945,13 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>1.2k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -1243,10 +963,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>hexo上传文件并提供下载链接</p>
+          <p>transformer模型改进优化总结</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/12/07/2020-12-07-hexo%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%B9%B6%E6%8F%90%E4%BE%9B%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/">
+              <a class="btn" href="/2020/11/24/2020-11-24-transformer%E4%BC%98%E5%8C%96-temp/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1272,7 +992,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/26/2020-11-26-ipad%E5%81%9A%E7%BD%91%E9%A1%B5%E7%AC%94%E8%AE%B0%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/20/2020-11-20-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/touxiang.jpg">
@@ -1286,7 +1006,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/11/26/2020-11-26-ipad%E5%81%9A%E7%BD%91%E9%A1%B5%E7%AC%94%E8%AE%B0%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">2020-11-26-ipad做网页笔记方法</a>
+            <a href="/2020/11/20/2020-11-20-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" class="post-title-link" itemprop="url">2020-11-20-论文分享</a>
         </h2>
 
         <div class="post-meta">
@@ -1296,18 +1016,27 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-11-26 15:02:37" itemprop="dateCreated datePublished" datetime="2020-11-26T15:02:37+08:00">2020-11-26</time>
+              <time title="创建时间：2020-11-20 10:46:05" itemprop="dateCreated datePublished" datetime="2020-11-20T10:46:05+08:00">2020-11-20</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-13 21:16:38" itemprop="dateModified" datetime="2020-12-13T21:16:38+08:00">2020-12-13</time>
+                <time title="修改时间：2020-11-26 14:16:10" itemprop="dateModified" datetime="2020-11-26T14:16:10+08:00">2020-11-26</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">论文分享</span></a>
+                </span>
+            </span>
 
           
-            <span id="/2020/11/26/2020-11-26-ipad%E5%81%9A%E7%BD%91%E9%A1%B5%E7%AC%94%E8%AE%B0%E6%96%B9%E6%B3%95/" class="post-meta-item leancloud_visitors" data-flag-title="2020-11-26-ipad做网页笔记方法" title="阅读次数">
+            <span id="/2020/11/20/2020-11-20-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" class="post-meta-item leancloud_visitors" data-flag-title="2020-11-20-论文分享" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1322,8 +1051,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2020/11/26/2020-11-26-ipad%E5%81%9A%E7%BD%91%E9%A1%B5%E7%AC%94%E8%AE%B0%E6%96%B9%E6%B3%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/26/2020-11-26-ipad%E5%81%9A%E7%BD%91%E9%A1%B5%E7%AC%94%E8%AE%B0%E6%96%B9%E6%B3%95/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/11/20/2020-11-20-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/20/2020-11-20-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1332,7 +1061,125 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
               </span>
-              <span>985</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>记录值得分享的论文;
+《ConvBERT》: 对BERT中attention结构的改进
+</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/20/2020-11-20-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/19/2020-11-19-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="李思建">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="思建的NLP之旅">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/19/2020-11-19-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" class="post-title-link" itemprop="url">2020-11-19-论文分享</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-19 16:43:49" itemprop="dateCreated datePublished" datetime="2020-11-19T16:43:49+08:00">2020-11-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-08 19:27:38" itemprop="dateModified" datetime="2020-12-08T19:27:38+08:00">2020-12-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">论文分享</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/19/2020-11-19-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" class="post-meta-item leancloud_visitors" data-flag-title="2020-11-19-论文分享" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/19/2020-11-19-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/19/2020-11-19-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1350,10 +1197,119 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>自己摸索的ipad做网页笔记的方法</p>
+          <p>记录值得分享的论文;
+《Lambda network》: 提出了 lambda layer，通过将上下文转化为线性函数（lambda）来捕获关联性，以此避免attention maps，这样可以应用到长序列或者高分辨率的图象上。
+</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/11/26/2020-11-26-ipad%E5%81%9A%E7%BD%91%E9%A1%B5%E7%AC%94%E8%AE%B0%E6%96%B9%E6%B3%95/">
+              <a class="btn" href="/2020/11/19/2020-11-19-%E8%AE%BA%E6%96%87%E5%88%86%E4%BA%AB/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/touxiang.jpg">
+      <meta itemprop="name" content="李思建">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="思建的NLP之旅">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">2020-11-16-使用预训练模型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-16 19:02:19" itemprop="dateCreated datePublished" datetime="2020-11-16T19:02:19+08:00">2020-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-19 16:42:42" itemprop="dateModified" datetime="2020-11-19T16:42:42+08:00">2020-11-19</time>
+              </span>
+
+          
+            <span id="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" class="post-meta-item leancloud_visitors" data-flag-title="2020-11-16-使用预训练模型" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在NLP领域越来越依赖预训练模型，那么如何高效使用已经预训练好的模型到自己的模型中呢？本文参考其它博客，做个总结</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/11/16/2020-11-16-%E4%BD%BF%E7%94%A8%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1378,7 +1334,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1446,7 +1402,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">84</span>
+          <span class="site-state-item-count">79</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1529,12 +1485,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">422k</span>
+    <span title="站点总字数">419k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">6:24</span>
+    <span title="站点阅读时长">6:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
